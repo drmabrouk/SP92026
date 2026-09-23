@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('ABSPATH')) exit;
+
 class Sportedia_Admin {
     private $plugin_name;
     private $version;
@@ -10,10 +12,16 @@ class Sportedia_Admin {
     }
 
     public function add_menu_pages() {
+        $access_cap = current_user_can('sportedia_access') ? 'sportedia_access' : 'read';
+        $players_cap = current_user_can('sportedia_view_players') ? 'sportedia_view_players' : 'read';
+        $coaches_cap = current_user_can('sportedia_manage_coaches') ? 'sportedia_manage_coaches' : 'read';
+        $payments_cap = current_user_can('sportedia_view_payments') ? 'sportedia_view_payments' : 'read';
+        $settings_cap = current_user_can('sportedia_manage_settings') ? 'sportedia_manage_settings' : 'manage_options';
+
         add_menu_page(
             'Sportedia – إدارة الأكاديميات والأندية الرياضية',
             'Sportedia',
-            'read',
+            $access_cap,
             'sportedia-dashboard',
             array($this, 'display_dashboard'),
             'dashicons-sports',
@@ -24,7 +32,7 @@ class Sportedia_Admin {
             'sportedia-dashboard',
             'لوحة التحكم',
             'لوحة التحكم',
-            'read',
+            $access_cap,
             'sportedia-dashboard',
             array($this, 'display_dashboard')
         );
@@ -33,7 +41,7 @@ class Sportedia_Admin {
             'sportedia-dashboard',
             'شؤون اللاعبين',
             'شؤون اللاعبين',
-            'read',
+            $players_cap,
             'sportedia-players',
             array($this, 'display_players')
         );
@@ -42,7 +50,7 @@ class Sportedia_Admin {
             'sportedia-dashboard',
             'المدربون والأنشطة',
             'المدربون والأنشطة',
-            'read',
+            $coaches_cap,
             'sportedia-coaches',
             array($this, 'display_coaches')
         );
@@ -51,7 +59,7 @@ class Sportedia_Admin {
             'sportedia-dashboard',
             'الاشتراكات والمدفوعات',
             'الاشتراكات والمدفوعات',
-            'read',
+            $payments_cap,
             'sportedia-payments',
             array($this, 'display_payments')
         );
@@ -60,7 +68,7 @@ class Sportedia_Admin {
             'sportedia-dashboard',
             'إعدادات المنظمة الرياضية',
             'إعدادات المنظمة',
-            'manage_options',
+            $settings_cap,
             'sportedia-settings',
             array($this, 'display_settings')
         );
@@ -92,6 +100,10 @@ class Sportedia_Admin {
     }
 
     public function display_settings() {
+        if (!current_user_can('read') && !current_user_can('sportedia_access') && !current_user_can('manage_options')) {
+            wp_die(__('Sorry, you are not allowed to access this page.', 'sportedia'));
+        }
+
         $student_filters = array();
         $stats = Sportedia_DB::get_statistics();
         $records = array();
