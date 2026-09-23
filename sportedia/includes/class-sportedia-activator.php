@@ -105,6 +105,11 @@ class Sportedia_Activator {
             dbDelta($sql_payments);
         }
 
+        if (file_exists(SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-roles.php')) {
+            require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-roles.php';
+            Sportedia_Roles::init_roles();
+        }
+
         self::migrate_legacy_data();
     }
 
