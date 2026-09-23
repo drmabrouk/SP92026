@@ -9,9 +9,17 @@ class Sportedia_Activator {
     public static function activate() {
         global $wpdb;
 
-        $charset_collate = $wpdb->get_charset_collate();
+        if (version_compare(PHP_VERSION, '7.4', '<')) {
+            return;
+        }
 
-        // 1. Players Table (formerly sm_students / eess_students)
+        if (file_exists(ABSPATH . 'wp-admin/includes/upgrade.php')) {
+            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        }
+
+        $charset_collate = method_exists($wpdb, 'get_charset_collate') ? $wpdb->get_charset_collate() : 'DEFAULT CHARACTER SET utf8mb4';
+
+        // 1. Players Table
         $table_players = "{$wpdb->prefix}sportedia_players";
         $sql_players = "CREATE TABLE $table_players (
             id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -92,9 +100,10 @@ class Sportedia_Activator {
             KEY invoice_no (invoice_no)
         ) $charset_collate;";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql_players);
-        dbDelta($sql_payments);
+        if (function_exists('dbDelta')) {
+            dbDelta($sql_players);
+            dbDelta($sql_payments);
+        }
 
         self::migrate_legacy_data();
     }
@@ -107,21 +116,23 @@ class Sportedia_Activator {
 
         if ($wpdb->get_var("SHOW TABLES LIKE '$legacy_students'") === $legacy_students) {
             $students = $wpdb->get_results("SELECT * FROM {$legacy_students}");
-            foreach ($students as $s) {
-                $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table_players} WHERE student_code = %s", $s->student_code));
-                if (!$exists) {
-                    $wpdb->insert($table_players, array(
-                        'student_code'       => $s->student_code,
-                        'name'               => $s->name,
-                        'guardian_phone'     => $s->guardian_phone ?? '',
-                        'guardian_email'     => $s->parent_email ?? '',
-                        'national_id'        => $s->national_id ?? '',
-                        'nationality'        => $s->nationality ?? '',
-                        'class_name'         => $s->class_name ?? '',
-                        'section'            => $s->section ?? '',
-                        'parent_user_id'     => $s->parent_user_id ?? null,
-                        'registration_date'  => $s->registration_date ?? current_time('mysql')
-                    ));
+            if (!empty($students)) {
+                foreach ($students as $s) {
+                    $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table_players} WHERE student_code = %s", $s->student_code));
+                    if (!$exists) {
+                        $wpdb->insert($table_players, array(
+                            'student_code'       => $s->student_code,
+                            'name'               => $s->name,
+                            'guardian_phone'     => $s->guardian_phone ?? '',
+                            'guardian_email'     => $s->parent_email ?? '',
+                            'national_id'        => $s->national_id ?? '',
+                            'nationality'        => $s->nationality ?? '',
+                            'class_name'         => $s->class_name ?? '',
+                            'section'            => $s->section ?? '',
+                            'parent_user_id'     => $s->parent_user_id ?? null,
+                            'registration_date'  => $s->registration_date ?? current_time('mysql')
+                        ));
+                    }
                 }
             }
         }

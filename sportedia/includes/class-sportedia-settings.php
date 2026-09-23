@@ -1161,3 +1161,5 @@ class SM_Settings {
         );
     }
 }
+
+class Sportedia_Settings extends SM_Settings {}
