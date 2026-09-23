@@ -198,3 +198,5 @@ class EESS_ID_Code_Service {
         return $code;
     }
 }
+
+class Sportedia_ID_Code_Service extends EESS_ID_Code_Service {}

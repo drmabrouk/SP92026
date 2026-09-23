@@ -409,3 +409,5 @@ class EESS_Student_Data_Service {
         return $final_id;
     }
 }
+
+class Sportedia_Player_Data_Service extends EESS_Student_Data_Service {}

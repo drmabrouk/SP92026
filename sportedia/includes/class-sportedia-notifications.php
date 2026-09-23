@@ -70,3 +70,5 @@ class SM_Notifications {
         return isset($labels[$key]) ? $labels[$key] : $key;
     }
 }
+
+class Sportedia_Notifications extends SM_Notifications {}

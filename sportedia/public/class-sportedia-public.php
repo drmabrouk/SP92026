@@ -15721,3 +15721,5 @@ class SM_Public {
         ));
     }
 }
+
+class Sportedia_Public extends SM_Public {}
