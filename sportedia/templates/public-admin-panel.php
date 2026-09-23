@@ -59,7 +59,7 @@
     // MEDIA UPLOADER FOR LOGO
     window.smOpenMediaUploader = function(inputId) {
         const frame = wp.media({
-            title: 'اختر شعار الأكاديمية الرياضية',
+            title: 'اختر شعار Academy الرياضية',
             button: { text: 'استخدام هذا الشعار' },
             multiple: false
         });
@@ -108,14 +108,14 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تم تحديث حالة المخالفة');
+                smShowNotification('تم Update حالة المخالفة');
                 setTimeout(() => location.reload(), 500);
             }
         });
     };
 
     window.smDeleteAllLogs = function() {
-        if (!confirm('هل أنت متأكد من مسح كافة سجلات النشاط؟ لا يمكن التراجع عن هذا الإجراء.')) return;
+        if (!confirm('هل أنت متأكد من مسح كافة سجNoت النشاط؟ No يمكن التراجع عن هذا الإجراء.')) return;
 
         const formData = new FormData();
         formData.append('action', 'sm_delete_all_logs_ajax');
@@ -132,7 +132,7 @@
     };
 
     window.smDeleteLog = function(logId) {
-        if (!confirm('هل أنت متأكد من حذف هذا السجل نهائياً؟')) return;
+        if (!confirm('هل أنت متأكد من Delete هذا السجل نهائياً؟')) return;
 
         const formData = new FormData();
         formData.append('action', 'sm_delete_log_ajax');
@@ -143,7 +143,7 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تم حذف السجل بنجاح');
+                smShowNotification('تم Delete السجل بنجاح');
                 setTimeout(() => location.reload(), 500);
             }
         });
@@ -214,7 +214,7 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تم تحديث الملف الشخصي بنجاح');
+                smShowNotification('تم Update Profile بنجاح');
                 setTimeout(() => location.reload(), 500);
             } else {
                 smShowNotification('خطأ: ' + res.data, true);
@@ -231,7 +231,7 @@
     });
 
     window.smBulkDelete = function(type) {
-        if (!confirm('هل أنت متأكد من مسح كافة البيانات المحددة؟ لا يمكن التراجع عن هذا الإجراء.')) return;
+        if (!confirm('هل أنت متأكد من مسح كافة البيانات المحددة؟ No يمكن التراجع عن هذا الإجراء.')) return;
 
         const formData = new FormData();
         formData.append('action', 'sm_bulk_delete_ajax');
@@ -262,7 +262,7 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تمت الاستعادة بنجاح');
+                smShowNotification('تمت اNoستعادة بنجاح');
                 setTimeout(() => location.reload(), 1000);
             } else {
                 smShowNotification('خطأ: ' + res.data, true);
@@ -271,7 +271,7 @@
     };
 
     window.smInitializeSystem = function() {
-        const code = prompt('لتأكيد تهيأة النظام بالكامل، يرجى إدخال كود التأكيد (1011996):');
+        const code = prompt('لConfirm تهيأة النظام بالكامل، يرجى إدخال كود الConfirm (1011996):');
         if (!code) return;
 
         const formData = new FormData();
@@ -302,7 +302,7 @@
         overlay.style.cssText = 'position:fixed; inset:0; background:rgba(255,255,255,0.7); backdrop-filter:blur(2px); z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px; font-family:"Cairo", sans-serif;';
         overlay.innerHTML = `
             <div style="width: 40px; height: 40px; border: 3px solid #cbd5e1; border-top-color: #334155; border-radius: 50%; animation: smSpin 0.8s linear infinite;"></div>
-            <div style="font-weight:700; color:#1e293b; font-size:14px;">جاري تحديث وإعادة تهيئة النظام...</div>
+            <div style="font-weight:700; color:#1e293b; font-size:14px;">جاري Update وإعادة تهيئة النظام...</div>
             <style>
                 @keyframes smSpin { to { transform: rotate(360deg); } }
             </style>
@@ -337,7 +337,7 @@
                 if (overlayEl) overlayEl.remove();
                 if (btn) btn.disabled = false;
                 smIsRefreshing = false;
-                smShowNotification('خطأ أثناء تحديث النظام', true);
+                smShowNotification('خطأ أثناء Update النظام', true);
             }
         })
         .catch(err => {
@@ -345,7 +345,7 @@
             if (overlayEl) overlayEl.remove();
             if (btn) btn.disabled = false;
             smIsRefreshing = false;
-            smShowNotification('فشل الاتصال بالخادم', true);
+            smShowNotification('فشل اNoتصال بالخادم', true);
         });
     };
 })(window);
@@ -410,7 +410,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                 $my_school_name = get_user_meta($user->ID, 'eess_school_name', true) ?: (get_user_meta($user->ID, 'school_name', true) ?: ($school['school_name'] ?? 'مدرسة منارة الشارقة الخاصة'));
                 ?>
                 <h1 style="margin:0; border: none; padding: 0; color: var(--sm-dark-color); font-weight: 800; font-size: 1.05em; text-decoration: none; line-height: 1;">
-                    <?php echo esc_html($is_dev_sys_admin ? 'خدمات الأنظمة الإلكترونية التعليمية (EESS)' : $my_school_name); ?>
+                    <?php echo esc_html($is_dev_sys_admin ? 'Sportedia Sports Management System' : $my_school_name); ?>
                 </h1>
                 <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin-top: 4px;">
                     <?php if ($is_dev_sys_admin): ?>
@@ -424,15 +424,15 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                             $role_labels = array(
                                 'administrator' => 'مدير النظام المطور',
                                 'sm_system_admin' => 'مدير النظام المطور',
-                                'sm_principal' => 'مدير الأكاديمية الرياضية',
+                                'sm_principal' => 'مدير Academy الرياضية',
                                 'sm_supervisor' => 'مشرف تربوي',
                                 'sm_coordinator' => 'منسق مادة',
                                 'sm_teacher' => 'معلم',
-                                'sm_student' => 'لاعب',
+                                'sm_student' => 'Noعب',
                                 'sm_parent' => 'ولي أمر',
                                 'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-                                'sm_activities_supervisor' => 'مشرف أنشطة',
-                                'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+                                'sm_activities_supervisor' => 'مشرف أActiveة',
+                                'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
                                 'sm_bus_supervisor' => 'مشرف حافلة',
                                 'sm_clinic' => 'العيادة المدرسية',
                                 'sm_hr' => 'الموارد البشرية (HR)'
@@ -511,25 +511,25 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                             </div>
                         </div>
                         <?php if (!$is_student && !$is_parent): ?>
-                            <a href="javascript:smEditProfile()" class="sm-dropdown-item"><span class="dashicons dashicons-edit"></span> تعديل البيانات الشخصية</a>
+                            <a href="javascript:smEditProfile()" class="sm-dropdown-item"><span class="dashicons dashicons-edit"></span> Edit Personal Information</a>
                         <?php endif; ?>
                         <?php if ($is_student || $is_parent): ?>
-                            <a href="javascript:smEditProfile()" class="sm-dropdown-item"><span class="dashicons dashicons-lock"></span> تغيير كلمة المرور</a>
+                            <a href="javascript:smEditProfile()" class="sm-dropdown-item"><span class="dashicons dashicons-lock"></span> تغيير Password</a>
                         <?php endif; ?>
                         <?php if ($is_admin): ?>
-                            <a href="<?php echo add_query_arg('sm_tab', 'global-settings'); ?>" class="sm-dropdown-item"><span class="dashicons dashicons-admin-generic"></span> إعدادات النظام</a>
+                            <a href="<?php echo add_query_arg('sm_tab', 'global-settings'); ?>" class="sm-dropdown-item"><span class="dashicons dashicons-admin-generic"></span> System Settings</a>
                         <?php endif; ?>
-                        <a href="javascript:location.reload()" class="sm-dropdown-item"><span class="dashicons dashicons-update"></span> تحديث الصفحة</a>
+                        <a href="javascript:location.reload()" class="sm-dropdown-item"><span class="dashicons dashicons-update"></span> Update الصفحة</a>
                     </div>
 
                     <div id="sm-profile-edit" style="display: none; padding: 15px;">
-                        <div style="font-weight: 800; margin-bottom: 15px; font-size: 13px; border-bottom: 1px solid #eee; padding-bottom: 10px;">تعديل الملف الشخصي</div>
+                        <div style="font-weight: 800; margin-bottom: 15px; font-size: 13px; border-bottom: 1px solid #eee; padding-bottom: 10px;">Edit Profile</div>
                         <div class="sm-form-group" style="margin-bottom: 10px;">
-                            <label class="sm-label" style="font-size: 11px;">الاسم المفضل:</label>
+                            <label class="sm-label" style="font-size: 11px;">اNoسم المفضل:</label>
                             <input type="text" id="sm_edit_display_name" class="sm-input" style="padding: 8px; font-size: 12px;" value="<?php echo esc_attr($user->display_name); ?>" <?php if ($is_student || $is_parent) echo 'disabled style="background:#f1f5f9; cursor:not-allowed;"'; ?>>
                         </div>
                         <div class="sm-form-group" style="margin-bottom: 10px;">
-                            <label class="sm-label" style="font-size: 11px;">البريد الإلكتروني:</label>
+                            <label class="sm-label" style="font-size: 11px;">Email Address:</label>
                             <input type="email" id="sm_edit_user_email" class="sm-input" style="padding: 8px; font-size: 12px;" value="<?php echo esc_attr($user->user_email); ?>" <?php if ($is_student || $is_parent) echo 'disabled style="background:#f1f5f9; cursor:not-allowed;"'; ?>>
                         </div>
                         <div class="sm-form-group" style="margin-bottom: 15px;">
@@ -537,13 +537,13 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                             <input type="password" id="sm_edit_user_pass" class="sm-input" style="padding: 8px; font-size: 12px;" placeholder="********">
                         </div>
                         <div style="display: flex; gap: 8px;">
-                            <button onclick="smSaveProfile()" class="sm-btn" style="flex: 1; height: 32px; font-size: 11px; padding: 0;">حفظ</button>
-                            <button onclick="document.getElementById('sm-profile-edit').style.display='none'; document.getElementById('sm-profile-view').style.display='block';" class="sm-btn sm-btn-outline" style="flex: 1; height: 32px; font-size: 11px; padding: 0;">إلغاء</button>
+                            <button onclick="smSaveProfile()" class="sm-btn" style="flex: 1; height: 32px; font-size: 11px; padding: 0;">Save</button>
+                            <button onclick="document.getElementById('sm-profile-edit').style.display='none'; document.getElementById('sm-profile-view').style.display='block';" class="sm-btn sm-btn-outline" style="flex: 1; height: 32px; font-size: 11px; padding: 0;">Cancel</button>
                         </div>
                     </div>
 
                     <hr style="margin: 5px 0; border: none; border-top: 1px solid #eee;">
-                    <a href="<?php echo home_url('/sm-login?sm_action=logout'); ?>" class="sm-dropdown-item" style="color: #e53e3e;"><span class="dashicons dashicons-logout"></span> تسجيل الخروج</a>
+                    <a href="<?php echo home_url('/sm-login?sm_action=logout'); ?>" class="sm-dropdown-item" style="color: #e53e3e;"><span class="dashicons dashicons-logout"></span> Logout</a>
                 </div>
             </div>
         </div>
@@ -586,13 +586,13 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
             <?php if (isset($_GET['sm_admin_msg'])):
                 $msg_type = sanitize_text_field($_GET['sm_admin_msg']);
                 $messages_map = array(
-                    'settings_saved' => 'تم حفظ الإعدادات والخيارات بنجاح ومزامنتها وتحديث القائمة فوراً مع كافة الأنظمة والرتب.',
-                    'student_added' => 'تمت إضافة اللاعب بنجاح بالنظام.',
-                    'student_deleted' => 'تم حذف سجل اللاعب وكافة بياناته بنجاح.',
-                    'restored' => 'تمت استعادة النسخة الاحتياطية بنجاح.',
-                    'demo_deleted' => 'تمت تهيئة النظام وحذف البيانات التجريبية بنجاح.',
-                    'csv_imported' => 'تم استيراد البيانات من ملف Excel بنجاح.',
-                    'error' => 'حدث خطأ غير متوقع. يرجى التحقق من البيانات وإعادة المحاولة.'
+                    'settings_saved' => 'تم Save Settings والخيارات بنجاح ومزامنتها وUpdate القائمة فوراً مع كافة الأنظمة والرتب.',
+                    'student_added' => 'تمت Add الNoعب بنجاح بالنظام.',
+                    'student_deleted' => 'تم Delete سجل الNoعب وكافة بياناته بنجاح.',
+                    'restored' => 'تمت استعادة النسخة اNoحتياطية بنجاح.',
+                    'demo_deleted' => 'تمت تهيئة النظام وDelete البيانات التجريبية بنجاح.',
+                    'csv_imported' => 'تم Import البيانات من ملف Excel بنجاح.',
+                    'error' => 'An error occurred غير متوقع. يرجى التحقق من البيانات وإعادة المحاولة.'
                 );
                 $msg_text = $messages_map[$msg_type] ?? '';
                 if ($msg_text):
@@ -612,62 +612,62 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
             $header_map = array(
                 'summary' => array(
                     'title' => 'لوحة المعلومات',
-                    'desc' => 'متابعة إحصائيات النظام ومؤشرات الأداء العامة والأنشطة والعمليات الجارية في المنظومة.',
+                    'desc' => 'متابعة إحصائيات النظام ومؤشرات الأداء العامة والأActiveة والعمليات الجارية في المنظومة.',
                     'button' => ''
                 ),
                 'students' => array(
-                    'title' => 'إدارة شؤون اللاعبين (Student Affairs)',
-                    'desc' => 'المركز الرئيسي لإدارة بيانات اللاعبين، الملفات الأكاديمية والشخصية، السجلات المدرسية، واستيراد وتصدير ملفات البيانات المعتمدة.',
+                    'title' => 'إدارة Player Affairs (Student Affairs)',
+                    'desc' => 'المركز الرئيسي لإدارة بيانات الNoعبين، الملفات Academy والشخصية، السجNoت المدرسية، وImport وExport ملفات البيانات المعتمدة.',
                     'button' => ''
                 ),
                 'teachers' => array(
                     'title' => 'إدارة مستخدمي النظام',
-                    'desc' => 'إدارة الحسابات، الأذونات والصلاحيات للمشرفين والمدربين وكافة مستخدمي المنصة الإلكترونية.',
+                    'desc' => 'إدارة الحسابات، الأذونات وPermissions للمشرفين والمدربين وكافة مستخدمي المنصة الإلكترونية.',
                     'button' => ''
                 ),
                 'parents' => array(
-                    'title' => 'إدارة أولياء الأمور والأوصياء',
-                    'desc' => 'إدارة سجلات وبيانات الاتصال لأولياء الأمور والأوصياء وربطهم بحسابات أبنائهم اللاعبين المعتمدين.',
+                    'title' => 'إدارة أولياء Motherور والأوصياء',
+                    'desc' => 'إدارة سجNoت وبيانات اNoتصال لأولياء Motherور والأوصياء وربطهم بحسابات أبنائهم الNoعبين المعتمدين.',
                     'button' => ''
                 ),
                 'grades' => array(
                     'title' => 'إدارة الدرجات والنتائج',
-                    'desc' => 'رصد وتوثيق الدرجات الأكاديمية والشهادات والتقارير الدورية للفصول الدراسية.',
+                    'desc' => 'رصد وتوثيق الدرجات Academy والشهادات والتقارير الدورية للفصول الدراسية.',
                     'button' => ''
                 ),
                 'attendance' => array(
                     'title' => 'سجل الحضور والغياب',
-                    'desc' => 'تسجيل ورصد الحضور والغياب اليومي للطلاب ومتابعة الإحصائيات العامة المعتمدة.',
+                    'desc' => 'تسجيل ورصد الحضور والغياب اليومي للطNoب ومتابعة الإحصائيات العامة المعتمدة.',
                     'button' => ''
                 ),
                 'employee-profile' => array(
                     'title' => 'الملف الوظيفي',
-                    'desc' => 'الملف المهني والوظيفي المتكامل للموظف ومتابعة السجلات الإدارية والمالية والتقييمات السنوية.',
+                    'desc' => 'الملف المهني والوظيفي المتكامل للموظف ومتابعة السجNoت الإدارية والمالية والتقييمات الAnnualة.',
                     'button' => ''
                 ),
                 'hr-evaluation' => array(
                     'title' => 'تقييم أعضاء هيئة التدريب والكادر',
-                    'desc' => 'المنظومة الاحترافية الشاملة لتقييم الأداء السنوي، المجموعة التدريبيةي والدوري لمنتسبي الهيئة الأكاديمية والإدارية والقيادية.',
+                    'desc' => 'المنظومة اNoحترافية الشاملة لتقييم الأداء الAnnual، Training Groupي والدوري لمنتسبي الهيئة Academy والإدارية والقيادية.',
                     'button' => ''
                 ),
                 'hr-management' => array(
                     'title' => 'إدارة الموارد البشرية',
-                    'desc' => 'إدارة شاملة لملفات العاملين، الرواتب، الترقيات، المستندات الرسمية والانضباط السلوكي والوظيفي.',
+                    'desc' => 'إدارة شاملة لملفات العاملين، الرواتب، الترقيات، المستندات الرسمية واNoنضباط السلوكي والوظيفي.',
                     'button' => ''
                 ),
                 'lesson-plans' => array(
                     'title' => 'تقديم تقارير أعضاء هيئة التدريب والكادر',
-                    'desc' => 'متابعة وإعداد واعتماد التحضيرات والخطط الأكاديمية والتعليمية للكادر التدريسي والأكاديمي.',
+                    'desc' => 'متابعة وإعداد واعتماد التحضيرات والخطط Academy والتعليمية للكادر التدريسي والأكاديمي.',
                     'button' => ''
                 ),
                 'term-plans' => array(
-                    'title' => 'الخطط المجموعة التدريبيةية والسنوية',
-                    'desc' => 'إعداد وتحديد الخطط الأكاديمية والتوزيع الأسبوعي للمناهج الدراسية بالمجموعات التدريبية والاعتماد المباشر.',
+                    'title' => 'الخطط Training Groupية والAnnualة',
+                    'desc' => 'إعداد وتحديد الخطط Academy والتوزيع الأسبوعي للمناهج الدراسية بTraining Groups واNoعتماد المباشر.',
                     'button' => ''
                 ),
                 'system-announcements' => array(
-                    'title' => 'الإشعارات والإعلانات العامة',
-                    'desc' => 'إدارة ونشر التنبيهات، التعاميم الإدارية، والإعلانات الشاملة لرتب مستخدمي النظام ومتابعة القراءة.',
+                    'title' => 'الإشعارات والإعNoنات العامة',
+                    'desc' => 'إدارة ونشر التنبيهات، التعاميم الإدارية، والإعNoنات الشاملة لرتب مستخدمي النظام ومتابعة القراءة.',
                     'button' => ''
                 ),
                 'documents' => array(
@@ -677,12 +677,12 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                 ),
                 'clinic' => array(
                     'title' => 'العيادة المدرسية',
-                    'desc' => 'سجل الحالات والزيارات اليومية للعيادة المدرسية والتقارير الصحية والمراجعات الطبية للطلاب.',
+                    'desc' => 'سجل الحاNoت والزيارات اليومية للعيادة المدرسية والتقارير الصحية والمراجعات الطبية للطNoب.',
                     'button' => ''
                 ),
                 'global-settings' => array(
-                    'title' => 'إعدادات النظام',
-                    'desc' => 'تخصيص اللوائح السلوكية، المظهر، صلاحيات القوائم وإعدادات الهيكل المدرسي العام والنسخ الاحتياطي.',
+                    'title' => 'System Settings',
+                    'desc' => 'تخصيص اللوائح السلوكية، المظهر، صNoحيات القوائم وإعدادات الهيكل المدرسي العام والنسخ اNoحتياطي.',
                     'button' => ''
                 )
             );
@@ -693,30 +693,30 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
             if ($active_tab === 'teachers') {
                 $header_map['teachers']['button'] = '
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    ' . ($is_admin ? '<button onclick="eessOpenUnifiedUserModal(\'add_user\', 0)" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> إضافة مستخدم جديد</button>' : '') . '
+                    ' . ($is_admin ? '<button onclick="eessOpenUnifiedUserModal(\'add_user\', 0)" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> Add مستخدم جديد</button>' : '') . '
 
                     <!-- User Options Dropdown -->
                     <div style="position: relative; display: inline-block;">
                         <button type="button" onclick="eessToggleUserOptionsDropdown(event)" class="sm-btn sm-btn-outline" style="height:38px; display:inline-flex; align-items:center; gap:5px; border-radius: 8px; cursor:pointer; background:#fff; color:#334155; border-color:#cbd5e1;">
                             <span class="dashicons dashicons-admin-generic" style="font-size: 16px; width: 16px; height: 16px; margin: 0; color: #475569;"></span>
-                            <span>خيارات المستخدمين</span>
+                            <span>خيارات Users</span>
                             <span class="dashicons dashicons-arrow-down-alt2" style="font-size: 10px; width: 10px; height: 10px; margin: 0;"></span>
                         </button>
                         <div id="eess-user-options-dropdown" style="display: none; position: absolute; left: 0; top: 110%; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 5px 0; text-align: right;">
-                            <a href="javascript:void(0)" onclick="document.getElementById(\'user-csv-import-box\').style.display = document.getElementById(\'user-csv-import-box\').style.display === \'none\' ? \'block\' : \'none\'; document.getElementById(\'eess-user-options-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9; font-weight: 700;">📥 استيراد مستخدمين (CSV)</a>
-                            <a href="' . admin_url('admin-ajax.php?action=sm_export_users_csv&nonce=' . wp_create_nonce('eess_admin_action')) . '" onclick="document.getElementById(\'eess-user-options-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; font-weight: 700;">📤 تصدير مستخدمين (CSV)</a>
+                            <a href="javascript:void(0)" onclick="document.getElementById(\'user-csv-import-box\').style.display = document.getElementById(\'user-csv-import-box\').style.display === \'none\' ? \'block\' : \'none\'; document.getElementById(\'eess-user-options-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9; font-weight: 700;">📥 Import مستخدمين (CSV)</a>
+                            <a href="' . admin_url('admin-ajax.php?action=sm_export_users_csv&nonce=' . wp_create_nonce('eess_admin_action')) . '" onclick="document.getElementById(\'eess-user-options-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; font-weight: 700;">📤 Export مستخدمين (CSV)</a>
                         </div>
                     </div>
                 </div>';
             }
-            if ($active_tab === 'parents' && ($is_admin || current_user_can('إدارة_أولياء_الأمور'))) {
-                $header_map['parents']['button'] = '<button onclick="document.getElementById(\'add-parent-modal\').style.display=\'flex\'" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> إضافة ولي أمر جديد</button>';
+            if ($active_tab === 'parents' && ($is_admin || current_user_can('إدارة_أولياء_Motherور'))) {
+                $header_map['parents']['button'] = '<button onclick="document.getElementById(\'add-parent-modal\').style.display=\'flex\'" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> Add ولي أمر جديد</button>';
             }
             if ($active_tab === 'grades' && ($is_admin || $is_coordinator || $is_teacher)) {
                 $header_map['grades']['button'] = '
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <button onclick="document.getElementById(\'add-grade-modal\').style.display=\'flex\'" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> إضافة نتيجة أكاديمية</button>
-                    <button onclick="document.getElementById(\'eess-grades-import-modal\').style.display=\'flex\'" class="sm-btn sm-btn-outline" style="height:38px; font-size:12px; cursor:pointer; display:inline-flex; align-items:center; gap:5px; border-radius: 8px;"><span class="dashicons dashicons-upload"></span> استيراد النتائج</button>
+                    <button onclick="document.getElementById(\'add-grade-modal\').style.display=\'flex\'" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> Add نتيجة أكاديمية</button>
+                    <button onclick="document.getElementById(\'eess-grades-import-modal\').style.display=\'flex\'" class="sm-btn sm-btn-outline" style="height:38px; font-size:12px; cursor:pointer; display:inline-flex; align-items:center; gap:5px; border-radius: 8px;"><span class="dashicons dashicons-upload"></span> Import النتائج</button>
                 </div>';
             }
             if ($active_tab === 'attendance') {
@@ -734,18 +734,18 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                         </button>
                         <div id="eess-absence-dropdown" style="display: none; position: absolute; left: 0; top: 110%; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 5px 0; text-align: right;">
                             <a href="javascript:void(0)" onclick="printAbsenceReport(\'daily\'); document.getElementById(\'eess-absence-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9; font-weight: 700;">📊 غيابات اليوم</a>
-                            <a href="javascript:void(0)" onclick="printAbsenceReport(\'term\'); document.getElementById(\'eess-absence-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; font-weight: 700;">📈 الأكثر غياباً (المجموعة التدريبية)</a>
+                            <a href="javascript:void(0)" onclick="printAbsenceReport(\'term\'); document.getElementById(\'eess-absence-dropdown\').style.display=\'none\';" style="display: block; padding: 10px 15px; color: #334155; font-size: 12px; text-decoration: none; font-weight: 700;">📈 الأكثر غياباً (Training Group)</a>
                         </div>
                     </div>
 
                     <div class="sm-form-group" style="margin-bottom: 0; display:inline-block;">
                         <input type="date" id="attendance-filter-date" class="sm-input" value="' . esc_attr($att_date) . '" onchange="window.location.href=\'' . add_query_arg('attendance_date', '', $_SERVER['REQUEST_URI']) . '\' + this.value" style="height:38px; border-radius: 8px; padding:0 8px; font-family:\'Cairo\';">
                     </div>
-                    <button onclick="location.reload()" class="sm-btn sm-btn-outline" title="تحديث" style="height:38px; border-radius: 8px; display:inline-flex; align-items:center; justify-content:center; width:38px; min-width:38px; padding:0; cursor:pointer;"><span class="dashicons dashicons-update" style="margin:0;"></span></button>
+                    <button onclick="location.reload()" class="sm-btn sm-btn-outline" title="Update" style="height:38px; border-radius: 8px; display:inline-flex; align-items:center; justify-content:center; width:38px; min-width:38px; padding:0; cursor:pointer;"><span class="dashicons dashicons-update" style="margin:0;"></span></button>
                 </div>';
             }
             if ($active_tab === 'employee-profile') {
-                $header_map['employee-profile']['button'] = '<button type="button" onclick="eessOpenProfileEditModal()" class="sm-btn" style="background: #000; border: 1px solid #000; color: #fff; border-radius: 8px; font-weight: 700; height: 38px; display: inline-flex; align-items: center; gap: 8px; cursor:pointer;"><span class="dashicons dashicons-edit"></span> تعديل وتزامن البيانات</button>';
+                $header_map['employee-profile']['button'] = '<button type="button" onclick="eessOpenProfileEditModal()" class="sm-btn" style="background: #000; border: 1px solid #000; color: #fff; border-radius: 8px; font-weight: 700; height: 38px; display: inline-flex; align-items: center; gap: 8px; cursor:pointer;"><span class="dashicons dashicons-edit"></span> Edit وتزامن البيانات</button>';
             }
             if ($active_tab === 'hr-evaluation') {
                 $header_map['hr-evaluation']['button'] = '<button onclick="jQuery(\'#eess-new-eval-container\').slideToggle();" class="sm-btn" style="background: #000; border: 1px solid #000; color: #fff; border-radius: 8px; font-weight: 700; height: 38px; display: inline-flex; align-items: center; gap: 8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> إجراء تقييم جديد</button>';
@@ -753,7 +753,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
             if ($active_tab === 'lesson-plans') {
                 $btn_html = '<div style="display: flex; align-items: center; gap: 10px;">';
                 if ($is_teacher) {
-                    $btn_html .= '<button onclick="document.getElementById(\'prep-modal\').style.display=\'flex\'" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> إضافة تحضير جديد</button>';
+                    $btn_html .= '<button onclick="document.getElementById(\'prep-modal\').style.display=\'flex\'" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> Add تحضير جديد</button>';
                 }
                 if ($is_admin || $is_sys_admin || $is_principal || $is_supervisor) {
                     $btn_html .= '
@@ -767,21 +767,21 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                             <div id="eess-prep-reports-dropdown" style="display: none; position: absolute; left: 0; top: 110%; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; width: 250px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 5px 0; text-align: right;">
                                 <a href="javascript:void(0)" onclick="eessShowPrepReport(\'submitted\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📝 تقرير التحضيرات المقدمة</a>
                                 <a href="javascript:void(0)" onclick="eessShowPrepReport(\'not_submitted\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">❌ تقرير التحضيرات المتأخرة/غير المقدمة</a>
-                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'by_institution\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">🏫 الإحصائيات حسب المنظمة الرياضية</a>
+                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'by_institution\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">🏫 الإحصائيات حسب Organization الرياضية</a>
                                 <a href="javascript:void(0)" onclick="eessShowPrepReport(\'by_department\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📂 الإحصائيات حسب الأقسام</a>
-                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'by_subject\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📚 الإحصائيات حسب الأنشطة الرياضية</a>
-                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'periodical\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📅 تقرير دوري (يومي/أسبوعي/شهري)</a>
+                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'by_subject\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📚 الإحصائيات حسب Sports Activities</a>
+                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'periodical\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📅 تقرير دوري (يومي/أسبوعي/Monthly)</a>
                                 <a href="javascript:void(0)" onclick="eessShowPrepReport(\'ranking\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">🏆 تصنيف الأكاديميات الرياضية والمدربين</a>
-                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'compliance\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📊 متوسطات الامتثال لنسب التقديم</a>
+                                <a href="javascript:void(0)" onclick="eessShowPrepReport(\'compliance\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">📊 Intermediateات اNoمتثال لنسب التقديم</a>
                                 <a href="javascript:void(0)" onclick="eessShowPrepReport(\'late_stats\')" style="display: block; padding: 8px 15px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9;">⏱️ إحصائيات التأخر والمهل الزمنية</a>
-                                <a href="javascript:void(0)" onclick="eessExportPrepReport()" style="display: block; padding: 8px 15px; color: #0d9488; font-size: 12px; font-weight: bold; text-decoration: none;">📥 تصدير التقرير الموحد (Excel/CSV)</a>
+                                <a href="javascript:void(0)" onclick="eessExportPrepReport()" style="display: block; padding: 8px 15px; color: #0d9488; font-size: 12px; font-weight: bold; text-decoration: none;">📥 Export التقرير الموحد (Excel/CSV)</a>
                             </div>
                         </div>
 
                         <!-- Modern Compact Pastel Wine-Red Bulk Download Button -->
-                        <button type="button" onclick="document.getElementById(\'eess-prep-bulk-download-modal\').style.display=\'flex\'" title="تحميل أرشيف التحضيرات بالجملة" style="background: #fef2f2; color: #881337; border: 1px solid #fecdd3; height: 38px; border-radius: 8px; padding: 0 14px; font-weight: 800; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); transition: background 0.2s; flex-shrink: 0;">
+                        <button type="button" onclick="document.getElementById(\'eess-prep-bulk-download-modal\').style.display=\'flex\'" title="Upload أرشيف التحضيرات بالجملة" style="background: #fef2f2; color: #881337; border: 1px solid #fecdd3; height: 38px; border-radius: 8px; padding: 0 14px; font-weight: 800; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); transition: background 0.2s; flex-shrink: 0;">
                             <span class="dashicons dashicons-download" style="font-size: 16px; width: 16px; height: 16px; margin: 0; color: #881337;"></span>
-                            <span>تحميل الأرشيف بالجملة</span>
+                            <span>Upload الأرشيف بالجملة</span>
                         </button>
 
                         <!-- Settings Gear Icon Button -->
@@ -795,7 +795,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                 $header_map['lesson-plans']['button'] = $btn_html;
             }
             if ($active_tab === 'documents') {
-                $header_map['documents']['button'] = '<button onclick="document.getElementById(\'add-doc-modal\').style.display=\'flex\'" class="sm-btn" style="background:#881337; border:none; color:#ffffff !important; border-radius:9999px !important; font-weight:800; height:38px; padding:0 20px; font-size:12.5px; display:inline-flex; align-items:center; gap:6px; cursor:pointer;"><span class="dashicons dashicons-plus-alt2" style="font-size:15px; width:15px; height:15px;"></span> إضافة مستند جديد</button>';
+                $header_map['documents']['button'] = '<button onclick="document.getElementById(\'add-doc-modal\').style.display=\'flex\'" class="sm-btn" style="background:#881337; border:none; color:#ffffff !important; border-radius:9999px !important; font-weight:800; height:38px; padding:0 20px; font-size:12.5px; display:inline-flex; align-items:center; gap:6px; cursor:pointer;"><span class="dashicons dashicons-plus-alt2" style="font-size:15px; width:15px; height:15px;"></span> Add مستند جديد</button>';
             }
             if ($active_tab === 'clinic') {
                 $btn_html = '<div style="display: flex; align-items: center; gap: 10px;">';
@@ -809,14 +809,14 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                     <div style="position: relative; display: inline-block;">
                         <button type="button" onclick="jQuery(\'#eess-clinic-reports-dropdown\').toggle(); event.stopPropagation();" class="sm-btn sm-btn-outline" style="width: auto; height: 38px; display: inline-flex; align-items: center; gap: 5px; border-color: #cbd5e1; cursor: pointer; padding: 0 10px; font-size: 12px; background: #fff; color: #334155; border-radius: 8px;">
                             <span class="dashicons dashicons-download" style="font-size: 16px; width: 16px; height: 16px; margin: 0; color: #475569;"></span>
-                            <span>تحميل التقارير</span>
+                            <span>Upload التقارير</span>
                             <span class="dashicons dashicons-arrow-down-alt2" style="font-size: 10px; width: 10px; height: 10px; margin: 0;"></span>
                         </button>
                         <div id="eess-clinic-reports-dropdown" style="display: none; position: absolute; left: 0; top: 110%; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; width: 180px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 5px 0; text-align: right;">
                             <a href="' . admin_url('admin-ajax.php?action=sm_get_clinic_reports&report_type=day&nonce='.$c_nonce) . '" class="sm-dropdown-item">تقرير اليوم</a>
                             <a href="' . admin_url('admin-ajax.php?action=sm_get_clinic_reports&report_type=week&nonce='.$c_nonce) . '" class="sm-dropdown-item">تقرير الأسبوع</a>
                             <a href="' . admin_url('admin-ajax.php?action=sm_get_clinic_reports&report_type=month&nonce='.$c_nonce) . '" class="sm-dropdown-item">تقرير الشهر</a>
-                            <a href="' . admin_url('admin-ajax.php?action=sm_get_clinic_reports&report_type=term&nonce='.$c_nonce) . '" class="sm-dropdown-item">تقرير المجموعة التدريبية</a>
+                            <a href="' . admin_url('admin-ajax.php?action=sm_get_clinic_reports&report_type=term&nonce='.$c_nonce) . '" class="sm-dropdown-item">تقرير Training Group</a>
                             <a href="' . admin_url('admin-ajax.php?action=sm_get_clinic_reports&report_type=year&nonce='.$c_nonce) . '" class="sm-dropdown-item">تقرير السنة</a>
                         </div>
                     </div>
@@ -827,7 +827,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
             }
 
             if ($active_tab === 'hr-management' && ($is_admin || $is_sys_admin || in_array('sm_hr', $roles) || current_user_can('manage_hr'))) {
-                $header_map['hr-management']['button'] = '<button type="button" onclick="eessOpenUnifiedUserModal(\'add_employee\', 0)" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> إضافة موظف جديد</button>';
+                $header_map['hr-management']['button'] = '<button type="button" onclick="eessOpenUnifiedUserModal(\'add_employee\', 0)" class="sm-btn" style="background:#000; border:1px solid #000; color:#fff; border-radius:8px; font-weight:700; height:38px; display:inline-flex; align-items:center; gap:8px; cursor:pointer;"><span class="dashicons dashicons-plus-alt"></span> Add موظف جديد</button>';
             }
 
             $cur_header = $header_map[$active_tab] ?? null;
@@ -856,14 +856,14 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                 case 'summary':
                     if ($is_parent) {
                         if (isset($student) && $student) include SM_PLUGIN_DIR . 'templates/parent-student-summary.php';
-                        else echo '<p>لا يوجد بيانات لعرضها.</p>';
+                        else echo '<p>No يوجد بيانات لViewها.</p>';
                     } else {
                         include SM_PLUGIN_DIR . 'templates/public-dashboard-summary.php'; 
                     }
                     break;
 
                 case 'students':
-                    if ($is_admin || current_user_can('إدارة_اللاعبين')) {
+                    if ($is_admin || current_user_can('إدارة_الNoعبين')) {
                         if (file_exists(SM_PLUGIN_DIR . 'templates/admin-players.php')) {
                             include SM_PLUGIN_DIR . 'templates/admin-players.php';
                         }
@@ -891,7 +891,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                     break;
 
                 case 'teachers':
-                    if ($is_admin || current_user_can('إدارة_المدربين') || current_user_can('إدارة_المستخدمين')) {
+                    if ($is_admin || current_user_can('إدارة_المدربين') || current_user_can('إدارة_Users')) {
                         include SM_PLUGIN_DIR . 'templates/admin-users-view.php';
                     }
                     break;
@@ -918,7 +918,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                         <div class="sm-tabs-wrapper" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #eee; overflow-x: auto; white-space: nowrap; padding-bottom: 10px;">
                             <button class="sm-tab-btn sm-active" onclick="smOpenInternalTab('school-settings', this)">السلطة</button>
                             <button class="sm-tab-btn" onclick="smOpenInternalTab('sidebar-settings', this)">تخصيص القائمة</button>
-                            <button class="sm-tab-btn" onclick="smOpenInternalTab('backup-settings', this)">مركز النسخ الاحتياطي</button>
+                            <button class="sm-tab-btn" onclick="smOpenInternalTab('backup-settings', this)">مركز النسخ اNoحتياطي</button>
                             <?php if ($is_admin): ?>
                                 <button class="sm-tab-btn" onclick="smOpenInternalTab('announcements-settings', this)">الإشعارات والتعاميم العامة</button>
                                 <button class="sm-tab-btn" onclick="smOpenInternalTab('activity-logs', this)">سجل النشاطات</button>
@@ -928,24 +928,24 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                             <form method="post">
                                 <?php wp_nonce_field('sm_admin_action', 'sm_admin_nonce'); ?>
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                                    <div class="sm-form-group" style="grid-column: span 2;"><label class="sm-label">اسم الأكاديمية الرياضية:</label><input type="text" name="school_name" value="<?php echo esc_attr($school['school_name']); ?>" class="sm-input"></div>
-                                    <div class="sm-form-group"><label class="sm-label">رقم الهاتف:</label><input type="text" name="school_phone" value="<?php echo esc_attr($school['phone']); ?>" class="sm-input"></div>
-                                    <div class="sm-form-group"><label class="sm-label">البريد الإلكتروني:</label><input type="email" name="school_email" value="<?php echo esc_attr($school['email']); ?>" class="sm-input"></div>
+                                    <div class="sm-form-group" style="grid-column: span 2;"><label class="sm-label">اسم Academy الرياضية:</label><input type="text" name="school_name" value="<?php echo esc_attr($school['school_name']); ?>" class="sm-input"></div>
+                                    <div class="sm-form-group"><label class="sm-label">Phone Number:</label><input type="text" name="school_phone" value="<?php echo esc_attr($school['phone']); ?>" class="sm-input"></div>
+                                    <div class="sm-form-group"><label class="sm-label">Email Address:</label><input type="email" name="school_email" value="<?php echo esc_attr($school['email']); ?>" class="sm-input"></div>
                                     <div class="sm-form-group" style="grid-column: span 2;">
-                                        <label class="sm-label">شعار الأكاديمية الرياضية:</label>
+                                        <label class="sm-label">شعار Academy الرياضية:</label>
                                         <div style="display:flex; gap:10px;">
                                             <input type="text" name="school_logo" id="sm_school_logo_url" value="<?php echo esc_attr($school['school_logo']); ?>" class="sm-input">
                                             <button type="button" onclick="smOpenMediaUploader('sm_school_logo_url')" class="sm-btn" style="width:auto; font-size:12px; background:var(--sm-secondary-color);">رفع/اختيار</button>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" name="sm_save_settings_unified" class="sm-btn" style="width:auto; margin-bottom: 25px;">حفظ الإعدادات</button>
+                                <button type="submit" name="sm_save_settings_unified" class="sm-btn" style="width:auto; margin-bottom: 25px;">Save Settings</button>
 
                                 <!-- Creator Entity & System Information Section (EESS) - Positioned at the bottom of the section -->
                                 <div class="sm-form-group" style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 25px;">
                                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
                                         <span class="dashicons dashicons-external" style="color: var(--sm-accent-color); font-size: 24px; width: 24px; height: 24px;"></span>
-                                        <h4 style="margin: 0; color: var(--sm-dark-color); font-weight: 800; font-size: 1.1em;">الجهة المطورة: خدمات الأنظمة الإلكترونية التعليمية (EESS)</h4>
+                                        <h4 style="margin: 0; color: var(--sm-dark-color); font-weight: 800; font-size: 1.1em;">الجهة المطورة: Sportedia Sports Management System</h4>
                                     </div>
                                     <p style="margin: 5px 0; font-size: 13px; color: var(--sm-text-gray); line-height: 1.6;">
                                         تم تصميم وتطوير لوحة الإدارة هذه بواسطة <strong>خدمات الأنظمة الإلكترونية التعليمية (Educational Electronic Systems Services - EESS)</strong> كجزء من الأنظمة التعليمية الإلكترونية المتكاملة التي تدعم المؤسسات التعليمية بفعالية واحترافية.
@@ -965,16 +965,16 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                                 $visibility = SM_Settings::get_sidebar_visibility();
                                 $roles_list = array(
                                     'sm_system_admin' => 'مدير النظام',
-                                    'sm_principal' => 'مدير الأكاديمية الرياضية',
+                                    'sm_principal' => 'مدير Academy الرياضية',
                                     'sm_supervisor' => 'مشرف',
                                     'sm_coordinator' => 'منسق مادة',
                                     'sm_hod' => 'رئيس قسم',
                                     'sm_teacher' => 'معلم',
-                                    'sm_student' => 'لاعب',
+                                    'sm_student' => 'Noعب',
                                     'sm_parent' => 'ولي أمر',
                                     'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-                                    'sm_activities_supervisor' => 'مشرف أنشطة',
-                                    'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+                                    'sm_activities_supervisor' => 'مشرف أActiveة',
+                                    'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
                                     'sm_bus_supervisor' => 'مشرف حافلة',
                                     'sm_hr' => 'الموارد البشرية (HR)'
                                 );
@@ -1010,77 +1010,77 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                                         </tbody>
                                     </table>
                                 </div>
-                                <button type="submit" name="sm_save_sidebar_visibility" class="sm-btn" style="width:auto; margin-top: 20px;">حفظ إعدادات القائمة</button>
+                                <button type="submit" name="sm_save_sidebar_visibility" class="sm-btn" style="width:auto; margin-top: 20px;">Save إعدادات القائمة</button>
                             </form>
                         </div>
 
                         <div id="backup-settings" class="sm-internal-tab" style="display:none;">
                             <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:30px;">
-                                <h4 style="margin-top:0;">مركز النسخ الاحتياطي وإدارة البيانات</h4>
+                                <h4 style="margin-top:0;">مركز النسخ اNoحتياطي وإدارة البيانات</h4>
                                 <?php $backup_info = SM_Settings::get_last_backup_info(); ?>
                                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:30px;">
                                     <div style="background:white; padding:15px; border-radius:8px; border:1px solid #eee;">
-                                        <div style="font-size:12px; color:#718096;">آخر تصدير ناجح:</div>
+                                        <div style="font-size:12px; color:#718096;">آخر Export ناجح:</div>
                                         <div style="font-weight:700; color:var(--sm-primary-color);"><?php echo $backup_info['export']; ?></div>
                                     </div>
                                     <div style="background:white; padding:15px; border-radius:8px; border:1px solid #eee;">
-                                        <div style="font-size:12px; color:#718096;">آخر استيراد ناجح:</div>
+                                        <div style="font-size:12px; color:#718096;">آخر Import ناجح:</div>
                                         <div style="font-weight:700; color:var(--sm-secondary-color);"><?php echo $backup_info['import']; ?></div>
                                     </div>
                                 </div>
                                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
                                     <div style="background:white; padding:20px; border-radius:8px; border:1px solid #eee;">
-                                        <h5 style="margin-top:0;">تصدير البيانات الشاملة</h5>
-                                        <p style="font-size:12px; color:#666; margin-bottom:15px;">قم بتحميل نسخة كاملة من بيانات اللاعبين والمخالفات بصيغة JSON.</p>
+                                        <h5 style="margin-top:0;">Export البيانات الشاملة</h5>
+                                        <p style="font-size:12px; color:#666; margin-bottom:15px;">قم بUpload نسخة كاملة من بيانات الNoعبين والمخالفات بصيغة JSON.</p>
                                         <div style="display:flex; gap:10px;">
                                             <form method="post">
                                                 <?php wp_nonce_field('sm_admin_action', 'sm_admin_nonce'); ?>
-                                                <button type="submit" name="sm_download_backup" class="sm-btn" style="background:#27ae60; width:auto;">تصدير الآن (JSON)</button>
+                                                <button type="submit" name="sm_download_backup" class="sm-btn" style="background:#27ae60; width:auto;">Export الآن (JSON)</button>
                                             </form>
                                             <form method="get" action="<?php echo admin_url('admin-ajax.php'); ?>">
                                                 <input type="hidden" name="action" value="sm_export_violations_csv">
                                                 <input type="hidden" name="range" value="all">
                                                 <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('sm_export_action'); ?>">
-                                                <button type="submit" class="sm-btn" style="background:#111F35; width:auto;">سجل الانضباط الشامل (CSV)</button>
+                                                <button type="submit" class="sm-btn" style="background:#111F35; width:auto;">سجل اNoنضباط الشامل (CSV)</button>
                                             </form>
                                         </div>
                                     </div>
                                     <div style="background:white; padding:20px; border-radius:8px; border:1px solid #eee;">
-                                        <h5 style="margin-top:0;">تصدير سجلات لاعب محدد</h5>
-                                        <p style="font-size:12px; color:#666; margin-bottom:15px;">تصدير كافة مخالفات لاعب معين باستخدام الكود الخاص به.</p>
+                                        <h5 style="margin-top:0;">Export سجNoت Noعب محدد</h5>
+                                        <p style="font-size:12px; color:#666; margin-bottom:15px;">Export كافة مخالفات Noعب معين باستخدام الكود الخاص به.</p>
                                         <form method="get" action="<?php echo admin_url('admin-ajax.php'); ?>" target="_blank">
                                             <input type="hidden" name="action" value="sm_export_violations_csv">
                                             <input type="hidden" name="range" value="all">
                                             <?php $ex_nonce = wp_create_nonce('sm_export_action'); ?>
                                             <input type="hidden" name="nonce" value="<?php echo $ex_nonce; ?>">
                                             <div class="sm-form-group">
-                                                <input type="text" name="student_code" class="sm-input" placeholder="أدخل كود اللاعب (مثال: ST00001)" required style="font-size:11px;">
+                                                <input type="text" name="student_code" class="sm-input" placeholder="أدخل كود الNoعب (مثال: ST00001)" required style="font-size:11px;">
                                             </div>
-                                            <button type="submit" class="sm-btn" style="background:#3182ce; width:auto; font-size:11px;">تصدير سجلات اللاعب</button>
+                                            <button type="submit" class="sm-btn" style="background:#3182ce; width:auto; font-size:11px;">Export سجNoت الNoعب</button>
                                         </form>
                                     </div>
                                     <div style="background:white; padding:20px; border-radius:8px; border:1px solid #eee;">
-                                        <h5 style="margin-top:0;">استيراد البيانات</h5>
-                                        <p style="font-size:12px; color:#e53e3e; margin-bottom:15px;">تحذير: سيقوم الاستيراد بمسح البيانات الحالية واستبدالها بالنسخة المرفوعة.</p>
+                                        <h5 style="margin-top:0;">Import البيانات</h5>
+                                        <p style="font-size:12px; color:#e53e3e; margin-bottom:15px;">تحذير: سيقوم الImport بمسح البيانات الحالية واستبدالها بالنسخة المرفوعة.</p>
                                         <form method="post" enctype="multipart/form-data">
                                             <?php wp_nonce_field('sm_admin_action', 'sm_admin_nonce'); ?>
                                             <input type="file" name="backup_file" required style="margin-bottom:10px; font-size:11px;">
-                                            <button type="submit" name="sm_restore_backup" class="sm-btn" style="background:#2980b9; width:auto;">بدء الاستيراد</button>
+                                            <button type="submit" name="sm_restore_backup" class="sm-btn" style="background:#2980b9; width:auto;">بدء الImport</button>
                                         </form>
                                     </div>
                                     <div style="background:white; padding:20px; border-radius:8px; border:1px solid #eee;">
                                         <h5 style="margin-top:0;">مسح البيانات المخصص</h5>
                                         <p style="font-size:12px; color:#666; margin-bottom:15px;">اختر القسم الذي تريد مسح كافة بياناته نهائياً:</p>
                                         <div style="display:flex; flex-wrap:wrap; gap:10px;">
-                                            <button onclick="smBulkDelete('students')" class="sm-btn sm-btn-outline" style="font-size:11px; color:#e53e3e; border-color:#feb2b2;">مسح اللاعبين</button>
+                                            <button onclick="smBulkDelete('students')" class="sm-btn sm-btn-outline" style="font-size:11px; color:#e53e3e; border-color:#feb2b2;">مسح الNoعبين</button>
                                             <button onclick="smBulkDelete('teachers')" class="sm-btn sm-btn-outline" style="font-size:11px; color:#e53e3e; border-color:#feb2b2;">مسح المدربين</button>
-                                            <button onclick="smBulkDelete('parents')" class="sm-btn sm-btn-outline" style="font-size:11px; color:#e53e3e; border-color:#feb2b2;">مسح أولياء الأمور والأوصياء</button>
+                                            <button onclick="smBulkDelete('parents')" class="sm-btn sm-btn-outline" style="font-size:11px; color:#e53e3e; border-color:#feb2b2;">مسح أولياء Motherور والأوصياء</button>
                                             <button onclick="smBulkDelete('records')" class="sm-btn sm-btn-outline" style="font-size:11px; color:#e53e3e; border-color:#feb2b2;">مسح المخالفات</button>
                                         </div>
                                     </div>
                                     <div style="background:#fff5f5; padding:20px; border-radius:8px; border:2px dashed #feb2b2;">
-                                        <h5 style="margin-top:0; color:#c53030;">تهيأة النظام (إعادة ضبط المصنع)</h5>
-                                        <p style="font-size:12px; color:#666; margin-bottom:15px;">هذا الإجراء سيقوم بمسح **كافة** البيانات من جميع الأقسام بما في ذلك الإعدادات والمستخدمين واللاعبين.</p>
+                                        <h5 style="margin-top:0; color:#c53030;">تهيأة النظام (Reset المصنع)</h5>
+                                        <p style="font-size:12px; color:#666; margin-bottom:15px;">هذا الإجراء سيقوم بمسح **كافة** البيانات من جميع الأقسام بما في ذلك Settings وUsers والNoعبين.</p>
                                         <button onclick="smInitializeSystem()" class="sm-btn" style="background:#c53030; width:auto;">تهيأة النظام بالكامل</button>
                                     </div>
                                 </div>
@@ -1095,10 +1095,10 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:15px;">
                                     <div>
                                         <h4 style="margin:0; font-size:16px; font-weight:800; color:#0f172a;">سجل نشاطات النظام الشامل (Activity Log)</h4>
-                                        <div style="font-size:12px; color:#64748b; margin-top:3px;">يتم الاحتفاظ تلقائياً بأحدث 100 نشاط مع موثوقية الهوية ومصدر الجهاز.</div>
+                                        <div style="font-size:12px; color:#64748b; margin-top:3px;">يتم اNoحتفاظ تلقائياً بأحدث 100 نشاط مع موثوقية الهوية ومصدر الجهاز.</div>
                                     </div>
                                     <div style="display:flex; gap:10px; align-items:center;">
-                                        <button type="button" onclick="smDeleteAllLogs()" class="sm-btn" style="background:#fee2e2; color:#b91c1c !important; border:1px solid #fca5a5; height:36px; padding:0 16px; font-size:12px; border-radius:9999px; font-weight:800; cursor:pointer;" title="مسح كافة سجلات النشاط">
+                                        <button type="button" onclick="smDeleteAllLogs()" class="sm-btn" style="background:#fee2e2; color:#b91c1c !important; border:1px solid #fca5a5; height:36px; padding:0 16px; font-size:12px; border-radius:9999px; font-weight:800; cursor:pointer;" title="مسح كافة سجNoت النشاط">
                                             <span class="dashicons dashicons-trash" style="font-size:14px; margin:0;"></span>
                                             <span>مسح كافة النشاطات</span>
                                         </button>
@@ -1107,7 +1107,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
 
                                 <!-- Live Search Input Engine -->
                                 <div style="margin-bottom: 20px;">
-                                    <input type="text" id="eess-activity-log-search" onkeyup="eessFilterActivityLog()" placeholder="ابحث باسم المستخدم، الرقم الوظيفي، الرتبة، أو تفاصيل الإجراء..." class="sm-input" style="height: 40px; border-radius: 10px; font-size: 12.5px; border: 1px solid #cbd5e1; padding: 0 14px; width: 100%; box-sizing: border-box;">
+                                    <input type="text" id="eess-activity-log-search" onkeyup="eessFilterActivityLog()" placeholder="اSearch بUsername، الرقم الوظيفي، الرتبة، أو تفاصيل الإجراء..." class="sm-input" style="height: 40px; border-radius: 10px; font-size: 12.5px; border: 1px solid #cbd5e1; padding: 0 14px; width: 100%; box-sizing: border-box;">
                                 </div>
 
                                 <div class="sm-table-container">
@@ -1128,7 +1128,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
 
                                             if (empty($all_logs)): ?>
                                                 <tr>
-                                                    <td colspan="6" style="text-align:center; color:#94a3b8; padding:30px; font-weight:700;">لا توجد نشاطات مسجلة حالياً بالمنظومة.</td>
+                                                    <td colspan="6" style="text-align:center; color:#94a3b8; padding:30px; font-weight:700;">No توجد نشاطات مسجلة حالياً بالمنظومة.</td>
                                                 </tr>
                                             <?php else:
                                                 foreach ($all_logs as $log):
@@ -1175,7 +1175,7 @@ $greeting = ($hour >= 5 && $hour < 12) ? 'صباح الخير' : 'مساء ال�
                                                                     <span class="dashicons dashicons-undo" style="font-size:14px; margin:0;"></span>
                                                                 </button>
                                                             <?php endif; ?>
-                                                            <button type="button" onclick="smDeleteLog(<?php echo $log->id; ?>)" class="sm-btn" style="padding:0 !important; width:28px !important; min-width:28px !important; height:28px !important; background:#fee2e2 !important; border:1px solid #fca5a5 !important; color:#b91c1c !important; border-radius:6px !important; cursor:pointer; display:inline-flex !alignment; align-items:center; justify-content:center;" title="حذف هذا السجل">
+                                                            <button type="button" onclick="smDeleteLog(<?php echo $log->id; ?>)" class="sm-btn" style="padding:0 !important; width:28px !important; min-width:28px !important; height:28px !important; background:#fee2e2 !important; border:1px solid #fca5a5 !important; color:#b91c1c !important; border-radius:6px !important; cursor:pointer; display:inline-flex !alignment; align-items:center; justify-content:center;" title="Delete هذا السجل">
                                                                 <span class="dashicons dashicons-trash" style="font-size:14px; margin:0;"></span>
                                                             </button>
                                                         </div>
@@ -1463,7 +1463,7 @@ jQuery(document).ready(function($) {
         </div>
 
         <div style="background: #f8fafc; border-radius: 50px; padding: 4px 14px; display: inline-block; font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 12px;" id="anc-modal-badge">
-            تحديث جديد من النظام
+            Update جديد من النظام
         </div>
 
         <h3 id="anc-modal-title" style="margin: 0 0 12px 0; font-size: 18px; font-weight: 800; color: #0f172a; line-height: 1.4;">-</h3>
@@ -1471,7 +1471,7 @@ jQuery(document).ready(function($) {
 
         <div style="display: flex; gap: 10px; margin-top: 20px;">
             <button type="button" onclick="eessCloseAnnouncementModal()" style="flex: 1; height: 44px; background: #0f172a; color: #ffffff; border: none; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; transition: all 0.2s ease;">
-                إغلاق
+                Close
             </button>
             <button type="button" onclick="eessContinueAnnouncementModal()" id="anc-modal-continue-btn" style="flex: 1; height: 44px; background: #2563eb; color: #ffffff; border: none; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; transition: all 0.2s ease; display: none;">
                 متابعة
@@ -1535,7 +1535,7 @@ jQuery(document).ready(function($) {
             iconEl.className = 'dashicons dashicons-mega';
             containerEl.style.background = '#eff6ff';
             containerEl.style.color = '#2563eb';
-            badgeEl.innerText = 'تحديث إداري';
+            badgeEl.innerText = 'Update إداري';
         }
 
         // Mark viewed in DB
@@ -1579,11 +1579,11 @@ jQuery(document).ready(function($) {
         <div id="sm-confirm-icon-box" style="width: 56px; height: 56px; border-radius: 50%; background: #fef2f2; color: #dc2626; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
             <span class="dashicons dashicons-warning" style="font-size: 28px; width: 28px; height: 28px;"></span>
         </div>
-        <h3 id="sm-confirm-title" style="margin: 0 0 8px 0; font-size: 1.25rem; font-weight: 800; color: #0f172a;">تأكيد الإجراء</h3>
+        <h3 id="sm-confirm-title" style="margin: 0 0 8px 0; font-size: 1.25rem; font-weight: 800; color: #0f172a;">Confirm الإجراء</h3>
         <p id="sm-confirm-message" style="margin: 0 0 24px 0; font-size: 0.9rem; color: #64748b; line-height: 1.6;">هل أنت متأكد من تنفيذ هذا الإجراء؟</p>
         <div style="display: flex; gap: 12px; justify-content: center;">
-            <button type="button" id="sm-confirm-ok-btn" class="sm-btn" style="background: #000000; color: #ffffff !important; border-radius: 9999px; height: 40px; padding: 0 24px; font-weight: 800; font-size: 13px; border: none; cursor: pointer;">تأكيد</button>
-            <button type="button" id="sm-confirm-cancel-btn" class="sm-btn" style="background: #f1f5f9; color: #475569 !important; border-radius: 9999px; height: 40px; padding: 0 20px; font-weight: 700; font-size: 13px; border: 1px solid #cbd5e1; cursor: pointer;">إلغاء</button>
+            <button type="button" id="sm-confirm-ok-btn" class="sm-btn" style="background: #000000; color: #ffffff !important; border-radius: 9999px; height: 40px; padding: 0 24px; font-weight: 800; font-size: 13px; border: none; cursor: pointer;">Confirm</button>
+            <button type="button" id="sm-confirm-cancel-btn" class="sm-btn" style="background: #f1f5f9; color: #475569 !important; border-radius: 9999px; height: 40px; padding: 0 20px; font-weight: 700; font-size: 13px; border: 1px solid #cbd5e1; cursor: pointer;">Cancel</button>
         </div>
     </div>
 </div>
@@ -1604,10 +1604,10 @@ window.smConfirmAction = function(options) {
             return;
         }
 
-        if (titleEl) titleEl.innerText = options.title || 'تأكيد الإجراء';
+        if (titleEl) titleEl.innerText = options.title || 'Confirm الإجراء';
         if (msgEl) msgEl.innerText = options.message || 'هل أنت متأكد من تنفيذ هذا الإجراء؟';
         if (okBtn) {
-            okBtn.innerText = options.confirmText || 'تأكيد';
+            okBtn.innerText = options.confirmText || 'Confirm';
             if (options.type === 'danger') {
                 okBtn.style.background = '#dc2626';
                 if (iconBox) { iconBox.style.background = '#fef2f2'; iconBox.style.color = '#dc2626'; }
@@ -1676,15 +1676,15 @@ window.smConfirmAction = function(options) {
             </div>
 
             <div id="copy_target_user_details" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 12px 16px; margin-bottom: 20px;">
-                <div style="font-size: 11.5px; font-weight: 700; color: #166534; margin-bottom: 4px;">تأكيد حساب المستهدف:</div>
+                <div style="font-size: 11.5px; font-weight: 700; color: #166534; margin-bottom: 4px;">Confirm حساب المستهدف:</div>
                 <div style="font-size: 12.5px; color: #15803d; font-weight: 700;">
                     البريد: <span id="copy_target_email_text">-</span> | الرتبة: <span id="copy_target_role_text">-</span>
                 </div>
             </div>
 
             <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                <button type="submit" id="copy_submit_btn" class="sm-btn" style="background: #000000; color: #ffffff !important; height: 40px; padding: 0 22px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">تأكيد وإنشاء النسخة</button>
-                <button type="button" onclick="document.getElementById('eess-copy-record-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 40px; padding: 0 18px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">إلغاء</button>
+                <button type="submit" id="copy_submit_btn" class="sm-btn" style="background: #000000; color: #ffffff !important; height: 40px; padding: 0 22px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">Confirm وإنشاء النسخة</button>
+                <button type="button" onclick="document.getElementById('eess-copy-record-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 40px; padding: 0 18px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">Cancel</button>
             </div>
         </form>
     </div>
@@ -1738,7 +1738,7 @@ window.eessExecuteCopyRecordSubmit = function(e) {
     .then(function(r) { return r.json(); })
     .then(function(res) {
         btn.disabled = false;
-        btn.innerText = 'تأكيد وإنشاء النسخة';
+        btn.innerText = 'Confirm وإنشاء النسخة';
         if (res.success) {
             if (typeof smShowNotification === 'function') {
                 smShowNotification(res.data.message || 'تم نسخ السجل بنجاح');
@@ -1753,8 +1753,8 @@ window.eessExecuteCopyRecordSubmit = function(e) {
     })
     .catch(function(err) {
         btn.disabled = false;
-        btn.innerText = 'تأكيد وإنشاء النسخة';
-        alert('حدث خطأ في الاتصال بالسيرفر.');
+        btn.innerText = 'Confirm وإنشاء النسخة';
+        alert('An error occurred في اNoتصال بالسيرفر.');
     });
 };
 </script>
@@ -1794,14 +1794,14 @@ window.eessExecuteCopyRecordSubmit = function(e) {
                     <button type="button" onclick="eessSelectCapsuleOption('technical_issue')" style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 20px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.2s ease; aspect-ratio: 1 / 1;" onmouseover="this.style.borderColor='#881337'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='#cbd5e1'; this.style.transform='translateY(0)';">
                         <span class="dashicons dashicons-warning" style="font-size: 32px; width: 32px; height: 32px; color: #dc2626; margin: 0 0 12px 0;"></span>
                         <div style="font-weight: 800; font-size: 14.5px; color: #0f172a; margin-bottom: 6px;">مشكلة فنية</div>
-                        <div style="font-size: 11px; color: #64748b; line-height: 1.4;">الإبلاغ عن خلل مع لقطة شاشة</div>
+                        <div style="font-size: 11px; color: #64748b; line-height: 1.4;">الإبNoغ عن خلل مع لقطة شاشة</div>
                     </button>
 
                     <!-- Card 3: Rating / Thank Us -->
                     <button type="button" onclick="eessSelectCapsuleOption('rating')" style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 20px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.2s ease; aspect-ratio: 1 / 1;" onmouseover="this.style.borderColor='#881337'; this.style.transform='translateY(-3px)';" onmouseout="this.style.borderColor='#cbd5e1'; this.style.transform='translateY(0)';">
                         <span class="dashicons dashicons-star-filled" style="font-size: 32px; width: 32px; height: 32px; color: #2563eb; margin: 0 0 12px 0;"></span>
                         <div style="font-weight: 800; font-size: 14.5px; color: #0f172a; margin-bottom: 6px;">شكرنا</div>
-                        <div style="font-size: 11px; color: #64748b; line-height: 1.4;">تقييم الخدمة وإرسال كلمة شكر</div>
+                        <div style="font-size: 11px; color: #64748b; line-height: 1.4;">تقييم الخدمة وSend كلمة شكر</div>
                     </button>
                 </div>
             </div>
@@ -1825,7 +1825,7 @@ window.eessExecuteCopyRecordSubmit = function(e) {
 
                     <div style="display: flex; gap: 10px; justify-content: space-between;">
                         <button type="button" onclick="eessBackToCapsuleMenu()" class="sm-btn sm-btn-outline" style="height: 38px; font-size: 12px;">← العودة للقائمة</button>
-                        <button type="submit" id="btn_sug_submit" class="sm-btn" style="background: #2563eb; height: 38px; font-size: 12px; padding: 0 20px;">إرسال المقترح</button>
+                        <button type="submit" id="btn_sug_submit" class="sm-btn" style="background: #2563eb; height: 38px; font-size: 12px; padding: 0 20px;">Send المقترح</button>
                     </div>
                 </form>
             </div>
@@ -1835,12 +1835,12 @@ window.eessExecuteCopyRecordSubmit = function(e) {
                 <!-- Step 1: Info -->
                 <div id="tech-step-1" style="display: block;">
                     <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
-                        <h4 style="margin: 0 0 6px 0; color: #991b1b; font-size: 14px; font-weight: 800;">الإبلاغ عن مشكلة فنية</h4>
-                        <p style="margin: 0; font-size: 12px; color: #b91c1c; line-height: 1.6;">أنت على وشك الإبلاغ عن مشكلة أو خلل تقني واجهته أثناء استخدام المنظومة. سيتم توجيه هذا البلاغ مباشرة للمهندسين المختصين ومتابعته.</p>
+                        <h4 style="margin: 0 0 6px 0; color: #991b1b; font-size: 14px; font-weight: 800;">الإبNoغ عن مشكلة فنية</h4>
+                        <p style="margin: 0; font-size: 12px; color: #b91c1c; line-height: 1.6;">أنت على وشك الإبNoغ عن مشكلة أو خلل تقني واجهته أثناء استخدام المنظومة. سيتم توجيه هذا البNoغ مباشرة للمهندسين المختصين ومتابعته.</p>
                     </div>
                     <div style="display: flex; gap: 10px; justify-content: space-between;">
                         <button type="button" onclick="eessBackToCapsuleMenu()" class="sm-btn sm-btn-outline" style="height: 38px; font-size: 12px;">← العودة للقائمة</button>
-                        <button type="button" onclick="document.getElementById('tech-step-1').style.display='none'; document.getElementById('tech-step-2').style.display='block';" class="sm-btn" style="background: #2563eb; height: 38px; font-size: 12px; padding: 0 20px;">المتابعة للخطوة التالية →</button>
+                        <button type="button" onclick="document.getElementById('tech-step-1').style.display='none'; document.getElementById('tech-step-2').style.display='block';" class="sm-btn" style="background: #2563eb; height: 38px; font-size: 12px; padding: 0 20px;">المتابعة للخطوة Nextة →</button>
                     </div>
                 </div>
 
@@ -1863,8 +1863,8 @@ window.eessExecuteCopyRecordSubmit = function(e) {
                         </div>
 
                         <div style="display: flex; gap: 10px; justify-content: space-between;">
-                            <button type="button" onclick="document.getElementById('tech-step-2').style.display='none'; document.getElementById('tech-step-1').style.display='block';" class="sm-btn sm-btn-outline" style="height: 38px; font-size: 12px;">← السابق</button>
-                            <button type="submit" id="btn_tech_submit" class="sm-btn" style="background: #dc2626; height: 38px; font-size: 12px; padding: 0 20px;">إرسال المشكلة</button>
+                            <button type="button" onclick="document.getElementById('tech-step-2').style.display='none'; document.getElementById('tech-step-1').style.display='block';" class="sm-btn sm-btn-outline" style="height: 38px; font-size: 12px;">← Previous</button>
+                            <button type="submit" id="btn_tech_submit" class="sm-btn" style="background: #dc2626; height: 38px; font-size: 12px; padding: 0 20px;">Send المشكلة</button>
                         </div>
                     </form>
                 </div>
@@ -1897,7 +1897,7 @@ window.eessExecuteCopyRecordSubmit = function(e) {
 
                     <div style="display: flex; gap: 10px; justify-content: space-between;">
                         <button type="button" onclick="eessBackToCapsuleMenu()" class="sm-btn sm-btn-outline" style="height: 38px; font-size: 12px;">← العودة للقائمة</button>
-                        <button type="submit" id="btn_rating_submit" class="sm-btn" style="background: #16a34a; height: 38px; font-size: 12px; padding: 0 20px;">إرسال التقييم</button>
+                        <button type="submit" id="btn_rating_submit" class="sm-btn" style="background: #16a34a; height: 38px; font-size: 12px; padding: 0 20px;">Send التقييم</button>
                     </div>
                 </form>
             </div>
@@ -1974,7 +1974,7 @@ function eessSubmitCapsuleSuggestion(e) {
     e.preventDefault();
     const btn = document.getElementById('btn_sug_submit');
     btn.disabled = true;
-    btn.innerText = 'جاري الإرسال...';
+    btn.innerText = 'جاري الSend...';
 
     const formData = new FormData();
     formData.append('action', 'eess_submit_support_request');
@@ -1986,7 +1986,7 @@ function eessSubmitCapsuleSuggestion(e) {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'إرسال المقترح';
+        btn.innerText = 'Send المقترح';
         if (res.success) {
             eessShowCapsuleMsg(res.data.message, false);
             document.getElementById('eess_capsule_sug_form').reset();
@@ -2001,7 +2001,7 @@ function eessSubmitCapsuleTechnicalIssue(e) {
     e.preventDefault();
     const btn = document.getElementById('btn_tech_submit');
     btn.disabled = true;
-    btn.innerText = 'جاري الإرسال...';
+    btn.innerText = 'جاري الSend...';
 
     const formData = new FormData();
     formData.append('action', 'eess_submit_support_request');
@@ -2018,7 +2018,7 @@ function eessSubmitCapsuleTechnicalIssue(e) {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'إرسال المشكلة';
+        btn.innerText = 'Send المشكلة';
         if (res.success) {
             eessShowCapsuleMsg(res.data.message, false);
             document.getElementById('eess_capsule_tech_form').reset();
@@ -2032,7 +2032,7 @@ function eessSubmitCapsuleRating(e) {
     e.preventDefault();
     const btn = document.getElementById('btn_rating_submit');
     btn.disabled = true;
-    btn.innerText = 'جاري الإرسال...';
+    btn.innerText = 'جاري الSend...';
 
     const formData = new FormData();
     formData.append('action', 'eess_submit_support_request');
@@ -2044,7 +2044,7 @@ function eessSubmitCapsuleRating(e) {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'إرسال التقييم';
+        btn.innerText = 'Send التقييم';
         if (res.success) {
             eessShowCapsuleMsg(res.data.message, false);
             document.getElementById('eess_capsule_rating_form').reset();

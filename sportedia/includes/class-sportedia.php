@@ -18,6 +18,7 @@ class Sportedia {
     private function load_dependencies() {
         require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sm-loader.php';
         require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-roles.php';
+        require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-page-generator.php';
         require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-db.php';
         require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-settings.php';
         require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-logger.php';

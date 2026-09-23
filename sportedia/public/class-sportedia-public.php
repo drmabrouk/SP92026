@@ -16,7 +16,7 @@ class SM_Public {
     public function prevent_system_admin_deletion($user_id) {
         $u = get_userdata($user_id);
         if ($u && in_array('administrator', (array)$u->roles) && count(get_users(array('role' => 'administrator'))) <= 1) {
-            wp_die('عفواً، لا يمكن حذف حساب مدير النظام الأخير في الموقع.');
+            wp_die('عفواً، No يمكن Delete حساب مدير النظام الأخير في الموقع.');
         }
     }
 
@@ -119,7 +119,7 @@ class SM_Public {
             $action = isset($_REQUEST['action']) ? sanitize_key($_REQUEST['action']) : '';
             if (!empty($action) && (strpos($action, 'sm_') === 0 || strpos($action, 'eess_') === 0)) {
                 if (!SM_Settings::is_ajax_action_allowed($action)) {
-                    wp_send_json_error('عفواً، الدخول غير مصرح به لهذه العملية (Access Restricted).');
+                    wp_send_json_error('عفواً، الدخول Unauthorized به لهذه العملية (Access Restricted).');
                 }
             }
         }
@@ -250,14 +250,19 @@ class SM_Public {
         add_shortcode('card', array($this, 'shortcode_public_card_wizard'));
 
         // Sportedia Public & Player Portal Shortcodes
-        add_shortcode('sportedia_player', array($this, 'shortcode_public_card_wizard'));
+        add_shortcode('sportedia_dashboard', array($this, 'shortcode_admin_dashboard'));
         add_shortcode('sportedia_registration', array($this, 'shortcode_public_card_wizard'));
         add_shortcode('sportedia_renewal', array($this, 'shortcode_public_card_wizard'));
+        add_shortcode('sportedia_players', array($this, 'shortcode_public_card_wizard'));
+        add_shortcode('sportedia_player', array($this, 'shortcode_public_card_wizard'));
+        add_shortcode('sportedia_attendance', array($this, 'shortcode_class_attendance'));
         add_shortcode('sportedia_payments', array($this, 'shortcode_public_card_wizard'));
         add_shortcode('sportedia_invoice', array($this, 'shortcode_public_card_wizard'));
-        add_shortcode('sportedia_attendance', array($this, 'shortcode_public_card_wizard'));
+        add_shortcode('sportedia_reports', array($this, 'shortcode_admin_dashboard'));
+        add_shortcode('sportedia_coach_dashboard', array($this, 'shortcode_admin_dashboard'));
+        add_shortcode('sportedia_branch_dashboard', array($this, 'shortcode_admin_dashboard'));
+        add_shortcode('sportedia_player_portal', array($this, 'shortcode_public_card_wizard'));
         add_shortcode('sportedia_player_card', array($this, 'shortcode_public_card_wizard'));
-        add_shortcode('sportedia_dashboard', array($this, 'shortcode_admin_dashboard'));
     }
 
     public function eess_render_mobile_lesson_prep() {
@@ -311,7 +316,7 @@ class SM_Public {
                 <div style="width: 44px; height: 44px; background: #16a34a; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: white; margin-bottom: 10px;">
                     <span class="dashicons dashicons-yes" style="font-size: 24px; width: 24px; height: 24px;"></span>
                 </div>
-                <div id="m-floating-toast-msg" style="font-weight: 800; font-size: 13.5px; line-height: 1.5; color: #ffffff;">تم إرسال وحفظ المستند بنجاح</div>
+                <div id="m-floating-toast-msg" style="font-weight: 800; font-size: 13.5px; line-height: 1.5; color: #ffffff;">تم Send وSave المستند بنجاح</div>
             </div>
 
             <script>
@@ -319,7 +324,7 @@ class SM_Public {
                 const toast = document.getElementById('m-floating-toast');
                 const msgBox = document.getElementById('m-floating-toast-msg');
                 if (toast && msgBox) {
-                    msgBox.innerText = message || 'تم إرسال وحفظ المستند بنجاح';
+                    msgBox.innerText = message || 'تم Send وSave المستند بنجاح';
                     toast.style.display = 'block';
                     setTimeout(() => {
                         toast.style.display = 'none';
@@ -336,12 +341,12 @@ class SM_Public {
                 $role_labels = array(
                     'administrator' => 'مدير النظام المطور',
                     'sm_system_admin' => 'مدير النظام المطور',
-                    'sm_principal' => 'مدير الأكاديمية الرياضية',
+                    'sm_principal' => 'مدير Academy الرياضية',
                     'sm_supervisor' => 'مشرف تربوي',
                     'sm_coordinator' => 'منسق مادة',
                     'sm_teacher' => 'معلم',
                     'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-                    'sm_activities_supervisor' => 'مشرف أنشطة',
+                    'sm_activities_supervisor' => 'مشرف أActiveة',
                     'sm_clinic' => 'العيادة المدرسية',
                     'sm_hr' => 'الموارد البشرية (HR)'
                 );
@@ -361,13 +366,13 @@ class SM_Public {
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                    <button type="button" onclick="window.location.reload();" title="تحديث الصفحة" style="width: 34px !important; min-width: 34px !important; max-width: 34px !important; height: 34px !important; border-radius: 9999px !important; padding: 0 !important; background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255,255,255,0.25); display: inline-flex !important; align-items: center !important; justify-content: center !important; cursor: pointer; flex-shrink: 0; box-sizing: border-box;">
+                    <button type="button" onclick="window.location.reload();" title="Update الصفحة" style="width: 34px !important; min-width: 34px !important; max-width: 34px !important; height: 34px !important; border-radius: 9999px !important; padding: 0 !important; background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255,255,255,0.25); display: inline-flex !important; align-items: center !important; justify-content: center !important; cursor: pointer; flex-shrink: 0; box-sizing: border-box;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
                             <polyline points="23 4 23 10 17 10"></polyline>
                             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                         </svg>
                     </button>
-                    <a href="<?php echo wp_logout_url(home_url('/sm-login')); ?>" title="تسجيل الخروج" style="width: 34px !important; min-width: 34px !important; max-width: 34px !important; height: 34px !important; border-radius: 9999px !important; padding: 0 !important; background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255,255,255,0.25); display: inline-flex !important; align-items: center !important; justify-content: center !important; text-decoration: none; flex-shrink: 0; box-sizing: border-box;">
+                    <a href="<?php echo wp_logout_url(home_url('/sm-login')); ?>" title="Logout" style="width: 34px !important; min-width: 34px !important; max-width: 34px !important; height: 34px !important; border-radius: 9999px !important; padding: 0 !important; background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255,255,255,0.25); display: inline-flex !important; align-items: center !important; justify-content: center !important; text-decoration: none; flex-shrink: 0; box-sizing: border-box;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                             <polyline points="16 17 21 12 16 7"></polyline>
@@ -384,12 +389,12 @@ class SM_Public {
             $role_map = array(
                 'administrator' => 'مدير النظام المطور',
                 'sm_system_admin' => 'مدير النظام المطور',
-                'sm_principal' => 'مدير الأكاديمية الرياضية',
+                'sm_principal' => 'مدير Academy الرياضية',
                 'sm_supervisor' => 'مشرف تربوي',
                 'sm_coordinator' => 'منسق مادة',
                 'sm_teacher' => 'معلم',
                 'sm_discipline_supervisor' => 'مشرف سلوك',
-                'sm_activities_supervisor' => 'مشرف أنشطة'
+                'sm_activities_supervisor' => 'مشرف أActiveة'
             );
             $primary_role = reset($user_roles) ?: 'sm_teacher';
             $m_role_label = $role_map[$primary_role] ?? 'معلم';
@@ -436,7 +441,7 @@ class SM_Public {
                 </script>
                 <?php endif; ?>
 
-                <h2 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 800; color: #0f172a;">أهلاً بك أ. <?php echo esc_html($user->display_name); ?></h2>
+                <h2 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 800; color: #0f172a;">Welcome أ. <?php echo esc_html($user->display_name); ?></h2>
                 <!-- Dynamic Role & Subject Capsules (Values Only, Without Prefixes or Icons) -->
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
                     <span style="background: #f1f5f9; color: #1e293b; border: 1px solid #cbd5e1; font-size: 11px; font-weight: 800; padding: 3px 12px; border-radius: 9999px;">
@@ -478,7 +483,7 @@ class SM_Public {
                         <div style="width: 46px; height: 46px; background: #eff6ff; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #2563eb; margin-bottom: 10px;">
                             <span class="dashicons dashicons-search" style="font-size: 24px; width: 24px; height: 24px;"></span>
                         </div>
-                        <span style="font-weight: 800; font-size: 13.5px; color: #0f172a; margin-bottom: 4px;">استعلام عن لاعب</span>
+                        <span style="font-weight: 800; font-size: 13.5px; color: #0f172a; margin-bottom: 4px;">استعNoم عن Noعب</span>
                         <span style="font-size: 10.5px; color: #64748b;">اسم / كود / كاميرا البارکود</span>
                     </button>
 
@@ -499,7 +504,7 @@ class SM_Public {
                         </div>
                         <div style="text-align: right;">
                             <span style="font-weight: 800; font-size: 13.5px; color: #991b1b; display: block;">رصد مخالفة سلوكية</span>
-                            <span style="font-size: 10.5px; color: #64748b;">خاص بمدير الأكاديمية الرياضية والمشرفين الرياضيين الإداريين</span>
+                            <span style="font-size: 10.5px; color: #64748b;">خاص بمدير Academy الرياضية والمشرفين الرياضيين الإداريين</span>
                         </div>
                     </button>
                     <?php endif; ?>
@@ -508,25 +513,25 @@ class SM_Public {
                 <!-- BOX 1 CONTAINER: STUDENT INQUIRY (NAME / CODE / BARCODE CAMERA SCAN) -->
                 <div id="m-box-student-info" style="display: none; background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #cbd5e1; margin-bottom: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
-                        <h4 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #1e40af;">الاستعلام الشامل عن اللاعب</h4>
-                        <button type="button" onclick="eessCloseAdminMobileBox()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ إغلاق</button>
+                        <h4 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #1e40af;">اNoستعNoم الشامل عن الNoعب</h4>
+                        <button type="button" onclick="eessCloseAdminMobileBox()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ Close</button>
                     </div>
 
                     <!-- Method 1: Camera Barcode Scan -->
                     <div style="margin-bottom: 14px;">
                         <button type="button" onclick="eessStartMobileInfoCamera()" style="width: 100%; height: 42px; background: #1e40af; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 2px 6px rgba(30,64,175,0.2);">
                             <span class="dashicons dashicons-camera" style="font-size: 18px; width: 18px; height: 18px;"></span>
-                            <span>مسح بارکود كارت اللاعب بالكاميرا المباشرة</span>
+                            <span>مسح بارکود كارت الNoعب بالكاميرا المباشرة</span>
                         </button>
                         <div id="m-info-camera-reader" style="display: none; margin-top: 10px; border-radius: 12px; overflow: hidden; border: 2px solid #2563eb;"></div>
                     </div>
 
                     <!-- Methods 2 & 3: Search by Name or Code -->
                     <div style="margin-bottom: 14px; position: relative;">
-                        <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">ابحث باسم اللاعب، كود اللاعب، أو الهوية الوطنية:</label>
+                        <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">اSearch بPlayer Name، كود الNoعب، أو National ID:</label>
                         <div style="display: flex; gap: 8px;">
-                            <input type="text" id="m_info_search_input" onkeyup="eessMobileInquiryLiveSearch()" placeholder="أدخل اسم اللاعب، كود اللاعب، أو الهوية..." style="flex: 1; height: 42px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 12px; font-size: 12.5px; box-sizing: border-box;">
-                            <button type="button" onclick="eessSearchStudentInfoByCode()" style="height: 42px; padding: 0 18px; background: #0f172a; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer;">بحث / تأكيد</button>
+                            <input type="text" id="m_info_search_input" onkeyup="eessMobileInquiryLiveSearch()" placeholder="أدخل Player Name، كود الNoعب، أو الهوية..." style="flex: 1; height: 42px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 12px; font-size: 12.5px; box-sizing: border-box;">
+                            <button type="button" onclick="eessSearchStudentInfoByCode()" style="height: 42px; padding: 0 18px; background: #0f172a; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer;">Search / Confirm</button>
                         </div>
                         <div id="m_info_name_results" style="display: none; position: absolute; top: 100%; right: 0; left: 0; z-index: 9999; background: white; border: 1px solid #cbd5e1; border-radius: 10px; max-height: 200px; overflow-y: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.15);"></div>
                     </div>
@@ -539,27 +544,27 @@ class SM_Public {
                 <div id="m-box-barcode-attendance" style="display: none; background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #cbd5e1; margin-bottom: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
                         <h4 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #15803d;">رصد الحضور اليومي السريع بالبارکود</h4>
-                        <button type="button" onclick="eessCloseAdminMobileBox()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ إغلاق</button>
+                        <button type="button" onclick="eessCloseAdminMobileBox()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ Close</button>
                     </div>
 
                     <!-- Dynamic Grade & Section Assignment Selector -->
                     <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 14px;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                             <div>
-                                <label style="font-size: 11px; font-weight: 800; color: #334155; display: block; margin-bottom: 3px;">المجموعة التدريبية الدراسي:</label>
+                                <label style="font-size: 11px; font-weight: 800; color: #334155; display: block; margin-bottom: 3px;">Training Group الدراسي:</label>
                                 <select id="m_att_grade_select" onchange="eessUpdateMobileAttendanceSections()" style="width: 100%; height: 38px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; padding: 0 8px; font-family: 'Cairo';">
-                                    <option value="">-- اختر المجموعة التدريبية --</option>
+                                    <option value="">-- اختر Training Group --</option>
                                     <?php
                                     $m_db_sections = SM_Settings::get_sections_from_db();
                                     foreach ($m_db_sections as $m_g_num => $m_secs): ?>
-                                        <option value="المجموعة التدريبية <?php echo $m_g_num; ?>" data-gnum="<?php echo $m_g_num; ?>">المجموعة التدريبية <?php echo $m_g_num; ?></option>
+                                        <option value="Training Group <?php echo $m_g_num; ?>" data-gnum="<?php echo $m_g_num; ?>">Training Group <?php echo $m_g_num; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div>
-                                <label style="font-size: 11px; font-weight: 800; color: #334155; display: block; margin-bottom: 3px;">المجموعة التدريبية / المجموعة التدريبية:</label>
+                                <label style="font-size: 11px; font-weight: 800; color: #334155; display: block; margin-bottom: 3px;">Training Group / Training Group:</label>
                                 <select id="m_att_section_select" style="width: 100%; height: 38px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; padding: 0 8px; font-family: 'Cairo';" disabled>
-                                    <option value="">-- اختر المجموعة التدريبية --</option>
+                                    <option value="">-- اختر Training Group --</option>
                                 </select>
                             </div>
                         </div>
@@ -576,7 +581,7 @@ class SM_Public {
 
                     <!-- Rapid Scan Session Summary Pill -->
                     <div id="m-att-scan-summary" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; border-radius: 10px; padding: 8px 12px; font-size: 11.5px; font-weight: 800; text-align: center; margin-bottom: 10px;">
-                        تم رصد الحضور لـ <span id="m_att_scan_count">0</span> لاعب في هذه الجلسة الحالية
+                        تم رصد الحضور لـ <span id="m_att_scan_count">0</span> Noعب في هذه الجلسة الحالية
                     </div>
                 </div>
 
@@ -584,19 +589,19 @@ class SM_Public {
                 <div id="m-box-record-violation" style="display: none; background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #cbd5e1; margin-bottom: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
                         <h4 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #991b1b;">رصد وتسجيل مخالفة سلوكية جديدة</h4>
-                        <button type="button" onclick="eessCloseAdminMobileBox()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ إغلاق</button>
+                        <button type="button" onclick="eessCloseAdminMobileBox()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ Close</button>
                     </div>
 
                     <!-- Unified Same-Row Search & Camera Barcode Scanner (Upload Barcode Functionality Completely Removed) -->
                     <div style="margin-bottom: 14px; position: relative;">
-                        <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">ابحث عن لاعب أو امسح البارکود بالكاميرا:</label>
+                        <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">اSearch عن Noعب أو امسح البارکود بالكاميرا:</label>
                         <div style="display: flex; gap: 8px; align-items: center;">
-                            <input type="text" id="m_viol_unified_input" onkeyup="eessMobileSearchStudentUnified()" placeholder="اسم اللاعب، كود اللاعب، أو الهوية..." style="flex: 1; height: 42px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 12px; font-size: 12.5px; box-sizing: border-box;">
-                            <button type="button" onclick="eessStartMobileViolCamera()" style="height: 42px; padding: 0 14px; background: #dc2626; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0;" title="مسح بارکود بطاقة اللاعب بالكاميرا">
+                            <input type="text" id="m_viol_unified_input" onkeyup="eessMobileSearchStudentUnified()" placeholder="Player Name، كود الNoعب، أو الهوية..." style="flex: 1; height: 42px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 12px; font-size: 12.5px; box-sizing: border-box;">
+                            <button type="button" onclick="eessStartMobileViolCamera()" style="height: 42px; padding: 0 14px; background: #dc2626; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0;" title="مسح بارکود بطاقة الNoعب بالكاميرا">
                                 <span class="dashicons dashicons-camera" style="font-size: 18px; width: 18px; height: 18px; margin: 0;"></span>
                                 <span>مسح بارکود</span>
                             </button>
-                            <button type="button" onclick="eessMobileConfirmSearchStudentByCode()" style="height: 42px; padding: 0 14px; background: #0f172a; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer; flex-shrink: 0;">تأكيد</button>
+                            <button type="button" onclick="eessMobileConfirmSearchStudentByCode()" style="height: 42px; padding: 0 14px; background: #0f172a; color: white !important; border: none; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer; flex-shrink: 0;">Confirm</button>
                         </div>
                         <div id="m-viol-camera-reader" style="display: none; margin-top: 10px; border-radius: 12px; overflow: hidden; border: 2px solid #dc2626;"></div>
                         <div id="m_viol_name_results" style="display: none; position: absolute; top: 100%; right: 0; left: 0; z-index: 9999; background: white; border: 1px solid #cbd5e1; border-radius: 10px; max-height: 180px; overflow-y: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.15);"></div>
@@ -605,7 +610,7 @@ class SM_Public {
                     <!-- Selected Students Capsules Container (Multi-Student Continuous Barcode Accumulation) -->
                     <div id="m-selected-student-box" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 12px; margin-bottom: 14px;">
                         <div style="font-size: 11.5px; font-weight: 800; color: #15803d; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-                            <span>👥 اللاعبين المحددون لرصد المخالفة:</span>
+                            <span>👥 الNoعبين المحددون لرصد المخالفة:</span>
                             <span id="m_sel_stu_count" style="background: #15803d; color: white; padding: 2px 8px; border-radius: 9999px; font-size: 10.5px;">0</span>
                         </div>
                         <div id="m_sel_stu_capsules_list" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
@@ -625,19 +630,19 @@ class SM_Public {
                             <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">درجة المخالفة <span style="color:#ef4444;">*</span></label>
                             <select name="degree" required style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; box-sizing: border-box;">
                                 <option value="1">الدرجة الأولى (مخالفة بسيطة)</option>
-                                <option value="2">الدرجة الثانية (مخالفة متوسطة)</option>
+                                <option value="2">الدرجة الثانية (مخالفة Intermediateة)</option>
                                 <option value="3">الدرجة الثالثة (مخالفة جسيمة)</option>
                                 <option value="4">الدرجة الرابعة (شديدة الخطورة)</option>
                             </select>
                         </div>
 
                         <div style="margin-bottom: 12px;">
-                            <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">تفاصيل وملاحظات المخالفة</label>
+                            <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">تفاصيل وNotes المخالفة</label>
                             <textarea name="details" rows="3" placeholder="أدخل تفاصيل ومجريات المخالفة السلوكية..." style="width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; padding: 8px 10px; font-size: 12px; box-sizing: border-box; resize: vertical;"></textarea>
                         </div>
 
                         <button type="submit" id="m_viol_submit_btn" style="width: 100%; height: 44px; background: #dc2626; color: white; border: none; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer;">
-                            حفظ ورصد المخالفة السلوكية
+                            Save ورصد المخالفة السلوكية
                         </button>
                     </form>
                 </div>
@@ -659,7 +664,7 @@ class SM_Public {
                         $scoped_teachers = array();
                         foreach ($all_school_teachers as $st) {
                             $spec = get_user_meta($st->ID, 'sm_specialization', true) ?: (get_user_meta($st->ID, 'specialization', true) ?: get_user_meta($st->ID, 'eess_department', true));
-                            if (strpos($spec, 'بدنية') !== false || strpos($spec, 'صحية') !== false || strpos($spec, 'أنشطة') !== false) {
+                            if (strpos($spec, 'بدنية') !== false || strpos($spec, 'صحية') !== false || strpos($spec, 'أActiveة') !== false) {
                                 $scoped_teachers[] = $st;
                             }
                         }
@@ -778,7 +783,7 @@ class SM_Public {
                 var opt = gradeSelect.options[gradeSelect.selectedIndex];
                 var gNum = opt ? opt.getAttribute('data-gnum') : null;
 
-                sectionSelect.innerHTML = '<option value="">-- اختر المجموعة التدريبية --</option>';
+                sectionSelect.innerHTML = '<option value="">-- اختر Training Group --</option>';
                 if (!gNum) {
                     sectionSelect.disabled = true;
                     return;
@@ -888,7 +893,7 @@ class SM_Public {
                 .then(r => r.json())
                 .then(res => {
                     if (res.success) {
-                        var stuName = (res.data && res.data.student_name) ? res.data.student_name : 'اللاعب';
+                        var stuName = (res.data && res.data.student_name) ? res.data.student_name : 'الNoعب';
                         if (res.data && res.data.already_recorded) {
                             eessShowMobileToast('⚠️ الحضور مسجل بالفعل لـ ' + stuName, 900);
                         } else {
@@ -905,7 +910,7 @@ class SM_Public {
                     }
                 })
                 .catch(function() {
-                    eessShowMobileToast('❌ خطأ في الاتصال بالخادم', 900);
+                    eessShowMobileToast('❌ خطأ في اNoتصال بالخادم', 900);
                 });
             }
 
@@ -932,13 +937,13 @@ class SM_Public {
                                 var codeVal = s.student_code || s.national_id || s.id;
                                 html += '<div onclick="eessSelectMobileInquiryStudent(\'' + codeVal + '\', \'' + s.name.replace(/'/g, "\\'") + '\')" style="padding: 10px 14px; border-bottom: 1px solid #f1f5f9; cursor: pointer; text-align: right;">' +
                                         '<div style="font-weight: 800; font-size: 13px; color: #0f172a;">' + s.name + '</div>' +
-                                        '<div style="font-size: 11px; color: #64748b;">المجموعة التدريبية: ' + (s.class_name || 'غير محدد') + ' (' + (s.section || 'أ') + ') · الكود: ' + codeVal + '</div>' +
+                                        '<div style="font-size: 11px; color: #64748b;">Training Group: ' + (s.class_name || 'غير محدد') + ' (' + (s.section || 'أ') + ') · الكود: ' + codeVal + '</div>' +
                                         '</div>';
                             });
                             resultsBox.innerHTML = html;
                             resultsBox.style.display = 'block';
                         } else {
-                            resultsBox.innerHTML = '<div style="padding: 10px; font-size: 11.5px; color: #94a3b8; text-align: center;">لم يتم العثور على لاعب مطابق.</div>';
+                            resultsBox.innerHTML = '<div style="padding: 10px; font-size: 11.5px; color: #94a3b8; text-align: center;">لم يتم العثور على Noعب مطابق.</div>';
                             resultsBox.style.display = 'block';
                         }
                     });
@@ -957,7 +962,7 @@ class SM_Public {
 
                 var resBox = document.getElementById('m-student-info-result');
                 resBox.style.display = 'block';
-                resBox.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b; font-weight:700;">جاري جلب السجل والملف الشامل لللاعب... ⏳</div>';
+                resBox.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b; font-weight:700;">جاري جلب السجل والملف الشامل للNoعب... ⏳</div>';
 
                 jQuery.post('<?php echo $ajax_url; ?>', {
                     action: 'sm_get_student',
@@ -984,18 +989,18 @@ class SM_Public {
                                                     '</div>';
                                 });
                             } else {
-                                timelineHtml = '<div style="font-size: 11.5px; color: #94a3b8; text-align: center; padding: 10px;">لا توجد أحداث أو زيارات مسجلة في الخط الزمني لهذا العام.</div>';
+                                timelineHtml = '<div style="font-size: 11.5px; color: #94a3b8; text-align: center; padding: 10px;">No توجد أحداث أو زيارات مسجلة في الخط الزمني لهذا العام.</div>';
                             }
 
                             // Medical Alerts Box
                             var healthHtml = '';
                             if (st.health_status || st.allergies || st.special_needs) {
                                 healthHtml = '<div style="background: #fef2f2; border: 1px solid #fecdd3; border-radius: 12px; padding: 12px; margin-bottom: 14px;">' +
-                                             '<div style="font-weight: 800; font-size: 12.5px; color: #991b1b; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">🏥 التنبيهات الصحية والسلامة المعتمدة</div>' +
+                                             '<div style="font-weight: 800; font-size: 12.5px; color: #991b1b; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">🏥 التنبيهات الصحية والسNoمة المعتمدة</div>' +
                                              '<div style="font-size: 11.5px; color: #7f1d1d; line-height: 1.5;">' +
-                                             '<strong>الحالة الصحية:</strong> ' + (st.health_status || 'سليم') + '<br>' +
-                                             '<strong>الحساسية والتحذيرات:</strong> ' + (st.allergies || 'لا توجد الحساسية مسجلة') + '<br>' +
-                                             '<strong>أصحاب الهمم:</strong> ' + (st.special_needs ? 'نعم' : 'لا') +
+                                             '<strong>Status الصحية:</strong> ' + (st.health_status || 'سليم') + '<br>' +
+                                             '<strong>Allergies والتحذيرات:</strong> ' + (st.allergies || 'No توجد Allergies مسجلة') + '<br>' +
+                                             '<strong>أصحاب الهمم:</strong> ' + (st.special_needs ? 'Yes' : 'No') +
                                              '</div></div>';
                             }
 
@@ -1034,20 +1039,20 @@ class SM_Public {
                                                '<!-- Basic & Guardian Info Card -->' +
                                                '<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-bottom: 14px; font-size: 12px; color: #334155; line-height: 1.6;">' +
                                                '<div style="font-weight: 800; font-size: 12.5px; color: #0f172a; margin-bottom: 6px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">📋 البيانات العامة والتواصل</div>' +
-                                               '<strong>المنظمة الرياضية / الأكاديمية الرياضية:</strong> ' + (st.institution_name || 'الأكاديمية الرياضية الرئيسية') + '<br>' +
-                                               '<strong>ولي الأمر:</strong> ' + (st.guardian_name || 'غير مدخل') + ' (' + (st.guardian_relationship || 'أب') + ')<br>' +
+                                               '<strong>Organization الرياضية / Academy الرياضية:</strong> ' + (st.institution_name || 'Academy الرياضية Home') + '<br>' +
+                                               '<strong>ولي Motherر:</strong> ' + (st.guardian_name || 'غير مدخل') + ' (' + (st.guardian_relationship || 'أب') + ')<br>' +
                                                '<strong>رقم التواصل:</strong> ' + (st.guardian_phone || 'غير مدخل') + whatsappBtn + '<br>' +
-                                               '<strong>البريد الإلكتروني:</strong> ' + (st.parent_email || 'غير مدخل') +
+                                               '<strong>Email Address:</strong> ' + (st.parent_email || 'غير مدخل') +
                                                '</div>' +
 
                                                '<!-- Chronological Activity Timeline -->' +
                                                '<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-size: 12px; color: #334155;">' +
-                                               '<div style="font-weight: 800; font-size: 12.5px; color: #0f172a; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">📈 الخط الزمني للأنشطة والأحداث (Academic Year Timeline)</div>' +
+                                               '<div style="font-weight: 800; font-size: 12.5px; color: #0f172a; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px;">📈 الخط الزمني للأActiveة والأحداث (Academic Year Timeline)</div>' +
                                                timelineHtml +
                                                '</div>';
                         });
                     } else {
-                        resBox.innerHTML = '<div style="color:#dc2626; font-weight:800; text-align:center; padding: 15px;">لم يتم العثور على لاعب مطابق للبحث.</div>';
+                        resBox.innerHTML = '<div style="color:#dc2626; font-weight:800; text-align:center; padding: 15px;">لم يتم العثور على Noعب مطابق للSearch.</div>';
                     }
                 });
             }
@@ -1152,7 +1157,7 @@ class SM_Public {
                     html5QrCode.scanFile(file, true).then(function(decodedText) {
                         const code = decodedText.trim();
                         if (scannedMobileStudentCodes.includes(code)) {
-                            eessShowMobileToast('تم رصد المخالفة لهذا اللاعب بالفعل', 1000);
+                            eessShowMobileToast('تم رصد المخالفة لهذا الNoعب بالفعل', 1000);
                             return;
                         }
                         eessResolveMobileViolStudent(code);
@@ -1206,7 +1211,7 @@ class SM_Public {
                             lastViolScannedCode = code;
 
                             if (scannedMobileStudentCodes.includes(code)) {
-                                eessShowMobileToast('تم رصد المخالفة لهذا اللاعب بالفعل', 1000);
+                                eessShowMobileToast('تم رصد المخالفة لهذا الNoعب بالفعل', 1000);
                                 return;
                             }
 
@@ -1273,7 +1278,7 @@ class SM_Public {
 
             function eessResolveMobileViolStudent(code) {
                 if (scannedMobileStudentCodes.includes(code)) {
-                    eessShowMobileToast('تم رصد المخالفة لهذا اللاعب بالفعل', 1000);
+                    eessShowMobileToast('تم رصد المخالفة لهذا الNoعب بالفعل', 1000);
                     return;
                 }
                 jQuery.post('<?php echo $ajax_url; ?>', {
@@ -1283,7 +1288,7 @@ class SM_Public {
                     if (res.success && res.data) {
                         eessSelectMobileViolStudent(res.data.id, res.data.name, res.data.class_name, code);
                     } else {
-                        alert('عذراً، لم يتم العثور على لاعب مطابق للكود: ' + code);
+                        alert('عذراً، لم يتم العثور على Noعب مطابق للكود: ' + code);
                     }
                 });
             }
@@ -1293,7 +1298,7 @@ class SM_Public {
             function eessSelectMobileViolStudent(id, name, className, codeVal) {
                 var exists = selectedMobileViolStudents.some(function(s) { return String(s.id) === String(id); });
                 if (exists) {
-                    eessShowMobileToast('اللاعب مضاف بالفعل للقائمة', 1000);
+                    eessShowMobileToast('الNoعب مضاف بالفعل للقائمة', 1000);
                     return;
                 }
 
@@ -1347,22 +1352,22 @@ class SM_Public {
                 var btn = document.getElementById('m_viol_submit_btn');
                 mViolSubmitting = true;
                 btn.disabled = true;
-                btn.innerText = 'جاري حفظ ورصد المخالفة... ⏳';
+                btn.innerText = 'جاري Save ورصد المخالفة... ⏳';
 
                 var formData = jQuery('#eess_mobile_violation_form').serialize() + '&action=sm_save_record_ajax';
 
                 jQuery.post('<?php echo $ajax_url; ?>', formData, function(res) {
                     mViolSubmitting = false;
                     btn.disabled = false;
-                    btn.innerText = 'حفظ ورصد المخالفة السلوكية';
+                    btn.innerText = 'Save ورصد المخالفة السلوكية';
 
                     if (res.success) {
-                        eessShowMobileToast('✓ تم حفظ ورصد المخالفة السلوكية بنجاح!');
+                        eessShowMobileToast('✓ تم Save ورصد المخالفة السلوكية بنجاح!');
                         document.getElementById('eess_mobile_violation_form').reset();
                         document.getElementById('m-selected-student-box').style.display = 'none';
                         document.getElementById('eess_mobile_violation_form').style.display = 'none';
                     } else {
-                        alert('حدث خطأ أثناء حفظ المخالفة: ' + (res.data || 'فشل حفظ السجل'));
+                        alert('An error occurred أثناء Save المخالفة: ' + (res.data || 'فشل Save السجل'));
                     }
                 });
             }
@@ -1379,32 +1384,32 @@ class SM_Public {
                         تقديم تقارير أعضاء هيئة التدريب والكادر (<?php echo count($mobile_submissions); ?>)
                     </button>
                     <button type="button" onclick="eessSwitchMobileSupTab('plans', this)" class="m-sup-tab-btn" style="flex: 1; height: 38px; border-radius: 9999px; border: 1px solid #cbd5e1; background: white; color: #475569; font-weight: 800; font-size: 12px; cursor: pointer;">
-                        الخطط المجموعة التدريبيةية (<?php echo count($mobile_term_plans); ?>)
+                        الخطط Training Groupية (<?php echo count($mobile_term_plans); ?>)
                     </button>
                 </div>
 
                 <!-- Search Input Bar -->
                 <div style="margin-bottom: 16px;">
-                    <input type="text" id="m_sup_search_input" onkeyup="eessFilterMobileSupCards()" placeholder="ابحث باسم المدرب، النشاط الرياضي، أو عنوان الدرس..." style="width: 100%; height: 40px; border-radius: 9999px; border: 1px solid #cbd5e1; padding: 0 16px; font-size: 12.5px; box-sizing: border-box; background: #ffffff;">
+                    <input type="text" id="m_sup_search_input" onkeyup="eessFilterMobileSupCards()" placeholder="اSearch باسم المدرب، Sport Activity، أو عنوان الدرس..." style="width: 100%; height: 40px; border-radius: 9999px; border: 1px solid #cbd5e1; padding: 0 16px; font-size: 12.5px; box-sizing: border-box; background: #ffffff;">
                 </div>
 
                 <!-- Lesson Preps Container -->
                 <div id="m-sup-panel-preps" style="display: block;">
                     <?php if (empty($mobile_submissions)): ?>
-                        <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; color: #94a3b8; font-weight: 700; font-size: 13px;">لا توجد تحضيرات دروس مرفوعة للمراجعة حالياً.</div>
+                        <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; color: #94a3b8; font-weight: 700; font-size: 13px;">No توجد تحضيرات دروس مرفوعة للمراجعة حالياً.</div>
                     <?php else: ?>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <?php foreach ($mobile_submissions as $ms):
                                 $s_bg = '#f1f5f9'; $s_col = '#64748b'; $s_lbl = 'مسودة';
                                 if ($ms->status === 'submitted') { $s_bg = '#e0f2fe'; $s_col = '#0369a1'; $s_lbl = 'مرفوعة للمراجعة'; }
                                 elseif ($ms->status === 'approved') { $s_bg = '#dcfce7'; $s_col = '#15803d'; $s_lbl = 'معتمدة رسمياً'; }
-                                elseif ($ms->status === 'revision_required' || $ms->status === 'returned') { $s_bg = '#fee2e2'; $s_col = '#b91c1c'; $s_lbl = 'طلب تعديل'; }
+                                elseif ($ms->status === 'revision_required' || $ms->status === 'returned') { $s_bg = '#fee2e2'; $s_col = '#b91c1c'; $s_lbl = 'طلب Edit'; }
                             ?>
                             <div class="m-sup-card" data-search="<?php echo esc_attr(strtolower(($ms->teacher_name ?? '') . ' ' . $ms->subject . ' ' . $ms->title)); ?>" style="background: white; border-radius: 14px; border: 1px solid #e2e8f0; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div>
                                         <div style="font-weight: 800; font-size: 14px; color: #0f172a;"><?php echo esc_html($ms->teacher_name ?: 'معلم غير محدد'); ?></div>
-                                        <div style="font-size: 11px; color: #64748b; margin-top: 2px;"><span class="dashicons dashicons-book" style="font-size: 14px; width: 14px; height: 14px; color: #881337; vertical-align: middle;"></span> <?php echo esc_html($ms->subject); ?> | المجموعة التدريبية: <?php echo esc_html($ms->grade_level); ?></div>
+                                        <div style="font-size: 11px; color: #64748b; margin-top: 2px;"><span class="dashicons dashicons-book" style="font-size: 14px; width: 14px; height: 14px; color: #881337; vertical-align: middle;"></span> <?php echo esc_html($ms->subject); ?> | Training Group: <?php echo esc_html($ms->grade_level); ?></div>
                                     </div>
                                     <span style="font-size: 10.5px; padding: 3px 10px; border-radius: 9999px; background: <?php echo $s_bg; ?>; color: <?php echo $s_col; ?>; font-weight: 800;"><?php echo $s_lbl; ?></span>
                                 </div>
@@ -1413,7 +1418,7 @@ class SM_Public {
                                 </div>
                                 <div style="display: flex; gap: 8px; justify-content: flex-end;">
                                     <button type="button" onclick="eessMobileApprovePrep(<?php echo $ms->id; ?>)" style="height: 32px; padding: 0 14px; border-radius: 9999px; background: #16a34a; color: white; border: none; font-weight: 800; font-size: 11.5px; cursor: pointer;">اعتماد</button>
-                                    <button type="button" onclick="eessMobileReturnPrep(<?php echo $ms->id; ?>)" style="height: 32px; padding: 0 14px; border-radius: 9999px; background: #dc2626; color: white; border: none; font-weight: 800; font-size: 11.5px; cursor: pointer;">إعادة للتعديل</button>
+                                    <button type="button" onclick="eessMobileReturnPrep(<?php echo $ms->id; ?>)" style="height: 32px; padding: 0 14px; border-radius: 9999px; background: #dc2626; color: white; border: none; font-weight: 800; font-size: 11.5px; cursor: pointer;">إعادة للEdit</button>
                                 </div>
                             </div>
                             <?php endforeach; ?>
@@ -1424,26 +1429,26 @@ class SM_Public {
                 <!-- Term Plans Container -->
                 <div id="m-sup-panel-plans" style="display: none;">
                     <?php if (empty($mobile_term_plans)): ?>
-                        <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; color: #94a3b8; font-weight: 700; font-size: 13px;">لا توجد خطط فصلية مرفوعة للمراجعة حالياً.</div>
+                        <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; color: #94a3b8; font-weight: 700; font-size: 13px;">No توجد خطط فصلية مرفوعة للمراجعة حالياً.</div>
                     <?php else: ?>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <?php foreach ($mobile_term_plans as $mtp):
                                 $s_bg = '#f1f5f9'; $s_col = '#64748b'; $s_lbl = 'مسودة';
                                 if ($mtp->status === 'submitted') { $s_bg = '#e0f2fe'; $s_col = '#0369a1'; $s_lbl = 'مرفوعة للمراجعة'; }
                                 elseif ($mtp->status === 'approved') { $s_bg = '#dcfce7'; $s_col = '#15803d'; $s_lbl = 'معتمدة رسمياً'; }
-                                elseif ($mtp->status === 'returned' || $mtp->status === 'rejected') { $s_bg = '#fee2e2'; $s_col = '#b91c1c'; $s_lbl = 'طلب تعديل'; }
+                                elseif ($mtp->status === 'returned' || $mtp->status === 'rejected') { $s_bg = '#fee2e2'; $s_col = '#b91c1c'; $s_lbl = 'طلب Edit'; }
                             ?>
                             <div class="m-sup-card" data-search="<?php echo esc_attr(strtolower(($mtp->teacher_name ?? '') . ' ' . $mtp->subject . ' ' . $mtp->grade)); ?>" style="background: white; border-radius: 14px; border: 1px solid #e2e8f0; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                                     <div>
                                         <div style="font-weight: 800; font-size: 14px; color: #0f172a;"><?php echo esc_html($mtp->teacher_name ?: 'معلم غير محدد'); ?></div>
-                                        <div style="font-size: 11px; color: #64748b; margin-top: 2px;">📚 <?php echo esc_html($mtp->subject); ?> | المجموعة التدريبية: <?php echo esc_html($mtp->grade); ?></div>
+                                        <div style="font-size: 11px; color: #64748b; margin-top: 2px;">📚 <?php echo esc_html($mtp->subject); ?> | Training Group: <?php echo esc_html($mtp->grade); ?></div>
                                     </div>
                                     <span style="font-size: 10.5px; padding: 3px 10px; border-radius: 9999px; background: <?php echo $s_bg; ?>; color: <?php echo $s_col; ?>; font-weight: 800;"><?php echo $s_lbl; ?></span>
                                 </div>
                                 <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px;">
                                     <button type="button" onclick="eessDirectReviewPlan(<?php echo $mtp->id; ?>, 'approved')" style="height: 32px; padding: 0 14px; border-radius: 9999px; background: #16a34a; color: white; border: none; font-weight: 800; font-size: 11.5px; cursor: pointer;">اعتماد الخطة</button>
-                                    <button type="button" onclick="eessDirectReviewPlan(<?php echo $mtp->id; ?>, 'returned')" style="height: 32px; padding: 0 14px; border-radius: 9999px; background: #dc2626; color: white; border: none; font-weight: 800; font-size: 11.5px; cursor: pointer;">إعادة للتعديل</button>
+                                    <button type="button" onclick="eessDirectReviewPlan(<?php echo $mtp->id; ?>, 'returned')" style="height: 32px; padding: 0 14px; border-radius: 9999px; background: #dc2626; color: white; border: none; font-weight: 800; font-size: 11.5px; cursor: pointer;">إعادة للEdit</button>
                                 </div>
                             </div>
                             <?php endforeach; ?>
@@ -1495,7 +1500,7 @@ class SM_Public {
                     review_status: 'returned',
                     sm_nonce: '<?php echo wp_create_nonce("sm_term_plan_action"); ?>'
                 }, function(res) {
-                    if (typeof smShowNotification === 'function') smShowNotification('تمت إعادة التحضير للمعلم للتعديل');
+                    if (typeof smShowNotification === 'function') smShowNotification('تمت إعادة التحضير للمعلم للEdit');
                     setTimeout(() => location.reload(), 600);
                 });
             }
@@ -1524,15 +1529,15 @@ class SM_Public {
                     <div style="margin-bottom: 10px; position: relative;">
                         <div class="eess-float-container" style="position: relative; width: 100%;">
                             <input type="text" id="m_emp_id_input" class="eess-float-input" placeholder=" " style="width: 100%; height: 42px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 0 12px; font-size: 13px; font-weight: 700; color: #0f172a; box-sizing: border-box; outline: none; transition: all 0.2s ease;">
-                            <label for="m_emp_id_input" class="eess-float-label">الهوية الوطنية / الرقم الوظيفي / الكود *</label>
+                            <label for="m_emp_id_input" class="eess-float-label">National ID / الرقم الوظيفي / الكود *</label>
                         </div>
                     </div>
 
                     <div style="margin-bottom: 10px; position: relative;">
                         <div class="eess-float-container eess-password-wrapper" style="position: relative; width: 100%;">
                             <input type="password" id="m_password_input" class="eess-float-input" placeholder=" " style="width: 100%; height: 42px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 0 12px 0 38px; font-size: 13.5px; font-weight: 700; color: #0f172a; box-sizing: border-box; outline: none; transition: all 0.2s ease;">
-                            <label for="m_password_input" class="eess-float-label">كلمة المرور *</label>
-                            <button type="button" onclick="const p = document.getElementById('m_password_input'); p.type = p.type === 'password' ? 'text' : 'password';" title="إظهار / إخفاء كلمة المرور" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10;">
+                            <label for="m_password_input" class="eess-float-label">Password *</label>
+                            <button type="button" onclick="const p = document.getElementById('m_password_input'); p.type = p.type === 'password' ? 'text' : 'password';" title="إظهار / إخفاء Password" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #64748b; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 10;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                     <circle cx="12" cy="12" r="3"></circle>
@@ -1544,7 +1549,7 @@ class SM_Public {
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 11.5px; color: #475569;">
                         <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
                             <input type="checkbox" id="m_remember_me" checked style="width: 15px; height: 15px; border-radius: 4px;">
-                            <span>تذكرني وإبقاء الجلسة نشطة</span>
+                            <span>تMaleني وإبقاء الجلسة Activeة</span>
                         </label>
                     </div>
 
@@ -1552,7 +1557,7 @@ class SM_Public {
 
                     <div style="display: flex; justify-content: flex-start;">
                         <button type="button" onclick="eessVerifyMobileEmp()" id="m_btn_verify" style="height: 42px; padding: 0 26px; background: #000000; color: #ffffff !important; border: none; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.2s ease;">
-                            <span>تسجيل الدخول</span>
+                            <span>Login</span>
                         </button>
                     </div>
                 </div>
@@ -1561,13 +1566,13 @@ class SM_Public {
                 <div style="background: #fef2f2; border: 1px solid #fecdd3; border-radius: 10px; padding: 8px 12px; width: 100%; max-width: 380px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
                     <span class="dashicons dashicons-desktop" style="color: #991b1b; font-size: 16px; width: 16px; height: 16px; flex-shrink: 0;"></span>
                     <div style="font-size: 11px; color: #991b1b; line-height: 1.4; font-weight: 700;">
-                        لإدارة حسابك الكامل واستعراض التحضيرات السابقة والتقارير، يُرجى استخدام جهاز الكمبيوتر.
+                        لإدارة حسابك الكامل واستعراض التحضيرات Previousة والتقارير، يُرجى استخدام جهاز الكمبيوتر.
                     </div>
                 </div>
 
                 <!-- Footer Branding with 2016 All Rights Reserved Attribution -->
                 <div style="font-size: 10.5px; color: #94a3b8; text-align: center; margin-bottom: 4px; font-weight: 700; letter-spacing: 0.3px; flex-shrink: 0; font-family: monospace;">
-                    © 2016 EESS Educational Systems Solutions. جميع الحقوق محفوظة.
+                    © 2016 EESS Educational Systems Solutions. All Rights Reserved.
                 </div>
 
             </div>
@@ -1585,7 +1590,7 @@ class SM_Public {
                 formData.append('profile_photo', file);
                 formData.append('nonce', '<?php echo wp_create_nonce("sm_user_action"); ?>');
 
-                eessShowMobileToast('جاري رفع وتحديث الصورة الشخصية... ⏳');
+                eessShowMobileToast('جاري رفع وUpdate الصورة الشخصية... ⏳');
 
                 jQuery.ajax({
                     url: '<?php echo esc_url(admin_url("admin-ajax.php")); ?>',
@@ -1597,15 +1602,15 @@ class SM_Public {
                         if (res.success && res.data && res.data.photo_url) {
                             var cacheBusted = res.data.photo_url + '?v=' + new Date().getTime();
                             document.getElementById('m_header_avatar_img').src = cacheBusted;
-                            eessShowMobileToast('✓ تم تحديث الصورة الشخصية بنجاح!');
+                            eessShowMobileToast('✓ تم Update الصورة الشخصية بنجاح!');
                             var cap = document.getElementById('m_photo_guidance_capsule');
                             if (cap) cap.style.display = 'none';
                         } else {
-                            alert('فشل رفع الصورة: ' + (res.data || 'حدث خطأ غير معروف'));
+                            alert('فشل رفع الصورة: ' + (res.data || 'An error occurred غير معروف'));
                         }
                     },
                     error: function() {
-                        alert('حدث خطأ في الاتصال بالخادم أثناء رفع الصورة.');
+                        alert('An error occurred في اNoتصال بالخادم أثناء رفع الصورة.');
                     }
                 });
             }
@@ -1628,7 +1633,7 @@ class SM_Public {
                             <span class="dashicons dashicons-calendar-alt" style="font-size: 22px; width: 22px; height: 22px;"></span>
                         </div>
                         <span style="font-weight: 800; font-size: 13px; color: #0f172a; margin-bottom: 4px;">تقديم خطة فصلية</span>
-                        <span style="font-size: 10.5px; color: #64748b;">رفع خطة المجموعة التدريبية الدراسي</span>
+                        <span style="font-size: 10.5px; color: #64748b;">رفع خطة Training Group الدراسي</span>
                     </button>
                 </div>
 
@@ -1651,7 +1656,7 @@ class SM_Public {
                             <div style="font-size: 10.5px; color: #64748b; margin-top: 3px;">تنبيه: يرجى رفع ملف تحضير الدرس بصيغة PDF المعتمدة فقط.</div>
                         </div>
                         <div id="m_prep_file_status" style="display: none; margin-top: 10px; margin-bottom: 12px; padding: 12px; border-radius: 10px; font-size: 12px;"></div>
-                        <button type="submit" id="m_prep_submit_btn" disabled class="sm-btn" style="width: 100%; height: 42px; background: #0f172a; color: white !important; border-radius: 10px; font-weight: 800; font-size: 13px; border: none; cursor: not-allowed; opacity: 0.5;">رفع وإرسال التحضير</button>
+                        <button type="submit" id="m_prep_submit_btn" disabled class="sm-btn" style="width: 100%; height: 42px; background: #0f172a; color: white !important; border-radius: 10px; font-weight: 800; font-size: 13px; border: none; cursor: not-allowed; opacity: 0.5;">رفع وSend التحضير</button>
                     </form>
                 </div>
 
@@ -1667,33 +1672,33 @@ class SM_Public {
                         <input type="hidden" name="status" value="submitted">
                         <?php wp_nonce_field('sm_term_plan_action', 'sm_nonce'); ?>
                         <div style="margin-bottom: 10px;">
-                            <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">عنوان الخطة / النشاط الرياضي <span style="color:#ef4444;">*</span></label>
-                            <input type="text" name="subject" required class="sm-input" placeholder="اسم النشاط الرياضي والخطة..." style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px;">
+                            <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">عنوان الخطة / Sport Activity <span style="color:#ef4444;">*</span></label>
+                            <input type="text" name="subject" required class="sm-input" placeholder="اسم Sport Activity والخطة..." style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px;">
                         </div>
                         <div style="margin-bottom: 12px;">
-                            <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">ملف الخطة المجموعة التدريبيةية (صيغة PDF فقط) <span style="color:#ef4444;">*</span></label>
+                            <label style="font-size: 11.5px; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">ملف الخطة Training Groupية (صيغة PDF فقط) <span style="color:#ef4444;">*</span></label>
                             <input type="file" id="m_plan_file_input" name="plan_document_file" accept=".pdf" required onchange="eessMobileHandleFileSelect(this, 'plan')" style="width: 100%; font-size: 12px;">
-                            <div style="font-size: 10.5px; color: #64748b; margin-top: 3px;">تنبيه: يرجى رفع ملف الخطة المجموعة التدريبيةية بصيغة PDF المعتمدة فقط.</div>
+                            <div style="font-size: 10.5px; color: #64748b; margin-top: 3px;">تنبيه: يرجى رفع ملف الخطة Training Groupية بصيغة PDF المعتمدة فقط.</div>
                         </div>
                         <div id="m_plan_file_status" style="display: none; margin-top: 10px; margin-bottom: 12px; padding: 12px; border-radius: 10px; font-size: 12px;"></div>
-                        <button type="submit" id="m_plan_submit_btn" disabled class="sm-btn" style="width: 100%; height: 42px; background: #0284c7; color: white !important; border-radius: 10px; font-weight: 800; font-size: 13px; border: none; cursor: not-allowed; opacity: 0.5;">رفع وإرسال الخطة المجموعة التدريبيةية</button>
+                        <button type="submit" id="m_plan_submit_btn" disabled class="sm-btn" style="width: 100%; height: 42px; background: #0284c7; color: white !important; border-radius: 10px; font-weight: 800; font-size: 13px; border: none; cursor: not-allowed; opacity: 0.5;">رفع وSend الخطة Training Groupية</button>
                     </form>
                 </div>
 
                 <!-- DEDICATED SCREEN 4: VIEW SEMESTER PLAN HISTORY -->
                 <div id="m-screen-view-plans" style="display: none; background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #cbd5e1; margin-bottom: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
-                        <h4 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #15803d;">عرض واستعراض الخطط المجموعة التدريبيةية</h4>
+                        <h4 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #15803d;">View واستعراض الخطط Training Groupية</h4>
                         <button type="button" onclick="eessBackToMobileMenu()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 4px 12px; border-radius: 9999px; font-size: 11.5px; font-weight: 800; cursor: pointer;">➔ عودة</button>
                     </div>
                     <?php if (empty($teacher_own_preps)): ?>
-                        <div style="padding: 20px; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 700;">لا توجد خطط فصلية مسجلة حالياً.</div>
+                        <div style="padding: 20px; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 700;">No توجد خطط فصلية مسجلة حالياً.</div>
                     <?php else: ?>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
                             <?php foreach ($teacher_own_preps as $top): ?>
                                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; font-size: 12px;">
                                     <div style="font-weight: 800; color: #0f172a; margin-bottom: 4px;"><?php echo esc_html($top->title); ?></div>
-                                    <div style="color: #64748b; font-size: 11px;">النشاط الرياضي: <?php echo esc_html($top->subject); ?> | التاريخ: <?php echo esc_html($top->lesson_date); ?></div>
+                                    <div style="color: #64748b; font-size: 11px;">Sport Activity: <?php echo esc_html($top->subject); ?> | التاريخ: <?php echo esc_html($top->lesson_date); ?></div>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -1762,7 +1767,7 @@ class SM_Public {
                 statusBox.style.color = '#166534';
                 statusBox.innerHTML = '<div style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 12.5px; margin-bottom: 4px;">' +
                                       '<span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: #22c55e; color: white; border-radius: 50%; font-size: 12px; font-weight: 900;">✓</span>' +
-                                      '<span>تم فحص وتأكيد جاهزية الملف</span>' +
+                                      '<span>تم فحص وConfirm جاهزية الملف</span>' +
                                       '</div>' +
                                       '<div style="font-size: 11px; color: #15803d; line-height: 1.4;">' +
                                       '<strong>اسم الملف:</strong> ' + file.name + '<br>' +
@@ -1781,13 +1786,13 @@ class SM_Public {
                 var fileInput = document.getElementById(mode === 'prep' ? 'm_prep_file_input' : 'm_plan_file_input');
 
                 if (!fileInput.files || !fileInput.files[0]) {
-                    eessShowMobileToast('يرجى اختيار ملف التحضير أولاً قبل الإرسال.', 'error');
+                    eessShowMobileToast('يرجى اختيار ملف التحضير أوNoً قبل الSend.', 'error');
                     return;
                 }
 
                 submitBtn.disabled = true;
                 submitBtn.style.opacity = '0.6';
-                submitBtn.innerHTML = 'جاري التحميل والحفظ... ⏳';
+                submitBtn.innerHTML = 'جاري الUpload والSave... ⏳';
 
                 var formData = new FormData(form);
 
@@ -1800,10 +1805,10 @@ class SM_Public {
                     success: function(res) {
                         submitBtn.disabled = false;
                         submitBtn.style.opacity = '1';
-                        submitBtn.innerHTML = (mode === 'prep') ? 'رفع وإرسال التحضير' : 'رفع وإرسال الخطة المجموعة التدريبيةية';
+                        submitBtn.innerHTML = (mode === 'prep') ? 'رفع وSend التحضير' : 'رفع وSend الخطة Training Groupية';
 
                         if (res.success) {
-                            eessShowMobileToast('✓ ' + (res.data && res.data.message ? res.data.message : 'تم رفع وإرسال الملف بنجاح!'), 'success');
+                            eessShowMobileToast('✓ ' + (res.data && res.data.message ? res.data.message : 'تم رفع وSend الملف بنجاح!'), 'success');
                             form.reset();
                             eessMobileHandleFileSelect(fileInput, mode);
 
@@ -1811,14 +1816,14 @@ class SM_Public {
                                 window.location.reload();
                             }, 1200);
                         } else {
-                            eessShowMobileToast('✕ ' + (res.data || 'حدث خطأ أثناء رفع الملف، يرجى المحاولة لاحقاً.'), 'error');
+                            eessShowMobileToast('✕ ' + (res.data || 'An error occurred أثناء رفع الملف، يرجى المحاولة Noحقاً.'), 'error');
                         }
                     },
                     error: function() {
                         submitBtn.disabled = false;
                         submitBtn.style.opacity = '1';
-                        submitBtn.innerHTML = (mode === 'prep') ? 'رفع وإرسال التحضير' : 'رفع وإرسال الخطة المجموعة التدريبيةية';
-                        eessShowMobileToast('✕ فشل الاتصال بالخادم، يرجى التحقق من الاتصال والمحاولة مجدداً.', 'error');
+                        submitBtn.innerHTML = (mode === 'prep') ? 'رفع وSend التحضير' : 'رفع وSend الخطة Training Groupية';
+                        eessShowMobileToast('✕ فشل اNoتصال بالخادم، يرجى التحقق من اNoتصال والمحاولة مجدداً.', 'error');
                     }
                 });
             }
@@ -1830,7 +1835,7 @@ class SM_Public {
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 12px;">
                     <h3 style="margin: 0; font-size: 14.5px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px;">
                         <span class="dashicons dashicons-portfolio" style="color: #881337;"></span>
-                        <span>أرشيف وسجل تحضيراتي السابقة</span>
+                        <span>أرشيف وسجل تحضيراتي Previousة</span>
                     </h3>
                     <span style="font-size: 11px; color: #64748b; font-weight: 700;"><?php echo count($teacher_own_preps); ?> تحضير</span>
                 </div>
@@ -1840,7 +1845,7 @@ class SM_Public {
                         $s_bg = '#f1f5f9'; $s_col = '#64748b'; $s_lbl = 'مسودة';
                         if ($top->status === 'submitted') { $s_bg = '#e0f2fe'; $s_col = '#0369a1'; $s_lbl = 'مرفوع للمراجعة'; }
                         elseif ($top->status === 'approved') { $s_bg = '#dcfce7'; $s_col = '#15803d'; $s_lbl = 'معتمد رسمياً'; }
-                        elseif ($top->status === 'revision_required' || $top->status === 'returned') { $s_bg = '#fee2e2'; $s_col = '#b91c1c'; $s_lbl = 'طلب تعديل'; }
+                        elseif ($top->status === 'revision_required' || $top->status === 'returned') { $s_bg = '#fee2e2'; $s_col = '#b91c1c'; $s_lbl = 'طلب Edit'; }
                     ?>
                         <div onclick="eessMobileReopenOwnPrep(<?php echo htmlspecialchars(json_encode($top)); ?>)" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.2s ease;">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
@@ -1873,7 +1878,7 @@ class SM_Public {
                         </div>
 
                         <div style="margin-bottom: 12px;">
-                            <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">النشاط الرياضي الدراسية <span style="color:#ef4444;">*</span></label>
+                            <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">Sport Activity الدراسية <span style="color:#ef4444;">*</span></label>
                             <select id="m_subject" name="subject" required style="width: 100%; height: 42px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 13px; box-sizing: border-box;">
                                 <?php foreach($unique_subjects as $s_name): ?>
                                     <option value="<?php echo esc_attr($s_name); ?>"><?php echo esc_html($s_name); ?></option>
@@ -1883,11 +1888,11 @@ class SM_Public {
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
                             <div>
-                                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">المجموعة التدريبية <span style="color:#ef4444;">*</span></label>
-                                <input type="text" id="m_grade" name="grade_level" required placeholder="المجموعة التدريبية الخامس" style="width: 100%; height: 42px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 13px; box-sizing: border-box;">
+                                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">Training Group <span style="color:#ef4444;">*</span></label>
+                                <input type="text" id="m_grade" name="grade_level" required placeholder="Training Group الخامس" style="width: 100%; height: 42px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 13px; box-sizing: border-box;">
                             </div>
                             <div>
-                                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">المجموعة التدريبية / المجموعة التدريبية</label>
+                                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">Training Group / Training Group</label>
                                 <input type="text" id="m_section" name="class_section" placeholder="أ / 1" style="width: 100%; height: 42px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 13px; box-sizing: border-box;">
                             </div>
                         </div>
@@ -1932,27 +1937,27 @@ class SM_Public {
 
                         <!-- Conclusion (150-350 chars) -->
                         <div style="margin-bottom: 14px;">
-                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">4. الخاتمة والتهدئة والإطالات <span style="color:#ef4444;">*</span></label>
+                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">4. الخاتمة والتهدئة والإطاNoت <span style="color:#ef4444;">*</span></label>
                             <textarea id="m_conclusion" name="conclusion" maxlength="350" oninput="eessUpdateMobileCharBounds(this, 150, 350, 'm_cnt_conclusion')" placeholder="تمارين التهدئة والختام (150 – 350 حرفاً)..." style="width: 100%; height: 85px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-sizing: border-box; line-height: 1.5;"></textarea>
                             <div id="m_cnt_conclusion" style="text-align: left; font-size: 10.5px; font-weight: 700; color: #dc2626; font-family: monospace; margin-top: 2px;">0 / 150 - 350 حرف</div>
                         </div>
 
                         <!-- National Agenda -->
                         <div style="margin-bottom: 14px;">
-                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بالأجندة الوطنية ورؤية الدولة <span style="color:#ef4444;">*</span></label>
+                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بالأجندة الوطنية ورؤية Country <span style="color:#ef4444;">*</span></label>
                             <textarea id="m_national_agenda" name="national_agenda" placeholder="تفاصيل الربط بالأجندة الوطنية..." style="width: 100%; height: 75px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-sizing: border-box; line-height: 1.5;"></textarea>
                         </div>
 
                         <!-- Cross Subject -->
                         <div style="margin-bottom: 14px;">
-                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بالأنشطة الرياضية والتخصصات الأخرى <span style="color:#ef4444;">*</span></label>
-                            <textarea id="m_cross_subject" name="cross_subject" placeholder="تفاصيل الربط بالأنشطة الرياضية الأخرى..." style="width: 100%; height: 75px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-sizing: border-box; line-height: 1.5;"></textarea>
+                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بSports Activities والتخصصات الأخرى <span style="color:#ef4444;">*</span></label>
+                            <textarea id="m_cross_subject" name="cross_subject" placeholder="تفاصيل الربط بSports Activities الأخرى..." style="width: 100%; height: 75px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-sizing: border-box; line-height: 1.5;"></textarea>
                         </div>
 
                         <!-- Notes & Guidance -->
                         <div style="margin-bottom: 14px;">
-                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الملاحظات وإرشادات السلامة والتوجيهات</label>
-                            <textarea id="m_notes" name="notes" placeholder="أدخل الملاحظات وإرشادات السلامة إن وجدت..." style="width: 100%; height: 75px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-sizing: border-box; line-height: 1.5;"></textarea>
+                            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الNotes وإرشادات السNoمة والتوجيهات</label>
+                            <textarea id="m_notes" name="notes" placeholder="أدخل الNotes وإرشادات السNoمة إن وجدت..." style="width: 100%; height: 75px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-sizing: border-box; line-height: 1.5;"></textarea>
                         </div>
 
                         <script>
@@ -1978,7 +1983,7 @@ class SM_Public {
                     <div id="m_submit_status" style="display: none; margin-bottom: 15px; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center;"></div>
 
                     <button type="submit" id="m_btn_submit" style="width: 100%; height: 48px; background: #2563eb; color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span>إرسال وتوثيق التحضير</span>
+                        <span>Send وتوثيق التحضير</span>
                     </button>
                 </form>
             </div>
@@ -1997,7 +2002,7 @@ class SM_Public {
                     msgBox.style.display = 'block';
                     msgBox.style.background = '#fef2f2';
                     msgBox.style.color = '#991b1b';
-                    msgBox.innerText = 'يرجى إدخال الرقم الوظيفي أو رقم الجوال أولاً.';
+                    msgBox.innerText = 'يرجى إدخال الرقم الوظيفي أو Mobile Number أوNoً.';
                     return;
                 }
 
@@ -2011,7 +2016,7 @@ class SM_Public {
                     password: passVal
                 }, function(res) {
                     btn.disabled = false;
-                    btn.innerText = 'تسجيل الدخول والتحقق';
+                    btn.innerText = 'Login والتحقق';
 
                     if (res.success) {
                         location.reload();
@@ -2019,7 +2024,7 @@ class SM_Public {
                         msgBox.style.display = 'block';
                         msgBox.style.background = '#fef2f2';
                         msgBox.style.color = '#991b1b';
-                        msgBox.innerText = res.data || 'لم يتم العثور على حساب مطابق للبيانات المدخلة. يرجى التأكد من الرقم الوظيفي أو رقم الهاتف.';
+                        msgBox.innerText = res.data || 'لم يتم العثور على حساب مطابق للبيانات المدخلة. يرجى التأكد من الرقم الوظيفي أو Phone Number.';
                     }
                 });
             }
@@ -2119,17 +2124,17 @@ class SM_Public {
                 const statusBox = document.getElementById('m_submit_status');
 
                 btn.disabled = true;
-                btn.innerText = 'جاري إرسال التحضير...';
+                btn.innerText = 'جاري Send التحضير...';
                 statusBox.style.display = 'none';
 
                 const formData = jQuery('#eess_mobile_prep_form').serialize() + '&action=sm_submit_mobile_lesson';
 
                 jQuery.post('<?php echo $ajax_url; ?>', formData, function(res) {
                     btn.disabled = false;
-                    btn.innerText = 'إرسال وتوثيق التحضير';
+                    btn.innerText = 'Send وتوثيق التحضير';
 
                     if (res.success) {
-                        eessShowMobileToast(res.data.message || 'تم حفظ وإرسال التحضير بنجاح وتوثيقه في حسابك!');
+                        eessShowMobileToast(res.data.message || 'تم Save وSend التحضير بنجاح وتوثيقه في حسابك!');
                         document.getElementById('eess_mobile_prep_form').reset();
                         setTimeout(() => {
                             location.reload();
@@ -2139,7 +2144,7 @@ class SM_Public {
                         statusBox.style.background = '#fef2f2';
                         statusBox.style.color = '#991b1b';
                         statusBox.style.border = '1px solid #fecaca';
-                        statusBox.innerText = res.data || 'حدث خطأ أثناء حفظ التحضير.';
+                        statusBox.innerText = res.data || 'An error occurred أثناء Save التحضير.';
                     }
                 });
             }
@@ -2210,10 +2215,10 @@ class SM_Public {
                 </p>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     <a href="' . esc_url(home_url('/lesson-prep')) . '" style="background: #2563eb; color: #ffffff; text-decoration: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span>الانتقال لصفحة تقديم تقارير أعضاء هيئة التدريب والكادر للموبايل</span>
+                        <span>اNoنتقال لصفحة تقديم تقارير أعضاء هيئة التدريب والكادر للموبايل</span>
                     </a>
                     <a href="' . esc_url(home_url('/class-attendance')) . '" style="background: rgba(255, 255, 255, 0.08); color: #cbd5e1; text-decoration: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span>الانتقال لرصد الحضور والغياب للموبايل</span>
+                        <span>اNoنتقال لرصد الحضور والغياب للموبايل</span>
                     </a>
                 </div>
             </div>
@@ -2946,13 +2951,13 @@ class SM_Public {
                 <div class="eess-login-right-panel">
                     <div class="eess-login-form-inner">
                         <!-- Title & Subtitle -->
-                        <h1 class="eess-login-form-title">تسجيل الدخول</h1>
-                        <p class="eess-login-form-subtitle">أدخل بيانات الاعتماد الخاصة بك للوصول إلى لوحة التحكم.</p>
+                        <h1 class="eess-login-form-title">Login</h1>
+                        <p class="eess-login-form-subtitle">أدخل بيانات اNoعتماد الخاصة بك للوصول إلى Dashboard.</p>
 
                         <!-- Error notice if failed -->
                         ';
                         if (isset($_GET['login']) && $_GET['login'] == 'failed') {
-                            $output .= '<div class="eess-error-notice">خطأ في اسم المستخدم أو كلمة المرور. يرجى التحقق وإعادة المحاولة.</div>';
+                            $output .= '<div class="eess-error-notice">خطأ في Username أو Password. يرجى التحقق وإعادة المحاولة.</div>';
                         }
                         $output .= '
 
@@ -2962,7 +2967,7 @@ class SM_Public {
                             <div class="eess-form-group">
                                 <div class="eess-float-container">
                                     <input type="text" name="log" id="user_login" class="eess-float-input" placeholder=" " required>
-                                    <label for="user_login" class="eess-float-label">البريد الإلكتروني / الرقم الأكاديمي *</label>
+                                    <label for="user_login" class="eess-float-label">Email Address / الرقم الأكاديمي *</label>
                                 </div>
                             </div>
 
@@ -2970,8 +2975,8 @@ class SM_Public {
                             <div class="eess-form-group">
                                 <div class="eess-float-container eess-password-wrapper">
                                     <input type="password" name="pwd" id="user_pass" class="eess-float-input" placeholder=" " required>
-                                    <label for="user_pass" class="eess-float-label">كلمة المرور *</label>
-                                    <button type="button" class="eess-toggle-eye" onclick="eessTogglePassVisibility(\'user_pass\', this)" title="إظهار / إخفاء كلمة المرور">
+                                    <label for="user_pass" class="eess-float-label">Password *</label>
+                                    <button type="button" class="eess-toggle-eye" onclick="eessTogglePassVisibility(\'user_pass\', this)" title="إظهار / إخفاء Password">
                                         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                                     </button>
                                 </div>
@@ -2982,7 +2987,7 @@ class SM_Public {
                                 <label class="eess-remember-checkbox-label" style="font-size: 0.8rem;">
                                     <input type="checkbox" name="rememberme" id="rememberme" value="forever">
                                     <span class="eess-checkbox-custom" style="height:16px; width:16px;"></span>
-                                    <span class="eess-checkbox-text" style="font-size: 0.8rem; color: #64748b;">تذكر بياناتي على هذا الجهاز</span>
+                                    <span class="eess-checkbox-text" style="font-size: 0.8rem; color: #64748b;">تMale بياناتي على هذا الجهاز</span>
                                 </label>
                             </div>
 
@@ -3003,10 +3008,10 @@ class SM_Public {
                                 <span class="eess-reset-card-icon">⚙️</span>
                                 <span class="eess-reset-card-title">إدارة الحساب والخدمات المساندة</span>
                             </div>
-                            <p class="eess-reset-card-desc" style="margin-bottom: 12px; font-size: 12px; color: #64748b;">أختر إحدى الخدمات التالية لاستعادة كلمة المرور أو البدء في تسجيل حساب جديد بالمنصة:</p>
+                            <p class="eess-reset-card-desc" style="margin-bottom: 12px; font-size: 12px; color: #64748b;">أختر إحدى الخدمات Nextة Noستعادة Password أو البدء في تسجيل حساب جديد بالمنصة:</p>
                             <div style="display: flex; gap: 10px;">
                                 <button type="button" onclick="eessOpenForgotModal()" class="eess-btn-reset-pwd" style="flex: 1; font-size: 11px; height: 36px; background-color: #8b1e1e !important;">
-                                    استعادة كلمة المرور
+                                    استعادة Password
                                 </button>
                                 <button type="button" onclick="eessOpenRegisterModal()" class="eess-btn-reset-pwd" style="flex: 1; font-size: 11px; height: 36px; background-color: #000000 !important;">
                                     تسجيل حساب جديد
@@ -3023,7 +3028,7 @@ class SM_Public {
                                 <a href="javascript:void(0)" onclick="eessOpenSupportModal()" style="color: #8b1e1e !important; text-decoration: underline !important; font-weight: bold; cursor: pointer;">المساعدة والدعم الفني</a>
                             </div>
                             <div class="eess-footer-right">
-                                <span>© 2026 EESS. جميع الحقوق محفوظة</span>
+                                <span>© 2026 EESS. All Rights Reserved</span>
                             </div>
                         </div>
                     </div>
@@ -3075,7 +3080,7 @@ class SM_Public {
                     <div class="eess-about-box">
                         <div class="eess-about-title">نبذة عن نظام EESS:</div>
                         <p class="eess-about-desc">
-                            منظومة EESS هي البوابة الإلكترونية الموحدة لإدارة المناهج والخدمات التعليمية والأكاديمية، تهدف إلى توفير بيئة رقمية آمنة وموثوقة للوصول المباشر لكافة الأنظمة والأدوات المتاحة عبر الموقع الرسمي <a href="https://eess.online" target="_blank">eess.online</a>.
+                            منظومة EESS هي البوابة الإلكترونية الموحدة لإدارة المناهج والخدمات التعليمية وAcademy، تهدف إلى توفير بيئة رقمية آمنة وموثوقة للوصول المباشر لكافة الأنظمة والأدوات المتاحة عبر الموقع الرسمي <a href="https://eess.online" target="_blank">eess.online</a>.
                         </p>
                     </div>
 
@@ -3116,14 +3121,14 @@ class SM_Public {
         <div id="eess-forgot-modal" class="eess-modal-overlay">
             <div class="eess-modal-dialog" style="max-width: 500px;">
                 <div class="eess-modal-header">
-                    <h3>التحقق من الهوية وإعادة تعيين كلمة المرور</h3>
+                    <h3>التحقق من الهوية وإعادة تعيين Password</h3>
                     <button type="button" class="eess-modal-close" onclick="eessCloseForgotModal()">&times;</button>
                 </div>
                 <div class="eess-modal-body">
                     <!-- Progress Bar Header -->
                     <div style="margin-bottom: 20px;">
                         <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 6px;">
-                            <span id="eess-forgot-step-label">الخطوة 1 من 8: البريد الإلكتروني</span>
+                            <span id="eess-forgot-step-label">الخطوة 1 من 8: Email Address</span>
                             <span id="eess-forgot-step-pct">12%</span>
                         </div>
                         <div style="background: #e2e8f0; height: 6px; border-radius: 50px; overflow: hidden;">
@@ -3135,15 +3140,15 @@ class SM_Public {
 
                     <!-- Step 1: Email -->
                     <div id="eess-forgot-step-1" class="eess-wizard-step active">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الأولى: أدخل البريد الإلكتروني المعتمد والمثبت بحسابك في النظام.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الأولى: أدخل Email Address المعتمد والمثبت بحسابك في النظام.</p>
                         <div class="eess-form-group">
                             <div class="eess-float-container">
                                 <input type="email" id="eess-forgot-email" class="eess-float-input" placeholder=" ">
-                                <label for="eess-forgot-email" class="eess-float-label">البريد الإلكتروني المعتمد *</label>
+                                <label for="eess-forgot-email" class="eess-float-label">Email Address المعتمد *</label>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: flex-end; margin-top: 15px;">
-                            <button type="button" onclick="eessNextForgotStep(2)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessNextForgotStep(2)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
@@ -3157,24 +3162,24 @@ class SM_Public {
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                            <button type="button" onclick="eessPrevForgotStep(1)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessNextForgotStep(3)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessPrevForgotStep(1)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessNextForgotStep(3)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 3: Institution / School -->
                     <div id="eess-forgot-step-3" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الثالثة: اختر اسم المنظمة الرياضية أو الأكاديمية الرياضية التي تعمل بها بجدول النظام.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الثالثة: اختر اسم Organization الرياضية أو Academy الرياضية التي تعمل بها بجدول النظام.</p>
                         <div class="eess-form-group">
                             <select id="eess-forgot-institution" class="eess-float-input" style="height: 44px; padding: 0 12px; font-size: 13px; font-weight: 700;">
-                                <option value="">-- اختر الأكاديمية الرياضية / المنظمة الرياضية --</option>
-                                <option value="خدمات الأنظمة الإلكترونية التعليمية (EESS)">خدمات الأنظمة الإلكترونية التعليمية (EESS)</option>
+                                <option value="">-- اختر Academy الرياضية / Organization الرياضية --</option>
+                                <option value="Sportedia Sports Management System">Sportedia Sports Management System</option>
                                 ' . $schools_options . '
                             </select>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                            <button type="button" onclick="eessPrevForgotStep(2)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessNextForgotStep(4)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessPrevForgotStep(2)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessNextForgotStep(4)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
@@ -3183,13 +3188,13 @@ class SM_Public {
                         <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الرابعة: اختر جنسيتك المسجلة بملفك الأكاديمي.</p>
                         <div class="eess-form-group">
                             <select id="eess-forgot-nationality" class="eess-float-input" style="height: 44px; padding: 0 12px; font-size: 13px; font-weight: 700;">
-                                <option value="">-- اختر الجنسية --</option>
+                                <option value="">-- اختر Genderية --</option>
                                 ' . $nationality_options . '
                             </select>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                            <button type="button" onclick="eessPrevForgotStep(3)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessNextForgotStep(5)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessPrevForgotStep(3)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessNextForgotStep(5)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
@@ -3203,56 +3208,56 @@ class SM_Public {
                                 <option value="sm_coordinator">منسق مادة (Subject Coordinator)</option>
                                 <option value="sm_hod">رئيس قسم (Department Head)</option>
                                 <option value="sm_supervisor">مشرف تربوي (Educational Supervisor)</option>
-                                <option value="sm_principal">مدير الأكاديمية الرياضية (School Manager)</option>
+                                <option value="sm_principal">مدير Academy الرياضية (School Manager)</option>
                                 <option value="sm_discipline_supervisor">مشرف سلوك / انضباط</option>
-                                <option value="sm_activities_supervisor">مشرف أنشطة</option>
-                                <option value="sm_transportation_supervisor">مشرف نقل ومواصلات</option>
+                                <option value="sm_activities_supervisor">مشرف أActiveة</option>
+                                <option value="sm_transportation_supervisor">مشرف نقل ومواصNoت</option>
                                 <option value="sm_system_admin">مدير النظام (System Admin)</option>
                             </select>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                            <button type="button" onclick="eessPrevForgotStep(4)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessNextForgotStep(6)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessPrevForgotStep(4)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessNextForgotStep(6)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 6: Subject (Auto-skipped if not applicable) -->
                     <div id="eess-forgot-step-6" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة السادسة: حدد النشاط الرياضي الدراسية المسندة لتدريسها.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة السادسة: حدد Sport Activity الدراسية المسندة لتدريسها.</p>
                         <div class="eess-form-group">
                             <select id="eess-forgot-subject" class="eess-float-input" style="height: 44px; padding: 0 12px; font-size: 13px; font-weight: 700;">
-                                <option value="">-- اختر النشاط الرياضي الدراسية --</option>
+                                <option value="">-- اختر Sport Activity الدراسية --</option>
                                 ' . $subject_options . '
                             </select>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                            <button type="button" onclick="eessPrevForgotStep(5)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessNextForgotStep(7)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessPrevForgotStep(5)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessNextForgotStep(7)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 7: Date of Birth -->
                     <div id="eess-forgot-step-7" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة السابعة: أدخل تاريخ الميلاد الخاص بك المكتوب بسجلك الرسمي.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة السابعة: أدخل Date of Birth الخاص بك المكتوب بسجلك الرسمي.</p>
                         <div class="eess-form-group">
                             <input type="date" id="eess-forgot-dob" class="eess-float-input" style="height: 44px; padding: 0 12px; font-size: 13px; font-weight: 700;">
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                            <button type="button" onclick="eessPrevForgotStep(6)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessVerifyIdentityFull()" id="btn-verify-identity" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem; background: #16a34a !important;">التحقق الأمني من الهوية &larr;</button>
+                            <button type="button" onclick="eessPrevForgotStep(6)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessVerifyIdentityFull()" id="btn-verify-identity" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem; background: #16a34a !important;">التحقق Motherني من الهوية &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 8: Create New Password -->
                     <div id="eess-forgot-step-8" class="eess-wizard-step">
                         <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
-                            <h4 id="eess-forgot-welcome-msg" style="margin: 0; color: #166534; font-weight: 800; font-size: 13px;">تم تأكيد الهوية بنجاح!</h4>
-                            <p style="margin: 4px 0 0 0; font-size: 11px; color: #15803d; line-height: 1.5;">أنشئ كلمة المرور الجديدة لتسجيل دخولك التلقائي المباشر للنظام.</p>
+                            <h4 id="eess-forgot-welcome-msg" style="margin: 0; color: #166534; font-weight: 800; font-size: 13px;">تم Confirm الهوية بنجاح!</h4>
+                            <p style="margin: 4px 0 0 0; font-size: 11px; color: #15803d; line-height: 1.5;">أنشئ Password الجديدة لتسجيل دخولك التلقائي المباشر للنظام.</p>
                         </div>
 
                         <!-- Live Password Rules List -->
                         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; margin-bottom: 15px; font-size: 11px;">
-                            <div style="font-weight: 800; color: #334155; margin-bottom: 4px;">شروط كلمة المرور المطلوبة:</div>
+                            <div style="font-weight: 800; color: #334155; margin-bottom: 4px;">شروط Password المطلوبة:</div>
                             <div id="pwd-rule-len" style="color: #64748b;">• الطول بين 8 و 40 خانة</div>
                             <div id="pwd-rule-upper" style="color: #64748b;">• حرف إنجليزي كبير (A-Z) واحد على الأقل</div>
                             <div id="pwd-rule-lower" style="color: #64748b;">• حرف إنجليزي صغير (a-z) واحد على الأقل</div>
@@ -3263,7 +3268,7 @@ class SM_Public {
                             <div class="eess-form-group" style="margin-bottom: 0;">
                                 <div class="eess-float-container eess-password-wrapper">
                                     <input type="password" id="eess-forgot-pass" class="eess-float-input" placeholder=" " maxlength="40" oninput="eessLiveCheckPassword()">
-                                    <label for="eess-forgot-pass" class="eess-float-label">كلمة المرور الجديدة *</label>
+                                    <label for="eess-forgot-pass" class="eess-float-label">Password الجديدة *</label>
                                     <button type="button" class="eess-toggle-eye" onclick="eessTogglePassVisibility(\'eess-forgot-pass\', this)">
                                         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                                     </button>
@@ -3272,7 +3277,7 @@ class SM_Public {
                             <div class="eess-form-group" style="margin-bottom: 0;">
                                 <div class="eess-float-container eess-password-wrapper">
                                     <input type="password" id="eess-forgot-pass-conf" class="eess-float-input" placeholder=" " maxlength="40" oninput="eessLiveCheckPassword()">
-                                    <label for="eess-forgot-pass-conf" class="eess-float-label">تأكيد كلمة المرور *</label>
+                                    <label for="eess-forgot-pass-conf" class="eess-float-label">Confirm Password *</label>
                                     <button type="button" class="eess-toggle-eye" onclick="eessTogglePassVisibility(\'eess-forgot-pass-conf\', this)">
                                         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                                     </button>
@@ -3281,13 +3286,13 @@ class SM_Public {
                         </div>
 
                         <div style="display: flex; justify-content: flex-end;">
-                            <button type="button" onclick="eessSetNewPasswordAndLogin()" id="btn-save-new-pass" class="eess-btn-login" style="width: 100%; height: 42px; font-size: 0.9rem; background: #2563eb !important;">حفظ كلمة المرور والدخول المباشر للنظام</button>
+                            <button type="button" onclick="eessSetNewPasswordAndLogin()" id="btn-save-new-pass" class="eess-btn-login" style="width: 100%; height: 42px; font-size: 0.9rem; background: #2563eb !important;">Save Password والدخول المباشر للنظام</button>
                         </div>
                     </div>
 
                     <!-- Support Card Inside Modal -->
                     <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #f1f5f9; font-size: 11px; color: #64748b; line-height: 1.6;">
-                        💬 إذا واجهت أي صعوبة في الدخول أو استعادة حسابك، يرجى الاتصال بقسم الدعم الفني لشركة EESS عبر البريد الرسمي <a href="mailto:info@eess.online" style="color: #8b1e1e; font-weight: bold; text-decoration: underline;">info@eess.online</a>.
+                        💬 إذا واجهت أي صعوبة في الدخول أو استعادة حسابك، يرجى اNoتصال بقسم الدعم الفني لشركة EESS عبر البريد الرسمي <a href="mailto:info@eess.online" style="color: #8b1e1e; font-weight: bold; text-decoration: underline;">info@eess.online</a>.
                     </div>
                 </div>
             </div>
@@ -3302,7 +3307,7 @@ class SM_Public {
                     <button type="button" class="eess-modal-close" onclick="eessCloseSupportModal()">&times;</button>
                 </div>
                 <div class="eess-modal-body">
-                    <p style="font-size: 13px; color: #334155; line-height: 1.8; margin-top: 0;">إذا كنت تواجه أي صعوبة في الدخول إلى حسابك أو استعادة كلمة المرور، يرجى التكرم بمراسلة إدارة المنصة عبر البريد الإلكتروني الرسمي مباشرة:</p>
+                    <p style="font-size: 13px; color: #334155; line-height: 1.8; margin-top: 0;">إذا كنت تواجه أي صعوبة في الدخول إلى حسابك أو استعادة Password، يرجى التكرم بمراسلة إدارة المنصة عبر Email Address الرسمي مباشرة:</p>
                     <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; text-align: center; margin: 15px 0;">
                         <a href="mailto:info@eess.online" style="color: #8b1e1e; font-weight: bold; font-size: 16px; text-decoration: none;">info@eess.online</a>
                     </div>
@@ -3359,12 +3364,12 @@ class SM_Public {
 
                     <!-- Step 1: Personal Info -->
                     <div id="eess-reg-step-1" class="eess-wizard-step active">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الأولى: أدخل الاسم الثلاثي، تاريخ الميلاد والجنسية.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الأولى: أدخل اNoسم الثNoثي، Date of Birth وGenderية.</p>
                         <div style="display: flex; gap: 12px; margin-bottom: 14px;">
                             <div class="eess-form-group" style="flex: 1; margin-bottom: 0;">
                                 <div class="eess-float-container">
                                     <input type="text" id="eess-reg-first-name" class="eess-float-input" placeholder=" ">
-                                    <label for="eess-reg-first-name" class="eess-float-label">الاسم الأول *</label>
+                                    <label for="eess-reg-first-name" class="eess-float-label">اNoسم الأول *</label>
                                 </div>
                             </div>
                             <div class="eess-form-group" style="flex: 1; margin-bottom: 0;">
@@ -3376,46 +3381,46 @@ class SM_Public {
                         </div>
                         <div style="display: flex; gap: 12px; margin-bottom: 14px;">
                             <div class="eess-form-group" style="flex: 1; margin-bottom: 0;">
-                                <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">تاريخ الميلاد *</label>
+                                <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">Date of Birth *</label>
                                 <input type="date" id="eess-reg-dob" class="eess-form-input" style="height: 42px; padding: 0 10px; font-size: 13px; font-weight: 700;">
                             </div>
                             <div class="eess-form-group" style="flex: 1; margin-bottom: 0;">
-                                <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">الجنسية *</label>
+                                <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">Genderية *</label>
                                 <select id="eess-reg-nationality" class="eess-form-input" style="height: 42px; padding: 0 10px; font-size: 13px; font-weight: 700;">
-                                    <option value="">-- اختر الجنسية --</option>
+                                    <option value="">-- اختر Genderية --</option>
                                     ' . $nat_opts . '
                                 </select>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
-                            <button type="button" onclick="eessGoToRegStep(2)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessGoToRegStep(2)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 2: Contact Info -->
                     <div id="eess-reg-step-2" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الثانية: أدخل بريدك الإلكتروني الرسمي ورقم الهاتف.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الثانية: أدخل بريدك الإلكتروني الرسمي وPhone Number.</p>
                         <div class="eess-form-group" style="margin-bottom: 14px;">
                             <div class="eess-float-container">
                                 <input type="email" id="eess-reg-email" class="eess-float-input" placeholder=" ">
-                                <label for="eess-reg-email" class="eess-float-label">البريد الإلكتروني الرسمي *</label>
+                                <label for="eess-reg-email" class="eess-float-label">Email Address الرسمي *</label>
                             </div>
                         </div>
                         <div class="eess-form-group" style="margin-bottom: 14px;">
                             <div class="eess-float-container">
                                 <input type="text" id="eess-reg-phone" class="eess-float-input" placeholder=" ">
-                                <label for="eess-reg-phone" class="eess-float-label">رقم الهاتف والتواصل *</label>
+                                <label for="eess-reg-phone" class="eess-float-label">Phone Number والتواصل *</label>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                            <button type="button" onclick="eessGoToRegStep(1)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessGoToRegStep(3)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessGoToRegStep(1)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessGoToRegStep(3)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 3: Employment & Institution -->
                     <div id="eess-reg-step-3" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الثالثة: أدخل الرقم الوظيفي واختر المنظمة الرياضية/الأكاديمية الرياضية.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الثالثة: أدخل الرقم الوظيفي واختر Organization الرياضية/Academy الرياضية.</p>
                         <div class="eess-form-group" style="margin-bottom: 14px;">
                             <div class="eess-float-container">
                                 <input type="text" id="eess-reg-emp-num" class="eess-float-input" placeholder=" ">
@@ -3423,21 +3428,21 @@ class SM_Public {
                             </div>
                         </div>
                         <div class="eess-form-group" style="margin-bottom: 14px;">
-                            <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">المنظمة الرياضية / الأكاديمية الرياضية *</label>
+                            <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">Organization الرياضية / Academy الرياضية *</label>
                             <select id="eess-reg-institution" class="eess-form-input" style="height: 42px; padding: 0 10px; font-size: 13px; font-weight: 700;">
-                                <option value="خدمات الأنظمة الإلكترونية التعليمية (EESS)">خدمات الأنظمة الإلكترونية التعليمية (EESS)</option>
+                                <option value="Sportedia Sports Management System">Sportedia Sports Management System</option>
                                 ' . $schools_opts . '
                             </select>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                            <button type="button" onclick="eessGoToRegStep(2)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" onclick="eessGoToRegStep(4)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة التالية &larr;</button>
+                            <button type="button" onclick="eessGoToRegStep(2)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" onclick="eessGoToRegStep(4)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة Nextة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 4: Role & Subject -->
                     <div id="eess-reg-step-4" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الرابعة: اختر الرتبة الوظيفية والنشاط الرياضي المسندة.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الرابعة: اختر الرتبة الوظيفية وSport Activity المسندة.</p>
                         <div class="eess-form-group" style="margin-bottom: 14px;">
                             <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">الرتبة الوظيفية المطلوب تسجيلها *</label>
                             <select id="eess-reg-role" class="eess-form-input" onchange="eessOnRegRoleChange()" style="height: 42px; padding: 0 10px; font-size: 13px; font-weight: 700;">
@@ -3445,31 +3450,31 @@ class SM_Public {
                                 <option value="sm_coordinator">منسق مادة (Subject Coordinator)</option>
                                 <option value="sm_hod">رئيس قسم (Department Head)</option>
                                 <option value="sm_supervisor">مشرف تربوي (Educational Supervisor)</option>
-                                <option value="sm_principal">مدير الأكاديمية الرياضية (School Manager)</option>
+                                <option value="sm_principal">مدير Academy الرياضية (School Manager)</option>
                                 <option value="sm_discipline_supervisor">مشرف سلوك / انضباط</option>
-                                <option value="sm_activities_supervisor">مشرف أنشطة</option>
-                                <option value="sm_transportation_supervisor">مشرف نقل ومواصلات</option>
+                                <option value="sm_activities_supervisor">مشرف أActiveة</option>
+                                <option value="sm_transportation_supervisor">مشرف نقل ومواصNoت</option>
                                 <option value="sm_bus_supervisor">مشرف حافلة</option>
                                 <option value="sm_clinic">العيادة المدرسية</option>
                                 <option value="sm_parent">ولي أمر (Parent)</option>
                             </select>
                         </div>
                         <div class="eess-form-group" id="eess-reg-subject-box" style="margin-bottom: 14px;">
-                            <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">النشاط الرياضي الدراسية المسندة *</label>
+                            <label style="display: block; font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 4px;">Sport Activity الدراسية المسندة *</label>
                             <select id="eess-reg-subject" class="eess-form-input" style="height: 42px; padding: 0 10px; font-size: 13px; font-weight: 700;">
-                                <option value="">-- اختر النشاط الرياضي --</option>
+                                <option value="">-- اختر Sport Activity --</option>
                                 ' . $subject_opts . '
                             </select>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                            <button type="button" onclick="eessGoToRegStep(3)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
+                            <button type="button" onclick="eessGoToRegStep(3)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
                             <button type="button" onclick="eessGoToRegStep(5)" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem;">المتابعة للخطوة الأخيرة &larr;</button>
                         </div>
                     </div>
 
                     <!-- Step 5: Review & Password Creation -->
                     <div id="eess-reg-step-5" class="eess-wizard-step">
-                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الخامسة: أنشئ كلمة المرور وراجع البيانات قبل الإرسال.</p>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px; line-height: 1.6;">الخطوة الخامسة: أنشئ Password وراجع البيانات قبل الSend.</p>
 
                         <!-- Summary Card -->
                         <div id="eess-reg-summary-card" style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; margin-bottom: 15px; font-size: 11px; line-height: 1.7; color: #334155;"></div>
@@ -3478,7 +3483,7 @@ class SM_Public {
                             <div class="eess-form-group" style="flex: 1; margin-bottom: 0;">
                                 <div class="eess-float-container eess-password-wrapper">
                                     <input type="password" id="eess-reg-pass" class="eess-float-input" placeholder=" " maxlength="40">
-                                    <label for="eess-reg-pass" class="eess-float-label">كلمة المرور *</label>
+                                    <label for="eess-reg-pass" class="eess-float-label">Password *</label>
                                     <button type="button" class="eess-toggle-eye" onclick="eessTogglePassVisibility(\'eess-reg-pass\', this)">
                                         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                                     </button>
@@ -3487,7 +3492,7 @@ class SM_Public {
                             <div class="eess-form-group" style="flex: 1; margin-bottom: 0;">
                                 <div class="eess-float-container eess-password-wrapper">
                                     <input type="password" id="eess-reg-pass-conf" class="eess-float-input" placeholder=" " maxlength="40">
-                                    <label for="eess-reg-pass-conf" class="eess-float-label">تأكيد كلمة المرور *</label>
+                                    <label for="eess-reg-pass-conf" class="eess-float-label">Confirm Password *</label>
                                     <button type="button" class="eess-toggle-eye" onclick="eessTogglePassVisibility(\'eess-reg-pass-conf\', this)">
                                         <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
                                     </button>
@@ -3496,8 +3501,8 @@ class SM_Public {
                         </div>
 
                         <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                            <button type="button" onclick="eessGoToRegStep(4)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; السابق</button>
-                            <button type="button" id="btn-submit-reg-final" onclick="eessRegisterSubmitFinal()" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem; background: #16a34a !important;">إرسال طلب التسجيل للإدارة</button>
+                            <button type="button" onclick="eessGoToRegStep(4)" class="eess-btn-reset-pwd" style="width: auto; height: 38px; padding: 0 16px; font-size: 0.85rem; background: #64748b !important;">&rarr; Previous</button>
+                            <button type="button" id="btn-submit-reg-final" onclick="eessRegisterSubmitFinal()" class="eess-btn-login" style="width: auto; height: 38px; padding: 0 20px; font-size: 0.85rem; background: #16a34a !important;">Send طلب التسجيل للإدارة</button>
                         </div>
                     </div>
                 </div>
@@ -3577,14 +3582,14 @@ class SM_Public {
 
             // Update Progress Bar & Header
             const stepLabels = {
-                1: \'الخطوة 1 من 8: البريد الإلكتروني\',
+                1: \'الخطوة 1 من 8: Email Address\',
                 2: \'الخطوة 2 من 8: الرقم الوظيفي\',
-                3: \'الخطوة 3 من 8: المنظمة الرياضية / الأكاديمية الرياضية\',
-                4: \'الخطوة 4 من 8: الجنسية\',
+                3: \'الخطوة 3 من 8: Organization الرياضية / Academy الرياضية\',
+                4: \'الخطوة 4 من 8: Genderية\',
                 5: \'الخطوة 5 من 8: الرتبة الوظيفية\',
-                6: \'الخطوة 6 من 8: النشاط الرياضي الدراسية\',
-                7: \'الخطوة 7 من 8: تاريخ الميلاد\',
-                8: \'الخطوة 8 من 8: تعيين كلمة المرور الجديدة\'
+                6: \'الخطوة 6 من 8: Sport Activity الدراسية\',
+                7: \'الخطوة 7 من 8: Date of Birth\',
+                8: \'الخطوة 8 من 8: تعيين Password الجديدة\'
             };
 
             const pct = Math.round((stepNum / 8) * 100);
@@ -3612,13 +3617,13 @@ class SM_Public {
             } else if (nextStep === 4) {
                 const inst = document.getElementById(\'eess-forgot-institution\').value;
                 if (!inst) {
-                    eessShowForgotMsg(\'يرجى اختيار المنظمة الرياضية أو الأكاديمية الرياضية التابع لها.\', true);
+                    eessShowForgotMsg(\'يرجى اختيار Organization الرياضية أو Academy الرياضية التابع لها.\', true);
                     return;
                 }
             } else if (nextStep === 5) {
                 const nat = document.getElementById(\'eess-forgot-nationality\').value;
                 if (!nat) {
-                    eessShowForgotMsg(\'يرجى اختيار الجنسية المسجلة.\', true);
+                    eessShowForgotMsg(\'يرجى اختيار Genderية المسجلة.\', true);
                     return;
                 }
             } else if (nextStep === 6) {
@@ -3631,7 +3636,7 @@ class SM_Public {
                 if (eessCheckRoleSubjectNeed()) {
                     const subj = document.getElementById(\'eess-forgot-subject\').value;
                     if (!subj) {
-                        eessShowForgotMsg(\'يرجى تحديد النشاط الرياضي الدراسية المسندة لك.\', true);
+                        eessShowForgotMsg(\'يرجى تحديد Sport Activity الدراسية المسندة لك.\', true);
                         return;
                     }
                 }
@@ -3652,13 +3657,13 @@ class SM_Public {
         function eessVerifyIdentityFull() {
             const dob = document.getElementById(\'eess-forgot-dob\').value;
             if (!dob) {
-                eessShowForgotMsg(\'يرجى اختيار تاريخ الميلاد المسجل بالنظام.\', true);
+                eessShowForgotMsg(\'يرجى اختيار Date of Birth المسجل بالنظام.\', true);
                 return;
             }
 
             const btn = document.getElementById(\'btn-verify-identity\');
             btn.disabled = true;
-            btn.innerText = \'جاري التحقق الأمني...\';
+            btn.innerText = \'جاري التحقق Motherني...\';
 
             const data = new FormData();
             data.append(\'action\', \'eess_forgot_verify_identity\');
@@ -3674,11 +3679,11 @@ class SM_Public {
             .then(res => res.json())
             .then(res => {
                 btn.disabled = false;
-                btn.innerText = \'التحقق الأمني من الهوية ←\';
+                btn.innerText = \'التحقق Motherني من الهوية ←\';
 
                 if (res.success) {
                     eessVerifiedResetToken = res.data.reset_token;
-                    document.getElementById(\'eess-forgot-welcome-msg\').innerText = \'أهلاً بك يا \' + res.data.display_name + \'!\';
+                    document.getElementById(\'eess-forgot-welcome-msg\').innerText = \'Welcome يا \' + res.data.display_name + \'!\';
                     eessGoToForgotStep(8);
                 } else {
                     eessShowForgotMsg(res.data, true);
@@ -3714,7 +3719,7 @@ class SM_Public {
             const conf = document.getElementById(\'eess-forgot-pass-conf\').value;
 
             if (!pass || !conf) {
-                eessShowForgotMsg(\'يرجى كتابة كلمة المرور وتأكيدها.\', true);
+                eessShowForgotMsg(\'يرجى كتابة Password وConfirmها.\', true);
                 return;
             }
 
@@ -3725,7 +3730,7 @@ class SM_Public {
 
             const btn = document.getElementById(\'btn-save-new-pass\');
             btn.disabled = true;
-            btn.innerText = \'جاري الحفظ وتوثيق الدخول...\';
+            btn.innerText = \'جاري الSave وتوثيق الدخول...\';
 
             const data = new FormData();
             data.append(\'action\', \'eess_forgot_set_password\');
@@ -3737,13 +3742,13 @@ class SM_Public {
             .then(res => res.json())
             .then(res => {
                 if (res.success) {
-                    eessShowForgotMsg(res.data.message || \'تم الحفظ وتوثيق دخولك بنجاح!\', false);
+                    eessShowForgotMsg(res.data.message || \'تم الSave وتوثيق دخولك بنجاح!\', false);
                     setTimeout(() => {
                         window.location.href = res.data.redirect_url || \'' . home_url('/sm-admin') . '\';
                     }, 1000);
                 } else {
                     btn.disabled = false;
-                    btn.innerText = \'حفظ كلمة المرور والدخول المباشر للنظام\';
+                    btn.innerText = \'Save Password والدخول المباشر للنظام\';
                     eessShowForgotMsg(res.data, true);
                 }
             });
@@ -3783,7 +3788,7 @@ class SM_Public {
                 const dob = document.getElementById(\'eess-reg-dob\').value;
                 const nat = document.getElementById(\'eess-reg-nationality\').value;
                 if (!fn || !ln || !dob || !nat) {
-                    eessShowRegMsg(\'يرجى تعبئة كافة حقول البيانات الشخصية (الاسم، الميلاد، الجنسية).\', true);
+                    eessShowRegMsg(\'يرجى تعبئة كافة حقول Personal Information (اNoسم، الميNoد، Genderية).\', true);
                     return;
                 }
             }
@@ -3792,7 +3797,7 @@ class SM_Public {
                 const email = document.getElementById(\'eess-reg-email\').value.trim();
                 const phone = document.getElementById(\'eess-reg-phone\').value.trim();
                 if (!email || !email.includes(\'@\') || !phone) {
-                    eessShowRegMsg(\'يرجى كتابة بريد إلكتروني صحيح ورقم الهاتف.\', true);
+                    eessShowRegMsg(\'يرجى كتابة بريد إلكتروني صحيح وPhone Number.\', true);
                     return;
                 }
             }
@@ -3801,7 +3806,7 @@ class SM_Public {
                 const empNum = document.getElementById(\'eess-reg-emp-num\').value.trim();
                 const inst = document.getElementById(\'eess-reg-institution\').value;
                 if (!empNum || !inst) {
-                    eessShowRegMsg(\'يرجى كتابة الرقم الوظيفي واختيار المنظمة الرياضية/الأكاديمية الرياضية.\', true);
+                    eessShowRegMsg(\'يرجى كتابة الرقم الوظيفي واختيار Organization الرياضية/Academy الرياضية.\', true);
                     return;
                 }
             }
@@ -3814,7 +3819,7 @@ class SM_Public {
                     return;
                 }
                 if ((role === \'sm_teacher\' || role === \'sm_coordinator\' || role === \'sm_hod\') && !subj) {
-                    eessShowRegMsg(\'يرجى تحديد النشاط الرياضي الدراسية المسندة.\', true);
+                    eessShowRegMsg(\'يرجى تحديد Sport Activity الدراسية المسندة.\', true);
                     return;
                 }
             }
@@ -3830,10 +3835,10 @@ class SM_Public {
                 const subj = document.getElementById(\'eess-reg-subject\').value;
 
                 document.getElementById(\'eess-reg-summary-card\').innerHTML = `
-                    <div><strong>الاسم الكامل:</strong> ${fn} ${ln}</div>
-                    <div><strong>البريد الإلكتروني:</strong> ${email}</div>
+                    <div><strong>Full Name:</strong> ${fn} ${ln}</div>
+                    <div><strong>Email Address:</strong> ${email}</div>
                     <div><strong>الرقم الوظيفي:</strong> ${empNum}</div>
-                    <div><strong>المنظمة الرياضية/الأكاديمية الرياضية:</strong> ${inst}</div>
+                    <div><strong>Organization الرياضية/Academy الرياضية:</strong> ${inst}</div>
                     <div><strong>الرتبة الوظيفية:</strong> ${roleText} ${subj ? \' (مادة: \' + subj + \')\' : \'\'}</div>
                 `;
             }
@@ -3872,7 +3877,7 @@ class SM_Public {
             const conf = document.getElementById(\'eess-reg-pass-conf\').value;
 
             if (!pass || !conf) {
-                eessShowRegMsg(\'يرجى كتابة كلمة المرور وتأكيدها.\', true);
+                eessShowRegMsg(\'يرجى كتابة Password وConfirmها.\', true);
                 return;
             }
             if (pass !== conf) {
@@ -3882,7 +3887,7 @@ class SM_Public {
 
             const btn = document.getElementById(\'btn-submit-reg-final\');
             btn.disabled = true;
-            btn.innerText = \'جاري إرسال طلب التسجيل...\';
+            btn.innerText = \'جاري Send طلب التسجيل...\';
 
             const data = new FormData();
             data.append(\'action\', \'eess_register_submit\');
@@ -3904,21 +3909,21 @@ class SM_Public {
             .then(res => res.json())
             .then(res => {
                 if (res.success) {
-                    eessShowRegMsg(res.data || \'تم إرسال طلب التسجيل بنجاح، وهو الآن قيد مراجعة وإعتماد الإدارة.\', false);
+                    eessShowRegMsg(res.data || \'تم Send طلب التسجيل بنجاح، وهو الآن قيد مراجعة وإعتماد الإدارة.\', false);
                     setTimeout(() => {
                         eessCloseRegisterModal();
                         location.reload();
                     }, 2500);
                 } else {
                     btn.disabled = false;
-                    btn.innerText = \'إرسال طلب التسجيل للإدارة\';
+                    btn.innerText = \'Send طلب التسجيل للإدارة\';
                     eessShowRegMsg(res.data, true);
                 }
             })
             .catch(err => {
                 btn.disabled = false;
-                btn.innerText = \'إرسال طلب التسجيل للإدارة\';
-                eessShowRegMsg(\'حدث خطأ أثناء الاتصال بالخادم.\', true);
+                btn.innerText = \'Send طلب التسجيل للإدارة\';
+                eessShowRegMsg(\'An error occurred أثناء اNoتصال بالخادم.\', true);
             });
         }
         </script>
@@ -4051,7 +4056,7 @@ class SM_Public {
     }
 
     public function login_failed($username) {
-        SM_Logger::log('فشل تسجيل الدخول', "محاولة دخول فاشلة للمستخدم: $username");
+        SM_Logger::log('فشل Login', "محاولة دخول فاشلة للمستخدم: $username");
         $referrer = wp_get_referer();
         if ($referrer && !strstr($referrer, 'wp-login') && !strstr($referrer, 'wp-admin')) {
             wp_redirect(add_query_arg('login', 'failed', $referrer));
@@ -4126,9 +4131,9 @@ class SM_Public {
             foreach ($records as $r) {
                 $timeline[] = array(
                     'module'  => 'behavior',
-                    'title'   => 'تسجيل ملاحظة سلوكية: ' . ($r->type ?: 'مخالفة انضباطية'),
+                    'title'   => 'تسجيل مNoحظة سلوكية: ' . ($r->type ?: 'مخالفة انضباطية'),
                     'date'    => $r->created_at ?: current_time('mysql'),
-                    'details' => 'الدرجة: ' . ($r->degree ?: 1) . ' · تفاصيل: ' . ($r->details ?: 'لا توجد تفاصيل إضافية')
+                    'details' => 'الدرجة: ' . ($r->degree ?: 1) . ' · تفاصيل: ' . ($r->details ?: 'No توجد تفاصيل إضافية')
                 );
             }
         }
@@ -4141,7 +4146,7 @@ class SM_Public {
                         'module'  => 'attendance',
                         'title'   => 'رصد حالة حضور: ' . $status_lbl,
                         'date'    => $att->date . ' 08:00:00',
-                        'details' => 'التاريخ: ' . $att->date . ' · الحالة المعتمدة: ' . $status_lbl
+                        'details' => 'التاريخ: ' . $att->date . ' · Status المعتمدة: ' . $status_lbl
                     );
                 }
             }
@@ -4192,17 +4197,17 @@ class SM_Public {
 
     public function ajax_save_record() {
         if (!is_user_logged_in() || (!current_user_can('تسجيل_مخالفة') && !current_user_can('manage_options'))) {
-            wp_send_json_error('عفواً، لا تملك الصلاحية لتسجيل المخالفات.');
+            wp_send_json_error('عفواً، No تملك الصNoحية لتسجيل المخالفات.');
         }
         if (!wp_verify_nonce($_POST['sm_nonce'] ?? '', 'sm_record_action')) {
-            wp_send_json_error('فشل التوثيق الأمني للجلسة.');
+            wp_send_json_error('فشل التوثيق Motherني للجلسة.');
         }
 
         $raw_student_ids = sanitize_text_field($_POST['student_ids'] ?? '');
         $student_ids = array_filter(array_map('intval', explode(',', $raw_student_ids)));
 
         if (empty($student_ids)) {
-            wp_send_json_error('يرجى تحديد لاعب واحد على الأقل.');
+            wp_send_json_error('يرجى تحديد Noعب واحد على الأقل.');
         }
 
         global $wpdb;
@@ -4226,11 +4231,11 @@ class SM_Public {
 
         if ($count > 0) {
             $wpdb->query('COMMIT');
-            SM_Logger::log('تسجيل مخالفة جماعية', "تم تسجيل مخالفة لعدد ($count) من اللاعبين بنجاح.");
+            SM_Logger::log('تسجيل مخالفة جماعية', "تم تسجيل مخالفة لعدد ($count) من الNoعبين بنجاح.");
             wp_send_json_success(array(
                 'count' => $count,
                 'record_id' => $last_record_id,
-                'message' => "تم تسجيل المخالفة بنجاح لـ ($count) من اللاعبين المحددين.",
+                'message' => "تم تسجيل المخالفة بنجاح لـ ($count) من الNoعبين المحددين.",
                 'print_url' => admin_url('admin-ajax.php?action=sm_print&print_type=single_violation&record_id=' . $last_record_id)
             ));
         } else {
@@ -4247,7 +4252,7 @@ class SM_Public {
         $student_id = intval($_POST['student_id']);
         
         // Security: Parent can only update their children, Admin can update anyone
-        if (!current_user_can('إدارة_اللاعبين')) {
+        if (!current_user_can('إدارة_الNoعبين')) {
             $my_children = SM_DB::get_students_by_parent($user_id);
             $is_mine = false;
             foreach ($my_children as $child) {
@@ -4293,7 +4298,7 @@ class SM_Public {
 
     public function ajax_add_student() {
         $user_roles = (array) wp_get_current_user()->roles;
-        $can_manage_students = current_user_can('إدارة_اللاعبين') || current_user_can('manage_options') || current_user_can('manage_students') || in_array('sm_principal', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
+        $can_manage_students = current_user_can('إدارة_الNoعبين') || current_user_can('manage_options') || current_user_can('manage_students') || in_array('sm_principal', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
         if (!$can_manage_students) wp_send_json_error('Unauthorized');
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_add_student') && !wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'eess_admin_action')) wp_send_json_error('Security check failed');
@@ -4308,7 +4313,7 @@ class SM_Public {
 
     public function ajax_update_student() {
         $user_roles = (array) wp_get_current_user()->roles;
-        $can_manage_students = current_user_can('إدارة_اللاعبين') || current_user_can('manage_options') || current_user_can('manage_students') || in_array('sm_principal', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
+        $can_manage_students = current_user_can('إدارة_الNoعبين') || current_user_can('manage_options') || current_user_can('manage_students') || in_array('sm_principal', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
         if (!$can_manage_students) wp_send_json_error('Unauthorized');
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_add_student') && !wp_verify_nonce($nonce, 'sm_photo_action') && !wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'eess_admin_action')) wp_send_json_error('Security check failed');
@@ -4320,7 +4325,7 @@ class SM_Public {
                 global $wpdb;
                 $st_sch = $wpdb->get_var($wpdb->prepare("SELECT school_id FROM {$wpdb->prefix}sm_students WHERE id = %d", $student_id));
                 if ($st_sch && !in_array(intval($st_sch), $user_scope['schools'], true)) {
-                    wp_send_json_error('عفواً، لا تملك صلاحية تعديل بيانات طلاب من مدرسة أخرى.');
+                    wp_send_json_error('عفواً، No تملك صNoحية Edit بيانات طNoب من مدرسة أخرى.');
                 }
             }
         }
@@ -4335,7 +4340,7 @@ class SM_Public {
 
     public function ajax_delete_student() {
         $user_roles = (array) wp_get_current_user()->roles;
-        $can_manage_students = current_user_can('إدارة_اللاعبين') || current_user_can('manage_options') || current_user_can('manage_students') || in_array('sm_principal', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
+        $can_manage_students = current_user_can('إدارة_الNoعبين') || current_user_can('manage_options') || current_user_can('manage_students') || in_array('sm_principal', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
         if (!$can_manage_students) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_delete_student')) wp_send_json_error('Security check failed');
 
@@ -4343,7 +4348,7 @@ class SM_Public {
         $student = SM_DB::get_student_by_id($student_id);
 
         if ($student && SM_DB::delete_student($student_id)) {
-            SM_Logger::log('حذف لاعب', "تم حذف اللاعب: {$student->name} (كود: {$student->student_code})");
+            SM_Logger::log('Delete Noعب', "تم Delete الNoعب: {$student->name} (كود: {$student->student_code})");
             wp_send_json_success('Deleted');
         } else {
             wp_send_json_error('Failed to delete');
@@ -4361,7 +4366,7 @@ class SM_Public {
         $record = SM_DB::get_record_by_id($record_id);
 
         if ($record && SM_DB::delete_record($record_id)) {
-            SM_Logger::log('حذف مخالفة', "تم حذف مخالفة ID: $record_id لللاعب ID: {$record->student_id}");
+            SM_Logger::log('Delete مخالفة', "تم Delete مخالفة ID: $record_id للNoعب ID: {$record->student_id}");
             wp_send_json_success('Deleted');
         } else {
             wp_send_json_error('Failed to delete');
@@ -4377,7 +4382,7 @@ class SM_Public {
     }
 
     public function ajax_add_parent() {
-        if (!current_user_can('إدارة_المستخدمين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_Users')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['sm_nonce'], 'sm_user_action')) wp_send_json_error('Security check failed');
 
         $raw_uname = $_POST['user_login'] ?? ($_POST['employee_number'] ?? ($_POST['employee_id'] ?? ($_POST['username'] ?? '')));
@@ -4395,13 +4400,13 @@ class SM_Public {
 
         if (is_wp_error($user_id)) wp_send_json_error($user_id->get_error_message());
         else {
-            SM_Logger::log('إضافة ولي أمر', "تم إنشاء حساب ولي أمر جديد: {$_POST['display_name']}");
+            SM_Logger::log('Add ولي أمر', "تم إنشاء حساب ولي أمر جديد: {$_POST['display_name']}");
             wp_send_json_success($user_id);
         }
     }
 
     public function ajax_add_user() {
-        if (!current_user_can('إدارة_المستخدمين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_Users')) wp_send_json_error('Unauthorized');
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_user_action') && !wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'sm_teacher_action')) wp_send_json_error('Security check failed');
 
@@ -4469,7 +4474,7 @@ class SM_Public {
             }
             clean_user_cache($user_id);
             wp_cache_flush();
-            SM_Logger::log('إضافة مستخدم جديد', "تم إنشاء مستخدم باسم: {$_POST['display_name']} ورتبة: {$_POST['user_role']}");
+            SM_Logger::log('Add مستخدم جديد', "تم إنشاء مستخدم باسم: {$_POST['display_name']} ورتبة: {$_POST['user_role']}");
             wp_send_json_success($user_id);
         }
     }
@@ -4482,22 +4487,22 @@ class SM_Public {
         $is_hr = in_array('sm_hr', $roles) || current_user_can('manage_hr');
 
         if (!$is_admin && !$is_sys_admin && !$is_hr) {
-            wp_send_json_error('غير مصرح لك بالوصول.');
+            wp_send_json_error('Unauthorized لك بالوصول.');
         }
 
         if (!wp_verify_nonce($_POST['sm_nonce'], 'eess_hr_add_employee_nonce')) {
-            wp_send_json_error('انتهت صلاحية الجلسة، يرجى تحديث الصفحة.');
+            wp_send_json_error('انتهت صNoحية الجلسة، يرجى Update الصفحة.');
         }
 
         $username = sanitize_user($_POST['user_login']);
         $email = (!empty($_POST['user_email']) && is_email($_POST['user_email'])) ? sanitize_email($_POST['user_email']) : ($username . '@school-system.local');
 
         if (username_exists($username)) {
-            wp_send_json_error('اسم المستخدم مسجل مسبقاً في النظام.');
+            wp_send_json_error('Username مسجل مسبقاً في النظام.');
         }
 
         if (email_exists($email)) {
-            wp_send_json_error('البريد الإلكتروني مسجل مسبقاً في النظام.');
+            wp_send_json_error('Email Address مسجل مسبقاً في النظام.');
         }
 
         $user_data = array(
@@ -4538,7 +4543,7 @@ class SM_Public {
         clean_user_cache($user_id);
         wp_cache_flush();
 
-        SM_Logger::log('إضافة موظف معلق', "تم إنشاء حساب موظف معلق باسم: {$_POST['display_name']} للرتبة: {$_POST['user_role']}");
+        SM_Logger::log('Add موظف Pending', "تم إنشاء حساب موظف Pending باسم: {$_POST['display_name']} للرتبة: {$_POST['user_role']}");
         wp_send_json_success(array('user_id' => $user_id));
     }
 
@@ -4555,14 +4560,14 @@ class SM_Public {
         $role_map = array(
             'administrator' => 'الإدارة المركزية (المطور)',
             'sm_system_admin' => 'مدير النظام التقني',
-            'sm_principal' => 'مدير الأكاديمية الرياضية',
+            'sm_principal' => 'مدير Academy الرياضية',
             'sm_supervisor' => 'مشرف تربوي',
             'sm_coordinator' => 'منسق مادة',
             'sm_hod' => 'رئيس قسم',
             'sm_teacher' => 'معلم',
             'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-            'sm_activities_supervisor' => 'مشرف أنشطة',
-            'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+            'sm_activities_supervisor' => 'مشرف أActiveة',
+            'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
             'sm_bus_supervisor' => 'مشرف حافلة',
             'sm_clinic' => 'العيادة المدرسية',
             'sm_hr' => 'الموارد البشرية (HR)'
@@ -4583,7 +4588,7 @@ class SM_Public {
         // Add UTF-8 BOM for Excel Arabic compatibility
         fputs($output, "\xEF\xBB\xBF");
 
-        fputcsv($output, array('الرقم الوظيفي', 'الاسم الكامل', 'اسم المستخدم', 'البريد الإلكتروني', 'رقم الهاتف', 'المسمى الوظيفي', 'القسم / الإدارة', 'النشاط الرياضي / التخصص', 'المنظمة الرياضية / الأكاديمية الرياضية', 'الحالة الوظيفية'));
+        fputcsv($output, array('الرقم الوظيفي', 'Full Name', 'Username', 'Email Address', 'Phone Number', 'المسمى الوظيفي', 'القسم / الإدارة', 'Sport Activity / التخصص', 'Organization الرياضية / Academy الرياضية', 'Status الوظيفية'));
 
         foreach ($employees as $emp) {
             $e_num   = get_user_meta($emp->ID, 'eess_employee_number', true) ?: '';
@@ -4594,7 +4599,7 @@ class SM_Public {
             $e_sch   = get_user_meta($emp->ID, 'eess_school_name', true) ?: '';
             $e_phone = get_user_meta($emp->ID, 'sm_phone', true) ?: '';
             $e_stat  = get_user_meta($emp->ID, 'eess_hr_employment_status', true) ?: 'active';
-            $e_stat_txt = ($e_stat === 'active') ? 'نشط بالخدمة' : (($e_stat === 'restricted') ? 'مقيد الدخول' : 'غير نشط');
+            $e_stat_txt = ($e_stat === 'active') ? 'Active بالخدمة' : (($e_stat === 'restricted') ? 'مقيد الدخول' : 'غير Active');
 
             fputcsv($output, array($e_num, $emp->display_name, $emp->user_login, $emp->user_email, $e_phone, $e_role_txt, $e_dept, $e_spec, $e_sch, $e_stat_txt));
         }
@@ -4611,16 +4616,16 @@ class SM_Public {
         $is_hr = in_array('sm_hr', $roles) || current_user_can('manage_hr');
 
         if (!$is_admin && !$is_sys_admin && !$is_hr) {
-            wp_send_json_error('غير مصرح لك بالوصول.');
+            wp_send_json_error('Unauthorized لك بالوصول.');
         }
 
         if (!wp_verify_nonce($_POST['nonce'], 'eess_hr_add_employee_nonce')) {
-            wp_send_json_error('انتهت صلاحية الجلسة، يرجى تحديث الصفحة.');
+            wp_send_json_error('انتهت صNoحية الجلسة، يرجى Update الصفحة.');
         }
 
         $records = isset($_POST['records']) ? json_decode(stripslashes($_POST['records']), true) : array();
         if (empty($records) || !is_array($records)) {
-            wp_send_json_error('لا توجد سجلات مستوردة صالحة.');
+            wp_send_json_error('No توجد سجNoت مستوردة صالحة.');
         }
 
         $success_count = 0;
@@ -4699,7 +4704,7 @@ class SM_Public {
 
         wp_cache_flush();
 
-        SM_Logger::log('استيراد جماعي للموظفين', "تم استيراد ($success_count) موظف بنجاح، وتجاهل ($duplicate_count) بسبب تكرار البريد.");
+        SM_Logger::log('Import جماعي للموظفين', "تم Import ($success_count) موظف بنجاح، وتجاهل ($duplicate_count) بسبب تكرار البريد.");
 
         wp_send_json_success(array(
             'imported' => $success_count,
@@ -4708,7 +4713,7 @@ class SM_Public {
     }
 
     public function ajax_update_generic_user() {
-        if (!current_user_can('إدارة_المستخدمين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_Users')) wp_send_json_error('Unauthorized');
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_user_action') && !wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'sm_teacher_action')) wp_send_json_error('Security check failed');
 
@@ -4716,7 +4721,7 @@ class SM_Public {
 
         $target_user = get_userdata($user_id);
         if ($target_user && $target_user->user_email === 'info@eess.online') {
-            wp_send_json_error('عفواً، لا يمكن تعديل أو تغيير حساب مدير النظام المحمي والمدعوم ذاتياً.');
+            wp_send_json_error('عفواً، No يمكن Edit أو تغيير حساب مدير النظام المحمي والمدعوم ذاتياً.');
         }
 
         $user_data = array(
@@ -4779,12 +4784,12 @@ class SM_Public {
         clean_user_cache($user_id);
         wp_cache_flush();
         
-        SM_Logger::log('تعديل بيانات مستخدم', "تم تحديث بيانات المستخدم: {$_POST['display_name']} (ID: $user_id)");
+        SM_Logger::log('Edit بيانات مستخدم', "تم Update بيانات المستخدم: {$_POST['display_name']} (ID: $user_id)");
         wp_send_json_success('Updated');
     }
 
     public function ajax_add_teacher() {
-        if (!current_user_can('إدارة_المستخدمين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_Users')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['sm_nonce'], 'sm_teacher_action')) wp_send_json_error('Security check failed');
 
         $pass = $_POST['user_pass'];
@@ -4925,7 +4930,7 @@ class SM_Public {
         update_user_meta($user_id, 'sm_profile_photo_url', $photo_url);
         update_user_meta($user_id, 'eess_profile_photo', $photo_url);
 
-        SM_Logger::log('تحديث الصورة الشخصية للموبايل', "قام المستخدم ID: $user_id بتحديث صورته الشخصية بنجاح.");
+        SM_Logger::log('Update الصورة الشخصية للموبايل', "قام المستخدم ID: $user_id بUpdate صورته الشخصية بنجاح.");
 
         wp_send_json_success(array('photo_url' => $photo_url));
     }
@@ -4973,7 +4978,7 @@ class SM_Public {
             case 'students':
                 $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}sm_students");
                 $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}sm_records");
-                SM_Logger::log('مسح كافة اللاعبين والسجلات', 'إجراء جماعي');
+                SM_Logger::log('مسح كافة الNoعبين والسجNoت', 'إجراء جماعي');
                 break;
             case 'teachers':
                 $teachers = get_users(array('role' => 'sm_teacher'));
@@ -4989,7 +4994,7 @@ class SM_Public {
                     wp_delete_user($p->ID);
                     $count++;
                 }
-                SM_Logger::log('مسح كافة أولياء الأمور والأوصياء', 'إجراء جماعي');
+                SM_Logger::log('مسح كافة أولياء Motherور والأوصياء', 'إجراء جماعي');
                 break;
             case 'records':
                 $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}sm_records");
@@ -5001,20 +5006,20 @@ class SM_Public {
     }
 
     public function ajax_eess_restrict_student_account() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية لتقييد حساب اللاعب.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
+            wp_send_json_error('عفواً، No تمتلك الصNoحية لتقييد حساب الNoعب.');
         }
 
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'eess_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $student_id = intval($_POST['student_id'] ?? 0);
-        if (!$student_id) wp_send_json_error('معرف اللاعب غير صحيح.');
+        if (!$student_id) wp_send_json_error('معرف الNoعب غير صحيح.');
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('اللاعب غير موجود.');
+        if (!$student) wp_send_json_error('الNoعب غير موجود.');
 
         global $wpdb;
         $wpdb->update("{$wpdb->prefix}sm_students", array('status' => 'inactive'), array('id' => $student_id));
@@ -5031,25 +5036,25 @@ class SM_Public {
             update_user_meta($user_id, 'eess_account_status', 'restricted');
         }
 
-        SM_Logger::log('تقييد حساب لاعب', "تم تقييد/تعطيل حساب اللاعب: {$student->name} (ID: $student_id)");
-        wp_send_json_success(array('message' => 'تم تقييد / تعطيل حساب اللاعب بنجاح.'));
+        SM_Logger::log('تقييد حساب Noعب', "تم تقييد/تعطيل حساب الNoعب: {$student->name} (ID: $student_id)");
+        wp_send_json_success(array('message' => 'تم تقييد / تعطيل حساب الNoعب بنجاح.'));
     }
 
     public function ajax_eess_request_student_password_change() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية لإرسال طلب تغيير كلمة المرور.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
+            wp_send_json_error('عفواً، No تمتلك الصNoحية لSend طلب تغيير Password.');
         }
 
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'eess_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $student_id = intval($_POST['student_id'] ?? 0);
-        if (!$student_id) wp_send_json_error('معرف اللاعب غير صحيح.');
+        if (!$student_id) wp_send_json_error('معرف الNoعب غير صحيح.');
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('اللاعب غير موجود.');
+        if (!$student) wp_send_json_error('الNoعب غير موجود.');
 
         $national_id = $student->national_id;
         $student_code = $student->student_code;
@@ -5059,32 +5064,32 @@ class SM_Public {
 
         if ($user_id) {
             update_user_meta($user_id, 'eess_must_change_password', '1');
-            SM_Logger::log('إصدار طلب تغيير كلمة مرور', "تم إصدار طلب إجباري لتغيير كلمة المرور للحساب المرتبط باللاعب: {$student->name}");
-            wp_send_json_success(array('message' => 'تم إرسال وتفعيل طلب تغيير كلمة المرور الإجباري لللاعب عند تسجيل الدخول القادم.'));
+            SM_Logger::log('Issue طلب تغيير كلمة مرور', "تم Issue طلب إجباري لتغيير Password للحساب المرتبط بالNoعب: {$student->name}");
+            wp_send_json_success(array('message' => 'تم Send وتفعيل طلب تغيير Password الإجباري للNoعب عند Login القادم.'));
         } else {
-            wp_send_json_error('لم يتم العثور على حساب مستخدم مخصص لهذا اللاعب.');
+            wp_send_json_error('لم يتم العثور على حساب مستخدم مخصص لهذا الNoعب.');
         }
     }
 
     public function ajax_eess_send_message_to_student() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية لإرسال رسائل للطلاب.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
+            wp_send_json_error('عفواً، No تمتلك الصNoحية لSend رسائل للطNoب.');
         }
 
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'eess_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $student_id = intval($_POST['student_id'] ?? 0);
         $message = sanitize_textarea_field($_POST['message'] ?? '');
 
         if (!$student_id || empty($message)) {
-            wp_send_json_error('يرجى تحديد اللاعب وإدخال نص الرسالة.');
+            wp_send_json_error('يرجى تحديد الNoعب وإدخال نص الرسالة.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('اللاعب غير موجود.');
+        if (!$student) wp_send_json_error('الNoعب غير موجود.');
 
         $national_id = $student->national_id;
         $student_code = $student->student_code;
@@ -5103,10 +5108,10 @@ class SM_Public {
         ));
 
         if ($inserted) {
-            SM_Logger::log('إرسال رسالة رسمية للاعب', "تم إرسال رسالة لللاعب: {$student->name} (ID: $student_id)");
-            wp_send_json_success(array('message' => 'تم إرسال الرسالة لللاعب بنجاح وتوثيقها بصفحة دخوله.'));
+            SM_Logger::log('Send رسالة رسمية لNoعب', "تم Send رسالة للNoعب: {$student->name} (ID: $student_id)");
+            wp_send_json_success(array('message' => 'تم Send الرسالة للNoعب بنجاح وتوثيقها بصفحة دخوله.'));
         } else {
-            wp_send_json_error('فشل حفظ الرسالة في قاعدة البيانات.');
+            wp_send_json_error('فشل Save الرسالة في قاعدة البيانات.');
         }
     }
 
@@ -5133,7 +5138,7 @@ class SM_Public {
         $code = sanitize_text_field($_POST['security_code'] ?? '');
 
         // Security Check: Either Staff or Valid Class Code
-        $is_staff = is_user_logged_in() && current_user_can('إدارة_اللاعبين');
+        $is_staff = is_user_logged_in() && current_user_can('إدارة_الNoعبين');
 
         if (!$is_staff) {
             if (empty($code)) wp_send_json_error('Security code required');
@@ -5191,14 +5196,14 @@ class SM_Public {
         if (!$student && $student_id > 0) {
             $student = SM_DB::get_student_by_id($student_id);
         }
-        if (!$student) wp_send_json_error('عفواً، لم يتم العثور على لاعب به القيمة البارکود الممسوحة.');
+        if (!$student) wp_send_json_error('عفواً، لم يتم العثور على Noعب به القيمة البارکود الممسوحة.');
 
         // Server-side school scope check
         $user_scope = EESS_Org_Helper::get_user_scope();
         if (!$user_scope['unrestricted'] && !empty($user_scope['schools'])) {
             $st_sch = intval($student->institution_id ?: $student->school_id);
             if ($st_sch > 0 && !in_array($st_sch, $user_scope['schools'], true)) {
-                wp_send_json_error('عفواً، لا تمتلك صلاحية تسجل حضور طلاب خارج نطاق مدرستك.');
+                wp_send_json_error('عفواً، No تمتلك صNoحية تسجل حضور طNoب خارج نطاق مدرستك.');
             }
         }
 
@@ -5213,7 +5218,7 @@ class SM_Public {
                 'already_recorded' => true,
                 'student_id'       => $student_id,
                 'student_name'     => $student->name,
-                'message'          => 'الحضور مسجل بالفعل لهذا اللاعب اليوم'
+                'message'          => 'الحضور مسجل بالفعل لهذا الNoعب اليوم'
             ));
         }
 
@@ -5244,7 +5249,7 @@ class SM_Public {
         if (!$student) wp_send_json_error('Student not found');
 
         $code = sanitize_text_field($_POST['security_code'] ?? '');
-        $is_staff = is_user_logged_in() && current_user_can('إدارة_اللاعبين');
+        $is_staff = is_user_logged_in() && current_user_can('إدارة_الNoعبين');
         $valid_code = (SM_Settings::get_class_security_code($student->class_name, $student->section) === $code);
 
         if (!$is_staff && !$valid_code) {
@@ -5267,7 +5272,7 @@ class SM_Public {
     }
 
     public function ajax_reset_class_code() {
-        if (!is_user_logged_in() || !current_user_can('إدارة_اللاعبين')) wp_send_json_error('Unauthorized');
+        if (!is_user_logged_in() || !current_user_can('إدارة_الNoعبين')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_attendance_action')) wp_send_json_error('Security check failed');
 
         $grade = sanitize_text_field($_POST['grade']);
@@ -5278,7 +5283,7 @@ class SM_Public {
     }
 
     public function ajax_toggle_attendance_status() {
-        if (!is_user_logged_in() || !current_user_can('إدارة_اللاعبين')) wp_send_json_error('Unauthorized');
+        if (!is_user_logged_in() || !current_user_can('إدارة_الNoعبين')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_attendance_action')) wp_send_json_error('Security check failed');
 
         $status = sanitize_text_field($_POST['status']);
@@ -5345,8 +5350,8 @@ class SM_Public {
     }
 
     public function ajax_add_document() {
-        if (!is_user_logged_in()) wp_send_json_error('عفواً، يجب تسجيل الدخول.');
-        if (!wp_verify_nonce($_POST['sm_nonce'] ?? '', 'sm_admin_action')) wp_send_json_error('فشل التوثيق الأمني بالجلسة.');
+        if (!is_user_logged_in()) wp_send_json_error('عفواً، يجب Login.');
+        if (!wp_verify_nonce($_POST['sm_nonce'] ?? '', 'sm_admin_action')) wp_send_json_error('فشل التوثيق Motherني بالجلسة.');
 
         $title    = sanitize_text_field($_POST['title'] ?? '');
         $category = sanitize_text_field($_POST['category'] ?? '');
@@ -5362,7 +5367,7 @@ class SM_Public {
         $can_upload_general = in_array('administrator', $roles) || in_array('sm_system_admin', $roles) || in_array('sm_principal', $roles) || in_array('sm_supervisor', $roles) || in_array('sm_coordinator', $roles) || in_array('sm_hod', $roles) || current_user_can('manage_options');
 
         if ($is_general && !$can_upload_general) {
-            wp_send_json_error('عفواً، يتطلب نشر الوثائق العامة صلاحية مدير الأكاديمية الرياضية أو المشرفين الرياضيين أو رئيس القسم.');
+            wp_send_json_error('عفواً، يتطلب نشر الوثائق العامة صNoحية مدير Academy الرياضية أو المشرفين الرياضيين أو رئيس القسم.');
         }
 
         // Validate File Size (max 5MB) and Allowed Extensions (PDF, DOC/DOCX, XLS/XLSX)
@@ -5404,7 +5409,7 @@ class SM_Public {
         ));
 
         if ($result) wp_send_json_success();
-        else wp_send_json_error('فشل حفظ الوثيقة بقاعدة البيانات.');
+        else wp_send_json_error('فشل Save الوثيقة بقاعدة البيانات.');
     }
 
     public function ajax_update_document() {
@@ -5456,7 +5461,7 @@ class SM_Public {
             'high' => sanitize_textarea_field($_POST['suggested_high'])
         ));
 
-        SM_Logger::log('تحديث إعدادات اللائحة', 'قام المستخدم بتحديث أنواع المخالفات العامة واقتراحات الإجراءات.');
+        SM_Logger::log('Update إعدادات الNoئحة', 'قام المستخدم بUpdate أنواع المخالفات العامة واقتراحات الActions.');
 
         wp_send_json_success();
     }
@@ -5482,7 +5487,7 @@ class SM_Public {
             }
         }
         SM_Settings::save_hierarchical_violations($processed);
-        SM_Logger::log('تحديث لائحة المخالفات الهرمية', 'تم تحديث بنود اللائحة والنقاط والإجراءات لجميع المستويات.');
+        SM_Logger::log('Update Noئحة المخالفات الهرمية', 'تم Update بنود الNoئحة والنقاط والActions لجميع المستويات.');
 
         wp_send_json_success();
     }
@@ -5523,14 +5528,14 @@ class SM_Public {
         $log = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_logs WHERE id = %d", $log_id));
 
         if (!$log || strpos($log->details, 'ROLLBACK_DATA:') !== 0) {
-            wp_send_json_error('لا يمكن استعادة هذه العملية');
+            wp_send_json_error('No يمكن استعادة هذه العملية');
         }
 
         $json = substr($log->details, strlen('ROLLBACK_DATA:'));
         $data_obj = json_decode($json, true);
 
         if (!$data_obj || !isset($data_obj['table']) || !isset($data_obj['data'])) {
-            wp_send_json_error('بيانات الاستعادة تالفة');
+            wp_send_json_error('بيانات اNoستعادة تالفة');
         }
 
         $table = $data_obj['table'];
@@ -5552,9 +5557,9 @@ class SM_Public {
         if ($result) {
             $wpdb->delete("{$wpdb->prefix}sm_logs", array('id' => $log_id)); // Remove log after rollback
             SM_Logger::log('استعادة عملية محذوفة', "الجدول: $table، المعرف الأصلي: {$data['id']}");
-            wp_send_json_success('تمت الاستعادة بنجاح');
+            wp_send_json_success('تمت اNoستعادة بنجاح');
         } else {
-            wp_send_json_error('فشلت عملية الاستعادة في قاعدة البيانات');
+            wp_send_json_error('فشلت عملية اNoستعادة في قاعدة البيانات');
         }
     }
 
@@ -5587,7 +5592,7 @@ class SM_Public {
         $deleted = $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}sm_user_announcements");
 
         if ($deleted !== false) {
-            SM_Logger::log('مسح إحصائيات القراءة بالجملة', 'تم مسح كافة سجلات تفاعل وقراءة الإشعارات للمستخدمين بالجملة');
+            SM_Logger::log('مسح إحصائيات القراءة بالجملة', 'تم مسح كافة سجNoت تفاعل وقراءة الإشعارات للمستخدمين بالجملة');
             wp_send_json_success('تم مسح إحصائيات القراءة بنجاح.');
         } else {
             wp_send_json_error('فشل مسح إحصائيات القراءة.');
@@ -5599,7 +5604,7 @@ class SM_Public {
         if (!wp_verify_nonce($_POST['nonce'], 'sm_admin_action')) wp_send_json_error('Security check failed');
 
         if ($_POST['confirm_code'] !== '1011996') {
-            wp_send_json_error('كود التأكيد غير صحيح');
+            wp_send_json_error('كود الConfirm غير صحيح');
         }
 
         global $wpdb;
@@ -5622,14 +5627,14 @@ class SM_Public {
     }
 
     public function ajax_update_teacher() {
-        if (!current_user_can('إدارة_المستخدمين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_Users')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['sm_nonce'], 'sm_teacher_action')) wp_send_json_error('Security check failed');
 
         $user_id = intval($_POST['edit_teacher_id']);
 
         $target_user = get_userdata($user_id);
         if ($target_user && $target_user->user_email === 'info@eess.online') {
-            wp_send_json_error('عفواً، لا يمكن تعديل أو تغيير حساب مدير النظام المحمي والمدعوم ذاتياً.');
+            wp_send_json_error('عفواً، No يمكن Edit أو تغيير حساب مدير النظام المحمي والمدعوم ذاتياً.');
         }
 
         $user_data = array(
@@ -5701,7 +5706,7 @@ class SM_Public {
     }
 
     public function ajax_bulk_delete_users() {
-        if (!current_user_can('إدارة_المستخدمين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_Users')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_teacher_action')) wp_send_json_error('Security check');
 
         $ids = array_map('intval', explode(',', $_POST['user_ids']));
@@ -5713,7 +5718,7 @@ class SM_Public {
                 if (wp_delete_user($id)) $count++;
             }
         }
-        SM_Logger::log('حذف مستخدمين (جماعي)', "تم حذف عدد ($count) مستخدم من النظام.");
+        SM_Logger::log('Delete مستخدمين (جماعي)', "تم Delete عدد ($count) مستخدم من النظام.");
         wp_send_json_success();
     }
 
@@ -5733,7 +5738,7 @@ class SM_Public {
 
         if ($result) {
             $student = SM_DB::get_student_by_id($student_id);
-            SM_Logger::log('تحويل للعيادة', "تم تحويل اللاعب: {$student->name} للعيادة");
+            SM_Logger::log('تحويل للعيادة', "تم تحويل الNoعب: {$student->name} للعيادة");
             wp_send_json_success();
         } else {
             wp_send_json_error('Failed to add referral');
@@ -5815,7 +5820,7 @@ class SM_Public {
         header('Content-Disposition: attachment; filename=clinic_report_'.$type.'_'.date('Y-m-d').'.csv');
         $output = fopen('php://output', 'w');
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM for Excel
-        fputcsv($output, array('التاريخ', 'اسم اللاعب', 'المجموعة التدريبية', 'المجموعة التدريبية', 'المحول', 'تأكيد الوصول', 'الحالة الصحية', 'الإجراء المتخذ'));
+        fputcsv($output, array('التاريخ', 'Player Name', 'Training Group', 'Training Group', 'المحول', 'Confirm الوصول', 'Status الصحية', 'الإجراء المتخذ'));
 
         foreach ($records as $r) {
             fputcsv($output, array(
@@ -5824,7 +5829,7 @@ class SM_Public {
                 $r->class_name,
                 $r->section,
                 $r->referrer_name,
-                $r->arrival_confirmed ? 'نعم' : 'لا',
+                $r->arrival_confirmed ? 'Yes' : 'No',
                 $r->health_condition,
                 $r->action_taken
             ));
@@ -5856,7 +5861,7 @@ class SM_Public {
         ));
 
         if ($result) {
-            SM_Logger::log('رصد درجة', "تم رصد درجة لللاعب ID: {$_POST['student_id']} في مادة $subject");
+            SM_Logger::log('رصد درجة', "تم رصد درجة للNoعب ID: {$_POST['student_id']} في مادة $subject");
             wp_send_json_success();
         } else {
             wp_send_json_error('Failed to save grade');
@@ -5873,7 +5878,7 @@ class SM_Public {
 
         $records = isset($_POST['records']) ? json_decode(stripslashes($_POST['records']), true) : array();
         if (empty($records) || !is_array($records)) {
-            wp_send_json_error('لا توجد سجلات مستوردة صالحة.');
+            wp_send_json_error('No توجد سجNoت مستوردة صالحة.');
         }
 
         global $wpdb;
@@ -5921,7 +5926,7 @@ class SM_Public {
             }
         }
 
-        SM_Logger::log('استيراد جماعي للدرجات', "تم استيراد ($success_count) نتيجة بنجاح، وتجاهل ($duplicate_count) نتيجة مكررة.");
+        SM_Logger::log('Import جماعي للدرجات', "تم Import ($success_count) نتيجة بنجاح، وتجاهل ($duplicate_count) نتيجة مكررة.");
 
         wp_send_json_success(array(
             'imported' => $success_count,
@@ -6020,7 +6025,7 @@ class SM_Public {
     }
 
     public function ajax_bulk_delete_students() {
-        if (!current_user_can('إدارة_اللاعبين')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_الNoعبين')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_delete_student')) wp_send_json_error('Security');
 
         $ids = array_map('intval', explode(',', $_POST['student_ids']));
@@ -6028,7 +6033,7 @@ class SM_Public {
         foreach ($ids as $id) {
             if (SM_DB::delete_student($id)) $count++;
         }
-        SM_Logger::log('حذف طلاب (جماعي)', "تم حذف عدد ($count) لاعب من النظام.");
+        SM_Logger::log('Delete طNoب (جماعي)', "تم Delete عدد ($count) Noعب من النظام.");
         wp_send_json_success($count);
     }
 
@@ -6083,11 +6088,11 @@ class SM_Public {
 
     public function ajax_submit_behavior_referral() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يجب تسجيل الدخول لتقديم المخالفة السلوكية.');
+            wp_send_json_error('عفواً، يجب Login لتقديم المخالفة السلوكية.');
         }
 
         if (!wp_verify_nonce($_POST['nonce'] ?? '', 'sm_record_action')) {
-            wp_send_json_error('انتهت صلاحية الجلسة. يرجى إعادة المحاولة.');
+            wp_send_json_error('انتهت صNoحية الجلسة. يرجى إعادة المحاولة.');
         }
 
         $student_id     = intval($_POST['student_id'] ?? 0);
@@ -6115,10 +6120,10 @@ class SM_Public {
         ));
 
         if ($record_id) {
-            SM_Logger::log('تقديم مخالفة سلوكية للاعب', "قدم المدرب {$user->display_name} إحالة سلوكية للاعب ID: $student_id بعنوان: $title");
-            wp_send_json_success(array('record_id' => $record_id, 'message' => 'تم تقديم المخالفة السلوكية بنجاح وهي قيد مراجعة وتأكيد مشرف السلوك.'));
+            SM_Logger::log('تقديم مخالفة سلوكية لNoعب', "قدم المدرب {$user->display_name} إحالة سلوكية لNoعب ID: $student_id بعنوان: $title");
+            wp_send_json_success(array('record_id' => $record_id, 'message' => 'تم تقديم المخالفة السلوكية بنجاح وهي قيد مراجعة وConfirm مشرف السلوك.'));
         } else {
-            wp_send_json_error('حدث خطأ أثناء حفظ الإحالة السلوكية.');
+            wp_send_json_error('An error occurred أثناء Save الإحالة السلوكية.');
         }
     }
 
@@ -6146,14 +6151,14 @@ class SM_Public {
         $stats = SM_DB::get_statistics();
 
         wp_send_json_success(array(
-            'message' => 'تم تحديث كافة الملفات المؤقتة والذاكرة المؤقتة للخدمات والنظام بنجاح مباشرة من قاعدة البيانات.',
+            'message' => 'تم Update كافة الملفات المؤقتة والذاكرة المؤقتة للخدمات والنظام بنجاح مباشرة من قاعدة البيانات.',
             'school_name' => $school_info['school_name'],
             'stats' => $stats
         ));
     }
 
     public function ajax_export_users_csv() {
-        if (!is_user_logged_in() || !current_user_can('إدارة_المستخدمين')) {
+        if (!is_user_logged_in() || !current_user_can('إدارة_Users')) {
             wp_send_json_error('Unauthorized');
         }
         if (!wp_verify_nonce($_GET['nonce'] ?? '', 'eess_admin_action')) {
@@ -6167,7 +6172,7 @@ class SM_Public {
         $output = fopen('php://output', 'w');
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM for Excel
 
-        fputcsv($output, array('اسم المستخدم', 'البريد الإلكتروني', 'الاسم الكامل', 'الدور / الرتبة', 'رقم الهاتف', 'كلمة المرور', 'رابط الصورة الشخصية', 'النشاط الرياضي التخصصية', 'كود المنظمة الرياضية', 'كود الأكاديمية الرياضية', 'كود القسم', 'كود النشاط الرياضي'));
+        fputcsv($output, array('Username', 'Email Address', 'Full Name', 'الدور / الرتبة', 'Phone Number', 'Password', 'رابط الصورة الشخصية', 'Sport Activity التخصصية', 'كود Organization الرياضية', 'كود Academy الرياضية', 'كود القسم', 'كود Sport Activity'));
 
         foreach ($all_users as $u) {
             $role = reset($u->roles);
@@ -6246,7 +6251,7 @@ class SM_Public {
         header('Content-Disposition: attachment; filename=violations_'.$range.'_'.date('Y-m-d').'.csv');
         $output = fopen('php://output', 'w');
         fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM
-        fputcsv($output, array('التاريخ', 'اسم اللاعب', 'كود اللاعب', 'المجموعة التدريبية', 'المجموعة التدريبية', 'النوع', 'الحدة', 'الدرجة', 'النقاط', 'التفاصيل', 'الإجراء المتخذ'));
+        fputcsv($output, array('التاريخ', 'Player Name', 'كود الNoعب', 'Training Group', 'Training Group', 'النوع', 'الحدة', 'الدرجة', 'النقاط', 'التفاصيل', 'الإجراء المتخذ'));
 
         foreach ($records as $r) {
             // Dynamic Linking
@@ -6295,7 +6300,7 @@ class SM_Public {
                     'school_ids'          => !empty($_POST['sub_school_ids']) ? array_map('intval', (array)$_POST['sub_school_ids']) : array()
                 ));
                 if (is_wp_error($res)) {
-                    wp_die('خطأ في حفظ النشاط الرياضي المركزية: ' . $res->get_error_message());
+                    wp_die('خطأ في Save Sport Activity المركزية: ' . $res->get_error_message());
                 }
                 wp_redirect(add_query_arg(array('sm_admin_msg' => 'settings_saved'), wp_get_referer()));
                 exit;
@@ -6320,7 +6325,7 @@ class SM_Public {
                             $inst_id
                         ));
                         if ($duplicate_check) {
-                            wp_die('عذراً، كود المنظمة الرياضية (' . $code_val . ') مسجل مسبقاً لمؤسسة أخرى. يرجى اختيار كود رقمي فريد.');
+                            wp_die('عذراً، كود Organization الرياضية (' . $code_val . ') مسجل مسبقاً لمؤسسة أخرى. يرجى اختيار كود رقمي فريد.');
                         }
                     }
 
@@ -6329,7 +6334,7 @@ class SM_Public {
                         'parent_id'     => !empty($_POST['inst_parent_id']) ? intval($_POST['inst_parent_id']) : null,
                         'name'          => sanitize_text_field($_POST['inst_name'] ?? ''),
                         'type'          => sanitize_text_field($_POST['inst_type'] ?? 'مدرسة'),
-                        'country'       => sanitize_text_field($_POST['inst_country'] ?? 'الإمارات العربية المتحدة'),
+                        'country'       => sanitize_text_field($_POST['inst_country'] ?? 'United Arab Emirates'),
                         'emirate'       => sanitize_text_field($_POST['inst_emirate'] ?? 'الشارقة'),
                         'manager_id'    => !empty($_POST['inst_manager_id']) ? intval($_POST['inst_manager_id']) : null,
                         'director_name' => sanitize_text_field($_POST['inst_director_name'] ?? ''),
@@ -6428,19 +6433,19 @@ class SM_Public {
                 };
 
                 // Find candidate columns based on import type
-                $col_name = $find_col(['الاسم', 'الاسم الكامل', 'name', 'student name', 'display_name', 'اسم']);
-                $col_username = $find_col(['اسم المستخدم', 'username', 'login', 'user_login']);
-                $col_email = $find_col(['البريد', 'البريد الإلكتروني', 'email', 'user_email', 'parent_email', 'بريد ولي الأمر']);
-                $col_phone = $find_col(['الهاتف', 'رقم الهاتف', 'phone', 'sm_phone', 'guardian_phone', 'جوال ولي الأمر', 'رقم الجوال']);
-                $col_password = $find_col(['كلمة المرور', 'password', 'pass', 'كلمة السر']);
-                $col_grade = $find_col(['المجموعة التدريبية', 'المجموعة التدريبية الدراسي', 'grade', 'class_name']);
-                $col_section = $find_col(['المجموعة التدريبية', 'المجموعة التدريبية', 'section', 'class', 'المجموعة']);
+                $col_name = $find_col(['اNoسم', 'Full Name', 'name', 'student name', 'display_name', 'اسم']);
+                $col_username = $find_col(['Username', 'username', 'login', 'user_login']);
+                $col_email = $find_col(['البريد', 'Email Address', 'email', 'user_email', 'parent_email', 'بريد ولي Motherر']);
+                $col_phone = $find_col(['الهاتف', 'Phone Number', 'phone', 'sm_phone', 'guardian_phone', 'جوال ولي Motherر', 'Mobile Number']);
+                $col_password = $find_col(['Password', 'password', 'pass', 'كلمة السر']);
+                $col_grade = $find_col(['Training Group', 'Training Group الدراسي', 'grade', 'class_name']);
+                $col_section = $find_col(['Training Group', 'Training Group', 'section', 'class', 'المجموعة']);
                 $col_division = $find_col(['الحلقة', 'النطاق', 'division', 'cycle']);
-                $col_specialization = $find_col(['التخصص', 'النشاط الرياضي', 'specialization', 'subject']);
-                $col_emp_num = $find_col(['الرقم الوظيفي', 'employee_number', 'code', 'الكود', 'رقم الهوية', 'الرقم القومي / الهوية']);
+                $col_specialization = $find_col(['التخصص', 'Sport Activity', 'specialization', 'subject']);
+                $col_emp_num = $find_col(['الرقم الوظيفي', 'employee_number', 'code', 'الكود', 'رقم الهوية', 'National ID / الهوية']);
                 $col_dept = $find_col(['القسم', 'department', 'dept', 'الإدارة']);
                 $col_role = $find_col(['الرتبة', 'الدور', 'role', 'المسمى الوظيفي']);
-                $col_student_code = $find_col(['كود اللاعب', 'كود الابن', 'student_code', 'child_code', 'رقم الهوية الوطنية / الكود']);
+                $col_student_code = $find_col(['كود الNoعب', 'كود اNoبن', 'student_code', 'child_code', 'رقم National ID / الكود']);
 
                 $count = 0;
                 while (($data = fgetcsv($handle)) !== FALSE) {
@@ -6653,7 +6658,7 @@ class SM_Public {
                 }
                 fclose($handle);
                 wp_cache_flush();
-                SM_Logger::log('استيراد البيانات الشامل للمدرسة', "تم استيراد ($count) سجل بنجاح للمدرسة: $school_name.");
+                SM_Logger::log('Import البيانات الشامل للمدرسة', "تم Import ($count) سجل بنجاح للمدرسة: $school_name.");
                 wp_redirect(add_query_arg('sm_admin_msg', 'csv_imported', $_SERVER['REQUEST_URI']));
                 exit;
             }
@@ -6686,7 +6691,7 @@ class SM_Public {
 
         // Handle Parent Call-in Request
         if (isset($_POST['sm_send_call_in']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_message_action')) {
-            if (current_user_can('إدارة_أولياء_الأمور')) {
+            if (current_user_can('إدارة_أولياء_Motherور')) {
                 $receiver_id = intval($_POST['receiver_id']);
                 $message = "🔴 طلب استدعاء رسمي: " . sanitize_textarea_field($_POST['message']);
                 SM_DB::send_message(get_current_user_id(), $receiver_id, $message);
@@ -6697,7 +6702,7 @@ class SM_Public {
 
         // Handle Generic User Update
         if (isset($_POST['sm_update_generic_user']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_user_action')) {
-            if (current_user_can('إدارة_المستخدمين')) {
+            if (current_user_can('إدارة_Users')) {
                 $user_id = intval($_POST['edit_user_id']);
                 $user_data = array(
                     'ID' => $user_id,
@@ -6729,7 +6734,7 @@ class SM_Public {
 
         // Handle Generic User Addition
         if (isset($_POST['sm_add_user']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_user_action')) {
-            if (current_user_can('إدارة_المستخدمين')) {
+            if (current_user_can('إدارة_Users')) {
                 $user_data = array(
                     'user_login' => sanitize_user($_POST['user_login']),
                     'user_email' => sanitize_email($_POST['user_email']),
@@ -6745,7 +6750,7 @@ class SM_Public {
 
         // Handle Generic User Deletion
         if (isset($_POST['sm_delete_user']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_user_action')) {
-            if (current_user_can('إدارة_المستخدمين')) {
+            if (current_user_can('إدارة_Users')) {
                 require_once(ABSPATH . 'wp-admin/includes/user.php');
                 wp_delete_user(intval($_POST['delete_user_id']));
                 wp_redirect(add_query_arg('sm_admin_msg', 'settings_saved', $_SERVER['REQUEST_URI']));
@@ -6816,7 +6821,7 @@ class SM_Public {
 
         // Handle Student Addition from Public Admin
         if (isset($_POST['add_student']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_add_student')) {
-            if (current_user_can('إدارة_اللاعبين')) {
+            if (current_user_can('إدارة_الNoعبين')) {
                 $parent_user_id = !empty($_POST['parent_user_id']) ? intval($_POST['parent_user_id']) : null;
                 $teacher_id = !empty($_POST['teacher_id']) ? intval($_POST['teacher_id']) : null;
                 SM_DB::add_student($_POST['name'], $_POST['class'], $_POST['email'], $_POST['code'], $parent_user_id, $teacher_id);
@@ -6827,7 +6832,7 @@ class SM_Public {
 
         // Handle Student Deletion from Public Admin
         if (isset($_POST['delete_student']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_add_student')) {
-            if (current_user_can('إدارة_اللاعبين')) {
+            if (current_user_can('إدارة_الNoعبين')) {
                 SM_DB::delete_student($_POST['delete_student_id']);
                 wp_redirect(add_query_arg('sm_admin_msg', 'student_deleted', $_SERVER['REQUEST_URI']));
                 exit;
@@ -6836,7 +6841,7 @@ class SM_Public {
 
         // Handle Student Update from Public Admin
         if (isset($_POST['sm_update_student']) && wp_verify_nonce($_POST['sm_nonce'], 'sm_add_student')) {
-            if (current_user_can('إدارة_اللاعبين')) {
+            if (current_user_can('إدارة_الNoعبين')) {
                 SM_DB::update_student(intval($_POST['student_id']), $_POST);
                 wp_redirect(add_query_arg('sm_admin_msg', 'settings_saved', $_SERVER['REQUEST_URI']));
                 exit;
@@ -6926,7 +6931,7 @@ class SM_Public {
                         'students' => isset($_POST['work_students']) ? array_map('sanitize_text_field', $_POST['work_students']) : ($existing['working_schedule']['students'] ?? array())
                     )
                 ));
-                SM_Logger::log('تحديث بيانات السلطة', "تم تحديث بيانات الأكاديمية الرياضية والمدير: {$_POST['school_name']}");
+                SM_Logger::log('Update بيانات السلطة', "تم Update بيانات Academy الرياضية والمدير: {$_POST['school_name']}");
                 SM_Settings::save_academic_structure(array(
                     'terms_count' => intval($_POST['terms_count']),
                     'grades_count' => intval($_POST['grades_count']),
@@ -6951,7 +6956,7 @@ class SM_Public {
                 if (!empty($_POST['reset_student_counter_val'])) {
                     EESS_ID_Code_Service::get_next_sequence(1, 'student', intval($_POST['reset_student_counter_val']));
                 }
-                SM_Logger::log('تحديث نظام الترقيم المركزي', 'تم تعديل قواعد وتنسيق الترقيم المركزي للطلاب والكوادر.');
+                SM_Logger::log('Update نظام الترقيم المركزي', 'تم Edit قواعد وتنسيق الترقيم المركزي للطNoب والكوادر.');
                 wp_redirect(add_query_arg('sm_admin_msg', 'settings_saved', $_SERVER['REQUEST_URI']));
                 exit;
             }
@@ -6960,7 +6965,7 @@ class SM_Public {
         // Handle Violation Settings Save
         if (isset($_POST['sm_save_violation_settings']) && wp_verify_nonce($_POST['sm_admin_nonce'], 'sm_admin_action')) {
             if (current_user_can('إدارة_النظام')) {
-                SM_Logger::log('تحديث إعدادات المخالفات', "تم تحديث أنواع المخالفات والإجراءات المقترحة.");
+                SM_Logger::log('Update إعدادات المخالفات', "تم Update أنواع المخالفات والActions المقترحة.");
                 $types_raw = explode("\n", str_replace("\r", "", $_POST['violation_types']));
                 $types = array();
                 foreach ($types_raw as $line) {
@@ -7016,7 +7021,7 @@ class SM_Public {
                     clean_user_cache($u->ID);
                 }
 
-                SM_Logger::log('تحديث إعدادات ظهور القائمة', 'تم تخصيص الأقسام المرئية لكل رتبة في النظام وإلغاء ذاكرة التخزين المؤقت.');
+                SM_Logger::log('Update إعدادات ظهور القائمة', 'تم تخصيص الأقسام المرئية لكل رتبة في النظام وCancel ذاكرة التخزين المؤقت.');
                 wp_redirect(add_query_arg('sm_admin_msg', 'settings_saved', $_SERVER['REQUEST_URI']));
                 exit;
             }
@@ -7053,7 +7058,7 @@ class SM_Public {
 
         // Handle Unified Users CSV Import
         if (isset($_POST['sm_import_users_csv']) && wp_verify_nonce($_POST['sm_admin_nonce'], 'sm_admin_action')) {
-            if (current_user_can('إدارة_المستخدمين') && !empty($_FILES['csv_file']['tmp_name'])) {
+            if (current_user_can('إدارة_Users') && !empty($_FILES['csv_file']['tmp_name'])) {
                 $handle = fopen($_FILES['csv_file']['tmp_name'], "r");
                 $header = fgetcsv($handle); // skip header
                 $count = 0;
@@ -7108,7 +7113,7 @@ class SM_Public {
                 }
                 fclose($handle);
                 wp_cache_flush();
-                SM_Logger::log('استيراد مستخدمين (جماعي)', "تم استيراد ($count) مستخدم بنجاح من ملف CSV.");
+                SM_Logger::log('Import مستخدمين (جماعي)', "تم Import ($count) مستخدم بنجاح من ملف CSV.");
                 wp_redirect(add_query_arg('sm_admin_msg', 'csv_imported', $_SERVER['REQUEST_URI']));
                 exit;
             }
@@ -7139,7 +7144,7 @@ class SM_Public {
                     }
                 }
                 fclose($handle);
-                SM_Logger::log('استيراد معلمين (جماعي)', "تم استيراد ($count) معلم بنجاح.");
+                SM_Logger::log('Import معلمين (جماعي)', "تم Import ($count) معلم بنجاح.");
                 wp_redirect(add_query_arg('sm_admin_msg', 'csv_imported', $_SERVER['REQUEST_URI']));
                 exit;
             }
@@ -7215,7 +7220,7 @@ class SM_Public {
                             // Normalize Severity
                             $sev_map = array(
                                 'منخفضة' => 'low', 'بسيطة' => 'low', 'low' => 'low',
-                                'متوسطة' => 'medium', 'medium' => 'medium',
+                                'Intermediateة' => 'medium', 'medium' => 'medium',
                                 'خطيرة' => 'high', 'جسيمة' => 'high', 'شديدة' => 'high', 'high' => 'high', 'severe' => 'high'
                             );
                             $v_severity = $sev_map[$v_severity] ?? 'low';
@@ -7253,7 +7258,7 @@ class SM_Public {
                         }
                     }
                     fclose($handle);
-                    SM_Logger::log('استيراد مخالفات (جماعي)', "تم استيراد ($count) مخالفة بنجاح.");
+                    SM_Logger::log('Import مخالفات (جماعي)', "تم Import ($count) مخالفة بنجاح.");
                     wp_redirect(add_query_arg('sm_admin_msg', 'csv_imported', $_SERVER['REQUEST_URI']));
                     exit;
                 }
@@ -7262,13 +7267,13 @@ class SM_Public {
     }
 
     public function ajax_print_student_full_report() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options'))) {
-            wp_die('غير مصرح بالوصول إلى تقرير مسيرة اللاعب.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options'))) {
+            wp_die('Unauthorized بالوصول إلى تقرير مسيرة الNoعب.');
         }
 
         $student_id = intval($_GET['student_id'] ?? 0);
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_die('سجل اللاعب غير موجود بالنظام.');
+        if (!$student) wp_die('سجل الNoعب غير موجود بالنظام.');
 
         $school_info = SM_Settings::get_school_info();
 
@@ -7285,19 +7290,19 @@ class SM_Public {
         $grades     = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_grades WHERE student_id = %d ORDER BY created_at DESC", $student_id));
 
         $status_labels = array(
-            'Active' => 'نشط منتظم',
-            'Inactive' => 'غير نشط',
+            'Active' => 'Active منتظم',
+            'Inactive' => 'غير Active',
             'Graduated' => 'متخرج رسمي',
             'Withdrawn' => 'منسحب'
         );
         $enroll_labels = array(
             'Enrolled' => 'مقيد رسمياً',
-            'Pending' => 'معلق',
+            'Pending' => 'Pending',
             'Transferred' => 'منقول'
         );
         $severity_labels = array(
             'low' => 'منخفضة الخطورة',
-            'medium' => 'متوسطة الخطورة',
+            'medium' => 'Intermediateة الخطورة',
             'high' => 'شديدة الخطورة'
         );
         ?>
@@ -7305,7 +7310,7 @@ class SM_Public {
         <html dir="rtl" lang="ar">
         <head>
             <meta charset="UTF-8">
-            <title>التقرير الشامل لمسيرة اللاعب - <?php echo esc_html($student->name); ?></title>
+            <title>التقرير الشامل لمسيرة الNoعب - <?php echo esc_html($student->name); ?></title>
             <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
             <style>
                 * { box-sizing: border-box; }
@@ -7336,7 +7341,7 @@ class SM_Public {
         </head>
         <body onload="window.print()">
             <div class="no-print" style="background:#f8fafc; padding:12px; border:1px solid #cbd5e1; border-radius:10px; margin-bottom:20px; text-align:center;">
-                <button onclick="window.print()" style="background:#881337; color:#ffffff; border:none; padding:10px 24px; font-weight:800; border-radius:8px; cursor:pointer; font-family:'Cairo'; font-size:13px;">🖨️ طباعة تقرير مسيرة اللاعب الشامل (A4 / PDF)</button>
+                <button onclick="window.print()" style="background:#881337; color:#ffffff; border:none; padding:10px 24px; font-weight:800; border-radius:8px; cursor:pointer; font-family:'Cairo'; font-size:13px;">🖨️ Print تقرير مسيرة الNoعب الشامل (A4 / PDF)</button>
             </div>
 
             <!-- Official Header -->
@@ -7344,7 +7349,7 @@ class SM_Public {
                 <div class="report-title-box">
                     <div style="font-size: 12px; color: #64748b; font-weight: 800;"><?php echo esc_html($inst_name); ?></div>
                     <h1 class="report-title"><?php echo esc_html($sch_name); ?></h1>
-                    <p class="report-subtitle">التقرير الشامل لمسيرة اللاعب والسجل التراكمي الأكاديمي والسلوكي</p>
+                    <p class="report-subtitle">التقرير الشامل لمسيرة الNoعب والسجل التراكمي الأكاديمي والسلوكي</p>
                 </div>
                 <?php if (!empty($logo_url)): ?>
                     <img src="<?php echo esc_url($logo_url); ?>" class="header-logo" alt="الشعار الرسمي" onerror="this.style.display='none'">
@@ -7354,24 +7359,24 @@ class SM_Public {
             </div>
 
             <!-- Section 1: Personal & Identity Data -->
-            <div class="section-header">1. البيانات الشخصية وهواية اللاعب المعترف بها</div>
+            <div class="section-header">1. Personal Information وهواية الNoعب المعترف بها</div>
             <table class="meta-table">
                 <tr>
-                    <th>اسم اللاعب الكامل:</th>
+                    <th>Player Name الكامل:</th>
                     <td><strong><?php echo esc_html($student->name); ?></strong></td>
-                    <th>كود اللاعب الرقمي:</th>
+                    <th>كود الNoعب الرقمي:</th>
                     <td><strong style="color:#881337;"><?php echo esc_html($student->student_code ?: $student->student_id); ?></strong></td>
                 </tr>
                 <tr>
-                    <th>الجنس:</th>
-                    <td><?php echo esc_html($student->gender ?: 'ذكر'); ?></td>
-                    <th>تاريخ الميلاد:</th>
+                    <th>Gender:</th>
+                    <td><?php echo esc_html($student->gender ?: 'Male'); ?></td>
+                    <th>Date of Birth:</th>
                     <td><?php echo esc_html($student->dob ?: 'غير مسجل'); ?></td>
                 </tr>
                 <tr>
-                    <th>الجنسية:</th>
+                    <th>Genderية:</th>
                     <td><?php echo esc_html($student->nationality ?: 'سعودي'); ?></td>
-                    <th>رقم الهوية الوطنية / الإقامة:</th>
+                    <th>رقم National ID / الإقامة:</th>
                     <td><?php echo esc_html($student->national_id ?: 'غير مسجل'); ?></td>
                 </tr>
             </table>
@@ -7380,36 +7385,36 @@ class SM_Public {
             <div class="section-header">2. التبعية التنظيمية وحالة القيد الأكاديمي</div>
             <table class="meta-table">
                 <tr>
-                    <th>المنظمة الرياضية والأكاديمية الرياضية:</th>
+                    <th>Organization الرياضية وAcademy الرياضية:</th>
                     <td><?php echo esc_html($sch_name); ?></td>
-                    <th>المجموعة التدريبية والمجموعة التدريبية:</th>
+                    <th>Training Group وTraining Group:</th>
                     <td><?php echo esc_html(($student->class_name ?: 'غير محدد') . ' - شعبة (' . ($student->section ?: 'أ') . ')'); ?></td>
                 </tr>
                 <tr>
-                    <th>المستوى الأكاديمي:</th>
+                    <th>الLevel الأكاديمي:</th>
                     <td><?php echo esc_html($student->academic_level ?: 'ممتاز'); ?></td>
-                    <th>تاريخ التسجيل بالمنظومة:</th>
+                    <th>Registration Date بالمنظومة:</th>
                     <td><?php echo esc_html($student->registration_date ?: $student->enrollment_date ?: date('Y-m-d')); ?></td>
                 </tr>
                 <tr>
-                    <th>حالة اللاعب:</th>
-                    <td><strong style="color:#166534;"><?php echo esc_html($status_labels[$student->student_status] ?? ($student->student_status ?: 'نشط منتظم')); ?></strong></td>
+                    <th>حالة الNoعب:</th>
+                    <td><strong style="color:#166534;"><?php echo esc_html($status_labels[$student->student_status] ?? ($student->student_status ?: 'Active منتظم')); ?></strong></td>
                     <th>حالة القيد الدراسي:</th>
                     <td><?php echo esc_html($enroll_labels[$student->enrollment_status] ?? ($student->enrollment_status ?: 'مقيد رسمياً')); ?></td>
                 </tr>
             </table>
 
             <!-- Section 3: Guardian & Contact Details -->
-            <div class="section-header">3. بيانات ولي الأمر والتواصل الجغرافي</div>
+            <div class="section-header">3. بيانات ولي Motherر والتواصل الجغرافي</div>
             <table class="meta-table">
                 <tr>
-                    <th>اسم ولي الأمر:</th>
+                    <th>اسم ولي Motherر:</th>
                     <td><?php echo esc_html($student->guardian_name ?: 'غير مسجل'); ?></td>
-                    <th>صلة القرابة:</th>
+                    <th>Relationship:</th>
                     <td><?php echo esc_html($student->guardian_relationship ?: 'أب'); ?></td>
                 </tr>
                 <tr>
-                    <th>البريد الإلكتروني لولي الأمر:</th>
+                    <th>Email Address لولي Motherر:</th>
                     <td><?php echo esc_html($student->parent_email ?: 'غير مسجل'); ?></td>
                     <th>رقم هاتف التواصل (واتساب):</th>
                     <td><?php echo esc_html($student->guardian_phone ?: 'غير مسجل'); ?></td>
@@ -7427,20 +7432,20 @@ class SM_Public {
             <table class="data-grid-table">
                 <thead>
                     <tr>
-                        <th style="width: 35%;">النشاط الرياضي الدراسية</th>
-                        <th style="width: 25%;">المجموعة التدريبية الدراسي</th>
+                        <th style="width: 35%;">Sport Activity الدراسية</th>
+                        <th style="width: 25%;">Training Group الدراسي</th>
                         <th style="width: 20%;">الدرجة المستحقة</th>
                         <th style="width: 20%;">تاريخ الرصد الرسمي</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($grades)): ?>
-                        <tr><td colspan="4" style="text-align:center; color:#64748b; padding:14px;">لا توجد درجات أكاديمية مرصودة حالياً لللاعب.</td></tr>
+                        <tr><td colspan="4" style="text-align:center; color:#64748b; padding:14px;">No توجد درجات أكاديمية مرصودة حالياً للNoعب.</td></tr>
                     <?php else: ?>
                         <?php foreach($grades as $g): ?>
                             <tr>
                                 <td><strong><?php echo esc_html($g->subject ?: 'مادة عامة'); ?></strong></td>
-                                <td><?php echo esc_html($g->term ?: 'المجموعة التدريبية الأول'); ?></td>
+                                <td><?php echo esc_html($g->term ?: 'Training Group الأول'); ?></td>
                                 <td><strong style="color:#881337; font-size:13px;"><?php echo esc_html($g->grade_val ?? $g->score ?? '100'); ?></strong></td>
                                 <td><?php echo esc_html(date('Y-m-d', strtotime($g->created_at))); ?></td>
                             </tr>
@@ -7450,26 +7455,26 @@ class SM_Public {
             </table>
 
             <!-- Section 5: Behavioral & Discipline Record -->
-            <div class="section-header">5. السجل الانضباطي والملاحظات السلوكية</div>
+            <div class="section-header">5. السجل اNoنضباطي والNotes السلوكية</div>
             <table class="data-grid-table">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">تاريخ التسجيل</th>
-                        <th style="width: 35%;">نوع الملاحظة / المخالفة</th>
-                        <th style="width: 20%;">مستوى الحدة</th>
+                        <th style="width: 20%;">Registration Date</th>
+                        <th style="width: 35%;">نوع المNoحظة / المخالفة</th>
+                        <th style="width: 20%;">Level الحدة</th>
                         <th style="width: 25%;">الإجراء التربوي المتخذ</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($violations)): ?>
-                        <tr><td colspan="4" style="text-align:center; color:#166534; padding:14px; font-weight:800;">✓ سجل اللاعب الانضباطي نظيف وممتاز، ولا توجد أي مخالفات سلوكية مسجلة.</td></tr>
+                        <tr><td colspan="4" style="text-align:center; color:#166534; padding:14px; font-weight:800;">✓ سجل الNoعب اNoنضباطي نظيف وممتاز، وNo توجد أي مخالفات سلوكية مسجلة.</td></tr>
                     <?php else: ?>
                         <?php foreach($violations as $v): ?>
                             <tr>
                                 <td><?php echo esc_html(date('Y-m-d', strtotime($v->created_at ?? $v->incident_date))); ?></td>
-                                <td><strong><?php echo esc_html($v->type ?? $v->details ?? 'ملاحظة سلوكية'); ?></strong></td>
+                                <td><strong><?php echo esc_html($v->type ?? $v->details ?? 'مNoحظة سلوكية'); ?></strong></td>
                                 <td><?php echo esc_html($severity_labels[$v->severity] ?? ($v->severity ?: 'منخفضة')); ?></td>
-                                <td><?php echo esc_html($v->action_taken ?: 'ملاحظة تربوية مسجلة'); ?></td>
+                                <td><?php echo esc_html($v->action_taken ?: 'مNoحظة تربوية مسجلة'); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -7481,25 +7486,25 @@ class SM_Public {
             <table class="meta-table">
                 <tr>
                     <th>تصنيف أصحاب الهمم:</th>
-                    <td><?php echo esc_html((!empty($student->special_needs) && !in_array($student->special_needs, array('لا', 'No', '0', 'none'), true)) ? 'نعم (مشمول بالرعاية)' : 'لا'); ?></td>
-                    <th>الحالة الصحية العامة:</th>
+                    <td><?php echo esc_html((!empty($student->special_needs) && !in_array($student->special_needs, array('No', 'No', '0', 'none'), true)) ? 'Yes (مشمول بالرعاية)' : 'No'); ?></td>
+                    <th>Status الصحية العامة:</th>
                     <td><?php echo esc_html($student->health_status ?: 'سليم تماماً'); ?></td>
                 </tr>
                 <tr>
-                    <th>التنبيهات والتحذيرات الطبية (الحساسية):</th>
-                    <td colspan="3"><?php echo esc_html($student->allergies ?: 'لا توجد حساسية معروفة'); ?></td>
+                    <th>التنبيهات والتحذيرات الطبية (Allergies):</th>
+                    <td colspan="3"><?php echo esc_html($student->allergies ?: 'No توجد حساسية معروفة'); ?></td>
                 </tr>
             </table>
 
             <!-- Report Footer & Official Stamp -->
             <div class="footer-sign">
                 <div>تاريخ صدور التقرير الرسمي: <strong><?php echo current_time('Y-m-d H:i'); ?></strong></div>
-                <div>توقيع واستيعاب شؤون اللاعبين: ..............................</div>
-                <div>ختم الأكاديمية الرياضية الرسمي: ..............................</div>
+                <div>توقيع واستيعاب Player Affairs: ..............................</div>
+                <div>ختم Academy الرياضية الرسمي: ..............................</div>
             </div>
 
             <div style="margin-top: 30px; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 10px; font-size: 10px; color: #64748b;">
-                تم تصدير هذا التقرير رسمياً من خدمات الأنظمة الإلكترونية التعليمية (EESS) — eess.online
+                تم Export هذا التقرير رسمياً من Sportedia Sports Management System — eess.online
             </div>
         </body>
         </html>
@@ -7508,7 +7513,7 @@ class SM_Public {
     }
 
     public function ajax_download_student_import_template() {
-        if (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options')) {
+        if (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options')) {
             wp_die('Unauthorized');
         }
 
@@ -7519,30 +7524,30 @@ class SM_Public {
 
         // Standardized 12 Columns in exact specified order
         fputcsv($output, array(
-            'كود الأكاديمية الرياضية',
-            'كود اللاعب',
-            'الاسم الكامل',
-            'الهوية الوطنية',
-            'الجنس',
-            'تاريخ الميلاد',
-            'الجنسية',
+            'كود Academy الرياضية',
+            'كود الNoعب',
+            'Full Name',
+            'National ID',
+            'Gender',
+            'Date of Birth',
+            'Genderية',
             'إمارة الإقامة',
-            'المجموعة التدريبية',
-            'المجموعة التدريبية',
-            'اسم ولي الأمر',
-            'رقم هاتف ولي الأمر'
+            'Training Group',
+            'Training Group',
+            'اسم ولي Motherر',
+            'رقم هاتف ولي Motherر'
         ));
 
         // Official Sample Rows
-        fputcsv($output, array('1', 'STU-1001', 'أحمد علي حسن', '784199012345678', 'ذكر', '2015-05-12', 'الإمارات العربية المتحدة', 'الشارقة', '10', '1', 'علي حسن', '+971501234567'));
-        fputcsv($output, array('1', 'STU-1002', 'مريم خالد عمر', '784199298765432', 'أنثى', '2016-08-20', 'الإمارات العربية المتحدة', 'الشارقة', '10', '2', 'خالد عمر', '+971509876543'));
+        fputcsv($output, array('1', 'STU-1001', 'أحمد علي حسن', '784199012345678', 'Male', '2015-05-12', 'United Arab Emirates', 'الشارقة', '10', '1', 'علي حسن', '+971501234567'));
+        fputcsv($output, array('1', 'STU-1002', 'مريم خالد عمر', '784199298765432', 'Female', '2016-08-20', 'United Arab Emirates', 'الشارقة', '10', '2', 'خالد عمر', '+971509876543'));
 
         fclose($output);
         exit;
     }
 
     public function ajax_export_students_csv() {
-        if (!current_user_can('إدارة_اللاعبين')) {
+        if (!current_user_can('إدارة_الNoعبين')) {
             wp_die('Unauthorized');
         }
         if (!wp_verify_nonce($_GET['nonce'] ?? '', 'sm_admin_action') && !wp_verify_nonce($_GET['nonce'] ?? '', 'eess_admin_action')) {
@@ -7580,18 +7585,18 @@ class SM_Public {
 
         // Standardized 12-Column Format matching Student Import Specification
         fputcsv($output, array(
-            'كود الأكاديمية الرياضية (School Code)',
-            'كود اللاعب (Student Code)',
-            'الاسم الكامل (Full Name)',
-            'رقم الهوية الوطنية (National ID)',
-            'الجنس (Gender)',
-            'تاريخ الميلاد (Date of Birth)',
-            'الجنسية (Nationality)',
+            'كود Academy الرياضية (School Code)',
+            'كود الNoعب (Student Code)',
+            'Full Name (Full Name)',
+            'رقم National ID (National ID)',
+            'Gender (Gender)',
+            'Date of Birth (Date of Birth)',
+            'Genderية (Nationality)',
             'إمارة السكن (Emirate)',
-            'المجموعة التدريبية (Grade)',
-            'المجموعة التدريبية (Section)',
-            'اسم ولي الأمر (Guardian Name)',
-            'رقم هاتف ولي الأمر (Guardian Phone)'
+            'Training Group (Grade)',
+            'Training Group (Section)',
+            'اسم ولي Motherر (Guardian Name)',
+            'رقم هاتف ولي Motherر (Guardian Phone)'
         ));
 
         // Pre-cache institutions for code lookup
@@ -7606,9 +7611,9 @@ class SM_Public {
                 $r->student_code,
                 $r->name,
                 $r->national_id,
-                $r->gender ?: 'ذكر',
+                $r->gender ?: 'Male',
                 $r->dob ?: '',
-                $r->nationality ?: 'الإمارات العربية المتحدة',
+                $r->nationality ?: 'United Arab Emirates',
                 $r->emirate ?: 'الشارقة',
                 $r->class_name,
                 $r->section,
@@ -7649,11 +7654,11 @@ class SM_Public {
             fputcsv($output, array(
                 $st->student_id,
                 $st->student_name,
-                $st->school_name ?: 'الأكاديمية الرياضية الرئيسية',
+                $st->school_name ?: 'Academy الرياضية Home',
                 $st->class_name,
                 $st->section,
                 $assigned_subject ?: 'عام',
-                'المجموعة التدريبية الأول',
+                'Training Group الأول',
                 '',
                 '100',
                 ''
@@ -7691,7 +7696,7 @@ class SM_Public {
 
             $student_id  = intval($data[0]);
             $subject     = sanitize_text_field($data[5] ?? 'عام');
-            $term        = sanitize_text_field($data[6] ?? 'المجموعة التدريبية الأول');
+            $term        = sanitize_text_field($data[6] ?? 'Training Group الأول');
             $score_val   = sanitize_text_field($data[7] ?? '');
             $notes       = sanitize_text_field($data[9] ?? '');
 
@@ -7720,12 +7725,12 @@ class SM_Public {
         fclose($handle);
 
         wp_send_json_success(array(
-            'message' => "تم استيراد $success_count درجة بنجاح." . ($error_count > 0 ? " (تعذر استيراد $error_count سجل غير مكتمل)" : "")
+            'message' => "تم Import $success_count درجة بنجاح." . ($error_count > 0 ? " (تعذر Import $error_count سجل غير مكتمل)" : "")
         ));
     }
 
     public function ajax_upload_import_csv() {
-        if (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_admin_action')) wp_send_json_error('Security check failed');
 
         if (empty($_FILES['csv_file']['tmp_name'])) wp_send_json_error('No file uploaded');
@@ -7773,7 +7778,7 @@ class SM_Public {
     }
 
     public function ajax_process_import_chunk() {
-        if (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options')) wp_send_json_error('Unauthorized');
+        if (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options')) wp_send_json_error('Unauthorized');
         if (!wp_verify_nonce($_POST['nonce'], 'sm_admin_action')) wp_send_json_error('Security check failed');
 
         $job_id = sanitize_text_field($_POST['job_id'] ?? '');
@@ -7805,7 +7810,7 @@ class SM_Public {
                     'failed_rows_log' => array()
                 );
             } else {
-                wp_send_json_error('جلسة الاستيراد غير موجودة على الخادم.');
+                wp_send_json_error('جلسة الImport غير موجودة على الخادم.');
             }
         }
 
@@ -7872,9 +7877,9 @@ class SM_Public {
                 $student_code_input  = trim($data[1] ?? '');
                 $name_input          = trim($data[2] ?? '');
                 $national_id_input   = trim($data[3] ?? '');
-                $gender_input        = trim($data[4] ?? 'ذكر');
+                $gender_input        = trim($data[4] ?? 'Male');
                 $dob_input           = trim($data[5] ?? '');
-                $nationality_input  = trim($data[6] ?? 'الإمارات العربية المتحدة');
+                $nationality_input  = trim($data[6] ?? 'United Arab Emirates');
                 $emirate_input       = trim($data[7] ?? 'الشارقة');
                 $grade_input         = trim($data[8] ?? '');
                 $section_input       = trim($data[9] ?? '');
@@ -7912,18 +7917,18 @@ class SM_Public {
 
                 if (!empty($school_code_input) && !$inst_match_id) {
                     $job_state['error']++;
-                    $msg = "السطر $row_index: كود الأكاديمية الرياضية '{$school_code_input}' غير صحيح أو غير مسجل بالنظام.";
+                    $msg = "السطر $row_index: كود Academy الرياضية '{$school_code_input}' غير صحيح أو غير مسجل بالنظام.";
                     $job_state['details'][] = array('type' => 'error', 'msg' => $msg);
-                    $job_state['failed_rows_log'][] = array('row' => $row_index, 'data' => implode(' | ', $data), 'reason' => "كود الأكاديمية الرياضية غير صحيح ($school_code_input)");
+                    $job_state['failed_rows_log'][] = array('row' => $row_index, 'data' => implode(' | ', $data), 'reason' => "كود Academy الرياضية غير صحيح ($school_code_input)");
                     continue;
                 }
 
                 // 2. Validate Student Full Name
                 if (empty($name_input)) {
                     $job_state['error']++;
-                    $msg = "السطر $row_index: اسم اللاعب مفقود ولا يمكن استيراد البيانات بدون الاسم.";
+                    $msg = "السطر $row_index: Player Name مفقود وNo يمكن Import البيانات بدون اNoسم.";
                     $job_state['details'][] = array('type' => 'error', 'msg' => $msg);
-                    $job_state['failed_rows_log'][] = array('row' => $row_index, 'data' => implode(' | ', $data), 'reason' => "اسم اللاعب مفقود");
+                    $job_state['failed_rows_log'][] = array('row' => $row_index, 'data' => implode(' | ', $data), 'reason' => "Player Name مفقود");
                     continue;
                 }
 
@@ -7932,9 +7937,9 @@ class SM_Public {
                     $grade_num = intval($grade_input);
                     if ($grade_num < 1 || $grade_num > 12) {
                         $job_state['error']++;
-                        $msg = "السطر $row_index: كود المجموعة التدريبية '{$grade_input}' غير صحيح (يجب أن يكون من 1 إلى 12).";
+                        $msg = "السطر $row_index: كود Training Group '{$grade_input}' غير صحيح (يجب أن يكون من 1 إلى 12).";
                         $job_state['details'][] = array('type' => 'error', 'msg' => $msg);
-                        $job_state['failed_rows_log'][] = array('row' => $row_index, 'data' => implode(' | ', $data), 'reason' => "كود المجموعة التدريبية غير صحيح ($grade_input)");
+                        $job_state['failed_rows_log'][] = array('row' => $row_index, 'data' => implode(' | ', $data), 'reason' => "كود Training Group غير صحيح ($grade_input)");
                         continue;
                     }
                 }
@@ -7972,7 +7977,7 @@ class SM_Public {
                     $job_state['success']++;
                     if ($is_existing) {
                         $job_state['duplicate']++;
-                        $job_state['details'][] = array('type' => 'info', 'msg' => "تم تحديث سجل ({$name_input}) في السطر $row_index");
+                        $job_state['details'][] = array('type' => 'info', 'msg' => "تم Update سجل ({$name_input}) في السطر $row_index");
                     }
                 }
             } catch (\Throwable $ex) {
@@ -7993,7 +7998,7 @@ class SM_Public {
         if ($is_finished) {
             $job_state['finished'] = true;
             @unlink($file_path);
-            SM_Logger::log('استيراد طلاب (دفعات)', "تم الانتهاء من استيراد {$job_state['success']} لاعب بنجاح.");
+            SM_Logger::log('Import طNoب (دفعات)', "تم اNoنتهاء من Import {$job_state['success']} Noعب بنجاح.");
         }
 
         update_option('eess_import_job_' . $job_id, $job_state, false);
@@ -8013,7 +8018,7 @@ class SM_Public {
     }
 
     public function ajax_download_import_error_log() {
-        if (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options')) {
+        if (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options')) {
             wp_die('Unauthorized');
         }
 
@@ -8044,16 +8049,16 @@ class SM_Public {
     public function ajax_eess_admin_delete_institution_students() {
         $user_roles = (array) wp_get_current_user()->roles;
         $is_sys_admin = in_array('administrator', $user_roles, true) || in_array('sm_system_admin', $user_roles, true) || current_user_can('manage_options');
-        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صلاحيات مدير النظام فقط.');
+        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صNoحيات مدير النظام فقط.');
 
         check_ajax_referer('sm_admin_action', 'nonce');
 
         $inst_id = intval($_POST['inst_id'] ?? 0);
-        if ($inst_id <= 0) wp_send_json_error('يرجى تحديد المنظمة الرياضية بشكل صحيح.');
+        if ($inst_id <= 0) wp_send_json_error('يرجى تحديد Organization الرياضية بشكل صحيح.');
 
         global $wpdb;
         $inst = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}eess_institutions WHERE id = %d LIMIT 1", $inst_id));
-        if (!$inst) wp_send_json_error('المنظمة الرياضية غير موجودة.');
+        if (!$inst) wp_send_json_error('Organization الرياضية غير موجودة.');
 
         // Clean up associated exit card requests for students in this institution
         $wpdb->query($wpdb->prepare(
@@ -8066,16 +8071,16 @@ class SM_Public {
             $inst_id, $inst_id
         ));
 
-        SM_Logger::log('حذف طلاب مؤسسة', "قام مدير النظام بحذف ($deleted) لاعب تابعين لمؤسسة: {$inst->name} (ID: {$inst_id})");
+        SM_Logger::log('Delete طNoب مؤسسة', "قام مدير النظام بDelete ($deleted) Noعب تابعين لمؤسسة: {$inst->name} (ID: {$inst_id})");
         wp_cache_flush();
 
-        wp_send_json_success(array('message' => "تم حذف $deleted لاعب تابع لمؤسسة ({$inst->name}) وتطهير طلباتهم بنجاح."));
+        wp_send_json_success(array('message' => "تم Delete $deleted Noعب تابع لمؤسسة ({$inst->name}) وتطهير طلباتهم بنجاح."));
     }
 
     public function ajax_eess_admin_delete_all_students_global() {
         $user_roles = (array) wp_get_current_user()->roles;
         $is_sys_admin = in_array('administrator', $user_roles, true) || in_array('sm_system_admin', $user_roles, true) || current_user_can('manage_options');
-        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صلاحيات مدير النظام فقط.');
+        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صNoحيات مدير النظام فقط.');
 
         check_ajax_referer('sm_admin_action', 'nonce');
 
@@ -8084,35 +8089,35 @@ class SM_Public {
         $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}sm_exit_card_requests");
         $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}sm_students");
 
-        SM_Logger::log('حذف كافة اللاعبين الشامل', "قام مدير النظام بحذف كافة سجلات اللاعبين لجميع المؤسسات ($count لاعب) وتطهير الطلبات القائمة");
+        SM_Logger::log('Delete كافة الNoعبين الشامل', "قام مدير النظام بDelete كافة سجNoت الNoعبين لجميع المؤسسات ($count Noعب) وتطهير الطلبات القائمة");
         wp_cache_flush();
 
-        wp_send_json_success(array('message' => "تم حذف جميع سجلات اللاعبين ($count لاعب) وجميع الطلبات لجميع المؤسسات بنجاح."));
+        wp_send_json_success(array('message' => "تم Delete جميع سجNoت الNoعبين ($count Noعب) وجميع الطلبات لجميع المؤسسات بنجاح."));
     }
 
     public function ajax_eess_admin_reset_all_student_sequences_global() {
         $user_roles = (array) wp_get_current_user()->roles;
         $is_sys_admin = in_array('administrator', $user_roles, true) || in_array('sm_system_admin', $user_roles, true) || current_user_can('manage_options');
-        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صلاحيات مدير النظام فقط.');
+        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صNoحيات مدير النظام فقط.');
 
         check_ajax_referer('sm_admin_action', 'nonce');
 
         global $wpdb;
         $wpdb->query("UPDATE {$wpdb->prefix}eess_id_counters SET current_val = 0 WHERE counter_type LIKE 'student_%'");
 
-        SM_Logger::log('إعادة ضبط تسلسل الأكواد الشامل', "قام مدير النظام بإعادة ضبط التسلسل الرقمي لكافة المؤسسات لجميع الأعوام الدراسية إلى 00001");
+        SM_Logger::log('Reset تسلسل الأكواد الشامل', "قام مدير النظام بReset التسلسل الرقمي لكافة المؤسسات لجميع الأعوام الدراسية إلى 00001");
         wp_cache_flush();
 
-        wp_send_json_success(array('message' => 'تم إعادة ضبط التسلسل الرقمي لأكواد اللاعبين لجميع المؤسسات إلى 00001 بنجاح.'));
+        wp_send_json_success(array('message' => 'تم Reset التسلسل الرقمي لأكواد الNoعبين لجميع المؤسسات إلى 00001 بنجاح.'));
     }
 
     public function ajax_export_students_pdf() {
-        if (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options')) {
-            wp_die('عفواً، لا تمتلك صلاحية التصدير.');
+        if (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options')) {
+            wp_die('عفواً، No تمتلك صNoحية الExport.');
         }
 
         if (!wp_verify_nonce($_GET['nonce'] ?? '', 'sm_admin_action') && !wp_verify_nonce($_GET['nonce'] ?? '', 'eess_admin_action')) {
-            wp_die('فشل التحقق الأمني.');
+            wp_die('فشل التحقق Motherني.');
         }
 
         global $wpdb;
@@ -8177,7 +8182,7 @@ class SM_Public {
         <html lang="ar" dir="rtl">
         <head>
             <meta charset="UTF-8">
-            <title>كشف بيانات أسر وأكواد اللاعبين الرسمية</title>
+            <title>كشف بيانات أسر وأكواد الNoعبين الرسمية</title>
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap');
                 body {
@@ -8261,14 +8266,14 @@ class SM_Public {
         </head>
         <body>
             <div class="no-print" style="margin-bottom: 15px; text-align: left;">
-                <button onclick="window.print()" style="padding: 10px 24px; background: #881337; color: white; border: none; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer;">🖨️ طباعة الكشف (PDF)</button>
+                <button onclick="window.print()" style="padding: 10px 24px; background: #881337; color: white; border: none; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer;">🖨️ Print الكشف (PDF)</button>
             </div>
 
             <div class="pdf-header">
                 <div>
                     <h1 class="pdf-header-title"><?php echo esc_html($org_title); ?></h1>
                     <div class="pdf-header-sub"><?php echo esc_html($inst_name); ?></div>
-                    <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-top: 4px;">الكشف الرسمي لبيانات وأكواد اللاعبين</div>
+                    <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-top: 4px;">الكشف الرسمي لبيانات وأكواد الNoعبين</div>
                 </div>
                 <div>
                     <img src="<?php echo esc_url($sys_logo); ?>" style="max-height: 70px; object-fit: contain;" alt="Logo">
@@ -8276,20 +8281,20 @@ class SM_Public {
             </div>
 
             <div class="pdf-meta-box">
-                <div><strong>المجموعة التدريبية الدراسي:</strong> <?php echo esc_html($class_filter ?: 'جميع المجموعات التدريبية'); ?></div>
-                <div><strong>المجموعة التدريبية:</strong> <?php echo esc_html($sec_filter ?: 'جميع الشعب'); ?></div>
-                <div><strong>عدد اللاعبين:</strong> <?php echo count($records); ?> لاعب</div>
-                <div><strong>تاريخ الطباعة:</strong> <?php echo current_time('Y-m-d'); ?></div>
+                <div><strong>Training Group الدراسي:</strong> <?php echo esc_html($class_filter ?: 'جميع Training Groups'); ?></div>
+                <div><strong>Training Group:</strong> <?php echo esc_html($sec_filter ?: 'جميع الشعب'); ?></div>
+                <div><strong>عدد الNoعبين:</strong> <?php echo count($records); ?> Noعب</div>
+                <div><strong>تاريخ الPrint:</strong> <?php echo current_time('Y-m-d'); ?></div>
             </div>
 
             <table>
                 <thead>
                     <tr>
                         <th style="width: 40px;">#</th>
-                        <th style="width: 130px;">كود اللاعب</th>
-                        <th>الاسم الكامل لللاعب</th>
-                        <th style="width: 100px;">المجموعة التدريبية</th>
-                        <th style="width: 70px;">المجموعة التدريبية</th>
+                        <th style="width: 130px;">كود الNoعب</th>
+                        <th>Full Name للNoعب</th>
+                        <th style="width: 100px;">Training Group</th>
+                        <th style="width: 70px;">Training Group</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -8309,7 +8314,7 @@ class SM_Public {
             </table>
 
             <div style="margin-top: 30px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 10px;">
-                <div>مؤسسة الشعلة للتعليم والتطوير — قسم شؤون اللاعبين</div>
+                <div>مؤسسة الشعلة للتعليم والتطوير — قسم Player Affairs</div>
                 <div>تقرير رسمي معتمد صادر من النظام الإلكتروني</div>
             </div>
 
@@ -8330,12 +8335,12 @@ class SM_Public {
     public function ajax_eess_admin_reset_student_sequence() {
         $user_roles = (array) wp_get_current_user()->roles;
         $is_sys_admin = in_array('administrator', $user_roles, true) || in_array('sm_system_admin', $user_roles, true) || current_user_can('manage_options');
-        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صلاحيات مدير النظام فقط.');
+        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صNoحيات مدير النظام فقط.');
 
         check_ajax_referer('sm_admin_action', 'nonce');
 
         $inst_id = intval($_POST['inst_id'] ?? 0);
-        if ($inst_id <= 0) wp_send_json_error('يرجى تحديد المنظمة الرياضية بشكل صحيح.');
+        if ($inst_id <= 0) wp_send_json_error('يرجى تحديد Organization الرياضية بشكل صحيح.');
 
         $acad_prefix = class_exists('EESS_ID_Code_Service') ? EESS_ID_Code_Service::get_academic_year_code() : '2627';
         $counter_type = 'student_' . $acad_prefix;
@@ -8344,14 +8349,14 @@ class SM_Public {
             EESS_ID_Code_Service::get_next_sequence($inst_id, $counter_type, 0);
         }
 
-        SM_Logger::log('إعادة ضبط التسلسل الرقمي للطلاب', "قام مدير النظام بضبط العداد الرقمي للمؤسسة ID: {$inst_id} للعام {$acad_prefix} إلى 00001.");
-        wp_send_json_success(array('message' => 'تم إعادة ضبط التسلسل الرقمي بنجاح. سيبدأ كود اللاعب الجديد من 00001.'));
+        SM_Logger::log('Reset التسلسل الرقمي للطNoب', "قام مدير النظام بضبط العداد الرقمي للمؤسسة ID: {$inst_id} للعام {$acad_prefix} إلى 00001.");
+        wp_send_json_success(array('message' => 'تم Reset التسلسل الرقمي بنجاح. سيبدأ كود الNoعب الجديد من 00001.'));
     }
 
     public function ajax_eess_admin_update_academic_year() {
         $user_roles = (array) wp_get_current_user()->roles;
         $is_sys_admin = in_array('administrator', $user_roles, true) || in_array('sm_system_admin', $user_roles, true) || current_user_can('manage_options');
-        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صلاحيات مدير النظام فقط.');
+        if (!$is_sys_admin) wp_send_json_error('عفواً، يتطلب هذا الإجراء صNoحيات مدير النظام فقط.');
 
         check_ajax_referer('sm_admin_action', 'nonce');
 
@@ -8362,15 +8367,15 @@ class SM_Public {
         $struct['academic_year'] = $acad_year;
         update_option('sm_academic_structure', $struct);
 
-        SM_Logger::log('تحديث العام الدراسي النظامي', "قام مدير النظام بتغيير العام الدراسي المعتمد إلى: {$acad_year}");
+        SM_Logger::log('Update العام الدراسي النظامي', "قام مدير النظام بتغيير العام الدراسي المعتمد إلى: {$acad_year}");
         wp_cache_flush();
 
-        wp_send_json_success(array('message' => "تم تحديث العام الدراسي النظامي إلى: {$acad_year}"));
+        wp_send_json_success(array('message' => "تم Update العام الدراسي النظامي إلى: {$acad_year}"));
     }
 
     public function ajax_eess_student_change_password() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يتطلب هذا الإجراء تسجيل الدخول أولاً.');
+            wp_send_json_error('عفواً، يتطلب هذا الإجراء Login أوNoً.');
         }
 
         $user_id = get_current_user_id();
@@ -8378,7 +8383,7 @@ class SM_Public {
         $roles = (array) $user->roles;
 
         if (!in_array('sm_student', $roles) && !in_array('sm_parent', $roles) && !in_array('administrator', $roles)) {
-            wp_send_json_error('هذا الإجراء مخصص لحسابات اللاعبين وأولياء الأمور والأوصياء فقط.');
+            wp_send_json_error('هذا الإجراء مخصص لحسابات الNoعبين وأولياء Motherور والأوصياء فقط.');
         }
 
         if (!wp_verify_nonce($_POST['eess_student_password_nonce'] ?? ($_POST['nonce'] ?? ''), 'eess_student_password_action')) {
@@ -8389,7 +8394,7 @@ class SM_Public {
         $confirm_pass = trim($_POST['confirm_password'] ?? '');
 
         if (empty($new_pass) || empty($confirm_pass)) {
-            wp_send_json_error('يرجى إدخال كلمة المرور الجديدة وتأكيدها.');
+            wp_send_json_error('يرجى إدخال Password الجديدة وConfirmها.');
         }
 
         if ($new_pass !== $confirm_pass) {
@@ -8398,7 +8403,7 @@ class SM_Public {
 
         // Validate password complexity: Min 8, Max 30, at least 1 uppercase, 1 lowercase, 1 number
         if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,30}$/', $new_pass)) {
-            wp_send_json_error('كلمة المرور يجب أن تحتوي على 8-30 حرفاً، وتشمل حرفاً كبيراً واحداً (A-Z)، وحرفاً صغيراً (a-z)، ورقماً على الأقل (0-9).');
+            wp_send_json_error('Password يجب أن تحتوي على 8-30 حرفاً، وتشمل حرفاً كبيراً واحداً (A-Z)، وحرفاً صغيراً (a-z)، ورقماً على الأقل (0-9).');
         }
 
         wp_set_password($new_pass, $user_id);
@@ -8408,8 +8413,8 @@ class SM_Public {
         wp_set_current_user($user_id);
         wp_set_auth_cookie($user_id, true);
 
-        SM_Logger::log('تغيير كلمة مرور اللاعب', "قام المستخدم ({$user->display_name}) بتعيين كلمة مرور جديدة بنجاح.");
-        wp_send_json_success('تم تعيين كلمة المرور الجديدة بنجاح.');
+        SM_Logger::log('تغيير كلمة مرور الNoعب', "قام المستخدم ({$user->display_name}) بتعيين كلمة مرور جديدة بنجاح.");
+        wp_send_json_success('تم تعيين Password الجديدة بنجاح.');
     }
 
     // Custom mail sender filters
@@ -8441,11 +8446,11 @@ class SM_Public {
                         ' . $body_content . '
                     </div>
                     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 25px; font-size: 12px; color: #64748b;">
-                        إذا واجهت أي صعوبة في الدخول أو استخدام الخدمة، يمكنك دائماً مراجعة قسم الدعم الفني عبر البريد الإلكتروني الرسمي: <a href="mailto:info@eess.online" style="color: #8b1e1e; font-weight: bold; text-decoration: none;">info@eess.online</a>.
+                        إذا واجهت أي صعوبة في الدخول أو استخدام الخدمة، يمكنك دائماً مراجعة قسم الدعم الفني عبر Email Address الرسمي: <a href="mailto:info@eess.online" style="color: #8b1e1e; font-weight: bold; text-decoration: none;">info@eess.online</a>.
                     </div>
                 </div>
                 <div style="background: #f1f5f9; padding: 15px 30px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0;">
-                    <div>جميع الحقوق محفوظة © 2026 EESS. خدمات الأنظمة الإلكترونية التعليمية</div>
+                    <div>All Rights Reserved © 2026 EESS. خدمات الأنظمة الإلكترونية التعليمية</div>
                     <div style="margin-top: 5px;"><a href="https://eess.online" target="_blank" style="color: #94a3b8; text-decoration: underline;">eess.online</a></div>
                 </div>
             </div>
@@ -8464,7 +8469,7 @@ class SM_Public {
             if ($status === 'pending') {
                 return new WP_Error(
                     'pending_approval',
-                    'حسابك قيد المراجعة الإدارية. يرجى الانتظار لحين اعتماد وتفعيل الحساب من قبل قسم إدارة المستخدمين.'
+                    'حسابك قيد المراجعة الإدارية. Please wait... لحين اعتماد وتفعيل الحساب من قبل قسم إدارة Users.'
                 );
             }
             if ($status === 'restricted' || $restricted === 'yes') {
@@ -8484,7 +8489,7 @@ class SM_Public {
         $rate_key   = 'eess_forgot_attempts_' . md5($ip_address);
         $attempts   = (int) get_transient($rate_key);
         if ($attempts >= 5) {
-            wp_send_json_error('تمت تجاوز عدد محاولات الاستعادة المسموح بها. يرجى الانتظار لمدة 15 دقيقة قبل المحاولة مجدداً.');
+            wp_send_json_error('تمت تجاوز عدد محاوNoت اNoستعادة المسموح بها. Please wait... لمدة 15 دقيقة قبل المحاولة مجدداً.');
         }
 
         $email       = sanitize_email($_POST['email'] ?? '');
@@ -8497,7 +8502,7 @@ class SM_Public {
 
         if (empty($email) || empty($emp_id) || empty($role) || empty($dob)) {
             set_transient($rate_key, $attempts + 1, 15 * MINUTE_IN_SECONDS);
-            wp_send_json_error('يرجى تعبئة كافة حقول التحقق الأساسية المطلوب تأكيدها.');
+            wp_send_json_error('يرجى تعبئة كافة حقول التحقق الأساسية المطلوب Confirmها.');
         }
 
         // 1. Verify User by Email
@@ -8529,7 +8534,7 @@ class SM_Public {
             $stored_inst2 = get_user_meta($user->ID, 'sm_institution', true);
             $stored_inst3 = get_user_meta($user->ID, 'eess_school_name', true);
             $school_info  = SM_Settings::get_school_info();
-            $default_inst = $school_info['school_name'] ?? 'خدمات الأنظمة الإلكترونية التعليمية (EESS)';
+            $default_inst = $school_info['school_name'] ?? 'Sportedia Sports Management System';
 
             $inst_match = (strcasecmp($stored_inst1, $institution) === 0) ||
                          (strcasecmp($stored_inst2, $institution) === 0) ||
@@ -8538,7 +8543,7 @@ class SM_Public {
 
             if (!$inst_match) {
                 set_transient($rate_key, $attempts + 1, 15 * MINUTE_IN_SECONDS);
-                wp_send_json_error('اسم المنظمة الرياضية أو الأكاديمية الرياضية غير متطابق.');
+                wp_send_json_error('اسم Organization الرياضية أو Academy الرياضية غير متطابق.');
             }
         }
 
@@ -8549,7 +8554,7 @@ class SM_Public {
             if (!empty($stored_nat1) || !empty($stored_nat2)) {
                 if (strcasecmp($stored_nat1, $nationality) !== 0 && strcasecmp($stored_nat2, $nationality) !== 0) {
                     set_transient($rate_key, $attempts + 1, 15 * MINUTE_IN_SECONDS);
-                    wp_send_json_error('بيانات الجنسية غير متطابقة.');
+                    wp_send_json_error('بيانات Genderية غير متطابقة.');
                 }
             }
         }
@@ -8562,7 +8567,7 @@ class SM_Public {
             if (!empty($stored_sub1) || !empty($stored_sub2)) {
                 if (strcasecmp($stored_sub1, $subject) !== 0 && strcasecmp($stored_sub2, $subject) !== 0) {
                     set_transient($rate_key, $attempts + 1, 15 * MINUTE_IN_SECONDS);
-                    wp_send_json_error('النشاط الرياضي المحددة غير متطابقة مع مادة المدرب المسجلة.');
+                    wp_send_json_error('Sport Activity المحددة غير متطابقة مع مادة المدرب المسجلة.');
                 }
             }
         }
@@ -8574,7 +8579,7 @@ class SM_Public {
             if (!empty($stored_dob1) || !empty($stored_dob2)) {
                 if ($stored_dob1 !== $dob && $stored_dob2 !== $dob) {
                     set_transient($rate_key, $attempts + 1, 15 * MINUTE_IN_SECONDS);
-                    wp_send_json_error('تاريخ الميلاد غير متطابق.');
+                    wp_send_json_error('Date of Birth غير متطابق.');
                 }
             }
         }
@@ -8603,7 +8608,7 @@ class SM_Public {
 
         $user_id = get_transient('eess_verified_reset_user_' . $reset_token);
         if (!$user_id) {
-            wp_send_json_error('انتهت صلاحية جلسة التحقق الآمنة. يرجى إعادة خطوات التحقق من جديد.');
+            wp_send_json_error('انتهت صNoحية جلسة التحقق الآمنة. يرجى إعادة خطوات التحقق من جديد.');
         }
 
         if ($password !== $pass_conf) {
@@ -8613,19 +8618,19 @@ class SM_Public {
         // Password Validation Rules: 8-40 chars, 1 uppercase, 1 lowercase, 1 number
         $length = mb_strlen($password);
         if ($length < 8 || $length > 40) {
-            wp_send_json_error('كلمة المرور يجب أن تكون بين 8 و 40 خانة.');
+            wp_send_json_error('Password يجب أن تكون بين 8 و 40 خانة.');
         }
 
         if (!preg_match('/[A-Z]/', $password)) {
-            wp_send_json_error('كلمة المرور يجب أن تحتوي على حرف إنجليزي كبير (A-Z) واحد على الأقل.');
+            wp_send_json_error('Password يجب أن تحتوي على حرف إنجليزي كبير (A-Z) واحد على الأقل.');
         }
 
         if (!preg_match('/[a-z]/', $password)) {
-            wp_send_json_error('كلمة المرور يجب أن تحتوي على حرف إنجليزي صغير (a-z) واحد على الأقل.');
+            wp_send_json_error('Password يجب أن تحتوي على حرف إنجليزي صغير (a-z) واحد على الأقل.');
         }
 
         if (!preg_match('/[0-9]/', $password)) {
-            wp_send_json_error('كلمة المرور يجب أن تحتوي على رقم (0-9) واحد على الأقل.');
+            wp_send_json_error('Password يجب أن تحتوي على رقم (0-9) واحد على الأقل.');
         }
 
         // Save New Password
@@ -8636,10 +8641,10 @@ class SM_Public {
         wp_set_current_user($user_id);
         wp_set_auth_cookie($user_id, true);
 
-        SM_Logger::log('إعادة تعيين كلمة المرور', "تم تغيير كلمة المرور وتوثيق الدخول التلقائي للمستخدم ID: $user_id");
+        SM_Logger::log('إعادة تعيين Password', "تم تغيير Password وتوثيق الدخول التلقائي للمستخدم ID: $user_id");
 
         wp_send_json_success(array(
-            'message'      => 'تم حفظ كلمة المرور الجديدة وتوثيق دخولك بنجاح!',
+            'message'      => 'تم Save Password الجديدة وتوثيق دخولك بنجاح!',
             'redirect_url' => home_url('/sm-admin')
         ));
     }
@@ -8667,7 +8672,7 @@ class SM_Public {
         // Validate role requiring subject
         $roles_requiring_subject = array('sm_teacher', 'sm_coordinator', 'sm_hod');
         if (in_array($role, $roles_requiring_subject) && empty($subject)) {
-            wp_send_json_error('يرجى تحديد النشاط الرياضي الدراسية المسندة لتدريسها.');
+            wp_send_json_error('يرجى تحديد Sport Activity الدراسية المسندة لتدريسها.');
         }
 
         if ($password !== $pass_conf) {
@@ -8677,15 +8682,15 @@ class SM_Public {
         // Password Validation Rules: 8-40 chars, 1 uppercase, 1 lowercase, 1 number
         $length = mb_strlen($password);
         if ($length < 8 || $length > 40) {
-            wp_send_json_error('كلمة المرور يجب أن تكون بين 8 و 40 خانة.');
+            wp_send_json_error('Password يجب أن تكون بين 8 و 40 خانة.');
         }
 
         if (!preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password) || !preg_match('/[0-9]/', $password)) {
-            wp_send_json_error('كلمة المرور يجب أن تحتوى على حرف كبير وحرف صغير ورقم على الأقل.');
+            wp_send_json_error('Password يجب أن تحتوى على حرف كبير وحرف صغير ورقم على الأقل.');
         }
 
         if (email_exists($email)) {
-            wp_send_json_error('البريد الإلكتروني مُسجل بالفعل بحساب آخر.');
+            wp_send_json_error('Email Address مُسجل بالفعل بحساب آخر.');
         }
 
         // Clean Employee Number to enforce Username = Employee Number
@@ -8696,7 +8701,7 @@ class SM_Public {
         $username = $clean_emp_num;
 
         if (username_exists($username)) {
-            wp_send_json_error('الرقم الوظيفي (اسم المستخدم) مسجل بالفعل لمستخدم آخر.');
+            wp_send_json_error('الرقم الوظيفي (Username) مسجل بالفعل لمستخدم آخر.');
         }
 
         $display_name = trim($first_name . ' ' . $last_name);
@@ -8743,22 +8748,22 @@ class SM_Public {
 
         // Notify System User Management
         $admin_email = get_option('admin_email') ?: 'info@eess.online';
-        $admin_title = 'طلب تسجيل حساب جديد قيد الانتظار - EESS';
+        $admin_title = 'طلب تسجيل حساب جديد قيد اNoنتظار - EESS';
         $admin_body = '
-        <p>مرحباً بقسم إدارة المستخدمين،</p>
-        <p>تم استلام طلب تسجيل حساب جديد بالمنصة وينتظر المراجعة والاعتماد.</p>
+        <p>Welcomeً بقسم إدارة Users،</p>
+        <p>تم استNoم طلب تسجيل حساب جديد بالمنصة وينتظر المراجعة واNoعتماد.</p>
         <div style="background: #f8fafc; padding: 15px; border-radius: 6px; border:1px solid #e2e8f0; line-height: 1.8;">
-            <strong>الاسم الكامل:</strong> ' . esc_html($display_name) . '<br>
-            <strong>البريد الإلكتروني:</strong> ' . esc_html($email) . '<br>
+            <strong>Full Name:</strong> ' . esc_html($display_name) . '<br>
+            <strong>Email Address:</strong> ' . esc_html($email) . '<br>
             <strong>رقم الموظف:</strong> ' . esc_html($emp_num) . '<br>
             <strong>الرتبة / المسمى الوظيفي:</strong> ' . esc_html($role) . '<br>
-            <strong>الأكاديمية الرياضية المنتسب لها:</strong> ' . esc_html($school) . '<br>
+            <strong>Academy الرياضية المنتسب لها:</strong> ' . esc_html($school) . '<br>
         </div>
-        <p>يمكنكم مراجعة الطلب والموافقة عليه أو رفضه مباشرة من خلال تبويب إدارة المستخدمين بلوحة التحكم.</p>
+        <p>يمكنكم مراجعة الطلب والApproveة عليه أو Rejectه مباشرة من خNoل تبويب إدارة Users بDashboard.</p>
         ';
-        $this->send_branded_email($admin_email, $admin_title, 'طلب تسجيل حساب قيد الانتظار', $admin_body);
+        $this->send_branded_email($admin_email, $admin_title, 'طلب تسجيل حساب قيد اNoنتظار', $admin_body);
 
-        wp_send_json_success('تم تسجيل الحساب بنجاح. حسابك حالياً قيد المراجعة الإدارية وسوف نرسل لك تفعيلاً فور الاعتماد.');
+        wp_send_json_success('تم تسجيل الحساب بنجاح. حسابك حالياً قيد المراجعة الإدارية وسوف نرسل لك تفعيNoً فور اNoعتماد.');
     }
 
     // Admin Action: Approve user
@@ -8768,7 +8773,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('غير مصرح لك بإجراء هذه العملية.');
+            wp_send_json_error('Unauthorized لك بإجراء هذه العملية.');
         }
 
         $target_user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : 0;
@@ -8786,13 +8791,13 @@ class SM_Public {
         <table dir="rtl" style="text-align: right; width: 100%; font-family: \'Cairo\', sans-serif; border-collapse: collapse; margin-bottom: 25px;">
             <tr>
                 <td>
-                    <h3 style="color: #0f172a; font-size: 16px; margin: 0 0 10px 0; font-weight: bold;">أهلاً بك يا ' . esc_html($user->display_name ?: $user->user_email) . '،</h3>
-                    <p style="font-size: 13px; color: #334155; line-height: 1.8; margin: 0 0 15px 0;">يسعدنا إبلاغك بأنه تم مراجعة واعتماد حسابك بنجاح على منصة <strong>خدمات الأنظمة الإلكترونية التعليمية (EESS)</strong>. حسابك الآن نشط بالكامل وجاهز للاستخدام الفوري.</p>
+                    <h3 style="color: #0f172a; font-size: 16px; margin: 0 0 10px 0; font-weight: bold;">Welcome يا ' . esc_html($user->display_name ?: $user->user_email) . '،</h3>
+                    <p style="font-size: 13px; color: #334155; line-height: 1.8; margin: 0 0 15px 0;">يسعدنا إبNoغك بأنه تم مراجعة واعتماد حسابك بنجاح على منصة <strong>Sportedia Sports Management System</strong>. حسابك الآن Active بالكامل وجاهز لNoستخدام الفوري.</p>
 
                     <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 13px;">
                         <strong>تفاصيل الحساب / Account Details:</strong><br>
-                        • اسم المستخدم: <span style="font-family: monospace; font-weight: bold;">' . esc_html($user->user_login) . '</span><br>
-                        • البريد الإلكتروني: <span style="font-family: monospace; font-weight: bold;">' . esc_html($user->user_email) . '</span><br>
+                        • Username: <span style="font-family: monospace; font-weight: bold;">' . esc_html($user->user_login) . '</span><br>
+                        • Email Address: <span style="font-family: monospace; font-weight: bold;">' . esc_html($user->user_email) . '</span><br>
                     </div>
 
                     <p style="font-size: 13px; color: #334155; line-height: 1.8;"><strong>توصيات أمنية هامة:</strong> يرجى التأكد من عدم مشاركة بيانات دخولك أو رمز التفعيل مع أي شخص آخر، واحرص على استخدام كلمة مرور قوية لضمان أمان معلوماتك.</p>
@@ -8814,7 +8819,7 @@ class SM_Public {
         </table>
 
         <div style="text-align: center; margin: 30px 0;">
-            <a href="' . home_url('/sm-login') . '" style="display:inline-block; background:#000000; color:#ffffff !important; text-decoration:none; padding:12px 35px; font-weight:bold; border-radius:6px; font-size:14px; font-family:\'Cairo\', sans-serif;">تسجيل الدخول للمنصة / Login to Platform</a>
+            <a href="' . home_url('/sm-login') . '" style="display:inline-block; background:#000000; color:#ffffff !important; text-decoration:none; padding:12px 35px; font-weight:bold; border-radius:6px; font-size:14px; font-family:\'Cairo\', sans-serif;">Login للمنصة / Login to Platform</a>
         </div>
         ';
 
@@ -8830,7 +8835,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('غير مصرح لك بإجراء هذه العملية.');
+            wp_send_json_error('Unauthorized لك بإجراء هذه العملية.');
         }
 
         $target_user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : 0;
@@ -8842,8 +8847,8 @@ class SM_Public {
         if ($user) {
             $title = 'بخصوص طلب تسجيل حسابك - EESS';
             $body = '
-            <p>مرحباً بك،</p>
-            <p>نأسف لإبلاغك بأنه تم رفض طلب التسجيل الخاص بك على منصة EESS الإلكترونية بعد المراجعة الإدارية.</p>
+            <p>Welcomeً بك،</p>
+            <p>نأسف لإبNoغك بأنه تم Reject طلب التسجيل الخاص بك على منصة EESS الإلكترونية بعد المراجعة الإدارية.</p>
             <p>في حال كنت تعتقد أن هناك خطأً، يرجى التواصل مجدداً مع الدعم الفني أو مراجعة إدارة شؤون أعضاء هيئة التدريب والكادر.</p>
             ';
             $this->send_branded_email($user->user_email, $title, 'مراجعة طلب التسجيل', $body);
@@ -8853,7 +8858,7 @@ class SM_Public {
             wp_delete_user($target_user_id);
         }
 
-        wp_send_json_success('تم رفض طلب التسجيل وحذف الحساب المعلق بنجاح.');
+        wp_send_json_success('تم Reject طلب التسجيل وDelete الحساب الPending بنجاح.');
     }
 
     // Admin Action: Save user notes
@@ -8863,7 +8868,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('غير مصرح لك بإجراء هذه العملية.');
+            wp_send_json_error('Unauthorized لك بإجراء هذه العملية.');
         }
 
         $target_user_id = isset($_POST['user_id']) ? intval($_POST['user_id']) : 0;
@@ -8874,7 +8879,7 @@ class SM_Public {
         }
 
         update_user_meta($target_user_id, 'eess_admin_notes', $notes);
-        wp_send_json_success('تم حفظ الملاحظات الداخلية بنجاح.');
+        wp_send_json_success('تم Save الNotes الداخلية بنجاح.');
     }
 
     public function ajax_get_user_assignments() {
@@ -8887,7 +8892,7 @@ class SM_Public {
     }
 
     public function ajax_sm_save_asset_inventory() {
-        if (!is_user_logged_in()) wp_send_json_error('يجب تسجيل الدخول.');
+        if (!is_user_logged_in()) wp_send_json_error('يجب Login.');
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'nonce')) {
             wp_send_json_error('Security check failed');
@@ -8901,7 +8906,7 @@ class SM_Public {
         $qty_missing = max(0, intval($_POST['qty_missing'] ?? 0));
         $location   = sanitize_text_field($_POST['location'] ?? 'مخزن التربية البدنية');
 
-        $school_name = get_user_meta($user_id, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+        $school_name = get_user_meta($user_id, 'eess_school_name', true) ?: 'Academy الرياضية Home';
         $department  = get_user_meta($user_id, 'department', true) ?: 'التربية البدنية والصحية';
 
         global $wpdb;
@@ -8944,15 +8949,15 @@ class SM_Public {
         ));
 
         if ($inserted) {
-            SM_Logger::log('إضافة حصر عهدة', "تم إدراج عهدة جديدة ($item_name) لـ $school_name بواسطة المستخدم ID: $user_id");
-            wp_send_json_success(array('message' => 'تم حفظ وتحديث حصر العهدة بنجاح.'));
+            SM_Logger::log('Add حصر عهدة', "تم إدراج عهدة جديدة ($item_name) لـ $school_name بواسطة المستخدم ID: $user_id");
+            wp_send_json_success(array('message' => 'تم Save وUpdate حصر العهدة بنجاح.'));
         } else {
-            wp_send_json_error('تعذر حفظ حصر العهدة في قاعدة البيانات.');
+            wp_send_json_error('تعذر Save حصر العهدة في قاعدة البيانات.');
         }
     }
 
     public function ajax_sm_save_asset_request() {
-        if (!is_user_logged_in()) wp_send_json_error('يجب تسجيل الدخول.');
+        if (!is_user_logged_in()) wp_send_json_error('يجب Login.');
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action') && !wp_verify_nonce($nonce, 'nonce')) {
             wp_send_json_error('Security check failed');
@@ -8963,7 +8968,7 @@ class SM_Public {
         $qty_requested = max(1, intval($_POST['qty_requested'] ?? 1));
         $reason        = sanitize_text_field($_POST['request_reason'] ?? 'استبدال معدات تالفة');
 
-        $school_name = get_user_meta($user_id, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+        $school_name = get_user_meta($user_id, 'eess_school_name', true) ?: 'Academy الرياضية Home';
         $department  = get_user_meta($user_id, 'department', true) ?: 'التربية البدنية والصحية';
 
         global $wpdb;
@@ -9012,14 +9017,14 @@ class SM_Public {
 
             $items_summary = implode(', ', $added_names);
             SM_Logger::log('طلب توريد معدات', "تم تقديم طلب توريد متعدد الأصناف [$items_summary] لـ $school_name بواسطة المستخدم ID: $user_id");
-            wp_send_json_success(array('message' => 'تم إرسال طلب التوريد بنجاح للمراجعة والاعتماد.'));
+            wp_send_json_success(array('message' => 'تم Send طلب التوريد بنجاح للمراجعة واNoعتماد.'));
         } else {
-            wp_send_json_error('فشل حفظ طلب التوريد.');
+            wp_send_json_error('فشل Save طلب التوريد.');
         }
     }
 
     public function ajax_sm_mark_teacher_contacted() {
-        if (!is_user_logged_in()) wp_send_json_error('يجب تسجيل الدخول.');
+        if (!is_user_logged_in()) wp_send_json_error('يجب Login.');
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_term_plan_action') && !wp_verify_nonce($nonce, 'eess_lesson_prep_action') && !wp_verify_nonce($nonce, 'nonce')) {
             wp_send_json_error('Security check failed');
@@ -9044,7 +9049,7 @@ class SM_Public {
     }
 
     public function ajax_sm_assign_term_plan() {
-        if (!is_user_logged_in()) wp_send_json_error('يجب تسجيل الدخول.');
+        if (!is_user_logged_in()) wp_send_json_error('يجب Login.');
         $user = wp_get_current_user();
         $roles = (array)$user->roles;
         if (!in_array('administrator', $roles) && !in_array('sm_system_admin', $roles) && !current_user_can('manage_options')) {
@@ -9093,11 +9098,11 @@ class SM_Public {
 
         $target_user = get_userdata($target_uid);
         SM_Logger::log('تعيين خطة فصلية', "قام مدير النظام بتعيين خطة فصلية للمعلم: " . ($target_user ? $target_user->display_name : $target_uid));
-        wp_send_json_success(array('message' => 'تمت إسناد الخطة المجموعة التدريبيةية للمعلم بنجاح.'));
+        wp_send_json_success(array('message' => 'تمت إسناد الخطة Training Groupية للمعلم بنجاح.'));
     }
 
     public function ajax_sm_assign_lesson_prep() {
-        if (!is_user_logged_in()) wp_send_json_error('يجب تسجيل الدخول.');
+        if (!is_user_logged_in()) wp_send_json_error('يجب Login.');
         $user = wp_get_current_user();
         $roles = (array)$user->roles;
         if (!in_array('administrator', $roles) && !in_array('sm_system_admin', $roles) && !current_user_can('manage_options')) {
@@ -9155,7 +9160,7 @@ class SM_Public {
 
     public function ajax_sm_copy_record() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يجب تسجيل الدخول للقيام بهذه العملية.');
+            wp_send_json_error('عفواً، يجب Login للقيام بهذه العملية.');
         }
 
         $user = wp_get_current_user();
@@ -9213,7 +9218,7 @@ class SM_Public {
         } elseif ($record_type === 'term_plan') {
             $orig = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_term_plans WHERE id = %d", $record_id));
             if (!$orig) {
-                wp_send_json_error('الخطة المجموعة التدريبيةية الأصلية غير موجودة.');
+                wp_send_json_error('الخطة Training Groupية الأصلية غير موجودة.');
             }
 
             $inserted = $wpdb->insert("{$wpdb->prefix}sm_term_plans", array(
@@ -9240,12 +9245,12 @@ class SM_Public {
             ));
 
             if (!$inserted) {
-                wp_send_json_error('فشل حفظ النسخة في قاعدة البيانات: ' . $wpdb->last_error);
+                wp_send_json_error('فشل Save النسخة في قاعدة البيانات: ' . $wpdb->last_error);
             }
 
             $new_id = $wpdb->insert_id;
-            SM_Logger::log('نسخ خطة فصلية', "قام مدير النظام بنسخ الخطة المجموعة التدريبيةية ID: $record_id للمستخدم: {$target_user->display_name} بالمعرف الجديد ID: $new_id");
-            wp_send_json_success(array('message' => "تم نسخ الخطة المجموعة التدريبيةية بنجاح ونقلها لحساب: {$target_user->display_name}"));
+            SM_Logger::log('نسخ خطة فصلية', "قام مدير النظام بنسخ الخطة Training Groupية ID: $record_id للمستخدم: {$target_user->display_name} بالمعرف الجديد ID: $new_id");
+            wp_send_json_success(array('message' => "تم نسخ الخطة Training Groupية بنجاح ونقلها لحساب: {$target_user->display_name}"));
         }
     }
 
@@ -9335,12 +9340,12 @@ class SM_Public {
 
     public function ajax_sm_print() {
         if (!is_user_logged_in()) {
-            wp_die('عفواً، يجب تسجيل الدخول للتمكن من طباعة هذا المستند.');
+            wp_die('عفواً، يجب Login للتمكن من Print هذا المستند.');
         }
 
         $print_type = isset($_GET['print_type']) ? sanitize_key($_GET['print_type']) : '';
         if (empty($print_type)) {
-            wp_die('نوع الطباعة غير محدد.');
+            wp_die('نوع الPrint غير محدد.');
         }
 
         if ($print_type === 'lesson_prep') {
@@ -9357,7 +9362,7 @@ class SM_Public {
             $is_privileged = in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_supervisor', $user_roles) || in_array('sm_coordinator', $user_roles) || in_array('sm_hod', $user_roles) || in_array('sm_activities_supervisor', $user_roles);
 
             if ($prep->teacher_id != $current_user_id && !$is_privileged) {
-                wp_die('عفواً، لا تملك الصلاحيات الكافية لاستعراض أو طباعة هذا التحضير.');
+                wp_die('عفواً، No تملك Permissions الكافية Noستعراض أو Print هذا التحضير.');
             }
 
             include SM_PLUGIN_DIR . 'templates/lesson-document-template.php';
@@ -9369,7 +9374,7 @@ class SM_Public {
             $user_roles = (array) wp_get_current_user()->roles;
             $is_privileged = in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_supervisor', $user_roles) || in_array('sm_coordinator', $user_roles) || in_array('sm_hod', $user_roles) || in_array('sm_activities_supervisor', $user_roles);
             if (!$is_privileged) {
-                wp_die('عفواً، لا تمتلك الصلاحية الكافية للوصول لتقرير عدم تسليم تقديم تقارير أعضاء هيئة التدريب والكادر.');
+                wp_die('عفواً، No تمتلك الصNoحية الكافية للوصول لتقرير عدم تسليم تقديم تقارير أعضاء هيئة التدريب والكادر.');
             }
 
             global $wpdb;
@@ -9479,7 +9484,7 @@ class SM_Public {
                 }
 
                 $emp_number    = get_user_meta($t->ID, 'eess_employee_number', true) ?: ($t->ID);
-                $sch_name      = get_user_meta($t->ID, 'eess_school_name', true) ?: 'المنظمة الرياضية الرئيسية';
+                $sch_name      = get_user_meta($t->ID, 'eess_school_name', true) ?: 'Organization الرياضية Home';
                 $grades_taught = EESS_Org_Helper::format_assigned_grades($t->ID);
                 $subject       = get_user_meta($t->ID, 'sm_specialization', true) ?: (get_user_meta($t->ID, 'specialization', true) ?: 'عام');
 
@@ -9545,7 +9550,7 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="margin-bottom: 15px; text-align: left;">
-                    <button onclick="window.print()" style="background: #881337; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(136,19,55,0.2);">🖨️ طباعة وتصدير PDF الرسمية A4</button>
+                    <button onclick="window.print()" style="background: #881337; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(136,19,55,0.2);">🖨️ Print وExport PDF الرسمية A4</button>
                 </div>
 
                 <div class="report-header">
@@ -9556,24 +9561,24 @@ class SM_Public {
                             <?php endif; ?>
                             <div style="text-align: right;">
                                 <div style="font-size: 14px; font-weight: 900; color: #0f172a; line-height: 1.2;"><?php echo esc_html($school_name); ?></div>
-                                <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-top: 2px;">إدارة الشؤون التعليمية والرقابة الأكاديمية</div>
+                                <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-top: 2px;">إدارة الشؤون التعليمية والرقابة Academy</div>
                             </div>
                         </div>
                         <div style="font-size: 11px; color: #64748b; font-weight: 700; text-align: left;">
-                            تاريخ الإصدار: <?php echo esc_html($current_date_fmt); ?>
+                            تاريخ الIssue: <?php echo esc_html($current_date_fmt); ?>
                         </div>
                     </div>
 
                     <h1 class="main-report-title" style="font-size: 18px; font-weight: 900; color: #881337; text-align: center; margin: 12px 0 6px 0;">تقرير الكادر غير الملتزم بتسليم تقديم تقارير أعضاء هيئة التدريب والكادر</h1>
 
                     <div class="main-report-date-box" style="text-align: center; font-size: 12px; color: #334155; font-weight: 700;">
-                        <div style="font-weight: 900; color: #0f172a;">الأسابيع الأكاديمية المستحقة المعتمدة</div>
+                        <div style="font-weight: 900; color: #0f172a;">الأسابيع Academy المستحقة المعتمدة</div>
                         <div style="font-weight: 900; color: #881337; font-size: 13px; margin-top: 1px;">الأسبوع الأول إلى <?php echo esc_html($range_end_title); ?></div>
                     </div>
                 </div>
 
                 <div class="intro-box">
-                    <p>يتضمن هذا التقرير كشف أعضاء هيئة التدريب والكادر والمدربين الذين لم يقوموا برفع تقديم تقارير أعضاء هيئة التدريب والكادر المطلوب لأسبوع أو أكثر من الأسابيع الأكاديمية المستحقة حتى تاريخه، وذلك للأسابيع من الأسبوع الأول إلى <?php echo esc_html($range_end_title); ?>. وقد تم تحديد الأسابيع غير المسلّمة وفقًا للسجلات الفعلية بالمنظومة والتقويم الأكاديمي المعتمد، مع استثناء التحضير المتأخر الذي تم استكماله واعتماده.</p>
+                    <p>يتضمن هذا التقرير كشف أعضاء هيئة التدريب والكادر والمدربين الذين لم يقوموا برفع تقديم تقارير أعضاء هيئة التدريب والكادر المطلوب لأسبوع أو أكثر من الأسابيع Academy المستحقة حتى تاريخه، وذلك للأسابيع من الأسبوع الأول إلى <?php echo esc_html($range_end_title); ?>. وقد تم تحديد الأسابيع غير المسلّمة وفقًا للسجNoت الفعلية بالمنظومة والتقويم الأكاديمي المعتمد، مع استثناء التحضير المتأخر الذي تم استكماله واعتماده.</p>
                     <p>نرجو من المدربين وأعضاء هيئة التدريب والكادر الذين لديهم تحضير متأخر المبادرة إلى استكماله وتسليمه وفقًا للنموذج المعتمد، وذلك في أقرب وقت ممكن.</p>
                 </div>
 
@@ -9582,7 +9587,7 @@ class SM_Public {
                         <tr>
                             <th style="width: 32px; text-align: center;">#</th>
                             <th style="width: 35%;">اسم الموظف / المدرب</th>
-                            <th style="width: 30%;">الأكاديمية الرياضية والمجموعات التدريبية المكلّف بها</th>
+                            <th style="width: 30%;">Academy الرياضية وTraining Groups المكلّف بها</th>
                             <th style="width: 35%;">تفاصيل الأسابيع غير المسلمة</th>
                         </tr>
                     </thead>
@@ -9590,7 +9595,7 @@ class SM_Public {
                         <?php if (empty($non_submitters)): ?>
                             <tr>
                                 <td colspan="4" style="text-align: center; color: #16a34a; padding: 25px; font-weight: 800; font-size: 13px;">
-                                    🎉 جميع المدربين قاموا بتقديم كافة تحضيرات الدروس المطلوبة لكافة الأسابيع الأكاديمية المستحقة بنجاح!
+                                    🎉 جميع المدربين قاموا بتقديم كافة تحضيرات الدروس المطلوبة لكافة الأسابيع Academy المستحقة بنجاح!
                                 </td>
                             </tr>
                         <?php else:
@@ -9615,7 +9620,7 @@ class SM_Public {
                                 </td>
                                 <td>
                                     <div style="font-weight: 800; color: #0f172a; font-size: 11.5px;"><?php echo esc_html($ns['school_name']); ?></div>
-                                    <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">المجموعات التدريبية: <?php echo esc_html($ns['grades_taught']); ?></div>
+                                    <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">Training Groups: <?php echo esc_html($ns['grades_taught']); ?></div>
                                 </td>
                                 <td>
                                     <?php
@@ -9637,7 +9642,7 @@ class SM_Public {
                 </h2>
 
                 <div style="text-align: center; font-size: 12px; color: #334155; font-weight: 700; margin-bottom: 15px;">
-                    <div style="font-weight: 900; color: #0f172a; font-size: 12px;">الأسابيع الأكاديمية المستحقة المعتمدة</div>
+                    <div style="font-weight: 900; color: #0f172a; font-size: 12px;">الأسابيع Academy المستحقة المعتمدة</div>
                     <div style="font-weight: 900; color: #15803d; font-size: 13px; margin-top: 2px;">الأسبوع الأول إلى <?php echo esc_html($range_end_title); ?></div>
                 </div>
 
@@ -9646,15 +9651,15 @@ class SM_Public {
                         <tr>
                             <th style="width: 32px; text-align: center;">#</th>
                             <th style="width: 35%;">اسم الموظف / المدرب</th>
-                            <th style="width: 30%;">الأكاديمية الرياضية والمجموعات التدريبية المكلّف بها</th>
-                            <th style="width: 35%; text-align: center;">حالة الالتزام والتغطية</th>
+                            <th style="width: 30%;">Academy الرياضية وTraining Groups المكلّف بها</th>
+                            <th style="width: 35%; text-align: center;">حالة اNoلتزام والتغطية</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($compliant_teachers)): ?>
                             <tr>
                                 <td colspan="4" style="text-align: center; color: #64748b; padding: 20px;">
-                                    لا يوجد كادر مستوفي لجميع الأسابيع حالياً.
+                                    No يوجد كادر مستوفي لجميع الأسابيع حالياً.
                                 </td>
                             </tr>
                         <?php else:
@@ -9671,7 +9676,7 @@ class SM_Public {
                                 </td>
                                 <td style="text-align: right;">
                                     <div style="font-weight: 800; color: #0f172a; font-size: 11.5px;"><?php echo esc_html($cs['school_name']); ?></div>
-                                    <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">المجموعات التدريبية: <?php echo esc_html($cs['grades_taught']); ?></div>
+                                    <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">Training Groups: <?php echo esc_html($cs['grades_taught']); ?></div>
                                 </td>
                                 <td style="text-align: center; vertical-align: middle;">
                                     <span style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 4px 14px; border-radius: 9999px; background: #dcfce7; color: #15803d; border: 1px solid #86efac; font-weight: 900; font-size: 11px;">
@@ -9692,7 +9697,7 @@ class SM_Public {
                         <div style="border-bottom: 1.5px dashed #64748b; width: 100%; margin: 0 auto;"></div>
                     </div>
                     <div style="text-align: center; width: 180px;">
-                        <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-bottom: 30px;">مدير الأكاديمية الرياضية</div>
+                        <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-bottom: 30px;">مدير Academy الرياضية</div>
                         <div style="border-bottom: 1.5px dashed #64748b; width: 100%; margin: 0 auto;"></div>
                     </div>
                 </div>
@@ -9704,7 +9709,7 @@ class SM_Public {
             $user_roles = (array) wp_get_current_user()->roles;
             $is_privileged = in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_supervisor', $user_roles) || in_array('sm_coordinator', $user_roles) || in_array('sm_hod', $user_roles) || in_array('sm_activities_supervisor', $user_roles);
             if (!$is_privileged) {
-                wp_die('عفواً، لا تمتلك الصلاحية الكافية للوصول لتقرير عدم تسليم الخطط المجموعة التدريبيةية.');
+                wp_die('عفواً، No تمتلك الصNoحية الكافية للوصول لتقرير عدم تسليم الخطط Training Groupية.');
             }
 
             $term_num = isset($_GET['term_number']) ? intval($_GET['term_number']) : 1;
@@ -9730,8 +9735,8 @@ class SM_Public {
 
             // Sort teachers consecutively by school name
             usort($teachers, function($a, $b) {
-                $schA = get_user_meta($a->ID, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
-                $schB = get_user_meta($b->ID, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+                $schA = get_user_meta($a->ID, 'eess_school_name', true) ?: 'Academy الرياضية Home';
+                $schB = get_user_meta($b->ID, 'eess_school_name', true) ?: 'Academy الرياضية Home';
                 return strcmp($schA, $schB);
             });
 
@@ -9752,7 +9757,7 @@ class SM_Public {
             <html lang="ar" dir="rtl">
             <head>
                 <meta charset="UTF-8">
-                <title>التقرير الموحد لمتابعة تسليم الخطط المجموعة التدريبيةية — المجموعة التدريبية <?php echo $term_num; ?></title>
+                <title>التقرير الموحد لمتابعة تسليم الخطط Training Groupية — Training Group <?php echo $term_num; ?></title>
                 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
                 <style>
                     @page { size: A4 portrait; margin: 12mm 15mm; }
@@ -9777,7 +9782,7 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="margin-bottom: 15px; text-align: left;">
-                    <button onclick="window.print()" style="background: #881337; color: #fff; border: none; padding: 7px 18px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px;">🖨️ طباعة التقرير الرسمية A4</button>
+                    <button onclick="window.print()" style="background: #881337; color: #fff; border: none; padding: 7px 18px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px;">🖨️ Print التقرير الرسمية A4</button>
                 </div>
                 <div class="report-header">
                     <div class="brand-box">
@@ -9786,11 +9791,11 @@ class SM_Public {
                         <?php endif; ?>
                         <div>
                             <div style="font-size: 14px; font-weight: 900; color: #0f172a;"><?php echo esc_html($school_name); ?></div>
-                            <div style="font-size: 11px; color: #64748b; font-weight: 700;">المكتب التنفيذي والاعتماد الأكاديمي</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 700;">المكتب التنفيذي واNoعتماد الأكاديمي</div>
                         </div>
                     </div>
                     <div style="text-align: left;">
-                        <h1 class="report-title">كشف متابعة تسليم الخطط المجموعة التدريبيةية (المجموعة التدريبية <?php echo $term_num; ?>)</h1>
+                        <h1 class="report-title">كشف متابعة تسليم الخطط Training Groupية (Training Group <?php echo $term_num; ?>)</h1>
                         <p class="report-subtitle">العام الأكاديمي: <?php echo esc_html($acad_year); ?> | الموعد النهائي: <?php echo date_i18n('Y-m-d H:i', strtotime($configured_deadline)); ?></p>
                     </div>
                 </div>
@@ -9804,7 +9809,7 @@ class SM_Public {
 
                 foreach ($teachers as $idx => $t) {
                     $emp_id = get_user_meta($t->ID, 'eess_employee_number', true) ?: ('EMP-' . $t->ID);
-                    $t_school = get_user_meta($t->ID, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+                    $t_school = get_user_meta($t->ID, 'eess_school_name', true) ?: 'Academy الرياضية Home';
                     $t_subj = get_user_meta($t->ID, 'sm_specialization', true) ?: (get_user_meta($t->ID, 'specialization', true) ?: (get_user_meta($t->ID, 'subject', true) ?: 'عام'));
 
                     $p = $plans_by_teacher[$t->ID] ?? null;
@@ -9865,7 +9870,7 @@ class SM_Public {
                         <div style="font-size: 16px; font-weight: 900; color: #dc2626;"><?php echo $missing_count; ?></div>
                     </div>
                     <div class="summary-card">
-                        <div style="font-size: 10px; color: #0369a1; font-weight: 700;">نسبة الالتزام</div>
+                        <div style="font-size: 10px; color: #0369a1; font-weight: 700;">نسبة اNoلتزام</div>
                         <div style="font-size: 16px; font-weight: 900; color: #0284c7;"><?php echo $compliance_rate; ?>%</div>
                     </div>
                 </div>
@@ -9875,8 +9880,8 @@ class SM_Public {
                         <tr>
                             <th style="width: 30px; text-align:center;">#</th>
                             <th>اسم المدرب والرقم الوظيفي</th>
-                            <th>المنظمة الرياضية / الأكاديمية الرياضية</th>
-                            <th>التخصص / النشاط الرياضي</th>
+                            <th>Organization الرياضية / Academy الرياضية</th>
+                            <th>التخصص / Sport Activity</th>
                             <th style="text-align:center;">حالة التسليم</th>
                             <th>تاريخ ووقت التسليم</th>
                             <th>مدة التأخير</th>
@@ -9894,11 +9899,11 @@ class SM_Public {
             $user_roles = (array) wp_get_current_user()->roles;
             $is_privileged = in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_supervisor', $user_roles) || in_array('sm_coordinator', $user_roles) || in_array('sm_hod', $user_roles) || in_array('sm_activities_supervisor', $user_roles);
             if (!$is_privileged) {
-                wp_die('عفواً، لا تمتلك الصلاحية الكافية للوصول لتقرير الأكاديمية الرياضية المحددة.');
+                wp_die('عفواً، No تمتلك الصNoحية الكافية للوصول لتقرير Academy الرياضية المحددة.');
             }
 
             $target_school_id = isset($_GET['school_id']) ? intval($_GET['school_id']) : 0;
-            $target_school = 'الأكاديمية الرياضية الرئيسية';
+            $target_school = 'Academy الرياضية Home';
             if ($target_school_id > 0 && class_exists('EESS_Org_Helper')) {
                 $sch_obj = EESS_Org_Helper::get_school_by_id($target_school_id);
                 if ($sch_obj) $target_school = $sch_obj->name;
@@ -9935,7 +9940,7 @@ class SM_Public {
                     $u_sch_id = get_user_meta($t->ID, 'eess_school_id', true) ?: get_user_meta($t->ID, 'sm_school_id', true);
                     if ($u_sch_id && intval($u_sch_id) === $target_school_id) return true;
                 }
-                $sch = get_user_meta($t->ID, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+                $sch = get_user_meta($t->ID, 'eess_school_name', true) ?: 'Academy الرياضية Home';
                 return (trim($sch) === trim($target_school));
             });
             $teachers = array_values($teachers);
@@ -10000,7 +10005,7 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="margin-bottom: 15px; text-align: left;">
-                    <button onclick="window.print()" style="background: #881337; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(136,19,55,0.2);">🖨️ طباعة وتصدير PDF الرسمية للمدرسة A4</button>
+                    <button onclick="window.print()" style="background: #881337; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px; box-shadow: 0 4px 12px rgba(136,19,55,0.2);">🖨️ Print وExport PDF الرسمية للمدرسة A4</button>
                 </div>
 
                 <div class="report-header">
@@ -10011,18 +10016,18 @@ class SM_Public {
                             <?php endif; ?>
                             <div>
                                 <div style="font-size: 14px; font-weight: 900; color: #0f172a;"><?php echo esc_html($school_name); ?> — <?php echo esc_html($target_school); ?></div>
-                                <div style="font-size: 11px; color: #64748b; font-weight: 700;">إدارة الشؤون التعليمية والرقابة الأكاديمية</div>
+                                <div style="font-size: 11px; color: #64748b; font-weight: 700;">إدارة الشؤون التعليمية والرقابة Academy</div>
                             </div>
                         </div>
                         <div style="font-size: 11px; color: #64748b; font-weight: 700; text-align: left;">
-                            تاريخ الإصدار: <?php echo esc_html($current_date_fmt); ?>
+                            تاريخ الIssue: <?php echo esc_html($current_date_fmt); ?>
                         </div>
                     </div>
 
                     <h1 class="main-report-title">تقرير الكادر غير الملتزم بتسليم تقديم تقارير أعضاء هيئة التدريب والكادر — <?php echo esc_html($target_school); ?></h1>
 
                     <div class="main-report-date-box">
-                        <div style="font-weight: 900; color: #0f172a;">الأسابيع الأكاديمية المستحقة المعتمدة</div>
+                        <div style="font-weight: 900; color: #0f172a;">الأسابيع Academy المستحقة المعتمدة</div>
                         <div style="font-weight: 900; color: #881337; font-size: 12.5px; margin-top: 1px;">الأسبوع الأول إلى <?php echo esc_html($range_end_title); ?></div>
                     </div>
                 </div>
@@ -10042,7 +10047,7 @@ class SM_Public {
                     $raw_grades = get_user_meta($t->ID, 'sm_assigned_grades', true) ?: (get_user_meta($t->ID, 'eess_assigned_grades', true) ?: (get_user_meta($t->ID, 'sm_grade_level', true) ?: ''));
                     $grades_clean = class_exists('EESS_Org_Helper') ? EESS_Org_Helper::format_assigned_grades($raw_grades) : (is_array($raw_grades) ? implode('، ', $raw_grades) : (string)$raw_grades);
                     if (empty($grades_clean)) {
-                        $grades_clean = 'المجموعة التدريبية 11، المجموعة التدريبية 12';
+                        $grades_clean = 'Training Group 11، Training Group 12';
                     }
 
                     $teacher_preps = $wpdb->get_results($wpdb->prepare(
@@ -10109,18 +10114,18 @@ class SM_Public {
 
                 <!-- Introductory Explanatory Box -->
                 <div class="intro-box">
-                    <p>يطبق نظام إدارة التعلم المطور والرقابة التعليمية أحدث معايير المتابعة الدورية والتدقيق الفني للحفاظ على كفاءة وجودة العملية التعليمية. وبناءً على لائحة تنظيم وتنسيق المناهج المعتمدة، يتعين على كافة المدربين تسليم تقديم تقارير أعضاء هيئة التدريب والكادر الأسبوعية في المواعيد المحددة دون تأخير.</p>
-                    <p>يوضح التقرير التالي حصر الأسابيع الأكاديمية غير المسلمة والملتزم بها لكادر الأكاديمية الرياضية (من الأسبوع الأول وحتى الأسبوع المستحق الحالي) ليتسنى لمدير الأكاديمية الرياضية والموجهين اتخاذ الإجراءات الإدارية والتوجيهات التربوية اللازمة.</p>
+                    <p>يطبق نظام إدارة التعلم المطور والرقابة التعليمية أحدث معايير المتابعة الدورية والتدقيق الفني للحفاظ على كفاءة وجودة العملية التعليمية. وبناءً على Noئحة تنظيم وتنسيق المناهج المعتمدة، يتعين على كافة المدربين تسليم تقديم تقارير أعضاء هيئة التدريب والكادر الأسبوعية في المواعيد المحددة دون تأخير.</p>
+                    <p>يوضح التقرير Next حصر الأسابيع Academy غير المسلمة والملتزم بها لكادر Academy الرياضية (من الأسبوع الأول وحتى الأسبوع المستحق الحالي) ليتسنى لمدير Academy الرياضية والموجهين اتخاذ الActions الإدارية والتوجيهات التربوية الNoزمة.</p>
                 </div>
 
                 <!-- TABLE 1: NON-SUBMITTING TEACHERS -->
                 <h2 style="font-size: 14px; font-weight: 900; color: #881337; margin: 18px 0 8px 0; border-right: 4px solid #881337; padding-right: 8px;">
-                    أولاً: قائمة المدربين غير الملتزمين بتسليم التحضير (مرتبة حسب عدد الأسابيع المتبقية)
+                    أوNoً: قائمة المدربين غير الملتزمين بتسليم التحضير (مرتبة حسب عدد الأسابيع المتبقية)
                 </h2>
 
                 <?php if (empty($non_submitters_list)): ?>
                     <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 12px 16px; border-radius: 8px; font-weight: 800; font-size: 12px; margin-bottom: 20px;">
-                        ✓ جميع المدربين بالأكاديمية الرياضية مستوفون لكافة الأسابيع الأكاديمية المستحقة حتى تاريخه.
+                        ✓ جميع المدربين بAcademy الرياضية مستوفون لكافة الأسابيع Academy المستحقة حتى تاريخه.
                     </div>
                 <?php else: ?>
                     <table>
@@ -10128,7 +10133,7 @@ class SM_Public {
                             <tr>
                                 <th style="width: 32px; text-align: center;">#</th>
                                 <th style="width: 32%;">اسم الموظف / التخصص</th>
-                                <th style="width: 25%;">الأكاديمية الرياضية / المجموعات التدريبية المكلف بها</th>
+                                <th style="width: 25%;">Academy الرياضية / Training Groups المكلف بها</th>
                                 <th style="width: 12%; text-align: center;">عدد الأسابيع المتبقية</th>
                                 <th style="width: 31%;">تفصيل الأسابيع غير المسلمة</th>
                             </tr>
@@ -10195,7 +10200,7 @@ class SM_Public {
 
                 <?php if (empty($compliant_teachers)): ?>
                     <div style="background: #fff1f2; border: 1px solid #fecdd3; color: #991b1b; padding: 12px 16px; border-radius: 8px; font-weight: 800; font-size: 12px; margin-bottom: 20px;">
-                        ⚠️ لا يوجد معلمين مستوفين لكافة الأسابيع حتى الآن.
+                        ⚠️ No يوجد معلمين مستوفين لكافة الأسابيع حتى الآن.
                     </div>
                 <?php else: ?>
                     <table>
@@ -10203,8 +10208,8 @@ class SM_Public {
                             <tr>
                                 <th style="width: 32px; text-align: center; background: #064e3b;">#</th>
                                 <th style="width: 35%; background: #064e3b;">اسم الموظف / التخصص</th>
-                                <th style="width: 33%; background: #064e3b;">الأكاديمية الرياضية / المجموعات التدريبية المكلف بها</th>
-                                <th style="width: 32%; text-align: center; background: #064e3b;">حالة الالتزام</th>
+                                <th style="width: 33%; background: #064e3b;">Academy الرياضية / Training Groups المكلف بها</th>
+                                <th style="width: 32%; text-align: center; background: #064e3b;">حالة اNoلتزام</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -10241,12 +10246,12 @@ class SM_Public {
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 30px;">
                         <div style="text-align: center; width: 220px;">
                             <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">المشرف الرياضي / الموجه</div>
-                            <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 35px;">التوقيع والاعتماد</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 35px;">التوقيع واNoعتماد</div>
                             <div style="border-bottom: 1.5px dashed #94a3b8; width: 100%;"></div>
                         </div>
 
                         <div style="text-align: center; width: 220px;">
-                            <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">مدير الأكاديمية الرياضية</div>
+                            <div style="font-size: 13px; font-weight: 900; color: #0f172a; margin-bottom: 8px;">مدير Academy الرياضية</div>
                             <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 35px;">الخاتم والتوقيع الرسمية</div>
                             <div style="border-bottom: 1.5px dashed #94a3b8; width: 100%;"></div>
                         </div>
@@ -10267,26 +10272,26 @@ class SM_Public {
             $role_labels = array(
                 'administrator' => 'مدير النظام المطور',
                 'sm_system_admin' => 'مدير النظام المطور',
-                'sm_principal' => 'مدير الأكاديمية الرياضية',
+                'sm_principal' => 'مدير Academy الرياضية',
                 'sm_supervisor' => 'مشرف تربوي',
                 'sm_coordinator' => 'منسق مادة',
                 'sm_teacher' => 'معلم',
-                'sm_student' => 'لاعب',
+                'sm_student' => 'Noعب',
                 'sm_parent' => 'ولي أمر',
                 'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-                'sm_activities_supervisor' => 'مشرف أنشطة',
-                'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+                'sm_activities_supervisor' => 'مشرف أActiveة',
+                'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
                 'sm_bus_supervisor' => 'مشرف حافلة',
                 'sm_clinic' => 'العيادة المدرسية',
                 'sm_hr' => 'الموارد البشرية (HR)'
             );
 
             $emp_number = get_user_meta($t_id, 'eess_employee_number', true) ?: (get_user_meta($t_id, 'sm_employee_id', true) ?: $user->user_login);
-            $school_name = get_user_meta($t_id, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+            $school_name = get_user_meta($t_id, 'eess_school_name', true) ?: 'Academy الرياضية Home';
             $department = get_user_meta($t_id, 'eess_department', true) ?: (get_user_meta($t_id, 'department', true) ?: get_user_meta($t_id, 'sm_department', true) ?: 'قسم التربية البدنية والصحية');
             $subject = get_user_meta($t_id, 'sm_specialization', true) ?: (get_user_meta($t_id, 'specialization', true) ?: 'التربية البدنية والصحية');
 
-            $assigned_grades_raw = get_user_meta($t_id, 'sm_assigned_grades', true) ?: (get_user_meta($t_id, 'eess_assigned_grades', true) ?: (get_user_meta($t_id, 'sm_grade_level', true) ?: 'المجموعة التدريبية العاشر'));
+            $assigned_grades_raw = get_user_meta($t_id, 'sm_assigned_grades', true) ?: (get_user_meta($t_id, 'eess_assigned_grades', true) ?: (get_user_meta($t_id, 'sm_grade_level', true) ?: 'Training Group العاشر'));
             if (is_array($assigned_grades_raw)) $assigned_grades_raw = implode(', ', $assigned_grades_raw);
             $assigned_grades_clean = str_replace(array('[', ']', '"', "'", '\\'), '', (string)$assigned_grades_raw);
 
@@ -10295,8 +10300,8 @@ class SM_Public {
 
             $phone = get_user_meta($t_id, 'phone_number', true) ?: (get_user_meta($t_id, 'sm_phone', true) ?: '---');
             $civil_id = get_user_meta($t_id, 'eess_civil_id', true) ?: (get_user_meta($t_id, 'civil_id', true) ?: '---');
-            $nationality = get_user_meta($t_id, 'nationality', true) ?: (get_user_meta($t_id, 'sm_nationality', true) ?: 'الإمارات العربية المتحدة');
-            $gender = get_user_meta($t_id, 'gender', true) ?: (get_user_meta($t_id, 'eess_gender', true) ?: 'ذكر');
+            $nationality = get_user_meta($t_id, 'nationality', true) ?: (get_user_meta($t_id, 'sm_nationality', true) ?: 'United Arab Emirates');
+            $gender = get_user_meta($t_id, 'gender', true) ?: (get_user_meta($t_id, 'eess_gender', true) ?: 'Male');
             $dob = get_user_meta($t_id, 'dob', true) ?: (get_user_meta($t_id, 'sm_dob', true) ?: '---');
             $emirate = get_user_meta($t_id, 'eess_emirate', true) ?: 'دبي';
             $appoint_year = get_user_meta($t_id, 'eess_appointment_year', true) ?: (get_user_meta($t_id, 'appointment_year', true) ?: '2022');
@@ -10335,7 +10340,7 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="margin-bottom: 15px; text-align: left;">
-                    <button onclick="window.print()" style="background: #0284c7; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px;">🖨️ طباعة التقرير PDF</button>
+                    <button onclick="window.print()" style="background: #0284c7; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px;">🖨️ Print التقرير PDF</button>
                 </div>
 
                 <div class="report-header">
@@ -10363,7 +10368,7 @@ class SM_Public {
                             <div style="font-size: 11px; color: #475569; font-weight: 700;">
                                 <strong>الرتبة:</strong> <?php echo esc_html($role_labels[$primary_role] ?? 'معلم'); ?> |
                                 <strong>الكود:</strong> <?php echo esc_html($emp_number); ?> |
-                                <strong>الأكاديمية الرياضية:</strong> <?php echo esc_html($school_name); ?>
+                                <strong>Academy الرياضية:</strong> <?php echo esc_html($school_name); ?>
                             </div>
                         </div>
                     </div>
@@ -10371,32 +10376,32 @@ class SM_Public {
 
                 <!-- Personal & Academic Assignment Card -->
                 <div class="card">
-                    <h4 style="margin:0 0 8px 0; font-size: 12.5px; font-weight: 800; color: #881337; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">البيانات الشخصية والمهنية والتكليفات التعليمية</h4>
+                    <h4 style="margin:0 0 8px 0; font-size: 12.5px; font-weight: 800; color: #881337; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">Personal Information والمهنية والتكليفات التعليمية</h4>
                     <div class="grid-2">
-                        <div><strong>القسم / النشاط الرياضي:</strong> <?php echo esc_html($department . ' | ' . $subject); ?></div>
-                        <div><strong>المجموعات التدريبية المسندة:</strong> <?php echo esc_html($assigned_grades_clean ?: 'الكل'); ?></div>
+                        <div><strong>القسم / Sport Activity:</strong> <?php echo esc_html($department . ' | ' . $subject); ?></div>
+                        <div><strong>Training Groups المسندة:</strong> <?php echo esc_html($assigned_grades_clean ?: 'الكل'); ?></div>
                         <div><strong>الشعب الدراسية:</strong> <?php echo esc_html($assigned_sections_raw ?: 'الكل'); ?></div>
                         <div><strong>الهاتف والبريد:</strong> <?php echo esc_html($phone . ' | ' . $user->user_email); ?></div>
                         <div><strong>سنة التعيين والإمارة:</strong> <?php echo esc_html($appoint_year . ' — ' . $emirate); ?></div>
-                        <div><strong>الجنسية والجنس:</strong> <?php echo esc_html($nationality . ' — ' . $gender); ?></div>
-                        <div><strong>تاريخ الميلاد:</strong> <?php echo esc_html($dob); ?></div>
-                        <div><strong>الهوية الوطنية:</strong> <?php echo esc_html($civil_id); ?></div>
+                        <div><strong>Genderية وGender:</strong> <?php echo esc_html($nationality . ' — ' . $gender); ?></div>
+                        <div><strong>Date of Birth:</strong> <?php echo esc_html($dob); ?></div>
+                        <div><strong>National ID:</strong> <?php echo esc_html($civil_id); ?></div>
                     </div>
                 </div>
 
                 <!-- Term Plans Summary Card -->
                 <div class="card">
-                    <h4 style="margin:0 0 8px 0; font-size: 12.5px; font-weight: 800; color: #0284c7; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">نشاط وإنجاز الخطط المجموعة التدريبيةية والسنوية (<?php echo count($term_plans); ?> خطط)</h4>
+                    <h4 style="margin:0 0 8px 0; font-size: 12.5px; font-weight: 800; color: #0284c7; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">نشاط وإنجاز الخطط Training Groupية والAnnualة (<?php echo count($term_plans); ?> خطط)</h4>
                     <?php if (empty($term_plans)): ?>
-                        <div style="color: #64748b;">لا توجد خطط فصلية مرفوعة حالياً.</div>
+                        <div style="color: #64748b;">No توجد خطط فصلية مرفوعة حالياً.</div>
                     <?php else: ?>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>المجموعة التدريبية الدراسي</th>
-                                    <th>النشاط الرياضي والمجموعة التدريبية</th>
+                                    <th>Training Group الدراسي</th>
+                                    <th>Sport Activity وTraining Group</th>
                                     <th>تاريخ التسليم</th>
-                                    <th>الحالة الرسمية</th>
+                                    <th>Status الرسمية</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -10404,10 +10409,10 @@ class SM_Public {
                                     $st = 'مسودة';
                                     if ($tp->status === 'submitted') $st = 'مرفوعة للمراجعة';
                                     elseif ($tp->status === 'approved') $st = 'معتمدة رسمياً';
-                                    elseif ($tp->status === 'returned') $st = 'طلب تعديل';
+                                    elseif ($tp->status === 'returned') $st = 'طلب Edit';
                                 ?>
                                     <tr>
-                                        <td>المجموعة التدريبية الدراسي <?php echo intval($tp->term_number); ?></td>
+                                        <td>Training Group الدراسي <?php echo intval($tp->term_number); ?></td>
                                         <td><?php echo esc_html($tp->subject . ' (' . $tp->grade . ')'); ?></td>
                                         <td><?php echo esc_html(date_i18n('Y-m-d H:i', strtotime($tp->updated_at ?: $tp->created_at))); ?></td>
                                         <td><strong><?php echo $st; ?></strong></td>
@@ -10422,15 +10427,15 @@ class SM_Public {
                 <div class="card">
                     <h4 style="margin:0 0 8px 0; font-size: 12.5px; font-weight: 800; color: #16a34a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">نشاط تقديم تقارير أعضاء هيئة التدريب والكادر الأخيرة (أحدث <?php echo count($lesson_preps); ?> تحضيرات)</h4>
                     <?php if (empty($lesson_preps)): ?>
-                        <div style="color: #64748b;">لا توجد تحضيرات دروس مسجلة حالياً.</div>
+                        <div style="color: #64748b;">No توجد تحضيرات دروس مسجلة حالياً.</div>
                     <?php else: ?>
                         <table>
                             <thead>
                                 <tr>
                                     <th>عنوان الدرس</th>
-                                    <th>النشاط الرياضي والمجموعة التدريبية</th>
+                                    <th>Sport Activity وTraining Group</th>
                                     <th>تاريخ ووقت التسليم</th>
-                                    <th>الحالة الرسمية</th>
+                                    <th>Status الرسمية</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -10443,7 +10448,7 @@ class SM_Public {
                                     $st = 'مسودة';
                                     if ($lp->status === 'submitted') $st = 'مرفوع للمراجعة';
                                     elseif ($lp->status === 'approved') $st = 'معتمد رسمياً';
-                                    elseif ($lp->status === 'revision_required' || $lp->status === 'returned') $st = 'طلب تعديل';
+                                    elseif ($lp->status === 'revision_required' || $lp->status === 'returned') $st = 'طلب Edit';
                                 ?>
                                     <tr>
                                         <td>الأسبوع <?php echo $cw; ?>: <?php echo esc_html($lp->title ?: 'تحضير درس'); ?></td>
@@ -10475,7 +10480,7 @@ class SM_Public {
             if (!$eval) wp_die('وثيقة التقييم غير موجودة بالنظام.');
 
             $emp_num = get_user_meta($eval->employee_id, 'eess_employee_number', true) ?: $eval->employee_id;
-            $school_name = get_user_meta($eval->employee_id, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+            $school_name = get_user_meta($eval->employee_id, 'eess_school_name', true) ?: 'Academy الرياضية Home';
             $department = get_user_meta($eval->employee_id, 'eess_department', true) ?: (get_user_meta($eval->employee_id, 'department', true) ?: 'قسم التربية البدنية والصحية');
             $subject = get_user_meta($eval->employee_id, 'sm_specialization', true) ?: 'عام';
             $photo_url = get_avatar_url($eval->employee_id, array('size' => 100));
@@ -10509,7 +10514,7 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="margin-bottom: 15px; text-align: left;">
-                    <button onclick="window.print()" style="background: #0284c7; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px;">🖨️ طباعة التقرير PDF</button>
+                    <button onclick="window.print()" style="background: #0284c7; color: #fff; border: none; padding: 8px 20px; font-family: 'Cairo'; font-weight: 800; border-radius: 9999px; cursor: pointer; font-size: 12px;">🖨️ Print التقرير PDF</button>
                 </div>
 
                 <div class="report-header">
@@ -10523,7 +10528,7 @@ class SM_Public {
                         </div>
                     </div>
                     <div style="text-align: left;">
-                        <h1 class="report-title">تقرير تقييم الأداء السنوي المعتمد</h1>
+                        <h1 class="report-title">تقرير تقييم الأداء الAnnual المعتمد</h1>
                         <p style="margin:0; font-size:11px; color:#64748b;">العام الدراسي: <?php echo esc_html($eval->academic_year); ?></p>
                     </div>
                 </div>
@@ -10566,14 +10571,14 @@ class SM_Public {
 
                 <?php if (!empty($eval->comments)): ?>
                 <div class="card">
-                    <h4 style="margin:0 0 6px 0; font-size: 12px; font-weight: 800; color: #0f172a;">ملاحظات وتوصيات المقيم:</h4>
+                    <h4 style="margin:0 0 6px 0; font-size: 12px; font-weight: 800; color: #0f172a;">Notes وتوصيات المقيم:</h4>
                     <p style="margin:0; font-size: 11.5px; color: #334155; white-space: pre-line;"><?php echo esc_html($eval->comments); ?></p>
                 </div>
                 <?php endif; ?>
 
                 <div style="display: flex; justify-content: space-between; margin-top: 30px; padding-top: 15px; border-top: 1px solid #cbd5e1; font-size: 11px;">
                     <div>المقيم المسجّل: <strong><?php echo esc_html($eval->evaluator_name); ?></strong></div>
-                    <div>تاريخ الاعتماد: <strong><?php echo date_i18n('Y-m-d H:i', strtotime($eval->created_at)); ?></strong></div>
+                    <div>تاريخ اNoعتماد: <strong><?php echo date_i18n('Y-m-d H:i', strtotime($eval->created_at)); ?></strong></div>
                 </div>
             </body>
             </html>
@@ -10583,10 +10588,10 @@ class SM_Public {
             $summons_id = intval($_GET['summons_id'] ?? 0);
             global $wpdb;
             $summons = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_parent_summons WHERE id = %d", $summons_id));
-            if (!$summons) wp_die('وثيقة الاستدعاء غير موجودة.');
+            if (!$summons) wp_die('وثيقة اNoستدعاء غير موجودة.');
 
             $student = SM_DB::get_student_by_id($summons->student_id);
-            if (!$student) wp_die('اللاعب المعني غير موجود.');
+            if (!$student) wp_die('الNoعب المعني غير موجود.');
 
             $school_info = SM_Settings::get_school_info();
             $sch_obj = $student->school_id ? EESS_Org_Helper::get_school_by_id($student->school_id) : null;
@@ -10612,7 +10617,7 @@ class SM_Public {
             </head>
             <body onload="window.print()">
                 <div class="no-print" style="text-align: center; margin-bottom: 20px;">
-                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Cairo';">🖨️ طباعة طي الاستدعاء الرسمي A4</button>
+                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Cairo';">🖨️ Print طي اNoستدعاء الرسمي A4</button>
                 </div>
                 <div class="document-card">
                     <div class="header">
@@ -10624,26 +10629,26 @@ class SM_Public {
                     </div>
 
                     <div style="background: #fff8f8; border: 1px solid #fecdd3; padding: 15px 20px; border-radius: 12px; margin-bottom: 25px;">
-                        <h4 style="margin: 0 0 6px 0; color: #881337; font-size: 15px; font-weight: 800;">المكرم ولي أمر اللاعب / اللاعبة: <?php echo esc_html($student->name); ?></h4>
-                        <p style="margin: 0; font-size: 13px; color: #334155;">تحية طيبة وبعد،،، يرجى تكرمكم بالحضور لمقر إدارة الأكاديمية الرياضية لمقابلة المسئولين لمناقشة أمور هامة تتعلق باللاعب.</p>
+                        <h4 style="margin: 0 0 6px 0; color: #881337; font-size: 15px; font-weight: 800;">المكرم ولي أمر الNoعب / الNoعبة: <?php echo esc_html($student->name); ?></h4>
+                        <p style="margin: 0; font-size: 13px; color: #334155;">تحية طيبة وبعد،،، يرجى تكرمكم بالحضور لمقر إدارة Academy الرياضية لمقابلة المسئولين لمناقشة أمور هامة تتعلق بالNoعب.</p>
                     </div>
 
                     <table class="meta-table">
-                        <tr><th>اسم اللاعب:</th><td><strong><?php echo esc_html($student->name); ?></strong></td><th>الكود / المجموعة التدريبية:</th><td><?php echo esc_html($student->student_code . ' | ' . $student->class_name . ' (' . ($student->section ?: 'أ') . ')'); ?></td></tr>
+                        <tr><th>Player Name:</th><td><strong><?php echo esc_html($student->name); ?></strong></td><th>الكود / Training Group:</th><td><?php echo esc_html($student->student_code . ' | ' . $student->class_name . ' (' . ($student->section ?: 'أ') . ')'); ?></td></tr>
                         <tr><th>تاريخ الموعد:</th><td><strong><?php echo esc_html($summons->summons_date); ?></strong></td><th>توقيت الحضور:</th><td><strong><?php echo esc_html($summons->summons_time ?: '10:00 صباحاً'); ?></strong></td></tr>
-                        <tr><th>الجهة اللاعبة:</th><td><?php echo esc_html($summons->department_requester); ?></td><th>سبب الاستدعاء:</th><td><strong><?php echo esc_html($summons->reason); ?></strong></td></tr>
+                        <tr><th>الجهة الNoعبة:</th><td><?php echo esc_html($summons->department_requester); ?></td><th>سبب اNoستدعاء:</th><td><strong><?php echo esc_html($summons->reason); ?></strong></td></tr>
                         <?php if (!empty($summons->notes)): ?>
-                            <tr><th>ملاحظات وتوجيهات:</th><td colspan="3"><?php echo esc_html($summons->notes); ?></td></tr>
+                            <tr><th>Notes وتوجيهات:</th><td colspan="3"><?php echo esc_html($summons->notes); ?></td></tr>
                         <?php endif; ?>
                     </table>
 
                     <div class="footer-sig">
                         <div>
-                            <div>الجهة المصدرة للاستدعاء</div>
+                            <div>الجهة المصدرة لNoستدعاء</div>
                             <div style="margin-top: 35px; font-weight: 800;"><?php echo esc_html($summons->department_requester); ?></div>
                         </div>
                         <div>
-                            <div>ختم واعتماد إدارة الأكاديمية الرياضية</div>
+                            <div>ختم واعتماد إدارة Academy الرياضية</div>
                             <div style="margin-top: 35px; font-weight: 800;"><?php echo esc_html($school_name); ?></div>
                         </div>
                     </div>
@@ -10666,7 +10671,7 @@ class SM_Public {
             }
 
             if (empty($stu_ids)) {
-                wp_die('لم يتم العثور على طلاب للطباعة.');
+                wp_die('لم يتم العثور على طNoب للPrint.');
             }
 
             // Fetch all student records first for bulk photo filtering
@@ -10864,12 +10869,12 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="text-align: center; margin-bottom: 15px;">
-                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Cairo'; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">🖨️ طباعة بطاقات الخروج الرسمية (ID Card / A4)</button>
+                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Cairo'; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">🖨️ Print بطاقات الخروج الرسمية (ID Card / A4)</button>
                 </div>
 
                 <?php if (!empty($excluded_students)): ?>
                 <div class="no-print" style="max-width: 800px; margin: 0 auto 15px auto; background: #fef3c7; border: 1px solid #fde68a; color: #92400e; padding: 10px 16px; border-radius: 10px; font-size: 12px; font-weight: 700; text-align: right; line-height: 1.5;">
-                    ⚠️ تنبيه: تم استبعاد (<?php echo count($excluded_students); ?>) لاعب من عملية الطباعة الجماعية لعدم رفع صورة شخصية لهم:
+                    ⚠️ تنبيه: تم استبعاد (<?php echo count($excluded_students); ?>) Noعب من عملية الPrint الجماعية لعدم رفع صورة شخصية لهم:
                     <strong><?php echo esc_html(implode('، ', array_map(function($s) { return $s->name; }, $excluded_students))); ?></strong>.
                 </div>
                 <?php endif; ?>
@@ -10891,9 +10896,9 @@ class SM_Public {
                         $name_len = mb_strlen($st->name);
                         $name_font_size = $name_len > 35 ? '8px' : ($name_len > 28 ? '9px' : ($name_len > 22 ? '10px' : '11px'));
 
-                        // Clean non-duplicated values (Strip duplicated 'المجموعة التدريبية' or 'شعبة' labels)
-                        $clean_class = trim(preg_replace('/^(المجموعة التدريبية|صف|Grade|grade)\s*:?\s*/u', '', $st->class_name ?: ''));
-                        $clean_section = trim(preg_replace('/^(المجموعة التدريبية|شعبة|Section|section)\s*:?\s*/u', '', $st->section ?: 'أ'));
+                        // Clean non-duplicated values (Strip duplicated 'Training Group' or 'شعبة' labels)
+                        $clean_class = trim(preg_replace('/^(Training Group|صف|Grade|grade)\s*:?\s*/u', '', $st->class_name ?: ''));
+                        $clean_section = trim(preg_replace('/^(Training Group|شعبة|Section|section)\s*:?\s*/u', '', $st->section ?: 'أ'));
 
                         // Academic stage color indicator resolution from Grade ID / Code
                         $grade_num = intval($st->grade_id);
@@ -10917,10 +10922,10 @@ class SM_Public {
                             $stage_label = 'المرحلة الثانوية';
                         } elseif ($grade_num >= 6) {
                             $stage_color = '#7c3aed'; // Middle Stage (Purple)
-                            $stage_label = 'المرحلة المتوسطة';
+                            $stage_label = 'المرحلة الIntermediateة';
                         } else {
                             $stage_color = '#0284c7'; // Primary Stage (Ocean Blue)
-                            $stage_label = 'المرحلة الابتدائية';
+                            $stage_label = 'المرحلة اNoبتدائية';
                         }
                     ?>
                     <div class="id-card">
@@ -10931,7 +10936,7 @@ class SM_Public {
                                 </div>
                                 <div class="card-header-titles">
                                     <div class="card-title-main" title="<?php echo esc_attr($s_name); ?>"><?php echo esc_html($s_name); ?></div>
-                                    <div class="card-school-name">بطاقة خروج لاعب نهاية الدوام</div>
+                                    <div class="card-school-name">بطاقة خروج Noعب نهاية الدوام</div>
                                 </div>
                             </div>
                             <div class="card-acad-year-text">
@@ -10953,14 +10958,14 @@ class SM_Public {
                             <div class="card-info">
                                 <div class="card-stu-name" style="font-size: <?php echo $name_font_size; ?>;" title="<?php echo esc_attr($st->name); ?>"><?php echo esc_html($st->name); ?></div>
                                 <div class="card-field">
-                                    <span class="card-field-label">المجموعة التدريبية:</span>
+                                    <span class="card-field-label">Training Group:</span>
                                     <span class="card-field-val" style="display: inline-flex; align-items: center; gap: 4px;">
                                         <?php echo esc_html($clean_class ?: 'الأول'); ?>
                                         <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: <?php echo $stage_color; ?>; flex-shrink: 0;" title="<?php echo esc_attr($stage_label); ?>"></span>
                                     </span>
                                 </div>
                                 <div class="card-field">
-                                    <span class="card-field-label">المجموعة التدريبية:</span>
+                                    <span class="card-field-label">Training Group:</span>
                                     <span class="card-field-val"><?php echo esc_html($clean_section ?: 'أ'); ?></span>
                                 </div>
                                 <div class="card-field">
@@ -11039,7 +11044,7 @@ class SM_Public {
             <body>
 
                 <div class="no-print" style="text-align: center; margin-bottom: 20px;">
-                    <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 10px 28px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 14px; font-family: 'Cairo';">🖨️ طباعة نموذج A4 الرسمي</button>
+                    <button onclick="window.print()" style="background: #0f172a; color: white; border: none; padding: 10px 28px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 14px; font-family: 'Cairo';">🖨️ Print نموذج A4 الرسمي</button>
                 </div>
 
                 <div class="a4-doc-container">
@@ -11050,13 +11055,13 @@ class SM_Public {
                             <img src="<?php echo esc_url($sys_logo); ?>" style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; border: 1px solid #e2e8f0;" alt="School Logo">
                             <div class="doc-title-box">
                                 <h1>مؤسسة الشعلة للتعليم والتطوير</h1>
-                                <div>وثيقة ونموذج طلب تصريح استئذان خروج لاعب رسمية</div>
+                                <div>وثيقة ونموذج طلب تصريح استئذان خروج Noعب رسمية</div>
                             </div>
                         </div>
                         <div style="text-align: left; font-size: 11.5px; color: #64748b;">
                             <div><strong>الرقم المرجعي:</strong> <span style="font-family: monospace; font-weight: 900; color: #881337; font-size: 13px;"><?php echo esc_html($ref_disp); ?></span></div>
-                            <div><strong>تاريخ الإصدار:</strong> <?php echo date_i18n('Y-m-d H:i'); ?></div>
-                            <div><strong>الحالة الرسمية:</strong> <span style="font-weight: 800; color: #16a34a;"><?php echo esc_html($status_lbl); ?></span></div>
+                            <div><strong>تاريخ الIssue:</strong> <?php echo date_i18n('Y-m-d H:i'); ?></div>
+                            <div><strong>Status الرسمية:</strong> <span style="font-weight: 800; color: #16a34a;"><?php echo esc_html($status_lbl); ?></span></div>
                         </div>
                     </div>
 
@@ -11065,24 +11070,24 @@ class SM_Public {
 
                         <!-- Student Information Box -->
                         <div class="info-card">
-                            <h4>بيانات اللاعب صاحب التصريح</h4>
+                            <h4>بيانات الNoعب صاحب التصريح</h4>
                             <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
                                 <img src="<?php echo esc_url($stu_photo); ?>" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid #0f172a; flex-shrink: 0;" alt="Student">
                                 <div style="flex: 1;">
                                     <div style="font-size: 15px; font-weight: 900; color: #0f172a; margin-bottom: 2px;"><?php echo esc_html($req->student_name); ?></div>
-                                    <div style="font-size: 11.5px; color: #64748b; font-weight: 700;">المجموعة التدريبية: <?php echo esc_html($req->class_name); ?> (<?php echo esc_html($req->section); ?>)</div>
+                                    <div style="font-size: 11.5px; color: #64748b; font-weight: 700;">Training Group: <?php echo esc_html($req->class_name); ?> (<?php echo esc_html($req->section); ?>)</div>
                                 </div>
                             </div>
-                            <div class="info-row"><span class="info-label">كود اللاعب الأكاديمي:</span> <span class="info-val" style="font-family: monospace;"><?php echo esc_html($req->student_code); ?></span></div>
-                            <div class="info-row"><span class="info-label">رقم الهوية الوطنية:</span> <span class="info-val" style="font-family: monospace;"><?php echo esc_html($req->national_id ?: 'غير مدخلة'); ?></span></div>
+                            <div class="info-row"><span class="info-label">كود الNoعب الأكاديمي:</span> <span class="info-val" style="font-family: monospace;"><?php echo esc_html($req->student_code); ?></span></div>
+                            <div class="info-row"><span class="info-label">رقم National ID:</span> <span class="info-val" style="font-family: monospace;"><?php echo esc_html($req->national_id ?: 'غير مدخلة'); ?></span></div>
                         </div>
 
                         <!-- Request Details Box -->
                         <div class="info-card">
-                            <h4>بيانات طلب الاستئذان والتواصل</h4>
-                            <div class="info-row"><span class="info-label">اسم ولي الأمر المقدم:</span> <span class="info-val"><?php echo esc_html($req->parent_name ?: 'غير مدخل'); ?></span></div>
+                            <h4>بيانات طلب اNoستئذان والتواصل</h4>
+                            <div class="info-row"><span class="info-label">اسم ولي Motherر المقدم:</span> <span class="info-val"><?php echo esc_html($req->parent_name ?: 'غير مدخل'); ?></span></div>
                             <div class="info-row"><span class="info-label">هاتف التواصل المعتمد:</span> <span class="info-val" style="font-family: monospace;"><?php echo esc_html($req->parent_phone ?: '---'); ?></span></div>
-                            <div class="info-row"><span class="info-label">سبب الخروج والاستئذان:</span> <span class="info-val"><?php echo esc_html($req->reason); ?></span></div>
+                            <div class="info-row"><span class="info-label">سبب الخروج واNoستئذان:</span> <span class="info-val"><?php echo esc_html($req->reason); ?></span></div>
                             <div class="info-row"><span class="info-label">تاريخ التقديم الإلكتروني:</span> <span class="info-val" style="font-family: monospace;"><?php echo esc_html(date_i18n('Y-m-d H:i', strtotime($req->created_at))); ?></span></div>
                             <div class="info-row"><span class="info-label">العام الدراسي:</span> <span class="info-val"><?php echo esc_html($req->academic_year); ?></span></div>
                         </div>
@@ -11091,14 +11096,14 @@ class SM_Public {
 
                     <!-- Parent Declaration Box -->
                     <div class="dec-box">
-                        <strong>تعهد وإقرار ولي الأمر الرسمي المعتمد بالنظام:</strong><br>
-                        أقر أنا ولي أمر اللاعب المذكور أعلاه بطلبي الرسمي لإصدار وتفعيل تصريح الخروج والاستئذان المدرسي لللاعب. وأتحمل المسؤولية الكاملة عن خروج اللاعب واستئذانه بموجب هذا التصريح عقب اعتماده من قبل إدارة الأكاديمية الرياضية. وأؤكد صحة البيانات والتوقيع المرفقين.
+                        <strong>تعهد وإقرار ولي Motherر الرسمي المعتمد بالنظام:</strong><br>
+                        أقر أنا ولي أمر الNoعب المذكور أعNoه بطلبي الرسمي لIssue وتفعيل تصريح الخروج واNoستئذان المدرسي للNoعب. وأتحمل المسؤولية الكاملة عن خروج الNoعب واستئذانه بموجب هذا التصريح عقب اعتماده من قبل إدارة Academy الرياضية. وأؤكد صحة البيانات والتوقيع المرفقين.
                     </div>
 
                     <!-- Signatures Area -->
                     <div class="sig-section">
                         <div class="sig-box">
-                            <div style="font-weight: 800; font-size: 12px; color: #0f172a; margin-bottom: 6px;">توقيع واعتماد ولي الأمر الإلكتروني:</div>
+                            <div style="font-weight: 800; font-size: 12px; color: #0f172a; margin-bottom: 6px;">توقيع واعتماد ولي Motherر الإلكتروني:</div>
                             <?php if (!empty($req->signature_data)): ?>
                                 <img src="<?php echo $req->signature_data; ?>" style="max-height: 70px; object-fit: contain;" alt="Parent Signature">
                             <?php else: ?>
@@ -11107,14 +11112,14 @@ class SM_Public {
                         </div>
 
                         <div class="sig-box" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 100px;">
-                            <div style="font-weight: 800; font-size: 12px; color: #0f172a;">اعتماد قسم شؤون اللاعبين وختم الأكاديمية الرياضية:</div>
+                            <div style="font-weight: 800; font-size: 12px; color: #0f172a;">اعتماد قسم Player Affairs وختم Academy الرياضية:</div>
                             <div style="font-size: 11px; color: #64748b; margin-top: auto;">التوقيع والختم الرسمي: ...................................</div>
                         </div>
                     </div>
 
                     <!-- Footer -->
                     <div style="border-top: 1px solid #cbd5e1; margin-top: 24px; padding-top: 10px; font-size: 10px; color: #94a3b8; display: flex; justify-content: space-between; align-items: center;">
-                        <span>تاريخ الطباعة: <?php echo date_i18n('Y-m-d H:i'); ?></span>
+                        <span>تاريخ الPrint: <?php echo date_i18n('Y-m-d H:i'); ?></span>
                         <span>مؤسسة الشعلة للتعليم والتطوير - نظام الإدارة المدرسية الرقمي الموحد</span>
                     </div>
 
@@ -11147,7 +11152,7 @@ class SM_Public {
             <html lang="ar" dir="rtl">
             <head>
                 <meta charset="UTF-8">
-                <title>وثيقة رسمية - الشكاوى والاقتراحات</title>
+                <title>وثيقة رسمية - الشكاوى واNoقتراحات</title>
                 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
                 <style>
                     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11162,7 +11167,7 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="text-align: center; margin-bottom: 20px;">
-                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 28px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 14px;">🖨️ طباعة الوثيقة الرسمية (A4)</button>
+                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 28px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 14px;">🖨️ Print الوثيقة الرسمية (A4)</button>
                 </div>
                 <div class="doc-card">
                     <div class="hdr">
@@ -11176,9 +11181,9 @@ class SM_Public {
                     <div class="grid-info">
                         <div><strong>الرقم المرجعي:</strong> <span style="font-family: monospace; font-weight: 900; color: #881337;"><?php echo esc_html($ref_disp); ?></span></div>
                         <div><strong>تاريخ التقديم:</strong> <?php echo date_i18n('Y-m-d H:i', strtotime($cmp->created_at)); ?></div>
-                        <div><strong>اسم اللاعب:</strong> <strong><?php echo esc_html($cmp->student_name); ?></strong></div>
-                        <div><strong>الكود والمجموعة التدريبية:</strong> <?php echo esc_html($cmp->student_code); ?> | <?php echo esc_html($cmp->class_name); ?> (<?php echo esc_html($cmp->section); ?>)</div>
-                        <div><strong>الهوية الوطنية:</strong> <?php echo esc_html($cmp->national_id ?: 'غير مدخلة'); ?></div>
+                        <div><strong>Player Name:</strong> <strong><?php echo esc_html($cmp->student_name); ?></strong></div>
+                        <div><strong>الكود وTraining Group:</strong> <?php echo esc_html($cmp->student_code); ?> | <?php echo esc_html($cmp->class_name); ?> (<?php echo esc_html($cmp->section); ?>)</div>
+                        <div><strong>National ID:</strong> <?php echo esc_html($cmp->national_id ?: 'غير مدخلة'); ?></div>
                         <div><strong>هاتف التواصل:</strong> <?php echo esc_html($cmp->guardian_phone ?: 'غير مدخل'); ?></div>
                     </div>
 
@@ -11190,14 +11195,14 @@ class SM_Public {
 
                     <?php if (!empty($cmp->admin_notes)): ?>
                         <div style="background: #fffbe3; border: 1px solid #fde047; border-radius: 12px; padding: 14px; font-size: 12.5px; color: #854d0e; line-height: 1.6; margin-bottom: 20px;">
-                            <strong>توصيات وملاحظات الإدارة:</strong><br>
+                            <strong>توصيات وNotes الإدارة:</strong><br>
                             <?php echo esc_html($cmp->admin_notes); ?>
                         </div>
                     <?php endif; ?>
 
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; font-size: 12px; font-weight: 800; color: #334155;">
                         <div>توقيع مقدم الشكوى: .......................</div>
-                        <div style="text-align: center;">اعتماد إدارة الأكاديمية الرياضية والتختيم الرسمية<br><br>....................................................</div>
+                        <div style="text-align: center;">اعتماد إدارة Academy الرياضية والتختيم الرسمية<br><br>....................................................</div>
                     </div>
                 </div>
             </body>
@@ -11213,7 +11218,7 @@ class SM_Public {
             }
 
             if (empty($emp_ids)) {
-                wp_die('لم يتم تحديد كادر تعليمي أو وظيفي للطباعة.');
+                wp_die('لم يتم تحديد كادر تعليمي أو وظيفي للPrint.');
             }
 
             $school_info = SM_Settings::get_school_info();
@@ -11222,14 +11227,14 @@ class SM_Public {
             $role_map = array(
                 'administrator' => 'الإدارة المركزية',
                 'sm_system_admin' => 'مدير النظام التقني',
-                'sm_principal' => 'مدير الأكاديمية الرياضية',
+                'sm_principal' => 'مدير Academy الرياضية',
                 'sm_supervisor' => 'مشرف تربوي',
                 'sm_coordinator' => 'منسق مادة',
                 'sm_hod' => 'رئيس قسم',
                 'sm_teacher' => 'معلم أخصائي',
                 'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-                'sm_activities_supervisor' => 'مشرف أنشطة',
-                'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+                'sm_activities_supervisor' => 'مشرف أActiveة',
+                'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
                 'sm_bus_supervisor' => 'مشرف حافلة',
                 'sm_clinic' => 'العيادة المدرسية',
                 'sm_hr' => 'الموارد البشرية (HR)'
@@ -11409,7 +11414,7 @@ class SM_Public {
             <body>
 
                 <div class="no-print" style="text-align: center; margin-bottom: 10px;">
-                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 26px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 14px; font-family: 'Cairo';">🖨️ طباعة بطاقة الهوية الرسمية (Vertical Teacher ID)</button>
+                    <button onclick="window.print()" style="background: #881337; color: white; border: none; padding: 10px 26px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 14px; font-family: 'Cairo';">🖨️ Print بطاقة الهوية الرسمية (Vertical Teacher ID)</button>
                 </div>
 
                 <div class="cards-container">
@@ -11502,7 +11507,7 @@ class SM_Public {
             <html lang="ar" dir="rtl">
             <head>
                 <meta charset="UTF-8">
-                <title>وثيقة طلب وتعهد تصريح خروج لاعب رسمي - <?php echo esc_html($req->reference_no); ?></title>
+                <title>وثيقة طلب وتعهد تصريح خروج Noعب رسمي - <?php echo esc_html($req->reference_no); ?></title>
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap');
                     body { font-family: 'Cairo', sans-serif; direction: rtl; margin: 0; padding: 25px; background: #fff; color: #0f172a; font-size: 13px; line-height: 1.6; }
@@ -11518,14 +11523,14 @@ class SM_Public {
             </head>
             <body>
                 <div class="no-print" style="text-align: center; margin-bottom: 20px;">
-                    <button onclick="window.print()" style="padding: 10px 28px; background: #881337; color: white; border: none; border-radius: 8px; font-weight: 900; font-size: 14px; cursor: pointer;">🖨️ طباعة وثيقة طلب التصريح (A4 Document)</button>
+                    <button onclick="window.print()" style="padding: 10px 28px; background: #881337; color: white; border: none; border-radius: 8px; font-weight: 900; font-size: 14px; cursor: pointer;">🖨️ Print وثيقة طلب التصريح (A4 Document)</button>
                 </div>
 
                 <div class="doc-box">
                     <div class="doc-header">
                         <div>
                             <h1 class="doc-title"><?php echo esc_html($org_title); ?></h1>
-                            <div class="doc-sub">وثيقة طلب وتعهد تصريح خروج لاعب رسمي</div>
+                            <div class="doc-sub">وثيقة طلب وتعهد تصريح خروج Noعب رسمي</div>
                             <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-top: 4px;">الرقم المرجعي: <span style="font-family: monospace; color: #0f172a; font-weight: 900;"><?php echo esc_html($req->reference_no); ?></span></div>
                         </div>
                         <div>
@@ -11534,24 +11539,24 @@ class SM_Public {
                     </div>
 
                     <div class="info-grid">
-                        <div><strong>اسم اللاعب الكامل:</strong> <?php echo esc_html($req->student_name); ?></div>
-                        <div><strong>كود اللاعب:</strong> <span style="font-family: monospace; color: #881337; font-weight: 900;"><?php echo esc_html($req->student_code); ?></span></div>
-                        <div><strong>المجموعة التدريبية والمجموعة التدريبية:</strong> <?php echo esc_html($req->class_name); ?> (<?php echo esc_html($req->section); ?>)</div>
-                        <div><strong>رقم الهوية الوطنية:</strong> <?php echo esc_html($req->national_id ?: 'غير مدخلة'); ?></div>
-                        <div><strong>اسم ولي الأمر:</strong> <?php echo esc_html($req->parent_name); ?></div>
+                        <div><strong>Player Name الكامل:</strong> <?php echo esc_html($req->student_name); ?></div>
+                        <div><strong>كود الNoعب:</strong> <span style="font-family: monospace; color: #881337; font-weight: 900;"><?php echo esc_html($req->student_code); ?></span></div>
+                        <div><strong>Training Group وTraining Group:</strong> <?php echo esc_html($req->class_name); ?> (<?php echo esc_html($req->section); ?>)</div>
+                        <div><strong>رقم National ID:</strong> <?php echo esc_html($req->national_id ?: 'غير مدخلة'); ?></div>
+                        <div><strong>اسم ولي Motherر:</strong> <?php echo esc_html($req->parent_name); ?></div>
                         <div><strong>هاتف التواصل:</strong> <?php echo esc_html($req->parent_phone); ?></div>
                         <div><strong>تاريخ الطلب:</strong> <?php echo esc_html(date_i18n('Y-m-d H:i', strtotime($req->created_at))); ?></div>
                         <div><strong>العام الدراسي:</strong> <?php echo esc_html($req->academic_year); ?></div>
                     </div>
 
                     <div class="decl-box">
-                        <strong>تعهد وإقرار ولي الأمر الرسمي المعتمد بالنظام:</strong><br>
-                        أقر أنا ولي أمر اللاعب/ة المذكور/ة أعلاه بطلبي الرسمي لإصدار بطاقة تصريح خروج واستئذان. وأتحمل المسؤولية الكاملة عن خروج اللاعب/ة خارج أسوار الأكاديمية الرياضية بموجب هذا التصريح وإقرار بإخلاء طرف إدارة الأكاديمية الرياضية وكوادرها الإدارية والتعليمية وفق الأنظمة المعتمدة.
+                        <strong>تعهد وإقرار ولي Motherر الرسمي المعتمد بالنظام:</strong><br>
+                        أقر أنا ولي أمر الNoعب/ة المذكور/ة أعNoه بطلبي الرسمي لIssue بطاقة تصريح خروج واستئذان. وأتحمل المسؤولية الكاملة عن خروج الNoعب/ة خارج أسوار Academy الرياضية بموجب هذا التصريح وإقرار بإخNoء طرف إدارة Academy الرياضية وكوادرها الإدارية والتعليمية وفق الأنظمة المعتمدة.
                     </div>
 
                     <div class="sig-area">
                         <div>
-                            <strong>التوقيع الإلكتروني المعتمد لولي الأمر:</strong><br>
+                            <strong>التوقيع الإلكتروني المعتمد لولي Motherر:</strong><br>
                             <?php if (!empty($req->signature_data)): ?>
                                 <img src="<?php echo esc_url($req->signature_data); ?>" style="max-height: 60px; object-fit: contain; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px; margin-top: 6px;" alt="Signature">
                             <?php else: ?>
@@ -11559,9 +11564,9 @@ class SM_Public {
                             <?php endif; ?>
                         </div>
                         <div style="text-align: left;">
-                            <div><strong>اعتماد إدارة شؤون اللاعبين:</strong></div>
-                            <div style="margin-top: 10px; font-weight: 900; color: #166534;">✓ تم التدقيق والاعتماد بالنظام الإلكتروني</div>
-                            <div style="font-size: 10.5px; color: #64748b; margin-top: 4px;">تاريخ الاعتماد: <?php echo date_i18n('Y-m-d'); ?></div>
+                            <div><strong>اعتماد إدارة Player Affairs:</strong></div>
+                            <div style="margin-top: 10px; font-weight: 900; color: #166534;">✓ تم التدقيق واNoعتماد بالنظام الإلكتروني</div>
+                            <div style="font-size: 10.5px; color: #64748b; margin-top: 4px;">تاريخ اNoعتماد: <?php echo date_i18n('Y-m-d'); ?></div>
                         </div>
                     </div>
                 </div>
@@ -11576,7 +11581,7 @@ class SM_Public {
             <?php
             exit;
         } else {
-            wp_die('نوع الطباعة غير مدعوم.');
+            wp_die('نوع الPrint غير مدعوم.');
         }
     }
 
@@ -11586,7 +11591,7 @@ class SM_Public {
     public function ajax_check_user_uniqueness() {
         check_ajax_referer('sm_user_action', 'sm_nonce');
         if (!current_user_can('manage_options') && !current_user_can('edit_users')) {
-            wp_send_json_error('عذراً، لا تمتلك الصلاحية لهذه العملية.');
+            wp_send_json_error('عذراً، No تمتلك الصNoحية لهذه العملية.');
         }
 
         $field   = sanitize_text_field($_POST['field'] ?? '');
@@ -11600,12 +11605,12 @@ class SM_Public {
         if ($field === 'username') {
             $user = get_user_by('login', $value);
             if ($user && $user->ID !== $user_id) {
-                wp_send_json_success(array('exists' => true, 'message' => 'اسم المستخدم مستخدم بالفعل لنظام آخر.'));
+                wp_send_json_success(array('exists' => true, 'message' => 'Username مستخدم بالفعل لنظام آخر.'));
             }
         } elseif ($field === 'email') {
             $user = get_user_by('email', $value);
             if ($user && $user->ID !== $user_id) {
-                wp_send_json_success(array('exists' => true, 'message' => 'البريد الإلكتروني مسجل لمستخدم آخر.'));
+                wp_send_json_success(array('exists' => true, 'message' => 'Email Address مسجل لمستخدم آخر.'));
             }
         } elseif ($field === 'employee_id') {
             $existing = get_users(array(
@@ -11682,11 +11687,11 @@ class SM_Public {
             }
 
             $role_primary = reset($roles) ?: 'sm_teacher';
-            $school_name = get_user_meta($u->ID, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+            $school_name = get_user_meta($u->ID, 'eess_school_name', true) ?: 'Academy الرياضية Home';
             $department = get_user_meta($u->ID, 'eess_department', true) ?: (get_user_meta($u->ID, 'department', true) ?: 'قسم التربية البدنية والصحية');
             $subject = get_user_meta($u->ID, 'sm_specialization', true) ?: (get_user_meta($u->ID, 'specialization', true) ?: 'عام');
 
-            $assigned_grades_raw = get_user_meta($u->ID, 'sm_assigned_grades', true) ?: (get_user_meta($u->ID, 'eess_assigned_grades', true) ?: 'المجموعة التدريبية العاشر');
+            $assigned_grades_raw = get_user_meta($u->ID, 'sm_assigned_grades', true) ?: (get_user_meta($u->ID, 'eess_assigned_grades', true) ?: 'Training Group العاشر');
             if (is_array($assigned_grades_raw)) $assigned_grades_raw = implode(', ', $assigned_grades_raw);
             $assigned_grades_clean = str_replace(array('[', ']', '"', "'", '\\'), '', (string)$assigned_grades_raw);
 
@@ -11794,16 +11799,16 @@ class SM_Public {
 
         // Default 10 Standard 0-10 Evaluation Questions
         $default_questions = array(
-            array('id' => 1, 'text' => 'الالتزام بالحضور والانضباط بالمواعيد والجدول المدرسي الرسمي', 'category' => 'تقييم الانضباط والسلوك', 'max_score' => 10),
-            array('id' => 2, 'text' => 'الالتزام المناوب والإشراف اليومي في المواعيد والأماكن المحددة', 'category' => 'تقييم الانضباط والسلوك', 'max_score' => 10),
-            array('id' => 3, 'text' => 'الالتزام بتقديم تقارير أعضاء هيئة التدريب والكادر وتطبيق استراتيجيات التدريس الحديثة والابتكار', 'category' => 'التقييم التربوي والمهني', 'max_score' => 10),
-            array('id' => 4, 'text' => 'الالتزام برصد النتائج والتقييم المستمر للطلاب بدقة وموضوعية', 'category' => 'التقييم التربوي والمهني', 'max_score' => 10),
-            array('id' => 5, 'text' => 'إدارة البيئة المجموعة التدريبيةية والمحافظة على الانضباط والسلوك الإيجابي', 'category' => 'التقييم التربوي والمهني', 'max_score' => 10),
-            array('id' => 6, 'text' => 'التواصل الفعال والمثمر مع أولياء الأمور والأوصياء وإدارة الأكاديمية الرياضية والحافظ على بيئة العمل', 'category' => 'التواصل والتفاعل المؤسسي', 'max_score' => 10),
-            array('id' => 7, 'text' => 'المشاركة والمبادرة في الأنشطة المدرسية والفعاليات والبرامج اللانهائية', 'category' => 'التواصل والتفاعل المؤسسي', 'max_score' => 10),
-            array('id' => 8, 'text' => 'الالتزام باللوائح والتعاميم السياسية الصادرة من وزارة التربية والتعليم', 'category' => 'الالتزام والتنفيذ', 'max_score' => 10),
-            array('id' => 9, 'text' => 'إنجاز التكاليف والمهام الموكلة وإعداد التقرير المدرسية بدقة', 'category' => 'الالتزام والتنفيذ', 'max_score' => 10),
-            array('id' => 10, 'text' => 'التطوير المهني الذاتي والمساهمة في تبادل الخبرات الأكاديمية مع الزملاء', 'category' => 'الالتزام والتنفيذ', 'max_score' => 10)
+            array('id' => 1, 'text' => 'اNoلتزام بالحضور واNoنضباط بالمواعيد والجدول المدرسي الرسمي', 'category' => 'تقييم اNoنضباط والسلوك', 'max_score' => 10),
+            array('id' => 2, 'text' => 'اNoلتزام المناوب والإشراف اليومي في المواعيد وMotherاكن المحددة', 'category' => 'تقييم اNoنضباط والسلوك', 'max_score' => 10),
+            array('id' => 3, 'text' => 'اNoلتزام بتقديم تقارير أعضاء هيئة التدريب والكادر وتطبيق استراتيجيات التدريس الحديثة واNoبتكار', 'category' => 'التقييم التربوي والمهني', 'max_score' => 10),
+            array('id' => 4, 'text' => 'اNoلتزام برصد النتائج والتقييم المستمر للطNoب بدقة وموضوعية', 'category' => 'التقييم التربوي والمهني', 'max_score' => 10),
+            array('id' => 5, 'text' => 'إدارة البيئة Training Groupية والمحافظة على اNoنضباط والسلوك الإيجابي', 'category' => 'التقييم التربوي والمهني', 'max_score' => 10),
+            array('id' => 6, 'text' => 'التواصل الفعال والمثمر مع أولياء Motherور والأوصياء وإدارة Academy الرياضية والحافظ على بيئة العمل', 'category' => 'التواصل والتفاعل المؤسسي', 'max_score' => 10),
+            array('id' => 7, 'text' => 'المشاركة والمبادرة في الأActiveة المدرسية والفعاليات والبرامج الNoنهائية', 'category' => 'التواصل والتفاعل المؤسسي', 'max_score' => 10),
+            array('id' => 8, 'text' => 'اNoلتزام باللوائح والتعاميم السياسية الصادرة من وزارة التربية والتعليم', 'category' => 'اNoلتزام والتنفيذ', 'max_score' => 10),
+            array('id' => 9, 'text' => 'إنجاز التكاليف والمهام الموكلة وإعداد التقرير المدرسية بدقة', 'category' => 'اNoلتزام والتنفيذ', 'max_score' => 10),
+            array('id' => 10, 'text' => 'التطوير المهني الذاتي والمساهمة في تبادل الخبرات Academy مع الزمNoء', 'category' => 'اNoلتزام والتنفيذ', 'max_score' => 10)
         );
 
         wp_send_json_success(array(
@@ -11876,7 +11881,7 @@ class SM_Public {
             )
         );
 
-        SM_Logger::log('save_evaluation', "تم حفظ التقييم الشامل للموظف #{$employee_id} بنتيجة نهائية {$final_score}% ({$classification})");
+        SM_Logger::log('save_evaluation', "تم Save التقييم الشامل للموظف #{$employee_id} بنتيجة نهائية {$final_score}% ({$classification})");
 
         wp_send_json_success(array(
             'eval_id' => $wpdb->insert_id,
@@ -11941,7 +11946,7 @@ class SM_Public {
         $user_roles = (array) wp_get_current_user()->roles;
         $is_auth = current_user_can('manage_options') || current_user_can('manage_hr') || in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_hod', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
         if (!$is_auth) {
-            wp_send_json_error('غير مصرح لك بإدارة نماذج التقييم.');
+            wp_send_json_error('Unauthorized لك بإدارة نماذج التقييم.');
         }
 
         $title = sanitize_text_field($_POST['title'] ?? '');
@@ -11949,7 +11954,7 @@ class SM_Public {
         $questions_raw = $_POST['questions'] ?? array();
 
         if (empty($title) || empty($questions_raw)) {
-            wp_send_json_error('يرجى كتابة عنوان النموذج وإضافة سؤال واحد على الأقل.');
+            wp_send_json_error('يرجى كتابة عنوان النموذج وAdd سؤال واحد على الأقل.');
         }
 
         global $wpdb;
@@ -11984,12 +11989,12 @@ class SM_Public {
             }
         }
 
-        wp_send_json_success(array('tmpl_id' => $tmpl_id, 'message' => 'تم حفظ نموذج التقييم الجديد بنجاح'));
+        wp_send_json_success(array('tmpl_id' => $tmpl_id, 'message' => 'تم Save نموذج التقييم الجديد بنجاح'));
     }
 
     public function ajax_get_teacher_profile_summary() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('غير مصرح لك بالوصول.');
+            wp_send_json_error('Unauthorized لك بالوصول.');
         }
 
         $user_id = intval($_POST['user_id'] ?? 0);
@@ -12010,26 +12015,26 @@ class SM_Public {
         $role_labels = array(
             'administrator' => 'مدير النظام المطور',
             'sm_system_admin' => 'مدير النظام المطور',
-            'sm_principal' => 'مدير الأكاديمية الرياضية',
+            'sm_principal' => 'مدير Academy الرياضية',
             'sm_supervisor' => 'مشرف تربوي',
             'sm_coordinator' => 'منسق مادة',
             'sm_teacher' => 'معلم',
-            'sm_student' => 'لاعب',
+            'sm_student' => 'Noعب',
             'sm_parent' => 'ولي أمر',
             'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-            'sm_activities_supervisor' => 'مشرف أنشطة',
-            'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+            'sm_activities_supervisor' => 'مشرف أActiveة',
+            'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
             'sm_bus_supervisor' => 'مشرف حافلة',
             'sm_clinic' => 'العيادة المدرسية',
             'sm_hr' => 'الموارد البشرية (HR)'
         );
 
         $emp_number = get_user_meta($user_id, 'eess_employee_number', true) ?: (get_user_meta($user_id, 'sm_employee_id', true) ?: $user->user_login);
-        $school_name = get_user_meta($user_id, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+        $school_name = get_user_meta($user_id, 'eess_school_name', true) ?: 'Academy الرياضية Home';
         $department = get_user_meta($user_id, 'eess_department', true) ?: (get_user_meta($user_id, 'department', true) ?: get_user_meta($user_id, 'sm_department', true) ?: 'قسم التربية البدنية والصحية');
         $subject = get_user_meta($user_id, 'sm_specialization', true) ?: (get_user_meta($user_id, 'specialization', true) ?: 'التربية البدنية والصحية');
 
-        $assigned_grades_raw = get_user_meta($user_id, 'sm_assigned_grades', true) ?: (get_user_meta($user_id, 'eess_assigned_grades', true) ?: (get_user_meta($user_id, 'sm_grade_level', true) ?: 'المجموعة التدريبية العاشر'));
+        $assigned_grades_raw = get_user_meta($user_id, 'sm_assigned_grades', true) ?: (get_user_meta($user_id, 'eess_assigned_grades', true) ?: (get_user_meta($user_id, 'sm_grade_level', true) ?: 'Training Group العاشر'));
         if (is_array($assigned_grades_raw)) $assigned_grades_raw = implode(', ', $assigned_grades_raw);
         $assigned_grades_clean = str_replace(array('[', ']', '"', "'", '\\'), '', (string)$assigned_grades_raw);
 
@@ -12038,8 +12043,8 @@ class SM_Public {
 
         $phone = get_user_meta($user_id, 'phone_number', true) ?: (get_user_meta($user_id, 'sm_phone', true) ?: '---');
         $civil_id = get_user_meta($user_id, 'eess_civil_id', true) ?: (get_user_meta($user_id, 'civil_id', true) ?: '---');
-        $nationality = get_user_meta($user_id, 'nationality', true) ?: (get_user_meta($user_id, 'sm_nationality', true) ?: 'الإمارات العربية المتحدة');
-        $gender = get_user_meta($user_id, 'gender', true) ?: (get_user_meta($user_id, 'eess_gender', true) ?: 'ذكر');
+        $nationality = get_user_meta($user_id, 'nationality', true) ?: (get_user_meta($user_id, 'sm_nationality', true) ?: 'United Arab Emirates');
+        $gender = get_user_meta($user_id, 'gender', true) ?: (get_user_meta($user_id, 'eess_gender', true) ?: 'Male');
         $dob = get_user_meta($user_id, 'dob', true) ?: (get_user_meta($user_id, 'sm_dob', true) ?: '---');
         $emirate = get_user_meta($user_id, 'eess_emirate', true) ?: 'دبي';
         $appoint_year = get_user_meta($user_id, 'eess_appointment_year', true) ?: (get_user_meta($user_id, 'appointment_year', true) ?: '2022');
@@ -12145,7 +12150,7 @@ class SM_Public {
     public function ajax_get_user_unified() {
         check_ajax_referer('sm_user_action', 'sm_nonce');
         if (!current_user_can('manage_options') && !current_user_can('edit_users')) {
-            wp_send_json_error('غير مصرح لك بعرض بيانات هذا المستخدم.');
+            wp_send_json_error('Unauthorized لك بView بيانات هذا المستخدم.');
         }
 
         $user_id = intval($_POST['user_id'] ?? 0);
@@ -12196,7 +12201,7 @@ class SM_Public {
                 $school_name = $inst_obj->name;
             }
         }
-        if (empty($school_name)) $school_name = 'الأكاديمية الرياضية الرئيسية';
+        if (empty($school_name)) $school_name = 'Academy الرياضية Home';
         $department     = get_user_meta($user_id, 'department', true) ?: get_user_meta($user_id, 'sm_department', true);
         $admin_section  = get_user_meta($user_id, 'eess_admin_section', true);
         $specialization = get_user_meta($user_id, 'specialization', true) ?: get_user_meta($user_id, 'sm_specialization', true);
@@ -12289,7 +12294,7 @@ class SM_Public {
 
         // Allow users to edit their own basic profile details OR admins to edit any account
         if (!$is_system_admin && ($user_id !== $curr_user_id || $user_id === 0)) {
-            wp_send_json_error('عذراً، لا تمتلك صلاحيات تعديل أو إضافة الحسابات.');
+            wp_send_json_error('عذراً، No تمتلك صNoحيات Edit أو Add الحسابات.');
         }
 
         $first_name  = sanitize_text_field($_POST['first_name'] ?? '');
@@ -12347,7 +12352,7 @@ class SM_Public {
         $address        = sanitize_text_field($_POST['address'] ?? '');
         $building_info  = sanitize_text_field($_POST['building_info'] ?? '');
         $emirate        = sanitize_text_field($_POST['emirate'] ?? '');
-        $country_res    = sanitize_text_field($_POST['country_residence'] ?? 'الإمارات العربية المتحدة');
+        $country_res    = sanitize_text_field($_POST['country_residence'] ?? 'United Arab Emirates');
         $admin_section  = sanitize_text_field($_POST['admin_section'] ?? '');
         $sections       = sanitize_text_field($_POST['assigned_sections'] ?? '');
         $grades         = isset($_POST['assigned_grades']) ? array_map('sanitize_text_field', (array)$_POST['assigned_grades']) : array();
@@ -12379,7 +12384,7 @@ class SM_Public {
 
             if (!empty($user_pass)) {
                 if (strlen($user_pass) < 8 || !preg_match('/[A-Z]/', $user_pass) || !preg_match('/[a-z]/', $user_pass) || !preg_match('/[0-9]/', $user_pass)) {
-                    wp_send_json_error('كلمة المرور يجب أن تتضمن 8 خانات على الأقل مع حرف كبير وحرف صغير ورقم.');
+                    wp_send_json_error('Password يجب أن تتضمن 8 خانات على الأقل مع حرف كبير وحرف صغير ورقم.');
                 }
                 $user_data['user_pass'] = $user_pass;
             }
@@ -12400,16 +12405,16 @@ class SM_Public {
         } else {
             // New User
             if (empty($username) || empty($user_pass)) {
-                wp_send_json_error('يرجى تحديد اسم المستخدم وكلمة المرور للحساب الجديد.');
+                wp_send_json_error('يرجى تحديد Username وPassword للحساب الجديد.');
             }
             if (strlen($user_pass) < 8 || !preg_match('/[A-Z]/', $user_pass) || !preg_match('/[a-z]/', $user_pass) || !preg_match('/[0-9]/', $user_pass)) {
-                wp_send_json_error('كلمة المرور يجب أن تتضمن 8 خانات على الأقل مع حرف كبير وحرف صغير ورقم.');
+                wp_send_json_error('Password يجب أن تتضمن 8 خانات على الأقل مع حرف كبير وحرف صغير ورقم.');
             }
             if (username_exists($username)) {
-                wp_send_json_error('اسم المستخدم مُسجل سابقاً في المنصة.');
+                wp_send_json_error('Username مُسجل سابقاً في المنصة.');
             }
             if (email_exists($email)) {
-                wp_send_json_error('البريد الإلكتروني مسجل حساب آخر بالمنصة.');
+                wp_send_json_error('Email Address مسجل حساب آخر بالمنصة.');
             }
 
             $user_id = wp_create_user($username, $user_pass, $email);
@@ -12437,7 +12442,7 @@ class SM_Public {
         }
 
         // Derive school name from institution lookup for system-wide synchronization
-        $school_name = 'الأكاديمية الرياضية الرئيسية';
+        $school_name = 'Academy الرياضية Home';
         if ($institution_id > 0 && class_exists('EESS_Org_Helper')) {
             $inst_obj = EESS_Org_Helper::get_institution_by_id($institution_id);
             if ($inst_obj && !empty($inst_obj->name)) {
@@ -12502,10 +12507,10 @@ class SM_Public {
             }
         }
 
-        SM_Logger::log('حفظ وتزامن حساب موظف', "تم حفظ بيانات وتزامن الحساب للموظف $display_name (ID: $user_id)");
+        SM_Logger::log('Save وتزامن حساب موظف', "تم Save بيانات وتزامن الحساب للموظف $display_name (ID: $user_id)");
 
         wp_send_json_success(array(
-            'message' => 'تم حفظ وتزامن بيانات الموظف بنجاح في قاعدة البيانات والأنظمة المرتبطة.',
+            'message' => 'تم Save وتزامن بيانات الموظف بنجاح في قاعدة البيانات والأنظمة المرتبطة.',
             'user_id' => $user_id
         ));
     }
@@ -12520,7 +12525,7 @@ class SM_Public {
         $can_review = in_array('administrator', $roles) || in_array('sm_system_admin', $roles) || in_array('sm_principal', $roles) || in_array('sm_supervisor', $roles) || in_array('sm_coordinator', $roles) || in_array('sm_hod', $roles) || in_array('sm_activities_supervisor', $roles) || current_user_can('manage_options');
 
         if (!$can_review) {
-            wp_send_json_error('عذراً، لا تمتلك صلاحيات اعتماد خطط التحضير.');
+            wp_send_json_error('عذراً، No تمتلك صNoحيات اعتماد خطط التحضير.');
         }
 
         $prep_id = intval($_POST['prep_id'] ?? 0);
@@ -12535,7 +12540,7 @@ class SM_Public {
                 'status' => 'approved',
                 'reviewed_by' => $user_id,
                 'reviewed_at' => current_time('mysql'),
-                'review_notes' => 'تم الاعتماد المباشر بواسطة الموجه/رئيس القسم'
+                'review_notes' => 'تم اNoعتماد المباشر بواسطة الموجه/رئيس القسم'
             ),
             array('id' => $prep_id)
         );
@@ -12545,7 +12550,7 @@ class SM_Public {
             SM_Logger::log('اعتماد تحضير درس', "تم اعتماد التحضير: " . ($prep->title ?? '') . " (ID: $prep_id) بواسطة المستخدم ID: $user_id");
             wp_send_json_success(array('message' => 'تم اعتماد خطة التحضير بنجاح.', 'prep_id' => $prep_id));
         } else {
-            wp_send_json_error('فشل في تغيير حالة الاعتماد بالمرئيات.');
+            wp_send_json_error('فشل في تغيير حالة اNoعتماد بالمرئيات.');
         }
     }
 
@@ -12560,7 +12565,7 @@ class SM_Public {
         $can_review = in_array('administrator', $roles) || in_array('sm_system_admin', $roles) || in_array('sm_principal', $roles) || in_array('sm_supervisor', $roles) || in_array('sm_coordinator', $roles) || in_array('sm_hod', $roles) || in_array('sm_activities_supervisor', $roles) || current_user_can('manage_options');
 
         if (!$can_review) {
-            wp_send_json_error('عذراً، لا تمتلك الصلاحية الكافية لتعديل حالة وتاريخ التسليم.');
+            wp_send_json_error('عذراً، No تمتلك الصNoحية الكافية لEdit حالة وتاريخ التسليم.');
         }
 
         $prep_id = intval($_POST['prep_id'] ?? 0);
@@ -12595,10 +12600,10 @@ class SM_Public {
         $updated = $wpdb->update("{$wpdb->prefix}sm_lesson_preps", $update_data, array('id' => $prep_id));
 
         if ($updated !== false) {
-            SM_Logger::log('تحديث حالة التحضير وموعده', "تم تعديل التحضير ID: $prep_id إلى الحالة ($status) وتعديل موعد التسليم بواسطة ID: $user_id");
-            wp_send_json_success(array('message' => 'تم تحديث حالة وتاريخ تسليم التحضير بنجاح.'));
+            SM_Logger::log('Update حالة التحضير وموعده', "تم Edit التحضير ID: $prep_id إلى Status ($status) وEdit موعد التسليم بواسطة ID: $user_id");
+            wp_send_json_success(array('message' => 'تم Update حالة وتاريخ تسليم التحضير بنجاح.'));
         } else {
-            wp_send_json_error('فشل تحديث بيانات تحضير الدرس بالخادم.');
+            wp_send_json_error('فشل Update بيانات تحضير الدرس بالخادم.');
         }
     }
 
@@ -12612,14 +12617,14 @@ class SM_Public {
         $can_review = in_array('administrator', $roles) || in_array('sm_system_admin', $roles) || in_array('sm_principal', $roles) || in_array('sm_supervisor', $roles) || in_array('sm_coordinator', $roles) || in_array('sm_hod', $roles) || in_array('sm_activities_supervisor', $roles) || current_user_can('manage_options');
 
         if (!$can_review) {
-            wp_send_json_error('عذراً، لا تمتلك صلاحيات رفض وتوجيه ملاحظات تقديم تقارير أعضاء هيئة التدريب والكادر.');
+            wp_send_json_error('عذراً، No تمتلك صNoحيات Reject وتوجيه Notes تقديم تقارير أعضاء هيئة التدريب والكادر.');
         }
 
         $prep_id = intval($_POST['prep_id'] ?? 0);
         $notes = sanitize_textarea_field($_POST['notes'] ?? '');
 
         if ($prep_id <= 0 || empty($notes)) {
-            wp_send_json_error('يرجى تحديد التحضير وإدخال ملاحظات التوجيه المطلوبة.');
+            wp_send_json_error('يرجى تحديد التحضير وإدخال Notes التوجيه المطلوبة.');
         }
 
         global $wpdb;
@@ -12647,10 +12652,10 @@ class SM_Public {
             );
 
             $prep = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_lesson_preps WHERE id = %d", $prep_id));
-            SM_Logger::log('رفض وتحويل تحضير درس للتعديل', "تم إحالة التحضير (ID: $prep_id) للتعديل بواسطة المستخدم ID: $user_id بملاحظات: $notes");
-            wp_send_json_success(array('message' => 'تم تسجيل الملاحظات وتحديث حالة الدرس للتعديل بنجاح.', 'prep_id' => $prep_id));
+            SM_Logger::log('Reject وتحويل تحضير درس للEdit', "تم إحالة التحضير (ID: $prep_id) للEdit بواسطة المستخدم ID: $user_id بNotes: $notes");
+            wp_send_json_success(array('message' => 'تم تسجيل الNotes وUpdate حالة الدرس للEdit بنجاح.', 'prep_id' => $prep_id));
         } else {
-            wp_send_json_error('تعذر حفظ حالة الرفض في قاعدة البيانات.');
+            wp_send_json_error('تعذر Save حالة الReject في قاعدة البيانات.');
         }
     }
 
@@ -12675,7 +12680,7 @@ class SM_Public {
 
         if ($bulk_action === 'approve') {
             if (!$can_review) {
-                wp_send_json_error('عذراً، لا تمتلك صلاحيات الاعتماد الجماعي.');
+                wp_send_json_error('عذراً، No تمتلك صNoحيات اNoعتماد الجماعي.');
             }
             $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}sm_lesson_preps SET status = 'approved', reviewed_by = %d, reviewed_at = %s WHERE id IN ($placeholders)", array_merge(array($user_id, current_time('mysql')), $prep_ids)));
             wp_send_json_success(array('message' => 'تم اعتماد التحضيرات المحددة بنجاح.'));
@@ -12684,11 +12689,11 @@ class SM_Public {
                 // If not reviewer/admin, ensure all requested prep IDs belong to current teacher
                 $owner_count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}sm_lesson_preps WHERE id IN ($placeholders) AND teacher_id = %d", array_merge($prep_ids, array($user_id))));
                 if ($owner_count < count($prep_ids)) {
-                    wp_send_json_error('عذراً، لا تمتلك صلاحيات حذف بعض أو كل التحضيرات المحددة.');
+                    wp_send_json_error('عذراً، No تمتلك صNoحيات Delete بعض أو كل التحضيرات المحددة.');
                 }
             }
             $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}sm_lesson_preps WHERE id IN ($placeholders)", $prep_ids));
-            wp_send_json_success(array('message' => 'تم حذف التحضيرات المحددة نهائياً.'));
+            wp_send_json_success(array('message' => 'تم Delete التحضيرات المحددة نهائياً.'));
         }
     }
 
@@ -12745,7 +12750,7 @@ class SM_Public {
                 if ($is_admin_user) {
                     wp_send_json_error('عذراً، صيغة ملف الخطة المرفوع غير مدعومة. يرجى اختيار ملف PDF أو Word فقط.');
                 } else {
-                    wp_send_json_error('عذراً، صيغة ملف الخطة المرفوع يجب أن تكون PDF حصراً لكافة المدربين والمستخدمين.');
+                    wp_send_json_error('عذراً، صيغة ملف الخطة المرفوع يجب أن تكون PDF حصراً لكافة المدربين وUsers.');
                 }
             }
 
@@ -12841,11 +12846,11 @@ class SM_Public {
             $existing = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_term_plans WHERE id = %d", $plan_id));
             if (!$existing) wp_send_json_error('الخطة غير موجودة.');
             if ($existing->teacher_id != $user_id && !current_user_can('manage_options')) {
-                wp_send_json_error('عذراً، لا تمتلك صلاحية تعديل هذه الخطة.');
+                wp_send_json_error('عذراً، No تمتلك صNoحية Edit هذه الخطة.');
             }
 
             $wpdb->update("{$wpdb->prefix}sm_term_plans", $data_fields, array('id' => $plan_id));
-            SM_Logger::log('حفظ الخطة المجموعة التدريبيةية', "تم حفظ الخطة (ID: $plan_id) بحالة: $status بنسبة $completion_pct%");
+            SM_Logger::log('Save الخطة Training Groupية', "تم Save الخطة (ID: $plan_id) بحالة: $status بنسبة $completion_pct%");
             wp_send_json_success(array('plan_id' => $plan_id, 'status' => $status, 'completion_pct' => $completion_pct, 'total_weeks' => $total_weeks));
         } else {
             $inserted = $wpdb->insert("{$wpdb->prefix}sm_term_plans", $data_fields);
@@ -12857,10 +12862,10 @@ class SM_Public {
                     'status' => $status,
                     'completion_pct' => $completion_pct,
                     'total_weeks' => $total_weeks,
-                    'message' => 'تم رفع وإرسال الخطة المجموعة التدريبيةية بنجاح وتوثيقها في قاعدة البيانات.'
+                    'message' => 'تم رفع وSend الخطة Training Groupية بنجاح وتوثيقها في قاعدة البيانات.'
                 ));
             } else {
-                wp_send_json_error('فشل حفظ الخطة في قاعدة البيانات.');
+                wp_send_json_error('فشل Save الخطة في قاعدة البيانات.');
             }
         }
     }
@@ -12873,7 +12878,7 @@ class SM_Public {
         $can_review = in_array('administrator', $roles) || in_array('sm_system_admin', $roles) || in_array('sm_principal', $roles) || in_array('sm_supervisor', $roles) || in_array('sm_coordinator', $roles) || in_array('sm_hod', $roles) || in_array('sm_activities_supervisor', $roles) || current_user_can('manage_options');
 
         if (!$can_review) {
-            wp_send_json_error('عذراً، لا تمتلك صلاحية مراجعة الخطة.');
+            wp_send_json_error('عذراً، No تمتلك صNoحية مراجعة الخطة.');
         }
 
         $plan_id = intval($_POST['plan_id'] ?? 0);
@@ -12897,10 +12902,10 @@ class SM_Public {
         );
 
         if ($updated !== false) {
-            SM_Logger::log('مراجعة خطة فصلية', "تم مراجعة الخطة ID: $plan_id وتغيير الحالات إلى: $review_status");
+            SM_Logger::log('مراجعة خطة فصلية', "تم مراجعة الخطة ID: $plan_id وتغيير الحاNoت إلى: $review_status");
             wp_send_json_success(array('plan_id' => $plan_id, 'status' => $review_status));
         } else {
-            wp_send_json_error('فشل تحديث حالة الخطة.');
+            wp_send_json_error('فشل Update حالة الخطة.');
         }
     }
 
@@ -12916,7 +12921,7 @@ class SM_Public {
         global $wpdb;
         $plan = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}sm_term_plans WHERE id = %d", $plan_id));
         if (!$plan) {
-            wp_send_json_error('الخطة غير موجودة أو تم حذفها سابقاً.');
+            wp_send_json_error('الخطة غير موجودة أو تم Deleteها سابقاً.');
         }
 
         $current_user = wp_get_current_user();
@@ -12934,16 +12939,16 @@ class SM_Public {
                       (intval($plan->teacher_id) === $user_id);
 
         if (!$can_delete) {
-            wp_send_json_error('عذراً، لا تمتلك الصلاحية الكافية لحذف هذه الخطة.');
+            wp_send_json_error('عذراً، No تمتلك الصNoحية الكافية لDelete هذه الخطة.');
         }
 
         $deleted = $wpdb->delete("{$wpdb->prefix}sm_term_plans", array('id' => $plan_id));
 
         if ($deleted) {
-            SM_Logger::log('حذف خطة فصلية', "تم حذف الخطة (ID: $plan_id) بواسطة المستخدم {$current_user->display_name}");
-            wp_send_json_success(array('plan_id' => $plan_id, 'message' => 'تم حذف الخطة بنجاح.'));
+            SM_Logger::log('Delete خطة فصلية', "تم Delete الخطة (ID: $plan_id) بواسطة المستخدم {$current_user->display_name}");
+            wp_send_json_success(array('plan_id' => $plan_id, 'message' => 'تم Delete الخطة بنجاح.'));
         } else {
-            wp_send_json_error('تعذر حذف الخطة من قاعدة البيانات.');
+            wp_send_json_error('تعذر Delete الخطة من قاعدة البيانات.');
         }
     }
 
@@ -12952,24 +12957,24 @@ class SM_Public {
         $password = isset($_POST['password']) ? $_POST['password'] : '';
 
         if (empty($emp_id) || empty($password)) {
-            wp_send_json_error('يرجى إدخال الرقم الوظيفي/رقم الجوال وكلمة المرور بشكل صحيح.');
+            wp_send_json_error('يرجى إدخال الرقم الوظيفي/Mobile Number وPassword بشكل صحيح.');
         }
 
         $teacher = SM_DB::get_teacher_by_employee_id_or_phone($emp_id);
         if (!$teacher) {
-            wp_send_json_error('لم يتم العثور على حساب مطابق للبيانات المدخلة. يرجى التأكد من الرقم الوظيفي أو رقم الهاتف.');
+            wp_send_json_error('لم يتم العثور على حساب مطابق للبيانات المدخلة. يرجى التأكد من الرقم الوظيفي أو Phone Number.');
         }
 
         if (!wp_check_password($password, $teacher->user_pass, $teacher->ID)) {
-            wp_send_json_error('كلمة المرور المدخلة غير صحيحة. يرجى المحاولة مجدداً.');
+            wp_send_json_error('Password المدخلة غير صحيحة. يرجى المحاولة مجدداً.');
         }
 
         wp_set_current_user($teacher->ID);
         wp_set_auth_cookie($teacher->ID, true);
 
         $subject = get_user_meta($teacher->ID, 'sm_specialization', true) ?: (get_user_meta($teacher->ID, 'specialization', true) ?: (get_user_meta($teacher->ID, 'subject', true) ?: 'عام'));
-        $school  = get_user_meta($teacher->ID, 'eess_school_name', true) ?: (get_user_meta($teacher->ID, 'sm_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية');
-        $dept    = get_user_meta($teacher->ID, 'eess_department', true) ?: 'قسم النشاط الرياضي';
+        $school  = get_user_meta($teacher->ID, 'eess_school_name', true) ?: (get_user_meta($teacher->ID, 'sm_school_name', true) ?: 'Academy الرياضية Home');
+        $dept    = get_user_meta($teacher->ID, 'eess_department', true) ?: 'قسم Sport Activity';
         $classes = get_user_meta($teacher->ID, 'sm_assigned_classes', true) ?: array();
         $grade   = get_user_meta($teacher->ID, 'sm_grade_level', true) ?: (get_user_meta($teacher->ID, 'grade', true) ?: '');
         $section = get_user_meta($teacher->ID, 'sm_class_section', true) ?: (get_user_meta($teacher->ID, 'section', true) ?: '');
@@ -12993,18 +12998,18 @@ class SM_Public {
 
     public function ajax_submit_mobile_lesson() {
         if (!wp_verify_nonce($_POST['sm_nonce'] ?? '', 'sm_mobile_prep_nonce') && !wp_verify_nonce($_POST['sm_nonce'] ?? '', 'sm_mobile_prep_action') && !wp_verify_nonce($_POST['sm_nonce'] ?? '', 'sm_term_plan_action')) {
-            wp_send_json_error('فشل التوثيق الأمني للجلسة.');
+            wp_send_json_error('فشل التوثيق Motherني للجلسة.');
         }
 
         $current_user_id = get_current_user_id();
 
         if (!$current_user_id) {
-            wp_send_json_error('عفواً، انتهت صلاحية الجلسة. يرجى تسجيل الدخول مجدداً عبر النظام.');
+            wp_send_json_error('عفواً، انتهت صNoحية الجلسة. يرجى Login مجدداً عبر النظام.');
         }
 
         $teacher = get_userdata($current_user_id);
         if (!$teacher) {
-            wp_send_json_error('فشل التوثيق الأمني لملف المدرب.');
+            wp_send_json_error('فشل التوثيق Motherني لملف المدرب.');
         }
 
         $title         = sanitize_text_field($_POST['title'] ?? ($_POST['lesson_title'] ?? ''));
@@ -13087,16 +13092,16 @@ class SM_Public {
 
         if ($inserted) {
             $prep_id = $wpdb->insert_id;
-            SM_Logger::log('تحضير درس من الموبايل', "تم إضافة تحضير درس (ID: $prep_id) عبر الموبايل للمعلم: {$teacher->display_name}");
-            wp_send_json_success(array('prep_id' => $prep_id, 'message' => 'تم حفظ وإرسال التحضير بنجاح وتوثيقه في حسابك.'));
+            SM_Logger::log('تحضير درس من الموبايل', "تم Add تحضير درس (ID: $prep_id) عبر الموبايل للمعلم: {$teacher->display_name}");
+            wp_send_json_success(array('prep_id' => $prep_id, 'message' => 'تم Save وSend التحضير بنجاح وتوثيقه في حسابك.'));
         } else {
-            wp_send_json_error('حدث خطأ أثناء حفظ التحضير بقاعدة البيانات.');
+            wp_send_json_error('An error occurred أثناء Save التحضير بقاعدة البيانات.');
         }
     }
 
     public function ajax_create_system_announcement() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('عفواً، غير مصرح لك بإنشاء إعلانات النظام.');
+            wp_send_json_error('عفواً، Unauthorized لك بإنشاء إعNoنات النظام.');
         }
 
         $title            = sanitize_text_field($_POST['title'] ?? '');
@@ -13111,7 +13116,7 @@ class SM_Public {
         }
 
         if (mb_strlen($details) > 500) {
-            wp_send_json_error('تفاصيل الإشعار يجب ألا تتجاوز 500 حرف.');
+            wp_send_json_error('تفاصيل الإشعار يجب أNo تتجاوز 500 حرف.');
         }
 
         global $wpdb;
@@ -13135,7 +13140,7 @@ class SM_Public {
             SM_Logger::log('إنشاء إشعار نظام', "تم نشر إشعار نظام جديد (ID: $anc_id) بعنوان: $title");
             wp_send_json_success(array('announcement_id' => $anc_id, 'message' => 'تم نشر الإشعار والتعميم بنجاح.'));
         } else {
-            wp_send_json_error('حدث خطأ أثناء نشر الإشعار.');
+            wp_send_json_error('An error occurred أثناء نشر الإشعار.');
         }
     }
 
@@ -13149,8 +13154,8 @@ class SM_Public {
             $wpdb->insert(
                 "{$wpdb->prefix}sm_system_announcements",
                 array(
-                    'title'             => 'أهلاً بك، {user_name}',
-                    'details'           => 'أهلاً بك في النظام. تم تصميم هذه المنظومة لتنظيم وتسهيل عملك، وتوفير وصول أسرع لمهامك ومسؤولياتك، وتحسين التواصل وتدفق العمل اليومي.',
+                    'title'             => 'Welcome، {user_name}',
+                    'details'           => 'Welcome في النظام. تم تصميم هذه المنظومة لتنظيم وتسهيل عملك، وتوفير وصول أسرع لمهامك ومسؤولياتك، وتحسين التواصل وتدفق العمل اليومي.',
                     'target_roles'      => json_encode(array('all_users')),
                     'type'              => 'success',
                     'display_duration'  => 12,
@@ -13302,7 +13307,7 @@ class SM_Public {
 
     public function ajax_reset_user_announcement() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('عفواً، غير مصرح لك بهذا الإجراء.');
+            wp_send_json_error('عفواً، Unauthorized لك بهذا الإجراء.');
         }
 
         $anc_id  = intval($_POST['announcement_id'] ?? 0);
@@ -13320,13 +13325,13 @@ class SM_Public {
             SM_Logger::log('إعادة تفعيل إشعار', "تم إعادة تفعيل الإشعار (ID: $anc_id) للمستخدم ID: $target_user_id");
             wp_send_json_success();
         } else {
-            wp_send_json_error('فشل إعادة ضبط الإشعار.');
+            wp_send_json_error('فشل Reset الإشعار.');
         }
     }
 
     public function ajax_disable_system_announcement() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('عفواً، غير مصرح لك بهذا الإجراء.');
+            wp_send_json_error('عفواً، Unauthorized لك بهذا الإجراء.');
         }
 
         $anc_id = intval($_POST['announcement_id'] ?? 0);
@@ -13343,13 +13348,13 @@ class SM_Public {
             SM_Logger::log('تعطيل إشعار نظام', "تم تغيير حالة الإشعار (ID: $anc_id) إلى تعطيل Disabled");
             wp_send_json_success(array('announcement_id' => $anc_id, 'message' => 'تم تعطيل الإشعار بنجاح وإيقاف ظهوره تلقائياً.'));
         } else {
-            wp_send_json_error('حدث خطأ أثناء تعطيل الإشعار.');
+            wp_send_json_error('An error occurred أثناء تعطيل الإشعار.');
         }
     }
 
     public function ajax_delete_system_announcement() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('عفواً، غير مصرح لك بهدم وحذف سجلات الإشعارات.');
+            wp_send_json_error('عفواً، Unauthorized لك بهدم وDelete سجNoت الإشعارات.');
         }
 
         $anc_id = intval($_POST['announcement_id'] ?? 0);
@@ -13361,13 +13366,13 @@ class SM_Public {
         // Delete all associated user reading interaction logs
         $wpdb->delete("{$wpdb->prefix}sm_user_announcements", array('announcement_id' => $anc_id));
 
-        SM_Logger::log('حذف إشعار نظام نهائياً', "تم حذف الإشعار ID: $anc_id وكافة سجلات قراءته نهائياً");
-        wp_send_json_success(array('message' => 'تم حذف الإشعار وكافة سجلات التفاعل الخاصة به نهائياً.'));
+        SM_Logger::log('Delete إشعار نظام نهائياً', "تم Delete الإشعار ID: $anc_id وكافة سجNoت قراءته نهائياً");
+        wp_send_json_success(array('message' => 'تم Delete الإشعار وكافة سجNoت التفاعل الخاصة به نهائياً.'));
     }
 
     public function ajax_delete_user_announcement_log() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('عفواً، غير مصرح لك بهذا الإجراء.');
+            wp_send_json_error('عفواً، Unauthorized لك بهذا الإجراء.');
         }
 
         $log_id = intval($_POST['log_id'] ?? 0);
@@ -13377,17 +13382,17 @@ class SM_Public {
         $deleted = $wpdb->delete("{$wpdb->prefix}sm_user_announcements", array('id' => $log_id));
 
         if ($deleted) {
-            SM_Logger::log('حذف سجل تفاعل مستخدم', "تم حذف سجل تفاعل إشعار (ID: $log_id) نهائياً");
-            wp_send_json_success(array('message' => 'تم حذف سجل التفاعل الفردي بنجاح.'));
+            SM_Logger::log('Delete سجل تفاعل مستخدم', "تم Delete سجل تفاعل إشعار (ID: $log_id) نهائياً");
+            wp_send_json_success(array('message' => 'تم Delete سجل التفاعل الفردي بنجاح.'));
         } else {
-            wp_send_json_error('حدث خطأ أثناء حذف السجل.');
+            wp_send_json_error('An error occurred أثناء Delete السجل.');
         }
     }
 
     // Technical Support & Help Capsule AJAX Endpoints
     public function ajax_submit_support_request() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يجب تسجيل الدخول لتقديم طلب الدعم والمساعدة.');
+            wp_send_json_error('عفواً، يجب Login لتقديم طلب الدعم والمساعدة.');
         }
 
         $user_id  = get_current_user_id();
@@ -13402,7 +13407,7 @@ class SM_Public {
             $details = sanitize_textarea_field($_POST['details'] ?? '');
 
             if (empty($title) || empty($details)) {
-                wp_send_json_error('جميع الحقول مطلوبة لإرسال المقترح.');
+                wp_send_json_error('جميع الحقول مطلوبة لSend المقترح.');
             }
 
             if (mb_strlen($details) > 1000) {
@@ -13419,9 +13424,9 @@ class SM_Public {
 
             if ($req_id) {
                 SM_Logger::log('تقديم مقترح', "تم تقديم مقترح جديد (ID: $req_id) بعنوان: $title");
-                wp_send_json_success(array('message' => 'نشكرك على تقديم هذا المقترح المتميز! تم استلامه وبانتظار مراجعة الإدارة.'));
+                wp_send_json_success(array('message' => 'نشكرك على تقديم هذا المقترح المتميز! تم استNoمه وبانتظار مراجعة الإدارة.'));
             } else {
-                wp_send_json_error('حدث خطأ أثناء حفظ المقترح.');
+                wp_send_json_error('An error occurred أثناء Save المقترح.');
             }
 
         } elseif ($category === 'technical_issue') {
@@ -13467,10 +13472,10 @@ class SM_Public {
             ));
 
             if ($req_id) {
-                SM_Logger::log('الإبلاغ عن مشكلة فنية', "تم الإبلاغ عن مشكلة فنية (ID: $req_id) بعنوان: $title");
-                wp_send_json_success(array('message' => 'تم إرسال بلاغ المشكلة الفنية بنجاح. وسوف يتواصل معك الفريق التقني فور المراجعة.'));
+                SM_Logger::log('الإبNoغ عن مشكلة فنية', "تم الإبNoغ عن مشكلة فنية (ID: $req_id) بعنوان: $title");
+                wp_send_json_success(array('message' => 'تم Send بNoغ المشكلة الفنية بنجاح. وسوف يتواصل معك الفريق التقني فور المراجعة.'));
             } else {
-                wp_send_json_error('حدث خطأ أثناء إرسال بلاغ المشكلة.');
+                wp_send_json_error('An error occurred أثناء Send بNoغ المشكلة.');
             }
 
         } elseif ($category === 'rating') {
@@ -13495,17 +13500,17 @@ class SM_Public {
             ));
 
             if ($req_id) {
-                SM_Logger::log('تقديم تقييم وشكر', "تم إرسال تقييم ($stars نجوم) بواسطة المستخدم ID: $user_id");
-                wp_send_json_success(array('message' => 'شكراً جزيلاً لتقييمك وكلماتك الطيبة! يسعدنا دائماً تقديم الأفضل لكم.'));
+                SM_Logger::log('تقديم تقييم وشكر', "تم Send تقييم ($stars نجوم) بواسطة المستخدم ID: $user_id");
+                wp_send_json_success(array('message' => 'شكراً جزيNoً لتقييمك وكلماتك الطيبة! يسعدنا دائماً تقديم الأفضل لكم.'));
             } else {
-                wp_send_json_error('حدث خطأ أثناء حفظ التقييم.');
+                wp_send_json_error('An error occurred أثناء Save التقييم.');
             }
         }
     }
 
     public function ajax_update_support_status() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('غير مصرح لك بتغيير حالة طلبات الدعم.');
+            wp_send_json_error('Unauthorized لك بتغيير حالة طلبات الدعم.');
         }
 
         $id     = intval($_POST['id'] ?? 0);
@@ -13514,32 +13519,32 @@ class SM_Public {
         if (!$id) wp_send_json_error('معرف الطلب غير صحيح.');
 
         if (SM_DB::update_support_request_status($id, $status)) {
-            SM_Logger::log('تحديث حالة طلب دعم', "تم تغيير حالة الطلب ID: $id إلى: $status");
-            wp_send_json_success(array('message' => 'تم تحديث حالة الطلب بنجاح.'));
+            SM_Logger::log('Update حالة طلب دعم', "تم تغيير حالة الطلب ID: $id إلى: $status");
+            wp_send_json_success(array('message' => 'تم Update حالة الطلب بنجاح.'));
         } else {
-            wp_send_json_error('فشل تحديث حالة الطلب.');
+            wp_send_json_error('فشل Update حالة الطلب.');
         }
     }
 
     public function ajax_delete_support_request() {
         if (!is_user_logged_in() || !current_user_can('manage_options')) {
-            wp_send_json_error('غير مصرح لك بحذف سجلات الدعم.');
+            wp_send_json_error('Unauthorized لك بDelete سجNoت الدعم.');
         }
 
         $id = intval($_POST['id'] ?? 0);
         if (!$id) wp_send_json_error('معرف الطلب غير صحيح.');
 
         if (SM_DB::delete_support_request($id)) {
-            SM_Logger::log('حذف سجل دعم نهائياً', "تم حذف سجل الدعم/التقييم ID: $id نهائياً مع ملفه المرفق");
-            wp_send_json_success(array('message' => 'تم حذف السجل والملف المرفق به بنجاح.'));
+            SM_Logger::log('Delete سجل دعم نهائياً', "تم Delete سجل الدعم/التقييم ID: $id نهائياً مع ملفه المرفق");
+            wp_send_json_success(array('message' => 'تم Delete السجل والملف المرفق به بنجاح.'));
         } else {
-            wp_send_json_error('حدث خطأ أثناء حذف السجل.');
+            wp_send_json_error('An error occurred أثناء Delete السجل.');
         }
     }
 
     public function ajax_send_quick_parent_note() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يجب تسجيل الدخول للتمكن من التواصل مع ولي الأمر.');
+            wp_send_json_error('عفواً، يجب Login للتمكن من التواصل مع ولي Motherر.');
         }
 
         $user = wp_get_current_user();
@@ -13547,43 +13552,43 @@ class SM_Public {
         $note = sanitize_textarea_field($_POST['note'] ?? '');
 
         if (!$student_id || empty($note)) {
-            wp_send_json_error('يرجى اختيار اللاعب وكتابة نص الملاحظة.');
+            wp_send_json_error('يرجى اختيار الNoعب وكتابة نص المNoحظة.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
         if (!$student) {
-            wp_send_json_error('اللاعب المختار غير موجود.');
+            wp_send_json_error('الNoعب المختار غير موجود.');
         }
 
         // Add record log
-        SM_Logger::log('ملاحظة سريعة لولي الأمر', "أرسل المدرب {$user->display_name} ملاحظة لولي أمر اللاعب {$student->name}: $note");
+        SM_Logger::log('مNoحظة سريعة لولي Motherر', "أرسل المدرب {$user->display_name} مNoحظة لولي أمر الNoعب {$student->name}: $note");
 
-        wp_send_json_success(array('message' => 'تم إرسال الملاحظة بنجاح إلى ولي أمر اللاعب ' . $student->name));
+        wp_send_json_success(array('message' => 'تم Send المNoحظة بنجاح إلى ولي أمر الNoعب ' . $student->name));
     }
 
     public function ajax_create_parent_summons() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_أولياء_الأمور') && !current_user_can('manage_options'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحيات المطلوبة لإصدار استدعاء ولي أمر.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_أولياء_Motherور') && !current_user_can('manage_options'))) {
+            wp_send_json_error('عفواً، No تمتلك Permissions المطلوبة لIssue استدعاء ولي أمر.');
         }
 
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_message_action') && !wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $student_id = intval($_POST['student_id'] ?? 0);
         $reason     = sanitize_text_field($_POST['reason'] ?? '');
         $date       = sanitize_text_field($_POST['summons_date'] ?? current_time('Y-m-d'));
         $time       = sanitize_text_field($_POST['summons_time'] ?? '10:00');
-        $dept       = sanitize_text_field($_POST['department_requester'] ?? 'شؤون اللاعبين');
+        $dept       = sanitize_text_field($_POST['department_requester'] ?? 'Player Affairs');
         $notes      = sanitize_textarea_field($_POST['notes'] ?? '');
 
         if (!$student_id || empty($reason)) {
-            wp_send_json_error('يرجى اختيار اللاعب وتدوين سبب الاستدعاء.');
+            wp_send_json_error('يرجى اختيار الNoعب وتدوين سبب اNoستدعاء.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('اللاعب غير موجود.');
+        if (!$student) wp_send_json_error('الNoعب غير موجود.');
 
         global $wpdb;
         $inserted = $wpdb->insert("{$wpdb->prefix}sm_parent_summons", array(
@@ -13601,21 +13606,21 @@ class SM_Public {
 
         if ($inserted) {
             $summons_id = $wpdb->insert_id;
-            SM_Logger::log('إصدار استدعاء ولي أمر', "تم إصدار استدعاء لولي أمر اللاعب: {$student->name} (ID: $student_id) بسبب: $reason");
-            wp_send_json_success(array('summons_id' => $summons_id, 'message' => 'تم تسجيل وإصدار استدعاء ولي الأمر بنجاح.'));
+            SM_Logger::log('Issue استدعاء ولي أمر', "تم Issue استدعاء لولي أمر الNoعب: {$student->name} (ID: $student_id) بسبب: $reason");
+            wp_send_json_success(array('summons_id' => $summons_id, 'message' => 'تم تسجيل وIssue استدعاء ولي Motherر بنجاح.'));
         } else {
-            wp_send_json_error('فشل حفظ وثيقة الاستدعاء في قاعدة البيانات.');
+            wp_send_json_error('فشل Save وثيقة اNoستدعاء في قاعدة البيانات.');
         }
     }
 
     public function ajax_convert_summons_visit() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_أولياء_الأمور') && !current_user_can('manage_options'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحيات المطلوبة لتسجيل محضر الزيارة.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_أولياء_Motherور') && !current_user_can('manage_options'))) {
+            wp_send_json_error('عفواً، No تمتلك Permissions المطلوبة لتسجيل محضر الزيارة.');
         }
 
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_message_action') && !wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $summons_id    = intval($_POST['summons_id'] ?? 0);
@@ -13624,7 +13629,7 @@ class SM_Public {
         $cooperation   = sanitize_text_field($_POST['parent_cooperation'] ?? 'ممتاز');
         $eval_comments = sanitize_textarea_field($_POST['evaluation_comments'] ?? '');
 
-        if (!$summons_id) wp_send_json_error('معرف الاستدعاء غير صحيح.');
+        if (!$summons_id) wp_send_json_error('معرف اNoستدعاء غير صحيح.');
 
         global $wpdb;
         $updated = $wpdb->update("{$wpdb->prefix}sm_parent_summons", array(
@@ -13638,16 +13643,16 @@ class SM_Public {
         ), array('id' => $summons_id));
 
         if ($updated !== false) {
-            SM_Logger::log('توثيق زيارة ولي أمر', "تم تحويل الاستدعاء ID: $summons_id إلى محضر زيارة ومناقشة تقييم التعاون: $cooperation");
-            wp_send_json_success(array('message' => 'تم توثيق زيارة ولي الأمر وتقييم اللقاء بنجاح.'));
+            SM_Logger::log('توثيق زيارة ولي أمر', "تم تحويل اNoستدعاء ID: $summons_id إلى محضر زيارة ومناقشة تقييم التعاون: $cooperation");
+            wp_send_json_success(array('message' => 'تم توثيق زيارة ولي Motherر وتقييم اللقاء بنجاح.'));
         } else {
-            wp_send_json_error('فشل حفظ محضر الزيارة.');
+            wp_send_json_error('فشل Save محضر الزيارة.');
         }
     }
 
     public function ajax_submit_exit_card_request() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يجب تسجيل الدخول لتقديم طلب بطاقة تصريح الخروج.');
+            wp_send_json_error('عفواً، يجب Login لتقديم طلب بطاقة تصريح الخروج.');
         }
 
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
@@ -13656,7 +13661,7 @@ class SM_Public {
         }
 
         $student_id = intval($_POST['student_id'] ?? 0);
-        $reason     = sanitize_text_field($_POST['reason'] ?? 'استخراج بطاقة تصريح خروج لاعب');
+        $reason     = sanitize_text_field($_POST['reason'] ?? 'استخراج بطاقة تصريح خروج Noعب');
         $req_date   = sanitize_text_field($_POST['requested_date'] ?? current_time('Y-m-d'));
         $notes      = sanitize_textarea_field($_POST['notes'] ?? '');
 
@@ -13667,11 +13672,11 @@ class SM_Public {
         }
 
         if (!$student_id) {
-            wp_send_json_error('يرجى تحديد اللاعب المعني بطلب بطاقة الخروج.');
+            wp_send_json_error('يرجى تحديد الNoعب المعني بطلب بطاقة الخروج.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('اللاعب المحدد غير موجود.');
+        if (!$student) wp_send_json_error('الNoعب المحدد غير موجود.');
 
         global $wpdb;
         $inserted = $wpdb->insert("{$wpdb->prefix}sm_exit_card_requests", array(
@@ -13687,16 +13692,16 @@ class SM_Public {
 
         if ($inserted) {
             $req_id = $wpdb->insert_id;
-            SM_Logger::log('طلب بطاقة تصريح خروج', "قدم اللاعب/ولي الأمر طلب بطاقة تصريح خروج لللاعب: {$student->name} (ID: $student_id)");
+            SM_Logger::log('طلب بطاقة تصريح خروج', "قدم الNoعب/ولي Motherر طلب بطاقة تصريح خروج للNoعب: {$student->name} (ID: $student_id)");
             wp_send_json_success(array('request_id' => $req_id, 'message' => 'تم تقديم طلب بطاقة تصريح الخروج بنجاح وهو الآن قيد المراجعة الإدارية.'));
         } else {
-            wp_send_json_error('فشل حفظ طلب بطاقة الخروج.');
+            wp_send_json_error('فشل Save طلب بطاقة الخروج.');
         }
     }
 
     public function ajax_update_exit_card_request_status() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_اللاعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية المطلوبة.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_الNoعبين') && !current_user_can('manage_options') && !current_user_can('manage_students'))) {
+            wp_send_json_error('عفواً، No تمتلك الصNoحية المطلوبة.');
         }
 
         $nonce = $_POST['nonce'] ?? ($_POST['sm_nonce'] ?? '');
@@ -13724,20 +13729,20 @@ class SM_Public {
         $updated = $wpdb->update("{$wpdb->prefix}sm_exit_card_requests", $update_data, array('id' => $req_id));
 
         if ($updated !== false) {
-            wp_send_json_success(array('message' => 'تم تحديث حالة طلب بطاقة الخروج بنجاح.'));
+            wp_send_json_success(array('message' => 'تم Update حالة طلب بطاقة الخروج بنجاح.'));
         } else {
-            wp_send_json_error('فشل تحديث حالة الطلب.');
+            wp_send_json_error('فشل Update حالة الطلب.');
         }
     }
 
     public function ajax_update_summons_status() {
-        if (!is_user_logged_in() || (!current_user_can('إدارة_أولياء_الأمور') && !current_user_can('manage_options'))) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحيات المطلوبة.');
+        if (!is_user_logged_in() || (!current_user_can('إدارة_أولياء_Motherور') && !current_user_can('manage_options'))) {
+            wp_send_json_error('عفواً، No تمتلك Permissions المطلوبة.');
         }
 
         $nonce = $_POST['sm_nonce'] ?? ($_POST['nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_message_action') && !wp_verify_nonce($nonce, 'eess_admin_action') && !wp_verify_nonce($nonce, 'sm_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $summons_id = intval($_POST['summons_id'] ?? 0);
@@ -13745,17 +13750,17 @@ class SM_Public {
 
         global $wpdb;
         $wpdb->update("{$wpdb->prefix}sm_parent_summons", array('status' => $new_status), array('id' => $summons_id));
-        wp_send_json_success(array('message' => 'تم تحديث حالة الاستدعاء بنجاح.'));
+        wp_send_json_success(array('message' => 'تم Update حالة اNoستدعاء بنجاح.'));
     }
 
     public function ajax_send_message() {
         if (!is_user_logged_in()) {
-            wp_send_json_error('عفواً، يجب تسجيل الدخول لتقديم طلب استفسار.');
+            wp_send_json_error('عفواً، يجب Login لتقديم طلب استفسار.');
         }
 
         $nonce = $_POST['sm_message_nonce'] ?? ($_POST['sm_nonce'] ?? '');
         if (!wp_verify_nonce($nonce, 'sm_message_action') && !wp_verify_nonce($nonce, 'sm_admin_action')) {
-            wp_send_json_error('فشل التوثيق الأمني.');
+            wp_send_json_error('فشل التوثيق Motherني.');
         }
 
         $receiver_id = intval($_POST['receiver_id'] ?? 0);
@@ -13763,14 +13768,14 @@ class SM_Public {
         $message     = sanitize_textarea_field($_POST['message'] ?? '');
 
         if (empty($message)) {
-            wp_send_json_error('يرجى كتابة نص الاستفسار.');
+            wp_send_json_error('يرجى كتابة نص اNoستفسار.');
         }
 
         $sent = SM_DB::send_message(get_current_user_id(), $receiver_id, $message, $student_id);
         if ($sent) {
-            wp_send_json_success(array('message' => 'تم إرسال استفسارك بنجاح'));
+            wp_send_json_success(array('message' => 'تم Send استفسارك بنجاح'));
         } else {
-            wp_send_json_error('تعذر إرسال الاستفسار، يرجى المحاولة لاحقاً.');
+            wp_send_json_error('تعذر Send اNoستفسار، يرجى المحاولة Noحقاً.');
         }
     }
 
@@ -13809,7 +13814,7 @@ class SM_Public {
         $content    = sanitize_textarea_field($_POST['content'] ?? '');
 
         if (empty($subject) || empty($content) || mb_strlen($content) < 3) {
-            wp_send_json_error('يرجى اختيار النشاط الرياضي وإدخال محتوى صحيح.');
+            wp_send_json_error('يرجى اختيار Sport Activity وإدخال محتوى صحيح.');
         }
 
         global $wpdb;
@@ -13859,7 +13864,7 @@ class SM_Public {
         $user_scope = EESS_Org_Helper::get_user_scope($user_id);
         if (!$user_scope['unrestricted']) {
             if (!empty($user_scope['schools']) && !in_array($school_id, $user_scope['schools'])) {
-                wp_send_json_error('غير مصرح بالوصول لبيانات هذه الأكاديمية الرياضية.');
+                wp_send_json_error('Unauthorized بالوصول لبيانات هذه Academy الرياضية.');
             }
         }
 
@@ -13974,7 +13979,7 @@ class SM_Public {
         }
 
         if (empty($records)) {
-            wp_send_json_error('لا توجد تحضيرات دروس مرفوعة تطابق خيارات الأرشيف المحددة.');
+            wp_send_json_error('No توجد تحضيرات دروس مرفوعة تطابق خيارات الأرشيف المحددة.');
         }
 
         $upload_dir = wp_upload_dir();
@@ -14044,10 +14049,10 @@ class SM_Public {
 
         if ($added_count === 0) {
             if (file_exists($zip_path)) @unlink($zip_path);
-            wp_send_json_error('جميع سجلات تقديم تقارير أعضاء هيئة التدريب والكادر المحددة لا تحتوي على ملفات مرفقة صالحة.');
+            wp_send_json_error('جميع سجNoت تقديم تقارير أعضاء هيئة التدريب والكادر المحددة No تحتوي على ملفات مرفقة صالحة.');
         }
 
-        SM_Logger::log('bulk_download', "قام المستخدم بإجراء تنزيل بالجملة لأرشيف التحضيرات ({$added_count} ملف)");
+        SM_Logger::log('bulk_download', "قام المستخدم بإجراء Download بالجملة لأرشيف التحضيرات ({$added_count} ملف)");
 
         if (ob_get_level()) {
             ob_end_clean();
@@ -14109,7 +14114,7 @@ class SM_Public {
         $records = !empty($params) ? $wpdb->get_results($wpdb->prepare($query, $params)) : $wpdb->get_results($query);
 
         if (empty($records)) {
-            wp_send_json_error('لا توجد خطط فصلية/سنوية مرفوعة تطابق خيارات التنزيل المحددة.');
+            wp_send_json_error('No توجد خطط فصلية/Annualة مرفوعة تطابق خيارات الDownload المحددة.');
         }
 
         $upload_dir = wp_upload_dir();
@@ -14159,10 +14164,10 @@ class SM_Public {
 
         if ($added_count === 0) {
             if (file_exists($zip_path)) @unlink($zip_path);
-            wp_send_json_error('جميع سجلات الخطط المجموعة التدريبيةية المحددة لا تحتوي على ملفات مرفقة صالحة.');
+            wp_send_json_error('جميع سجNoت الخطط Training Groupية المحددة No تحتوي على ملفات مرفقة صالحة.');
         }
 
-        SM_Logger::log('bulk_download', "قام المستخدم بإجراء تنزيل بالجملة لأرشيف الخطط المجموعة التدريبيةية والسنوية ({$added_count} ملف)");
+        SM_Logger::log('bulk_download', "قام المستخدم بإجراء Download بالجملة لأرشيف الخطط Training Groupية والAnnualة ({$added_count} ملف)");
 
         if (ob_get_level()) {
             ob_end_clean();
@@ -14182,7 +14187,7 @@ class SM_Public {
 
     public function ajax_eess_save_department() {
         if (!is_user_logged_in() || (!current_user_can('manage_options') && !current_user_can('إدارة_النظام'))) {
-            wp_send_json_error('غير مصرح لك بإجراء هذا التعديل');
+            wp_send_json_error('Unauthorized لك بإجراء هذا الEdit');
         }
         check_ajax_referer('sm_admin_action', 'nonce');
 
@@ -14213,12 +14218,12 @@ class SM_Public {
             wp_send_json_error($res->get_error_message());
         }
 
-        wp_send_json_success(array('message' => 'تم حفظ بيانات القسم المركزي بنجاح'));
+        wp_send_json_success(array('message' => 'تم Save بيانات القسم المركزي بنجاح'));
     }
 
     public function ajax_eess_delete_department() {
         if (!is_user_logged_in() || (!current_user_can('manage_options') && !current_user_can('إدارة_النظام'))) {
-            wp_send_json_error('غير مصرح لك بإجراء هذا التعديل');
+            wp_send_json_error('Unauthorized لك بإجراء هذا الEdit');
         }
         check_ajax_referer('sm_admin_action', 'nonce');
 
@@ -14232,12 +14237,12 @@ class SM_Public {
             wp_send_json_error($res->get_error_message());
         }
 
-        wp_send_json_success(array('message' => 'تم حذف القسم بنجاح'));
+        wp_send_json_success(array('message' => 'تم Delete القسم بنجاح'));
     }
 
     public function ajax_eess_save_subject() {
         if (!is_user_logged_in() || (!current_user_can('manage_options') && !current_user_can('إدارة_النظام'))) {
-            wp_send_json_error('غير مصرح لك بإجراء هذا التعديل');
+            wp_send_json_error('Unauthorized لك بإجراء هذا الEdit');
         }
         check_ajax_referer('sm_admin_action', 'nonce');
 
@@ -14246,7 +14251,7 @@ class SM_Public {
         $name    = sanitize_text_field($_POST['name'] ?? '');
 
         if (empty($name)) {
-            wp_send_json_error('اسم النشاط الرياضي الدراسية مطلوب');
+            wp_send_json_error('اسم Sport Activity الدراسية مطلوب');
         }
 
         $data = array(
@@ -14267,12 +14272,12 @@ class SM_Public {
             wp_send_json_error($res->get_error_message());
         }
 
-        wp_send_json_success(array('message' => 'تم حفظ النشاط الرياضي الدراسية بنجاح'));
+        wp_send_json_success(array('message' => 'تم Save Sport Activity الدراسية بنجاح'));
     }
 
     public function ajax_eess_save_grade() {
         if (!is_user_logged_in() || (!current_user_can('manage_options') && !current_user_can('إدارة_النظام'))) {
-            wp_send_json_error('غير مصرح لك بإجراء هذا التعديل');
+            wp_send_json_error('Unauthorized لك بإجراء هذا الEdit');
         }
         check_ajax_referer('sm_admin_action', 'nonce');
 
@@ -14281,7 +14286,7 @@ class SM_Public {
         $name      = sanitize_text_field($_POST['name'] ?? '');
 
         if (empty($name)) {
-            wp_send_json_error('اسم المجموعة التدريبية الدراسي مطلوب');
+            wp_send_json_error('اسم Training Group الدراسي مطلوب');
         }
 
         if ($grade_id > 0) {
@@ -14294,7 +14299,7 @@ class SM_Public {
             wp_send_json_error($res->get_error_message());
         }
 
-        wp_send_json_success(array('message' => 'تم حفظ المجموعة التدريبية الدراسي بنجاح'));
+        wp_send_json_success(array('message' => 'تم Save Training Group الدراسي بنجاح'));
     }
 
     /*
@@ -14324,7 +14329,7 @@ class SM_Public {
 
         // Only search when at least 5 characters are typed
         if (mb_strlen($clean_query) < 5) {
-            wp_send_json_error('يرجى كتابة 5 أحرف على الأقل لبدء البحث المباشر.');
+            wp_send_json_error('يرجى كتابة 5 أحرف على الأقل لبدء الSearch المباشر.');
         }
 
         global $wpdb;
@@ -14352,7 +14357,7 @@ class SM_Public {
         }
 
         if (empty($results)) {
-            wp_send_json_error('لم يتم العثور على لاعب يطابق الاسم المدخل.');
+            wp_send_json_error('لم يتم العثور على Noعب يطابق اNoسم المدخل.');
         }
 
         $norm_query = self::normalize_arabic_str($clean_query);
@@ -14366,7 +14371,7 @@ class SM_Public {
                 'name'         => $s->name,
                 'display_name' => $s->name,
                 'student_code' => $s->student_code ?: ('STU-' . $s->id),
-                'class_name'   => $s->class_name ?: 'المجموعة التدريبية الدراسي',
+                'class_name'   => $s->class_name ?: 'Training Group الدراسي',
                 'section'      => $s->section ?: 'أ',
                 'photo_url'    => $s->photo_url ?: '',
                 'exact_match'  => $exact_match
@@ -14394,7 +14399,7 @@ class SM_Public {
 
         $student = SM_DB::get_student_by_id($student_id);
         if (!$student) {
-            wp_send_json_error('بيانات اللاعب غير صحيحة أو تم نقل الملف.');
+            wp_send_json_error('بيانات الNoعب غير صحيحة أو تم نقل الملف.');
         }
 
         // Service 1: Data Update mode - No pre-verification by code/national_id required
@@ -14402,7 +14407,7 @@ class SM_Public {
             $matched = true;
         } else {
             if (empty($verify_code)) {
-                wp_send_json_error('يرجى إدخال كود اللاعب أو رقم الهوية الوطنية للتحقق.');
+                wp_send_json_error('يرجى إدخال كود الNoعب أو رقم National ID للتحقق.');
             }
             $clean_input = strtolower(trim($verify_code));
             $stu_code    = strtolower(trim($student->student_code ?: ''));
@@ -14420,9 +14425,9 @@ class SM_Public {
 
             if (!$matched) {
                 if (!$code_matched) {
-                    wp_send_json_error('كود اللاعب أو رقم الهوية الوطنية المدخل غير مطابق لبيانات اللاعب المسجلة.');
+                    wp_send_json_error('كود الNoعب أو رقم National ID المدخل غير مطابق لبيانات الNoعب المسجلة.');
                 } else {
-                    wp_send_json_error('تاريخ الميلاد المدخل غير مطابق لسجلات اللاعب المسجلة.');
+                    wp_send_json_error('Date of Birth المدخل غير مطابق لسجNoت الNoعب المسجلة.');
                 }
             }
         }
@@ -14492,7 +14497,7 @@ class SM_Public {
                 'id' => $student->id,
                 'name' => $student->name,
                 'student_code' => $student->student_code ?: ('STU-' . $student->id),
-                'class_name' => $student->class_name ?: 'المجموعة التدريبية الدراسي',
+                'class_name' => $student->class_name ?: 'Training Group الدراسي',
                 'section' => $student->section ?: 'أ',
                 'photo_url' => $student->photo_url ?: '',
                 'guardian_phone' => ($student->guardian_phone ?? '') ?: '',
@@ -14518,7 +14523,7 @@ class SM_Public {
             'total_prev_requests' => $total_prev_requests,
             'fee_required' => ($total_prev_requests >= 1),
             'fee_amount' => ($total_prev_requests >= 1) ? 10 : 0,
-            'fee_notice' => ($total_prev_requests >= 1) ? 'تم إصدار بطاقة تصريح خروج سابقة لهذا اللاعب. يرجى التكرم بمراجعة قسم السلوك بالأكاديمية الرياضية لسداد رسم إعادة الطباعة وقدره (10 دراهم إماراتية) لإتمام معالجة الطلب.' : '',
+            'fee_notice' => ($total_prev_requests >= 1) ? 'تم Issue بطاقة تصريح خروج سابقة لهذا الNoعب. يرجى التكرم بمراجعة قسم السلوك بAcademy الرياضية لسداد رسم إعادة الPrint وقدره (10 دراهم إماراتية) لإتمام معالجة الطلب.' : '',
             'exceeded_limit' => $exceeded_limit,
             'max_allowed' => $max_reqs
         ));
@@ -14527,18 +14532,18 @@ class SM_Public {
     public function ajax_public_update_student_missing_data() {
         $settings = get_option('sm_exit_card_settings', array());
         if (($settings['service_update_data'] ?? 'yes') === 'no') {
-            wp_send_json_error('خدمة تحديث بيانات اللاعب غير متاحة حالياً بالنظام.');
+            wp_send_json_error('خدمة Update بيانات الNoعب غير متاحة حالياً بالنظام.');
         }
 
         $student_id  = intval($_POST['student_id'] ?? 0);
 
         if (!$student_id) {
-            wp_send_json_error('يرجى تحديد اللاعب المراد تحديث بياناته.');
+            wp_send_json_error('يرجى تحديد الNoعب المراد Update بياناته.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
         if (!$student) {
-            wp_send_json_error('سجل اللاعب غير موجود.');
+            wp_send_json_error('سجل الNoعب غير موجود.');
         }
 
         $update_data = array();
@@ -14564,7 +14569,7 @@ class SM_Public {
             }
             $digits = ltrim($digits, '0');
             if (strlen($digits) < 7) {
-                wp_send_json_error('يرجى إدخال رقم هاتف إماراتي صحيح لولي الأمر.');
+                wp_send_json_error('يرجى إدخال رقم هاتف إماراتي صحيح لولي Motherر.');
             }
             $update_data['guardian_phone'] = '+971 ' . $digits;
         }
@@ -14574,7 +14579,7 @@ class SM_Public {
             $raw_dob = trim(sanitize_text_field($_POST['dob']));
             if (!empty($raw_dob)) {
                 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $raw_dob)) {
-                    wp_send_json_error('صيغة تاريخ الميلاد غير صحيحة. استخدم YYYY-MM-DD.');
+                    wp_send_json_error('صيغة Date of Birth غير صحيحة. استخدم YYYY-MM-DD.');
                 }
                 $update_data['dob'] = $raw_dob;
             }
@@ -14583,8 +14588,8 @@ class SM_Public {
         // 3. Gender
         if (isset($_POST['gender'])) {
             $g = sanitize_text_field($_POST['gender']);
-            if (in_array($g, array('ذكر', 'أنثى', 'Male', 'Female'), true)) {
-                $update_data['gender'] = ($g === 'Female' || $g === 'أنثى') ? 'أنثى' : 'ذكر';
+            if (in_array($g, array('Male', 'Female', 'Male', 'Female'), true)) {
+                $update_data['gender'] = ($g === 'Female' || $g === 'Female') ? 'Female' : 'Male';
             }
         }
 
@@ -14614,7 +14619,7 @@ class SM_Public {
             global $wpdb;
             $existing_nat = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}sm_students WHERE national_id = %s AND id != %d", $nid, $student_id));
             if ($existing_nat) {
-                wp_send_json_error('رقم الهوية الوطنية مسجل بالفعل للاعب آخر.');
+                wp_send_json_error('رقم National ID مسجل بالفعل لNoعب آخر.');
             }
             $update_data['national_id'] = $nid;
         }
@@ -14651,10 +14656,10 @@ class SM_Public {
         $nat_id_val   = !empty($updated_stu->national_id) ? $updated_stu->national_id : 'غير محدد';
 
         wp_send_json_success(array(
-            'message' => 'تم حفظ وتحديث بيانات اللاعب بنجاح.',
+            'message' => 'تم Save وUpdate بيانات الNoعب بنجاح.',
             'student_code' => $stu_code_val,
             'national_id'  => $nat_id_val,
-            'notice' => 'تنبيه هام: يرجى الاحتفاظ بكود اللاعب الخاص بك (' . $stu_code_val . ') أو رقم الهوية الوطنية (' . $nat_id_val . ') بطريقة آمنة، حيث يلزم أدائهما للتحقق التلقائي لبقية خدمات البوابة.',
+            'notice' => 'تنبيه هام: يرجى اNoحتفاظ بكود الNoعب الخاص بك (' . $stu_code_val . ') أو رقم National ID (' . $nat_id_val . ') بطريقة آمنة، حيث يلزم أدائهما للتحقق التلقائي لبقية خدمات البوابة.',
             'remaining_missing' => $rem_missing,
             'student' => array(
                 'id' => $updated_stu->id,
@@ -14682,7 +14687,7 @@ class SM_Public {
         $verify_code = sanitize_text_field($_POST['verify_code'] ?? '');
         $parent_name = sanitize_text_field($_POST['parent_name'] ?? '');
         $parent_phone = sanitize_text_field($_POST['parent_phone'] ?? '');
-        $reason = sanitize_text_field($_POST['reason'] ?? 'استخراج بطاقة تصريح خروج لاعب');
+        $reason = sanitize_text_field($_POST['reason'] ?? 'استخراج بطاقة تصريح خروج Noعب');
         $declaration = intval($_POST['declaration'] ?? 0);
         $sig_raw = $_POST['signature_data'] ?? '';
 
@@ -14692,7 +14697,7 @@ class SM_Public {
 
         $student = SM_DB::get_student_by_id($student_id);
         if (!$student) {
-            wp_send_json_error('بيانات اللاعب غير صالحة.');
+            wp_send_json_error('بيانات الNoعب غير صالحة.');
         }
 
         // Validate verification code matches student code or national ID
@@ -14708,7 +14713,7 @@ class SM_Public {
         }
 
         if (!$matched) {
-            wp_send_json_error('رمز التحقق غير مطابق لبيانات اللاعب المسجلة.');
+            wp_send_json_error('رمز التحقق غير مطابق لبيانات الNoعب المسجلة.');
         }
 
         // Validate signature Data URI pattern (strictly image/png, jpeg, webp base64)
@@ -14750,10 +14755,10 @@ class SM_Public {
                     update_user_meta($student->parent_user_id, 'eess_profile_photo', $new_photo_url);
                 }
             } else {
-                wp_send_json_error('فشل رفع الصورة الرسمية لللاعب: ' . $attachment_id->get_error_message());
+                wp_send_json_error('فشل رفع الصورة الرسمية للNoعب: ' . $attachment_id->get_error_message());
             }
         } elseif (empty($student->photo_url)) {
-            wp_send_json_error('تنبيه أمني: يتطلب النظام رفع صورة شخصية رسمية معتمدة لللاعب لإتمام طلب تصريح الخروج.');
+            wp_send_json_error('تنبيه أمني: يتطلب النظام رفع صورة شخصية رسمية معتمدة للNoعب لإتمام طلب تصريح الخروج.');
         }
 
         $acad_year = '2025/2026';
@@ -14765,7 +14770,7 @@ class SM_Public {
         ));
 
         if ($active_req) {
-            wp_send_json_error('يوجد طلب نشط سابق لهذا اللاعب برقم مرجعي (' . ($active_req->reference_no ?: $active_req->id) . '). يرجى متابعة حالة الطلب القائم.');
+            wp_send_json_error('يوجد طلب Active سابق لهذا الNoعب برقم مرجعي (' . ($active_req->reference_no ?: $active_req->id) . '). يرجى متابعة حالة الطلب القائم.');
         }
 
         $ref_no = 'EXT-' . date('Y') . '-' . rand(10000, 99999);
@@ -14791,14 +14796,14 @@ class SM_Public {
 
         if ($inserted) {
             $req_id = $wpdb->insert_id;
-            SM_Logger::log('طلب تصريح خروج عام', "تم تسجيل طلب تصريح خروج برقم مرجعي: $ref_no لللاعب: {$student->name}");
+            SM_Logger::log('طلب تصريح خروج عام', "تم تسجيل طلب تصريح خروج برقم مرجعي: $ref_no للNoعب: {$student->name}");
             wp_send_json_success(array(
                 'request_id' => $req_id,
                 'reference_no' => $ref_no,
-                'message' => 'تم تقديم واستلام طلب تصريح الخروج بنجاح وهو الآن قيد المراجعة الإدارية.'
+                'message' => 'تم تقديم واستNoم طلب تصريح الخروج بنجاح وهو الآن قيد المراجعة الإدارية.'
             ));
         } else {
-            wp_send_json_error('فشل حفظ طلب تصريح الخروج في قاعدة البيانات.');
+            wp_send_json_error('فشل Save طلب تصريح الخروج في قاعدة البيانات.');
         }
     }
 
@@ -14806,23 +14811,23 @@ class SM_Public {
         $labels = array(
             'submitted' => 'تم تقديم الطلب',
             'under_review' => 'قيد المراجعة والتدقيق',
-            'parent_confirmation' => 'بانتظار تأكيد ولي الأمر',
-            'approved' => 'تمت الموافقة الرسمية',
-            'preparing' => 'جاري تجهيز وطباعة البطاقة',
-            'issued' => 'تم إصدار وتسليم البطاقة',
-            'rejected' => 'تم رفض الطلب'
+            'parent_confirmation' => 'بانتظار Confirm ولي Motherر',
+            'approved' => 'تمت الApproveة الرسمية',
+            'preparing' => 'جاري تجهيز وPrint البطاقة',
+            'issued' => 'تم Issue وتسليم البطاقة',
+            'rejected' => 'تم Reject الطلب'
         );
         return $labels[$status] ?? 'قيد المعالجة';
     }
 
     public static function eess_get_exit_card_status_desc($status) {
         $descs = array(
-            'submitted' => 'تم استلام طلبكم إلكترونياً بنجاح وجاري تحويله للإدارة المختصة.',
-            'under_review' => 'يقوم قسم شؤون اللاعبين بمراجعة بيانات اللاعب والتأكد من استيفاء الشروط.',
-            'parent_confirmation' => 'يرجى التكرم بالرد على اتصال الأكاديمية الرياضية لتأكيد تفاصيل الاستئذان.',
-            'approved' => 'تمت موافقة إدارة الأكاديمية الرياضية على إصدار بطاقة تصريح الخروج.',
-            'preparing' => 'يجري حالياً طباعة وتجهيز البطاقة الرقمية وتغليفها.',
-            'issued' => 'تم إصدار وتفعيل تصريح الخروج بنجاح وهو جاهز للاستخدام.',
+            'submitted' => 'تم استNoم طلبكم إلكترونياً بنجاح وجاري تحويله للإدارة المختصة.',
+            'under_review' => 'يقوم قسم Player Affairs بمراجعة بيانات الNoعب والتأكد من استيفاء الشروط.',
+            'parent_confirmation' => 'يرجى التكرم بالرد على اتصال Academy الرياضية لConfirm تفاصيل اNoستئذان.',
+            'approved' => 'تمت Approveة إدارة Academy الرياضية على Issue بطاقة تصريح الخروج.',
+            'preparing' => 'يجري حالياً Print وتجهيز البطاقة الرقمية وتغليفها.',
+            'issued' => 'تم Issue وتفعيل تصريح الخروج بنجاح وهو جاهز لNoستخدام.',
             'rejected' => 'عذراً، تعذر قبول الطلب. يُرجى مراجعة قسم قسم قسم قسم السلوك أو الإدارة.'
         );
         return $descs[$status] ?? 'الطلب تحت الإجراء الإداري المعتمد.';
@@ -14834,8 +14839,8 @@ class SM_Public {
         $roles = (array) $user->roles;
         return (
             current_user_can('manage_options') ||
-            current_user_can('إدارة_اللاعبين') ||
-            current_user_can('شؤون_اللاعبين') ||
+            current_user_can('إدارة_الNoعبين') ||
+            current_user_can('شؤون_الNoعبين') ||
             current_user_can('manage_students') ||
             in_array('administrator', $roles, true) ||
             in_array('sm_system_admin', $roles, true) ||
@@ -14849,7 +14854,7 @@ class SM_Public {
     public function ajax_public_check_previous_request() {
         $query = sanitize_text_field($_POST['search_query'] ?? '');
         if (empty($query)) {
-            wp_send_json_error('يرجى إدخال رقم الهوية الوطنية أو الرقم المرجعي للطلب.');
+            wp_send_json_error('يرجى إدخال رقم National ID أو الرقم المرجعي للطلب.');
         }
 
         global $wpdb;
@@ -14875,7 +14880,7 @@ class SM_Public {
 
         wp_send_json_success(array(
             'reference_no' => $req->reference_no ?: ('EXT-' . date('Y') . '-' . $req->id),
-            'student_name' => $display_stu_name ?: 'اللاعب/ة',
+            'student_name' => $display_stu_name ?: 'الNoعب/ة',
             'class_name' => $req->class_name ?: '-',
             'section' => $req->section ?: '-',
             'status' => $req->status,
@@ -14888,7 +14893,7 @@ class SM_Public {
     public function ajax_get_exit_card_request_details() {
         check_ajax_referer('sm_admin_action', 'nonce');
         if (!self::is_card_admin()) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية المطلوبة.');
+            wp_send_json_error('عفواً، No تمتلك الصNoحية المطلوبة.');
         }
 
         $req_id = intval($_POST['request_id'] ?? 0);
@@ -14933,7 +14938,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!self::is_card_admin()) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية الكافية.');
+            wp_send_json_error('عفواً، No تمتلك الصNoحية الكافية.');
         }
 
         $portal_mode = sanitize_text_field($_POST['portal_mode'] ?? 'card_application');
@@ -14974,16 +14979,16 @@ class SM_Public {
 
         update_option('sm_exit_card_settings', $updated);
 
-        wp_send_json_success(array('message' => 'تم حفظ إعدادات البوابة وضوابط التحديث بنجاح.'));
+        wp_send_json_success(array('message' => 'تم Save إعدادات البوابة وضوابط الUpdate بنجاح.'));
     }
 
     public static function eess_get_verification_status_label($vstatus) {
         $labels = array(
-            'pending_verification' => 'قيد التحقق من ولي الأمر',
-            'parent_confirmed'     => 'تم تأكيد ولي الأمر',
-            'parent_not_confirmed' => 'لم يتم التأكيد'
+            'pending_verification' => 'قيد التحقق من ولي Motherر',
+            'parent_confirmed'     => 'تم Confirm ولي Motherر',
+            'parent_not_confirmed' => 'لم يتم الConfirm'
         );
-        return $labels[$vstatus] ?? 'قيد التحقق من ولي الأمر';
+        return $labels[$vstatus] ?? 'قيد التحقق من ولي Motherر';
     }
 
     public static function normalize_uae_whatsapp_phone($phone) {
@@ -15002,7 +15007,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!self::is_card_admin()) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية الكافية.');
+            wp_send_json_error('عفواً، No تمتلك الصNoحية الكافية.');
         }
 
         SM_DB::ensure_exit_card_requests_columns_exist();
@@ -15053,7 +15058,7 @@ class SM_Public {
             }
 
             $wpdb->update("{$wpdb->prefix}sm_exit_card_requests", array('status' => $new_status), array('id' => $req_id));
-            wp_send_json_success(array('message' => 'تم تحديث حالة الطلب بنجاح.'));
+            wp_send_json_success(array('message' => 'تم Update حالة الطلب بنجاح.'));
 
         } elseif ($action_type === 'update_verification_status') {
             $req_id = intval($_POST['request_id'] ?? 0);
@@ -15068,7 +15073,7 @@ class SM_Public {
             ), array('id' => $req_id));
 
             wp_send_json_success(array(
-                'message' => 'تم تحديث حالة تحقق ولي الأمر بنجاح.',
+                'message' => 'تم Update حالة تحقق ولي Motherر بنجاح.',
                 'verification_status' => $vstatus,
                 'verification_label' => self::eess_get_verification_status_label($vstatus)
             ));
@@ -15079,7 +15084,7 @@ class SM_Public {
 
             // Delete ONLY the request record from sm_exit_card_requests (preserving student record)
             $wpdb->delete("{$wpdb->prefix}sm_exit_card_requests", array('id' => $req_id));
-            wp_send_json_success(array('message' => 'تم حذف طلب تصريح الخروج بنجاح مع الحفاظ على سجل اللاعب.'));
+            wp_send_json_success(array('message' => 'تم Delete طلب تصريح الخروج بنجاح مع الحفاظ على سجل الNoعب.'));
         }
 
         wp_send_json_error('إجراء غير معروف.');
@@ -15090,14 +15095,14 @@ class SM_Public {
 
         $settings = get_option('sm_exit_card_settings', array());
         if (($settings['service_complaint'] ?? 'yes') === 'no') {
-            wp_send_json_error('خدمة تقديم الشكاوى والاقتراحات غير متاحة حالياً بالنظام.');
+            wp_send_json_error('خدمة تقديم الشكاوى واNoقتراحات غير متاحة حالياً بالنظام.');
         }
 
         $student_id = intval($_POST['student_id'] ?? 0);
         $title      = sanitize_text_field($_POST['title'] ?? '');
         $details    = sanitize_textarea_field($_POST['details'] ?? '');
 
-        if (!$student_id) wp_send_json_error('يرجى تحديد اللاعب المعني بالشكوى.');
+        if (!$student_id) wp_send_json_error('يرجى تحديد الNoعب المعني بالشكوى.');
         if (empty($title)) wp_send_json_error('يرجى كتابة عنوان الشكوى.');
         if (empty($details)) wp_send_json_error('يرجى كتابة تفاصيل الشكوى.');
 
@@ -15106,7 +15111,7 @@ class SM_Public {
         }
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('سجل اللاعب غير موجود.');
+        if (!$student) wp_send_json_error('سجل الNoعب غير موجود.');
 
         global $wpdb;
         $ref_no = 'CMP-' . date('Y') . '-' . rand(10000, 99999);
@@ -15122,14 +15127,14 @@ class SM_Public {
 
         if ($inserted) {
             $cmp_id = $wpdb->insert_id;
-            SM_Logger::log('تقديم شكوى', "تم تسجيل شكوى جديدة برقم: $ref_no لللاعب: {$student->name}");
+            SM_Logger::log('تقديم شكوى', "تم تسجيل شكوى جديدة برقم: $ref_no للNoعب: {$student->name}");
             wp_send_json_success(array(
                 'complaint_id' => $cmp_id,
                 'reference_no' => $ref_no,
                 'message'      => 'تم تسجيل وتسليم الشكوى بنجاح وهي الآن قيد المتابعة الإدارية.'
             ));
         } else {
-            wp_send_json_error('فشل حفظ الشكوى بالنظام.');
+            wp_send_json_error('فشل Save الشكوى بالنظام.');
         }
     }
 
@@ -15137,7 +15142,7 @@ class SM_Public {
         SM_DB::ensure_portal_tables_exist();
         $query = sanitize_text_field($_POST['search_query'] ?? '');
         if (empty($query)) {
-            wp_send_json_error('يرجى إدخال رقم الهوية الوطنية أو كود اللاعب أو الرقم المرجعي للشكوى.');
+            wp_send_json_error('يرجى إدخال رقم National ID أو كود الNoعب أو الرقم المرجعي للشكوى.');
         }
 
         global $wpdb;
@@ -15165,7 +15170,7 @@ class SM_Public {
             'submitted'    => 'تم تقديم الشكوى',
             'under_review' => 'قيد الدراسة والتدقيق الإداري',
             'resolved'     => 'تمت معالجة الشكوى بنجاح',
-            'rejected'     => 'تم حفظ الشكوى / غير مستوفية'
+            'rejected'     => 'تم Save الشكوى / غير مستوفية'
         );
 
         wp_send_json_success(array(
@@ -15176,7 +15181,7 @@ class SM_Public {
             'details'      => $cmp->details,
             'status'       => $cmp->status,
             'status_label' => $status_labels[$cmp->status] ?? 'قيد المتابعة',
-            'admin_notes'  => $cmp->admin_notes ?: 'لا توجد ملاحظات إدارية إضافية حتى الآن.',
+            'admin_notes'  => $cmp->admin_notes ?: 'No توجد Notes إدارية إضافية حتى الآن.',
             'created_at'   => date_i18n('Y-m-d H:i', strtotime($cmp->created_at))
         ));
     }
@@ -15186,7 +15191,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!self::is_card_admin()) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية الكافية.');
+            wp_send_json_error('عفواً، No تمتلك الصNoحية الكافية.');
         }
 
         SM_DB::ensure_portal_tables_exist();
@@ -15206,7 +15211,7 @@ class SM_Public {
                 'submitted'    => 'تم تقديم الشكوى',
                 'under_review' => 'قيد الدراسة والتدقيق',
                 'resolved'     => 'تمت المعالجة بنجاح',
-                'rejected'     => 'تم الحفظ / الرفض'
+                'rejected'     => 'تم الSave / الReject'
             );
 
             foreach ($complaints as $c) {
@@ -15243,14 +15248,14 @@ class SM_Public {
                 'admin_notes' => $admin_notes
             ), array('id' => $cmp_id));
 
-            wp_send_json_success(array('message' => 'تم تحديث حالة الشكوى والملاحظات بنجاح.'));
+            wp_send_json_success(array('message' => 'تم Update حالة الشكوى والNotes بنجاح.'));
 
         } elseif ($action_type === 'delete') {
             $cmp_id = intval($_POST['complaint_id'] ?? 0);
             if (!$cmp_id) wp_send_json_error('معرف الشكوى غير صحيح.');
 
             $wpdb->delete("{$wpdb->prefix}sm_complaints", array('id' => $cmp_id));
-            wp_send_json_success(array('message' => 'تم حذف سجل الشكوى بنجاح.'));
+            wp_send_json_success(array('message' => 'تم Delete سجل الشكوى بنجاح.'));
         }
 
         wp_send_json_error('إجراء غير معروف.');
@@ -15261,7 +15266,7 @@ class SM_Public {
 
         $settings = get_option('sm_exit_card_settings', array());
         if (($settings['service_sports'] ?? 'yes') === 'no') {
-            wp_send_json_error('خدمة التسجيل بالأنشطة الرياضية غير متاحة حالياً بالنظام.');
+            wp_send_json_error('خدمة التسجيل بSports Activities غير متاحة حالياً بالنظام.');
         }
 
         $student_id  = intval($_POST['student_id'] ?? 0);
@@ -15270,15 +15275,15 @@ class SM_Public {
         $verify_code = sanitize_text_field($_POST['verify_code'] ?? '');
         $dob_input   = sanitize_text_field($_POST['dob'] ?? '');
 
-        if (!$student_id) wp_send_json_error('يرجى تحديد اللاعب للتسجيل بالأنشطة الرياضية.');
+        if (!$student_id) wp_send_json_error('يرجى تحديد الNoعب للتسجيل بSports Activities.');
         if (empty($sports)) wp_send_json_error('يرجى اختيار نشاط رياضي واحد على الأقل.');
 
         if (count($sports) > 2) {
-            wp_send_json_error('تنبيه: يمكن لكل لاعب التقديم في نشاطين رياضيين بحد أقصى.');
+            wp_send_json_error('تنبيه: يمكن لكل Noعب التقديم في نشاطين رياضيين بحد أقصى.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
-        if (!$student) wp_send_json_error('سجل اللاعب غير موجود.');
+        if (!$student) wp_send_json_error('سجل الNoعب غير موجود.');
 
         // Validate 3-factor verification if verify_code provided
         if (!empty($verify_code)) {
@@ -15295,7 +15300,7 @@ class SM_Public {
             }
 
             if (!$code_matched || !$dob_matched) {
-                wp_send_json_error('بيانات التحقق (الكود/الهوية الوطنية أو تاريخ الميلاد) غير مطابقة لسجل اللاعب.');
+                wp_send_json_error('بيانات التحقق (الكود/National ID أو Date of Birth) غير مطابقة لسجل الNoعب.');
             }
         }
 
@@ -15324,8 +15329,8 @@ class SM_Public {
             ));
         }
 
-        SM_Logger::log('تسجيل أنشطة رياضية', "تم تسجيل/تحديث الأنشطة الرياضية لللاعب: {$student->name} (" . implode(', ', $sports) . ")");
-        wp_send_json_success(array('message' => 'تم تسجيل رغبات اللاعب بالأنشطة الرياضية بنجاح.'));
+        SM_Logger::log('تسجيل أActiveة رياضية', "تم تسجيل/Update Sports Activities للNoعب: {$student->name} (" . implode(', ', $sports) . ")");
+        wp_send_json_success(array('message' => 'تم تسجيل رغبات الNoعب بSports Activities بنجاح.'));
     }
 
     public function ajax_manage_sports_registrations() {
@@ -15333,7 +15338,7 @@ class SM_Public {
             wp_send_json_error('Security check failed');
         }
         if (!self::is_card_admin()) {
-            wp_send_json_error('عفواً، لا تمتلك الصلاحية الكافية.');
+            wp_send_json_error('عفواً، No تمتلك الصNoحية الكافية.');
         }
 
         SM_DB::ensure_portal_tables_exist();
@@ -15375,14 +15380,14 @@ class SM_Public {
             }
 
             $wpdb->update("{$wpdb->prefix}sm_sports_registrations", array('status' => $new_status), array('id' => $reg_id));
-            wp_send_json_success(array('message' => 'تم تحديث حالة التسجيل بنجاح.'));
+            wp_send_json_success(array('message' => 'تم Update حالة التسجيل بنجاح.'));
 
         } elseif ($action_type === 'delete') {
             $reg_id = intval($_POST['registration_id'] ?? 0);
             if (!$reg_id) wp_send_json_error('معرف التسجيل غير صحيح.');
 
             $wpdb->delete("{$wpdb->prefix}sm_sports_registrations", array('id' => $reg_id));
-            wp_send_json_success(array('message' => 'تم حذف طلب التسجيل بالنشاط الرياضي بنجاح.'));
+            wp_send_json_success(array('message' => 'تم Delete طلب التسجيل بSport Activity بنجاح.'));
         }
 
         wp_send_json_error('إجراء غير معروف.');
@@ -15412,20 +15417,20 @@ class SM_Public {
         $student_id = intval($_POST['student_id'] ?? 0);
 
         if (!self::is_portal_token_valid($token)) {
-            wp_send_json_error('جلسة البوابة غير صالحة أو منتهية. يرجى إعادة إدخال كلمة مرور البوابة.');
+            wp_send_json_error('جلسة البوابة غير صالحة أو Expiredة. يرجى إعادة إدخال كلمة مرور البوابة.');
         }
 
         if (!$student_id) {
-            wp_send_json_error('معرف اللاعب غير محدد.');
+            wp_send_json_error('معرف الNoعب غير محدد.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
         if (!$student) {
-            wp_send_json_error('سجل اللاعب غير موجود بقاعدة البيانات.');
+            wp_send_json_error('سجل الNoعب غير موجود بقاعدة البيانات.');
         }
 
         if (empty($_FILES['student_photo']['name'])) {
-            wp_send_json_error('يرجى اختيار صورة شخصية لللاعب قبل الرفع.');
+            wp_send_json_error('يرجى اختيار صورة شخصية للNoعب قبل الرفع.');
         }
 
         require_once(ABSPATH . 'wp-admin/includes/file.php');
@@ -15445,7 +15450,7 @@ class SM_Public {
 
         $attachment_id = media_handle_upload('student_photo', 0);
         if (is_wp_error($attachment_id)) {
-            wp_send_json_error('فشل حفظ الصورة: ' . $attachment_id->get_error_message());
+            wp_send_json_error('فشل Save الصورة: ' . $attachment_id->get_error_message());
         }
 
         $attached_file = get_attached_file($attachment_id);
@@ -15472,10 +15477,10 @@ class SM_Public {
             update_user_meta($student->parent_user_id, 'eess_profile_photo', $new_photo_url);
         }
 
-        SM_Logger::log('رفع صورة لاعب', "تم التقاط/تحديث الصورة الشخصية لللاعب: {$student->name} (ID: {$student_id})");
+        SM_Logger::log('رفع صورة Noعب', "تم التقاط/Update الصورة الشخصية للNoعب: {$student->name} (ID: {$student_id})");
 
         wp_send_json_success(array(
-            'message'          => 'تم رفع وتحديث صورة اللاعب بنجاح.',
+            'message'          => 'تم رفع وUpdate صورة الNoعب بنجاح.',
             'photo_url'        => $new_photo_url,
             'photo_updated_at' => $formatted_time
         ));
@@ -15486,16 +15491,16 @@ class SM_Public {
         $student_id = intval($_POST['student_id'] ?? 0);
 
         if (!self::is_portal_token_valid($token)) {
-            wp_send_json_error('جلسة البوابة غير صالحة أو منتهية. يرجى إعادة إدخال كلمة مرور البوابة.');
+            wp_send_json_error('جلسة البوابة غير صالحة أو Expiredة. يرجى إعادة إدخال كلمة مرور البوابة.');
         }
 
         if (!$student_id) {
-            wp_send_json_error('معرف اللاعب غير محدد.');
+            wp_send_json_error('معرف الNoعب غير محدد.');
         }
 
         $student = SM_DB::get_student_by_id($student_id);
         if (!$student) {
-            wp_send_json_error('سجل اللاعب غير موجود.');
+            wp_send_json_error('سجل الNoعب غير موجود.');
         }
 
         global $wpdb;
@@ -15514,7 +15519,7 @@ class SM_Public {
             $photo_time_formatted = !empty($photo_updated_at) ? date_i18n('Y-m-d h:i A', strtotime($photo_updated_at)) : 'غير محدد';
 
             wp_send_json_success(array(
-                'message'          => 'يوجد طلب تصريح خروج نشط بالفعل لهذا اللاعب.',
+                'message'          => 'يوجد طلب تصريح خروج Active بالفعل لهذا الNoعب.',
                 'reference_no'     => $existing_req->reference_no,
                 'request_id'       => $existing_req->id,
                 'status'           => $existing_req->status,
@@ -15538,7 +15543,7 @@ class SM_Public {
             'parent_name'         => ($student->guardian_name ?? '') ?: ($student->name . ' (ولي أمر)'),
             'parent_phone'        => ($student->guardian_phone ?? '') ?: '+971500000000',
             'academic_year'       => $acad_year,
-            'reason'              => 'طلب تصريح خروج لاعب عبر البوابة السريعة',
+            'reason'              => 'طلب تصريح خروج Noعب عبر البوابة السريعة',
             'requested_date'      => current_time('Y-m-d'),
             'status'              => 'submitted',
             'verification_status' => 'verified_by_portal',
@@ -15554,14 +15559,14 @@ class SM_Public {
         $photo_updated_at = SM_DB::get_student_meta($student_id, 'photo_updated_at', true);
         $photo_time_formatted = !empty($photo_updated_at) ? date_i18n('Y-m-d h:i A', strtotime($photo_updated_at)) : 'حديثاً';
 
-        SM_Logger::log('طلب بطاقة خروج سريع', "تم تقديم طلب تصريح خروج فوري لللاعب: {$student->name} (الرقم المرجعي: {$ref_no})");
+        SM_Logger::log('طلب بطاقة خروج سريع', "تم تقديم طلب تصريح خروج فوري للNoعب: {$student->name} (الرقم المرجعي: {$ref_no})");
 
         wp_send_json_success(array(
             'message'          => 'تم تسجيل واستخراج طلب بطاقة تصريح الخروج بنجاح.',
             'reference_no'     => $ref_no,
             'request_id'       => $req_id,
             'status'           => 'submitted',
-            'status_label'     => 'قيد المراجعة والاعتماد',
+            'status_label'     => 'قيد المراجعة واNoعتماد',
             'student_name'     => $student->name,
             'student_code'     => $student->student_code ?: ('STU-' . $student->id),
             'class_name'       => $student->class_name,
@@ -15579,11 +15584,11 @@ class SM_Public {
         $req_id     = intval($_POST['request_id'] ?? 0);
 
         if (!self::is_portal_token_valid($token)) {
-            wp_send_json_error('جلسة البوابة غير صالحة أو منتهية.');
+            wp_send_json_error('جلسة البوابة غير صالحة أو Expiredة.');
         }
 
         if (!$student_id) {
-            wp_send_json_error('معرف اللاعب غير محدد.');
+            wp_send_json_error('معرف الNoعب غير محدد.');
         }
 
         global $wpdb;
@@ -15596,21 +15601,21 @@ class SM_Public {
         }
 
         if (!$req) {
-            wp_send_json_error('لم يتم العثور على طلب تصريح خروج نشط لهذا اللاعب لسحبه.');
+            wp_send_json_error('لم يتم العثور على طلب تصريح خروج Active لهذا الNoعب لسحبه.');
         }
 
         // Block withdrawal if request status is printing or issued
         if (in_array($req->status, array('printing', 'issued', 'printed'))) {
-            wp_send_json_error('عذراً، لا يمكن سحب أو إلغاء الطلب بعد دخوله مرحلة الطباعة والطباعة المباشرة.');
+            wp_send_json_error('عذراً، No يمكن سحب أو Cancel الطلب بعد دخوله مرحلة الPrint والPrint المباشرة.');
         }
 
         $wpdb->update("{$wpdb->prefix}sm_exit_card_requests", array('status' => 'cancelled'), array('id' => $req->id));
 
         $student = SM_DB::get_student_by_id($student_id);
-        SM_Logger::log('سحب طلب تصريح خروج', "تم سحب وإلغاء طلب تصريح الخروج (رقم: {$req->reference_no}) لللاعب: " . ($student->name ?? ''));
+        SM_Logger::log('سحب طلب تصريح خروج', "تم سحب وCancel طلب تصريح الخروج (رقم: {$req->reference_no}) للNoعب: " . ($student->name ?? ''));
 
         wp_send_json_success(array(
-            'message'      => 'تم سحب وإلغاء طلب تصريح الخروج بنجاح.',
+            'message'      => 'تم سحب وCancel طلب تصريح الخروج بنجاح.',
             'reference_no' => $req->reference_no
         ));
     }

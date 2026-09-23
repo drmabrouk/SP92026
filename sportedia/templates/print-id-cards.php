@@ -2,7 +2,7 @@
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>بطاقات هوية اللاعبين</title>
+    <title>بطاقات هوية الNoعبين</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
 </head>
 <body>
     <div class="no-print" style="text-align:center; margin-bottom: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 5px;">بدء الطباعة</button>
+        <button onclick="window.print()" style="padding: 10px 20px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 5px;">بدء الPrint</button>
     </div>
     <?php
     $school = SM_Settings::get_school_info();
@@ -66,8 +66,8 @@
                     <?php endif; ?>
                 </div>
                 <div class="info">
-                    <p><strong>اللاعب:</strong> <?php echo esc_html($s->name); ?></p>
-                    <p><strong>المجموعة التدريبية:</strong> <?php echo SM_Settings::format_grade_name($s->class_name, $s->section, 'short'); ?></p>
+                    <p><strong>الNoعب:</strong> <?php echo esc_html($s->name); ?></p>
+                    <p><strong>Training Group:</strong> <?php echo SM_Settings::format_grade_name($s->class_name, $s->section, 'short'); ?></p>
                     <p><strong>الكود:</strong> <?php echo esc_html($s->student_code); ?></p>
                 </div>
                 <div class="barcode">
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="footer">
-                مدير الأكاديمية الرياضية: <?php echo esc_html($school['school_principal_name'] ?? ''); ?> | <?php echo esc_html($school['phone']); ?>
+                مدير Academy الرياضية: <?php echo esc_html($school['school_principal_name'] ?? ''); ?> | <?php echo esc_html($school['phone']); ?>
             </div>
         </div>
         <?php endforeach; ?>

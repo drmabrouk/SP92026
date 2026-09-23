@@ -9,7 +9,7 @@
             </div>
             <div>
                 <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #ffffff; font-family: 'Cairo', sans-serif !important;">تسجيل مخالفة جديدة</h3>
-                <p style="margin: 2px 0 0 0; font-size: 11px; color: #94a3b8; font-weight: 600; font-family: 'Cairo', sans-serif !important;">رصد وتوثيق المخالفات السلوكية للطلاب فردياً وجماعياً</p>
+                <p style="margin: 2px 0 0 0; font-size: 11px; color: #94a3b8; font-weight: 600; font-family: 'Cairo', sans-serif !important;">رصد وتوثيق المخالفات السلوكية للطNoب فردياً وجماعياً</p>
             </div>
         </div>
         <button type="button" onclick="smCloseViolationModal()" style="background: rgba(255, 255, 255, 0.12); border: none; color: #cbd5e1; width: 32px; height: 32px; min-width: 32px; min-height: 32px; max-width: 32px; max-height: 32px; border-radius: 50% !important; aspect-ratio: 1 / 1; font-size: 18px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s; line-height: 1; padding: 0; box-sizing: border-box;" onmouseover="this.style.background='rgba(239,68,68,0.3)'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.12)'; this.style.color='#cbd5e1';">&times;</button>
@@ -19,7 +19,7 @@
     <div style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'Cairo', sans-serif !important;">
         <div id="vstep-node-1" class="vstep-node active" style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; color: #dc2626;">
             <span style="width: 24px; height: 24px; border-radius: 50%; background: #dc2626; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;">1</span>
-            <span>تحديد اللاعبين / الأشخاص</span>
+            <span>تحديد الNoعبين / الأشخاص</span>
         </div>
         <div style="flex: 1; height: 2px; background: #e2e8f0; margin: 0 12px;" id="vstep-line-1"></div>
         <div id="vstep-node-2" class="vstep-node" style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #94a3b8;">
@@ -29,7 +29,7 @@
         <div style="flex: 1; height: 2px; background: #e2e8f0; margin: 0 12px;" id="vstep-line-2"></div>
         <div id="vstep-node-3" class="vstep-node" style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: #94a3b8;">
             <span style="width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; color: #64748b; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;">3</span>
-            <span>التأكيد والتنفيذ</span>
+            <span>الConfirm والتنفيذ</span>
         </div>
     </div>
 
@@ -43,16 +43,16 @@
         <div id="sm-vstep-1" style="display: block;">
             <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
                 <span class="dashicons dashicons-info" style="color: #2563eb; font-size: 18px; width: 18px; height: 18px;"></span>
-                <span style="font-size: 12px; font-weight: 700; color: #1e40af; line-height: 1.5;">ابحث عن اللاعب بالاسم أو الكود، أو استخدم الماسح الضوئي لإضافة اللاعبين. يمكنك اختيار حتى 30 لاعباً للمخالفات الجماعية.</span>
+                <span style="font-size: 12px; font-weight: 700; color: #1e40af; line-height: 1.5;">اSearch عن الNoعب باNoسم أو الكود، أو استخدم الماسح الضوئي لAdd الNoعبين. يمكنك اختيار حتى 30 Noعباً للمخالفات الجماعية.</span>
             </div>
 
             <!-- Search Field & Scanner Button Row -->
             <div style="margin-bottom: 14px; position: relative;">
-                <label style="display: block; font-size: 12.5px; font-weight: 800; color: #1e293b; margin-bottom: 6px;">البحث عن اللاعب / الشخص: <span style="color:#ef4444;">*</span></label>
+                <label style="display: block; font-size: 12.5px; font-weight: 800; color: #1e293b; margin-bottom: 6px;">الSearch عن الNoعب / الشخص: <span style="color:#ef4444;">*</span></label>
 
                 <div style="display: flex; gap: 8px; align-items: center;">
                     <div style="position: relative; flex: 1;">
-                        <input type="text" id="student_unified_search" class="sm-input" placeholder="اكتب اسم اللاعب أو الكود للبحث المباشر..." autocomplete="off" style="width: 100%; height: 42px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box; background: #f8fafc; transition: all 0.2s;" onfocus="this.style.background='#fff'; this.style.borderColor='#2563eb';" onblur="this.style.background='#f8fafc'; this.style.borderColor='#cbd5e1';">
+                        <input type="text" id="student_unified_search" class="sm-input" placeholder="اكتب Player Name أو الكود للSearch المباشر..." autocomplete="off" style="width: 100%; height: 42px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box; background: #f8fafc; transition: all 0.2s;" onfocus="this.style.background='#fff'; this.style.borderColor='#2563eb';" onblur="this.style.background='#f8fafc'; this.style.borderColor='#cbd5e1';">
 
                         <!-- Search Dropdown Results -->
                         <div id="search_results_dropdown" style="display:none; position:absolute; top:100%; left:0; right:0; background:white; border:1px solid #cbd5e1; border-radius:12px; z-index:1000; box-shadow:0 15px 25px -5px rgba(0,0,0,0.15); max-height:220px; overflow-y:auto; margin-top: 4px;">
@@ -80,23 +80,23 @@
             <!-- Selected Students Chips Container -->
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; margin-bottom: 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <span style="font-size: 12px; font-weight: 800; color: #334155;">اللاعبين المحددون لهذه المخالفة:</span>
-                    <span id="selected_count_badge" style="font-size: 11px; font-weight: 800; background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; border: 1px solid #bae6fd;">تم تحديد 0 طلاب</span>
+                    <span style="font-size: 12px; font-weight: 800; color: #334155;">الNoعبين المحددون لهذه المخالفة:</span>
+                    <span id="selected_count_badge" style="font-size: 11px; font-weight: 800; background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; border: 1px solid #bae6fd;">تم تحديد 0 طNoب</span>
                 </div>
 
                 <div id="selected_students_container" style="display:flex; flex-wrap:wrap; gap:8px; min-height: 42px; align-items: center;">
-                    <span id="empty_selection_notice" style="font-size: 12px; color: #94a3b8; font-weight: 600;">لم يتم اختيار أي لاعب حتى الآن. يرجى البحث أعلاه واختيار اللاعبين.</span>
+                    <span id="empty_selection_notice" style="font-size: 12px; color: #94a3b8; font-weight: 600;">لم يتم اختيار أي Noعب حتى الآن. يرجى الSearch أعNoه واختيار الNoعبين.</span>
                 </div>
 
-                <span class="eess-field-error" id="err_student_ids" style="display:none; color:#dc2626; font-size:11.5px; font-weight:800; margin-top:8px;">⚠️ يرجى اختيار لاعب واحد على الأقل للمتابعة.</span>
+                <span class="eess-field-error" id="err_student_ids" style="display:none; color:#dc2626; font-size:11.5px; font-weight:800; margin-top:8px;">⚠️ يرجى اختيار Noعب واحد على الأقل للمتابعة.</span>
             </div>
 
             <!-- Step 1 Actions -->
             <div style="display: flex; gap: 10px; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 14px;">
-                <button type="button" onclick="smCloseViolationModal()" class="sm-btn" style="height: 40px; padding: 0 18px; font-size: 12.5px; font-weight: 800; background: #f1f5f9; color: #1e293b !important; border: 1px solid #cbd5e1; border-radius: 12px; cursor: pointer;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">إلغاء</button>
+                <button type="button" onclick="smCloseViolationModal()" class="sm-btn" style="height: 40px; padding: 0 18px; font-size: 12.5px; font-weight: 800; background: #f1f5f9; color: #1e293b !important; border: 1px solid #cbd5e1; border-radius: 12px; cursor: pointer;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">Cancel</button>
 
                 <button type="button" id="btn-to-step-2" onclick="smSetViolationStep(2)" class="sm-btn" style="height: 40px; padding: 0 22px; font-weight: 800; font-size: 13px; background: #dc2626; color: white !important; border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(220,38,38,0.25);" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
-                    <span>التالي: إدخال بيانات المخالفة</span>
+                    <span>Next: إدخال بيانات المخالفة</span>
                     <span>➔</span>
                 </button>
             </div>
@@ -113,7 +113,7 @@
                     <span id="step2_students_summary" style="font-size: 12px; font-weight: 700; color: #2563eb;">---</span>
                 </div>
                 <button type="button" onclick="smSetViolationStep(1)" style="background: #ffffff; border: 1px solid #cbd5e1; color: #334155; padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-                    <span>تعديل التحديد</span>
+                    <span>Edit التحديد</span>
                 </button>
             </div>
 
@@ -132,12 +132,12 @@
                     </div>
 
                     <div class="sm-form-group" style="margin: 0;">
-                        <label style="display: block; font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 4px;">درجة المخالفة (المستوى):</label>
+                        <label style="display: block; font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 4px;">درجة المخالفة (الLevel):</label>
                         <select name="degree" id="violation_degree" class="sm-select" onchange="updateHierarchicalViolations()" style="width: 100%; height: 38px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box;">
-                            <option value="1">المستوى الأول (بسيطة)</option>
-                            <option value="2">المستوى الثاني (متوسطة)</option>
-                            <option value="3">المستوى الثالث (جسيمة)</option>
-                            <option value="4">المستوى الرابع (شديدة الخطورة)</option>
+                            <option value="1">الLevel الأول (بسيطة)</option>
+                            <option value="2">الLevel الثاني (Intermediateة)</option>
+                            <option value="3">الLevel الثالث (جسيمة)</option>
+                            <option value="4">الLevel الرابع (شديدة الخطورة)</option>
                         </select>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                         <label style="display: block; font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 4px;">موقع الموقف:</label>
                         <select name="classification" id="violation_classification" class="sm-select" style="width: 100%; height: 38px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box;">
                             <option value="general">عام</option>
-                            <option value="inside_class">داخل المجموعة التدريبية الدراسي</option>
+                            <option value="inside_class">داخل Training Group الدراسي</option>
                             <option value="yard">في الساحة / الطابور</option>
                             <option value="labs">في المختبرات والمرافق</option>
                             <option value="bus">في الحافلة المدرسية</option>
@@ -172,7 +172,7 @@
                         <label style="display: block; font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 4px;">الحدة التقديرية:</label>
                         <select name="severity" id="violation_severity" class="sm-select" style="width: 100%; height: 38px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box;">
                             <option value="low">منخفضة</option>
-                            <option value="medium">متوسطة</option>
+                            <option value="medium">Intermediateة</option>
                             <option value="high">عالية</option>
                         </select>
                     </div>
@@ -184,7 +184,7 @@
                 <div class="sm-form-group" style="margin-bottom: 12px;">
                     <label style="display: block; font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 4px;">الإجراء المتخذ:</label>
                     <select name="action_taken" id="action_taken" class="sm-select" style="width: 100%; height: 38px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box;">
-                        <option value="تسجيل ملاحظة">تسجيل ملاحظة</option>
+                        <option value="تسجيل مNoحظة">تسجيل مNoحظة</option>
                         <?php foreach (SM_Settings::get_disciplinary_actions() as $level => $act): ?>
                             <option value="<?php echo esc_attr($act); ?>" data-level="<?php echo $level; ?>"><?php echo $level . '. ' . esc_html($act); ?></option>
                         <?php endforeach; ?>
@@ -200,7 +200,7 @@
                 <!-- Evidence Link -->
                 <div class="sm-form-group" style="margin-bottom: 0;">
                     <label style="display: block; font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 4px;">إرفاق مستند أو دليل مؤيد (اختياري):</label>
-                    <input type="text" name="reward_penalty" id="violation_evidence_link" class="sm-input" placeholder="أدخل رابط المستند أو ملاحظة إضافية..." style="width: 100%; height: 36px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box;">
+                    <input type="text" name="reward_penalty" id="violation_evidence_link" class="sm-input" placeholder="أدخل رابط المستند أو مNoحظة إضافية..." style="width: 100%; height: 36px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-family: 'Cairo', sans-serif !important; box-sizing: border-box;">
                 </div>
             </div>
 
@@ -208,12 +208,12 @@
             <div style="display: flex; gap: 10px; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 14px;">
                 <button type="button" onclick="smSetViolationStep(1)" class="sm-btn" style="height: 40px; padding: 0 18px; font-size: 12.5px; font-weight: 700; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                     <span>←</span>
-                    <span>السابق: تحديد اللاعبين</span>
+                    <span>Previous: تحديد الNoعبين</span>
                 </button>
 
                 <button type="submit" id="submit-btn" class="sm-btn" style="height: 40px; padding: 0 24px; font-weight: 800; font-size: 13px; background: #000000; color: white !important; border: none; border-radius: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s;" onmouseover="this.style.background='#1f2937'" onmouseout="this.style.background='#000000'">
                     <span class="dashicons dashicons-saved" style="font-size: 16px; width: 16px; height: 16px;"></span>
-                    <span>حفظ وتسجيل المخالفة الآن</span>
+                    <span>Save وتسجيل المخالفة الآن</span>
                 </button>
             </div>
         </div>
@@ -227,18 +227,18 @@
             <h3 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 900; color: #0f172a; font-family: 'Cairo', sans-serif !important;">تم تسجيل المخالفة بنجاح</h3>
 
             <p id="sm-step3-msg" style="margin: 0 0 20px 0; font-size: 13.5px; font-weight: 700; color: #475569; line-height: 1.6; font-family: 'Cairo', sans-serif !important;">
-                تم تسجيل واستيعاب المخالفة بنجاح في المنظومة للطلاب المحددين.
+                تم تسجيل واستيعاب المخالفة بنجاح في المنظومة للطNoب المحددين.
             </p>
 
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; display: inline-block; max-width: 380px; width: 100%; margin-bottom: 20px;">
                 <div style="font-size: 12px; font-weight: 700; color: #64748b; font-family: 'Cairo', sans-serif !important;">
-                    سيتم إغلاق النافذة وتحديث السجلات تلقائياً خلال <strong id="sm-close-timer" style="color: #dc2626; font-size: 15px;">3</strong> ثوان...
+                    سيتم Close النافذة وUpdate السجNoت تلقائياً خNoل <strong id="sm-close-timer" style="color: #dc2626; font-size: 15px;">3</strong> ثوان...
                 </div>
             </div>
 
             <div>
                 <button type="button" onclick="smCloseViolationModalNow()" class="sm-btn" style="height: 38px; padding: 0 20px; font-size: 12.5px; font-weight: 800; background: #0f172a; color: #ffffff !important; border-radius: 10px; border: none; cursor: pointer;">
-                    إغلاق النافذة الآن
+                    Close النافذة الآن
                 </button>
             </div>
         </div>
@@ -364,7 +364,7 @@ window.smSetViolationStep = function(step) {
         const summaryText = window.selectedStudents.map(s => s.name).join('، ');
         const summaryEl = document.getElementById('step2_students_summary');
         if (summaryEl) {
-            summaryEl.innerText = `${summaryText} (${window.selectedStudents.length} طلاب)`;
+            summaryEl.innerText = `${summaryText} (${window.selectedStudents.length} طNoب)`;
         }
     } else if (step === 3) {
         n1.style.color = '#16a34a';
@@ -392,7 +392,7 @@ window.selectStudent = function(s) {
 
     // Limit up to 30 students
     if (window.selectedStudents.length >= 30) {
-        alert('يمكن اختيار حتى 30 لاعباً فقط في العملية الواحدة.');
+        alert('يمكن اختيار حتى 30 Noعباً فقط في العملية الواحدة.');
         return;
     }
 
@@ -420,8 +420,8 @@ function renderSelectedStudents() {
     container.innerHTML = '';
 
     if (window.selectedStudents.length === 0) {
-        container.innerHTML = '<span id="empty_selection_notice" style="font-size: 12px; color: #94a3b8; font-weight: 600;">لم يتم اختيار أي لاعب حتى الآن. يرجى البحث أعلاه واختيار اللاعبين.</span>';
-        if (badge) badge.innerText = 'تم تحديد 0 طلاب';
+        container.innerHTML = '<span id="empty_selection_notice" style="font-size: 12px; color: #94a3b8; font-weight: 600;">لم يتم اختيار أي Noعب حتى الآن. يرجى الSearch أعNoه واختيار الNoعبين.</span>';
+        if (badge) badge.innerText = 'تم تحديد 0 طNoب';
         if (idsInput) idsInput.value = '';
         return;
     }
@@ -436,13 +436,13 @@ function renderSelectedStudents() {
         chip.className = 'student-chip-item';
         chip.innerHTML = `
             <span>${s.name} <small style="opacity: 0.8; font-size: 10px;">(${s.class_name || ''} ${s.section || ''})</small></span>
-            <span class="student-chip-remove" title="إزالة اللاعب" onclick="removeStudent(${s.id})">&times;</span>
+            <span class="student-chip-remove" title="إزالة الNoعب" onclick="removeStudent(${s.id})">&times;</span>
         `;
         container.appendChild(chip);
     });
 
     if (idsInput) idsInput.value = ids.join(',');
-    if (badge) badge.innerText = `تم تحديد ${window.selectedStudents.length} طلاب`;
+    if (badge) badge.innerText = `تم تحديد ${window.selectedStudents.length} طNoب`;
 }
 
 // Live Search Listener
@@ -547,7 +547,7 @@ function renderSelectedStudents() {
                         });
                         dropdown.style.display = 'block';
                     } else {
-                        dropdown.innerHTML = '<div style="padding:12px; color:#94a3b8; text-align:center; font-size:12px; font-weight:700;">لم يتم العثور على نتائج للبحث.</div>';
+                        dropdown.innerHTML = '<div style="padding:12px; color:#94a3b8; text-align:center; font-size:12px; font-weight:700;">لم يتم العثور على نتائج للSearch.</div>';
                         dropdown.style.display = 'block';
                     }
                 })
@@ -593,12 +593,12 @@ function renderSelectedStudents() {
         );
 
         if (isDuplicate) {
-            eessShowToast('اللاعب مضاف بالفعل في هذه الجلسة', 'warning');
+            eessShowToast('الNoعب مضاف بالفعل في هذه الجلسة', 'warning');
             return;
         }
 
         if (window.selectedStudents.length >= 30) {
-            eessShowToast('تم الوصول إلى الحد الأقصى (30 لاعب)', 'warning');
+            eessShowToast('تم الوصول إلى الحد الأقصى (30 Noعب)', 'warning');
             return;
         }
 
@@ -611,13 +611,13 @@ function renderSelectedStudents() {
         .then(res => {
             if (res.success && res.data) {
                 selectStudent(res.data);
-                eessShowToast('تمت إضافة اللاعب: ' + res.data.name, 'success');
+                eessShowToast('تمت Add الNoعب: ' + res.data.name, 'success');
             } else {
-                eessShowToast('عذراً، كود اللاعب أو الباركوود غير مسجل في النظام: ' + cleanCode, 'error');
+                eessShowToast('عذراً، كود الNoعب أو الباركوود غير مسجل في النظام: ' + cleanCode, 'error');
             }
         })
         .catch(() => {
-            eessShowToast('حدث خطأ أثناء الاتصال بالخادم', 'error');
+            eessShowToast('An error occurred أثناء اNoتصال بالخادم', 'error');
         });
     }
 
@@ -726,7 +726,7 @@ function renderSelectedStudents() {
                         }
                     });
                 } else {
-                    eessShowToast('جاري تحميل مكتبة الماسح الضوئي...', 'warning');
+                    eessShowToast('جاري Upload مكتبة الماسح الضوئي...', 'warning');
                     setTimeout(startDesktopCamera, 400);
                 }
             }
@@ -748,7 +748,7 @@ function renderSelectedStudents() {
 
             const btn = document.getElementById('submit-btn');
             if (btn) {
-                btn.innerText = 'جاري حفظ المخالفة... ⏳';
+                btn.innerText = 'جاري Save المخالفة... ⏳';
                 btn.disabled = true;
             }
 
@@ -759,7 +759,7 @@ function renderSelectedStudents() {
             .then(r => r.json())
             .then(res => {
                 if (btn) {
-                    btn.innerText = 'حفظ وتسجيل المخالفة الآن';
+                    btn.innerText = 'Save وتسجيل المخالفة الآن';
                     btn.disabled = false;
                 }
 
@@ -768,9 +768,9 @@ function renderSelectedStudents() {
                     const msgEl = document.getElementById('sm-step3-msg');
                     if (msgEl) {
                         if (count === 1) {
-                            msgEl.innerText = `تم تسجيل واستيعاب المخالفة بنجاح في المنظومة لللاعب (${window.selectedStudents[0].name}).`;
+                            msgEl.innerText = `تم تسجيل واستيعاب المخالفة بنجاح في المنظومة للNoعب (${window.selectedStudents[0].name}).`;
                         } else {
-                            msgEl.innerText = `تم تسجيل واستيعاب سجلات المخالفة بنجاح في المنظومة لـ (${count}) طلاب محددين.`;
+                            msgEl.innerText = `تم تسجيل واستيعاب سجNoت المخالفة بنجاح في المنظومة لـ (${count}) طNoب محددين.`;
                         }
                     }
 
@@ -800,15 +800,15 @@ function renderSelectedStudents() {
                         }
                     }, 1000);
                 } else {
-                    alert('خطأ: ' + (res.data || 'فشل في حفظ سجل المخالفة.'));
+                    alert('خطأ: ' + (res.data || 'فشل في Save سجل المخالفة.'));
                 }
             })
             .catch(err => {
                 if (btn) {
-                    btn.innerText = 'حفظ وتسجيل المخالفة الآن';
+                    btn.innerText = 'Save وتسجيل المخالفة الآن';
                     btn.disabled = false;
                 }
-                alert('حدث خطأ أثناء التواصل مع الخادم.');
+                alert('An error occurred أثناء التواصل مع الخادم.');
             });
         });
     }

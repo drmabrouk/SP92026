@@ -27,8 +27,8 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
                 <span class="dashicons dashicons-dashboard" style="font-size: 24px; width: 24px; height: 24px;"></span>
             </div>
             <div>
-                <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #0f172a;">لوحة التحكم الرئيسية والعمليات اليومية</h2>
-                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">متابعة الحصص الحالية، نسبة الحضور والغياب، التنبيهات السلوكية والعمليات التعليمية المباشرة</p>
+                <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #0f172a;">Dashboard Home والعمليات اليومية</h2>
+                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">متابعة الحصص الحالية، Attendance Rate والغياب، التنبيهات السلوكية والعمليات التعليمية المباشرة</p>
             </div>
         </div>
 
@@ -59,7 +59,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
                 <div style="font-size: 11px; color: #64748b; font-weight: 600;"><?php echo esc_html($les['period']); ?></div>
             <?php else: ?>
                 <div style="padding: 15px 0; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 700;">
-                    لا توجد حصص مجدولة حالياً لهذا الوقت.
+                    No توجد حصص مجدولة حالياً لهذا الوقت.
                 </div>
             <?php endif; ?>
         </div>
@@ -82,12 +82,12 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
         <!-- 3. Tasks Awaiting Evaluation Card -->
         <a href="<?php echo add_query_arg('sm_tab', 'lesson-plans'); ?>" style="text-decoration: none; background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-top: 4px solid #f59e0b; display: block;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="font-size: 12px; font-weight: 800; color: #64748b;">تحضيرات بانتظار المراجعة والاعتماد</span>
+                <span style="font-size: 12px; font-weight: 800; color: #64748b;">تحضيرات بانتظار المراجعة واNoعتماد</span>
                 <span class="dashicons dashicons-welcome-write-blog" style="color: #f59e0b; font-size: 18px;"></span>
             </div>
             <?php $tasks = $dash_data['tasks_eval'] ?? array('total' => 0, 'pending_homework' => 0, 'pending_preps' => 0); ?>
             <div style="font-size: 28px; font-weight: 900; color: #d97706; line-height: 1; margin-bottom: 6px;"><?php echo $tasks['pending_preps']; ?></div>
-            <div style="font-size: 11px; color: #64748b;">تحضيرات دروس بانتظار مراجعتك والاعتماد</div>
+            <div style="font-size: 11px; color: #64748b;">تحضيرات دروس بانتظار مراجعتك واNoعتماد</div>
         </a>
 
         <!-- 4. Academic Alerts Card -->
@@ -97,7 +97,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
                 <span class="dashicons dashicons-warning" style="color: #dc2626; font-size: 18px;"></span>
             </div>
             <div style="font-size: 28px; font-weight: 900; color: #dc2626; line-height: 1; margin-bottom: 6px;"><?php echo intval($dash_data['academic_alerts_count'] ?? 0); ?></div>
-            <div style="font-size: 11px; color: #64748b;">طلاب بحاجة لمتابعة خاصة وسجل سلوكي</div>
+            <div style="font-size: 11px; color: #64748b;">طNoب بحاجة لمتابعة خاصة وسجل سلوكي</div>
         </a>
     </div>
 
@@ -105,7 +105,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 18px 24px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.02);">
         <div style="font-weight: 800; font-size: 14px; color: #0f172a; display: flex; align-items: center; gap: 8px;">
             <span class="dashicons dashicons-bolt" style="color: #f59e0b; font-size: 20px; width: 20px; height: 20px;"></span>
-            <span>إجراءات سريعة للمعلم:</span>
+            <span>Actions سريعة للمعلم:</span>
         </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
             <a href="<?php echo home_url('/attendance/'); ?>" class="sm-btn" style="height: 38px; padding: 0 18px; font-size: 12.5px; background: #2563eb; color: #ffffff !important; border-radius: 9999px !important; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
@@ -122,7 +122,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
             </a>
             <button type="button" onclick="eessOpenQuickParentNoteModal()" class="sm-btn" style="height: 38px; padding: 0 20px; font-size: 12.5px; background: #881337; color: #ffffff !important; border-radius: 9999px !important; font-weight: 800; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                 <span class="dashicons dashicons-email-alt" style="font-size: 15px; width: 15px; height: 15px;"></span>
-                <span>إرسال ملاحظة لولي الأمر</span>
+                <span>Send مNoحظة لولي Motherر</span>
             </button>
         </div>
     </div>
@@ -130,7 +130,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
     <!-- ADMIN & GENERAL STATS CARD GRID -->
     <div class="sm-card-grid" style="margin-bottom: 30px;">
         <div class="sm-stat-card" style="border-top: 4px solid var(--sm-primary-color); border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-            <div style="font-size: 0.9em; color: var(--sm-text-gray); margin-bottom: 8px; font-weight: 700;">إجمالي اللاعبين</div>
+            <div style="font-size: 0.9em; color: var(--sm-text-gray); margin-bottom: 8px; font-weight: 700;">إجمالي الNoعبين</div>
             <div style="font-size: 2.6em; font-weight: 800; color: var(--sm-primary-color); line-height: 1.2;"><?php echo esc_html($stats['total_students'] ?? $dash_data['total_students'] ?? 0); ?></div>
         </div>
         <div class="sm-stat-card" style="border-top: 4px solid var(--sm-secondary-color); border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
@@ -142,7 +142,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
             <div style="font-size: 2.6em; font-weight: 800; color: var(--sm-accent-color); line-height: 1.2;"><?php echo esc_html($stats['violations_today'] ?? $dash_data['violations_today'] ?? 0); ?></div>
         </div>
         <div class="sm-stat-card" style="border-top: 4px solid var(--sm-dark-color); border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-            <div style="font-size: 0.9em; color: var(--sm-text-gray); margin-bottom: 8px; font-weight: 700;">الإجراءات المتخذة</div>
+            <div style="font-size: 0.9em; color: var(--sm-text-gray); margin-bottom: 8px; font-weight: 700;">الActions المتخذة</div>
             <div style="font-size: 2.6em; font-weight: 800; color: var(--sm-dark-color); line-height: 1.2;"><?php echo esc_html($stats['total_actions'] ?? 0); ?></div>
         </div>
     </div>
@@ -155,7 +155,7 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
     <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid var(--sm-border-color); position: relative; max-height: 300px; overflow: hidden;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
             <h3 style="margin:0; font-size: 1.0em;">اتجاهات المخالفات (آخر 30 يوم)</h3>
-            <button onclick="smDownloadChart('violationTrendsChart', 'اتجاهات_المخالفات')" class="sm-action-btn" title="تحميل كصورة" style="background:none; border:none; color:var(--sm-text-gray); cursor:pointer;"><span class="dashicons dashicons-download"></span></button>
+            <button onclick="smDownloadChart('violationTrendsChart', 'اتجاهات_المخالفات')" class="sm-action-btn" title="Upload كصورة" style="background:none; border:none; color:var(--sm-text-gray); cursor:pointer;"><span class="dashicons dashicons-download"></span></button>
         </div>
         <div style="height: 180px;"><canvas id="violationTrendsChart"></canvas></div>
     </div>
@@ -179,10 +179,10 @@ $dash_data = SM_DB::get_personalized_dashboard_data($user_id);
             ");
 
             if (empty($latest_support)): ?>
-                <div style="padding: 30px; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 600;">لا توجد مستجدات أو رسائل دعم جديدة حالياً.</div>
+                <div style="padding: 30px; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 600;">No توجد مستجدات أو رسائل دعم جديدة حالياً.</div>
             <?php else:
                 $pastel_colors = array(
-                    array('bg' => '#f0f9ff', 'border' => '#bae6fd', 'text' => '#0369a1', 'tag' => 'تحديث إداري'),
+                    array('bg' => '#f0f9ff', 'border' => '#bae6fd', 'text' => '#0369a1', 'tag' => 'Update إداري'),
                     array('bg' => '#f0fdf4', 'border' => '#bbf7d0', 'text' => '#15803d', 'tag' => 'إشعار هام'),
                     array('bg' => '#fffbeb', 'border' => '#fef3c7', 'text' => '#b45309', 'tag' => 'تنبيه النظام')
                 );
@@ -303,7 +303,7 @@ function smDownloadChart(chartId, fileName) {
             </div>
 
             <div style="display: flex; justify-content: flex-end;">
-                <button type="button" onclick="document.getElementById('eess-support-update-modal').style.display='none'" class="sm-btn" style="height: 38px; padding: 0 24px; border-radius: 9999px !important; font-size: 12.5px; background: #000000; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer;">إغلاق التنبيه</button>
+                <button type="button" onclick="document.getElementById('eess-support-update-modal').style.display='none'" class="sm-btn" style="height: 38px; padding: 0 24px; border-radius: 9999px !important; font-size: 12.5px; background: #000000; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer;">Close التنبيه</button>
             </div>
         </div>
     </div>
@@ -324,16 +324,16 @@ function eessOpenSupportUpdateModal(title, details, dateStr) {
         <div style="background: #0f172a; color: #ffffff; padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box;">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="dashicons dashicons-email-alt" style="color: #ffffff; font-size: 20px; width: 20px; height: 20px;"></span>
-                <h3 style="margin: 0; font-size: 15.5px; font-weight: 800; color: #ffffff;">إرسال ملاحظة أو استفسار لولي الأمر</h3>
+                <h3 style="margin: 0; font-size: 15.5px; font-weight: 800; color: #ffffff;">Send مNoحظة أو استفسار لولي Motherر</h3>
             </div>
             <button type="button" onclick="document.getElementById('eess-quick-parent-note-modal').style.display='none'" style="background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
         </div>
 
         <div style="padding: 22px;">
             <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">اختر اللاعب المستهدف *</label>
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">اختر الNoعب المستهدف *</label>
                 <select id="eess_note_student_id" class="sm-select" style="width: 100%; height: 42px; border-radius: 9999px !important; border: 1px solid #cbd5e1; padding: 0 16px; font-size: 13px;">
-                    <option value="">-- اختر اسم اللاعب --</option>
+                    <option value="">-- اختر Player Name --</option>
                     <?php
                     $all_st_list = SM_DB::get_students();
                     foreach ($all_st_list as $st) {
@@ -344,13 +344,13 @@ function eessOpenSupportUpdateModal(title, details, dateStr) {
             </div>
 
             <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">نص الملاحظة أو الاستفسار *</label>
-                <textarea id="eess_note_text" rows="4" class="sm-textarea" placeholder="اكتب الملاحظة أو المتابعة المطلوبة لولي الأمر هنا..." style="width: 100%; border-radius: 12px; border: 1px solid #cbd5e1; padding: 12px; font-size: 13px; box-sizing: border-box;"></textarea>
+                <label style="display: block; font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 6px;">نص المNoحظة أو اNoستفسار *</label>
+                <textarea id="eess_note_text" rows="4" class="sm-textarea" placeholder="اكتب المNoحظة أو المتابعة المطلوبة لولي Motherر هنا..." style="width: 100%; border-radius: 12px; border: 1px solid #cbd5e1; padding: 12px; font-size: 13px; box-sizing: border-box;"></textarea>
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                <button type="button" onclick="document.getElementById('eess-quick-parent-note-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 9999px !important; font-size: 12.5px; color: #475569; font-weight: 700;">إلغاء</button>
-                <button type="button" id="eess-btn-send-note" onclick="eessSubmitQuickParentNote()" class="sm-btn" style="height: 38px; padding: 0 24px; border-radius: 9999px !important; font-size: 12.5px; background: #881337; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer;">إرسال الملاحظة الآن</button>
+                <button type="button" onclick="document.getElementById('eess-quick-parent-note-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 9999px !important; font-size: 12.5px; color: #475569; font-weight: 700;">Cancel</button>
+                <button type="button" id="eess-btn-send-note" onclick="eessSubmitQuickParentNote()" class="sm-btn" style="height: 38px; padding: 0 24px; border-radius: 9999px !important; font-size: 12.5px; background: #881337; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer;">Send المNoحظة الآن</button>
             </div>
         </div>
     </div>
@@ -367,16 +367,16 @@ function eessSubmitQuickParentNote() {
 
     if (!studentId || !noteText) {
         if (typeof smShowNotification === 'function') {
-            smShowNotification('يرجى اختيار اللاعب وكتابة نص الملاحظة', true);
+            smShowNotification('يرجى اختيار الNoعب وكتابة نص المNoحظة', true);
         } else {
-            alert('يرجى اختيار اللاعب وكتابة نص الملاحظة');
+            alert('يرجى اختيار الNoعب وكتابة نص المNoحظة');
         }
         return;
     }
 
     const btn = document.getElementById('eess-btn-send-note');
     btn.disabled = true;
-    btn.innerText = 'جاري الإرسال...';
+    btn.innerText = 'جاري الSend...';
 
     const formData = new FormData();
     formData.append('action', 'eess_send_quick_parent_note');
@@ -387,21 +387,21 @@ function eessSubmitQuickParentNote() {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'إرسال الملاحظة الآن';
+        btn.innerText = 'Send المNoحظة الآن';
 
         if (res.success) {
             if (typeof smShowNotification === 'function') {
-                smShowNotification(res.data.message || 'تم إرسال الملاحظة بنجاح إلى ولي الأمر');
+                smShowNotification(res.data.message || 'تم Send المNoحظة بنجاح إلى ولي Motherر');
             } else {
-                alert(res.data.message || 'تم إرسال الملاحظة بنجاح إلى ولي الأمر');
+                alert(res.data.message || 'تم Send المNoحظة بنجاح إلى ولي Motherر');
             }
             document.getElementById('eess-quick-parent-note-modal').style.display = 'none';
             document.getElementById('eess_note_text').value = '';
         } else {
             if (typeof smShowNotification === 'function') {
-                smShowNotification(res.data || 'حدث خطأ أثناء إرسال الملاحظة', true);
+                smShowNotification(res.data || 'An error occurred أثناء Send المNoحظة', true);
             } else {
-                alert(res.data || 'حدث خطأ أثناء إرسال الملاحظة');
+                alert(res.data || 'An error occurred أثناء Send المNoحظة');
             }
         }
     });

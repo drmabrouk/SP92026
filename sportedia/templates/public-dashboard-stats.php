@@ -48,7 +48,7 @@
                     سجل المخالفات
                 </h2>
                 <p style="margin: 0; font-size: 13px; color: #64748b; font-weight: 500;">
-                    إدارة ومتابعة المخالفات السلوكية والانضباطية للطلاب وإجراءات التواصل مع أولياء الأمور والأوصياء
+                    إدارة ومتابعة المخالفات السلوكية واNoنضباطية للطNoب وActions التواصل مع أولياء Motherور والأوصياء
                 </p>
             </div>
         </div>
@@ -59,17 +59,17 @@
                 <div style="position: relative; display: inline-block;">
                     <button type="button" onclick="const d = document.getElementById('eess-violation-export-dropdown'); d.style.display = d.style.display === 'none' ? 'block' : 'none'; event.stopPropagation();" class="eess-hdr-btn" style="background: #f8fafc !important; color: #334155 !important; border: 1px solid #cbd5e1 !important; border-radius: 12px; padding: 0 16px; height: 42px; font-weight: 700; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
                         <svg width="18" height="18" fill="none" stroke="#334155" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        <span style="color: #334155 !important;">تصدير التقارير</span>
+                        <span style="color: #334155 !important;">Export التقارير</span>
                         <svg width="12" height="12" fill="none" stroke="#334155" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
 
                     <div id="eess-violation-export-dropdown" style="display: none; position: absolute; left: 0; top: 115%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; width: 230px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 6px 0; text-align: right;">
-                        <div style="padding: 6px 16px; font-size: 11px; color: #94a3b8; font-weight: 800; border-bottom: 1px solid #f1f5f9;">تحميل تقارير (PDF)</div>
+                        <div style="padding: 6px 16px; font-size: 11px; color: #94a3b8; font-weight: 800; border-bottom: 1px solid #f1f5f9;">Upload تقارير (PDF)</div>
                         <a href="javascript:void(0)" onclick="exportViolationPDF('today')" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">📄 مخالفات اليوم (PDF)</a>
                         <a href="javascript:void(0)" onclick="exportViolationPDF('week')" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">📄 مخالفات الأسبوع (PDF)</a>
                         <a href="javascript:void(0)" onclick="exportViolationPDF('month')" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">📄 مخالفات الشهر (PDF)</a>
 
-                        <div style="padding: 6px 16px; font-size: 11px; color: #94a3b8; font-weight: 800; border-bottom: 1px solid #f1f5f9;">تصدير بيانات (CSV)</div>
+                        <div style="padding: 6px 16px; font-size: 11px; color: #94a3b8; font-weight: 800; border-bottom: 1px solid #f1f5f9;">Export بيانات (CSV)</div>
                         <a href="<?php echo admin_url('admin-ajax.php?action=sm_export_violations_csv&range=today&nonce='.wp_create_nonce('sm_export_action')); ?>" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">📊 مخالفات اليوم (CSV)</a>
                         <a href="<?php echo admin_url('admin-ajax.php?action=sm_export_violations_csv&range=week&nonce='.wp_create_nonce('sm_export_action')); ?>" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 600; text-decoration: none; border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">📊 مخالفات الأسبوع (CSV)</a>
                         <a href="<?php echo admin_url('admin-ajax.php?action=sm_export_violations_csv&nonce='.wp_create_nonce('sm_export_action')); ?>" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 600; text-decoration: none; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">📊 جميع المخالفات (CSV)</a>
@@ -79,14 +79,14 @@
                 <!-- Secondary Action: Import -->
                 <button type="button" onclick="const f=document.getElementById('violation-import-form'); f.style.display = f.style.display==='none'?'block':'none';" class="eess-hdr-btn" style="background: #f8fafc !important; color: #334155 !important; border: 1px solid #cbd5e1 !important; border-radius: 12px; padding: 0 16px; height: 42px; font-weight: 700; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
                     <svg width="18" height="18" fill="none" stroke="#334155" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                    <span style="color: #334155 !important;">استيراد</span>
+                    <span style="color: #334155 !important;">Import</span>
                 </button>
 
                 <!-- Primary Action: Register Violation / Submit Referral -->
                 <?php if (in_array('sm_teacher', (array)wp_get_current_user()->roles)): ?>
                 <button type="button" onclick="eessOpenTeacherReferralModal()" class="sm-btn sm-btn-custom" style="background: #dc2626; color: #ffffff; border: none; border-radius: 12px; padding: 0 20px; height: 42px; font-weight: 800; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25); transition: all 0.2s;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
                     <svg width="18" height="18" fill="none" stroke="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-                    <span>تقديم مخالفة سلوكية للاعب</span>
+                    <span>تقديم مخالفة سلوكية لNoعب</span>
                 </button>
                 <?php elseif (current_user_can('تسجيل_مخالفة') || current_user_can('إدارة_المخالفات') || current_user_can('manage_options')): ?>
                 <button type="button" onclick="if(document.getElementById('sm-global-violation-modal')){document.getElementById('sm-global-violation-modal').style.display='flex';}" class="sm-btn sm-btn-custom" style="background: #dc2626; color: #ffffff; border: none; border-radius: 12px; padding: 0 20px; height: 42px; font-weight: 800; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25); transition: all 0.2s;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
@@ -113,10 +113,10 @@
                 <!-- Student Search -->
                 <div>
                     <label style="display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 700; color: #334155;">
-                        البحث عن لاعب
+                        الSearch عن Noعب
                     </label>
                     <div style="position: relative;">
-                        <input type="text" id="filter_student_search" name="student_search" value="<?php echo esc_attr($_GET['student_search'] ?? ''); ?>" placeholder="اسم اللاعب / رقم الهوية / الكود..." style="width: 100%; height: 34px; padding: 0 32px 0 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; background: #f8fafc; transition: all 0.2s;" onfocus="this.style.borderColor='#dc2626'; this.style.background='#fff';" onblur="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';">
+                        <input type="text" id="filter_student_search" name="student_search" value="<?php echo esc_attr($_GET['student_search'] ?? ''); ?>" placeholder="Player Name / رقم الهوية / الكود..." style="width: 100%; height: 34px; padding: 0 32px 0 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; background: #f8fafc; transition: all 0.2s;" onfocus="this.style.borderColor='#dc2626'; this.style.background='#fff';" onblur="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';">
                         <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; display: flex; align-items: center;">
                             <svg width="16" height="16" fill="none" stroke="#94a3b8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </span>
@@ -126,14 +126,14 @@
                 <!-- Grade Filter -->
                 <div>
                     <label style="display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 700; color: #334155;">
-                        المجموعة التدريبية الدراسي
+                        Training Group الدراسي
                     </label>
                     <div style="position: relative;">
                         <select id="filter_class" name="class_filter" style="width: 100%; height: 34px; padding: 0 32px 0 20px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; background: #f8fafc; appearance: none; -webkit-appearance: none; cursor: pointer; transition: all 0.2s;" onfocus="this.style.borderColor='#dc2626'; this.style.background='#fff';" onblur="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';">
-                            <option value="">جميع المجموعات التدريبية</option>
+                            <option value="">جميع Training Groups</option>
                             <?php
                             global $wpdb;
-                            $classes = $wpdb->get_col("SELECT DISTINCT class_name FROM {$wpdb->prefix}sm_students ORDER BY CAST(REPLACE(class_name, 'المجموعة التدريبية ', '') AS UNSIGNED) ASC");
+                            $classes = $wpdb->get_col("SELECT DISTINCT class_name FROM {$wpdb->prefix}sm_students ORDER BY CAST(REPLACE(class_name, 'Training Group ', '') AS UNSIGNED) ASC");
                             foreach ($classes as $c): ?>
                                 <option value="<?php echo esc_attr($c); ?>" <?php selected(isset($_GET['class_filter']) && $_GET['class_filter'] == $c); ?>><?php echo esc_html($c); ?></option>
                             <?php endforeach; ?>
@@ -148,7 +148,7 @@
                 <!-- Section Filter -->
                 <div>
                     <label style="display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 700; color: #334155;">
-                        المجموعة التدريبية
+                        Training Group
                     </label>
                     <div style="position: relative;">
                         <select id="filter_section" name="section_filter" style="width: 100%; height: 34px; padding: 0 32px 0 20px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; outline: none; background: #f8fafc; appearance: none; -webkit-appearance: none; cursor: pointer; transition: all 0.2s;" onfocus="this.style.borderColor='#dc2626'; this.style.background='#fff';" onblur="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';">
@@ -200,23 +200,23 @@
 
     <!-- Import Form Drawer (Hidden by default) -->
     <div id="violation-import-form" style="display:none; background: #f8fafc; padding: 24px; border: 2px dashed #cbd5e1; border-radius: 16px; margin-bottom: 20px;">
-        <h3 style="margin-top:0; color:#1e293b; font-size: 16px; font-weight: 800;">دليل استيراد سجلات المخالفات السلوكية (Excel / CSV)</h3>
+        <h3 style="margin-top:0; color:#1e293b; font-size: 16px; font-weight: 800;">دليل Import سجNoت المخالفات السلوكية (Excel / CSV)</h3>
         
         <p style="font-size: 12.5px; color: #64748b; line-height: 1.6; margin-bottom: 15px;">
-            يتم مطابقة المخرجات مع قاعدة بيانات اللاعبين باستخدام <strong>رقم اللاعب (Student Number) في العمود A</strong> كمرجع رئيسي لربط المخالفة باللاعب تلقائياً دون تكرار.
+            يتم مطابقة المخرجات مع قاعدة بيانات الNoعبين باستخدام <strong>Player ID (Student Number) في العمود A</strong> كمرجع رئيسي لربط المخالفة بالNoعب تلقائياً دون تكرار.
         </p>
 
         <div style="background:#fff; padding:15px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:20px; overflow-x: auto;">
-            <p style="font-size:12.5px; font-weight:700; margin-bottom:10px; color:#334155;">هيكل ملف السجلات القياسي (ترتيب الأعمدة):</p>
+            <p style="font-size:12.5px; font-weight:700; margin-bottom:10px; color:#334155;">هيكل ملف السجNoت القياسي (ترتيب الأعمدة):</p>
             <table style="width:100%; font-size:11px; border-collapse:collapse; text-align:center; min-width: 600px;">
                 <thead>
                     <tr style="background:#f1f5f9;">
-                        <th style="border:1px solid #cbd5e1; padding:6px; color:#dc2626;">A: رقم اللاعب *</th>
-                        <th style="border:1px solid #cbd5e1; padding:6px;">B: اسم اللاعب</th>
-                        <th style="border:1px solid #cbd5e1; padding:6px;">C: الجنسية</th>
-                        <th style="border:1px solid #cbd5e1; padding:6px;">D: الأكاديمية الرياضية</th>
-                        <th style="border:1px solid #cbd5e1; padding:6px;">E: المجموعة التدريبية</th>
-                        <th style="border:1px solid #cbd5e1; padding:6px;">F: المجموعة التدريبية</th>
+                        <th style="border:1px solid #cbd5e1; padding:6px; color:#dc2626;">A: Player ID *</th>
+                        <th style="border:1px solid #cbd5e1; padding:6px;">B: Player Name</th>
+                        <th style="border:1px solid #cbd5e1; padding:6px;">C: Genderية</th>
+                        <th style="border:1px solid #cbd5e1; padding:6px;">D: Academy الرياضية</th>
+                        <th style="border:1px solid #cbd5e1; padding:6px;">E: Training Group</th>
+                        <th style="border:1px solid #cbd5e1; padding:6px;">F: Training Group</th>
                         <th style="border:1px solid #cbd5e1; padding:6px; color:#dc2626;">G: نوع المخالفة *</th>
                         <th style="border:1px solid #cbd5e1; padding:6px;">H: بند المخالفة</th>
                         <th style="border:1px solid #cbd5e1; padding:6px; color:#dc2626;">I: التفاصيل *</th>
@@ -228,8 +228,8 @@
                         <td style="border:1px solid #cbd5e1; padding:6px; font-weight:700; color:#dc2626;">10001</td>
                         <td style="border:1px solid #cbd5e1; padding:6px;">أحمد علي</td>
                         <td style="border:1px solid #cbd5e1; padding:6px;">إماراتي</td>
-                        <td style="border:1px solid #cbd5e1; padding:6px;">الأكاديمية الرياضية الرئيسية</td>
-                        <td style="border:1px solid #cbd5e1; padding:6px;">المجموعة التدريبية 10</td>
+                        <td style="border:1px solid #cbd5e1; padding:6px;">Academy الرياضية Home</td>
+                        <td style="border:1px solid #cbd5e1; padding:6px;">Training Group 10</td>
                         <td style="border:1px solid #cbd5e1; padding:6px;">1</td>
                         <td style="border:1px solid #cbd5e1; padding:6px; font-weight:700; color:#dc2626;">سلوكية</td>
                         <td style="border:1px solid #cbd5e1; padding:6px;">V-102</td>
@@ -248,11 +248,11 @@
             </div>
             <div id="import-loading" style="display:none; margin-bottom: 15px; padding: 10px; background: #ebf8ff; border-left: 4px solid #3182ce; color: #2c5282; font-weight: 700; border-radius: 8px;">
                 <span class="dashicons dashicons-update spin" style="margin-left: 10px;"></span>
-                جاري استيراد البيانات وربط المخالفات باللاعبين... يرجى عدم إغلاق الصفحة.
+                جاري Import البيانات وربط المخالفات بالNoعبين... يرجى عدم Close الصفحة.
             </div>
             <div style="display:flex; gap:10px; margin-top:20px;">
-                <button type="submit" name="sm_import_violations_csv" class="sm-btn" style="width:auto; background:#16a34a; border-radius: 10px; height: 40px; padding: 0 18px; font-weight: 700;">استيراد السجلات وتثبيتها الآن</button>
-                <button type="button" onclick="this.parentElement.parentElement.parentElement.style.display='none'" class="sm-btn" style="width:auto; background:#94a3b8; border-radius: 10px; height: 40px; padding: 0 18px; font-weight: 700;">إلغاء</button>
+                <button type="submit" name="sm_import_violations_csv" class="sm-btn" style="width:auto; background:#16a34a; border-radius: 10px; height: 40px; padding: 0 18px; font-weight: 700;">Import السجNoت وتثبيتها الآن</button>
+                <button type="button" onclick="this.parentElement.parentElement.parentElement.style.display='none'" class="sm-btn" style="width:auto; background:#94a3b8; border-radius: 10px; height: 40px; padding: 0 18px; font-weight: 700;">Cancel</button>
             </div>
         </form>
 
@@ -282,7 +282,7 @@
         <div style="padding: 18px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; background: #ffffff;">
             <!-- Left Header Info -->
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-weight: 800; font-size: 15px; color: #0f172a;">سجلات المخالفات المسجلة</span>
+                <span style="font-weight: 800; font-size: 15px; color: #0f172a;">سجNoت المخالفات المسجلة</span>
                 <span id="violation-total-badge" style="display: inline-flex; align-items: center; padding: 3px 10px; background: #fee2e2; color: #dc2626; border-radius: 12px; font-size: 12px; font-weight: 800;">
                     <?php echo $total_records; ?> مخالفة
                 </span>
@@ -294,17 +294,17 @@
                 <div style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #64748b; font-weight: 600;">
                     <span>الترتيب حسب:</span>
                     <select id="table_sort_select" onchange="changeTableSorting(this.value)" style="height: 36px; padding: 0 28px 0 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 12.5px; color: #334155; font-weight: 700; outline: none; background: #f8fafc; cursor: pointer;">
-                        <option value="created_at_DESC" <?php selected($orderby == 'created_at' && $order == 'DESC'); ?>>الأحدث أولاً</option>
-                        <option value="created_at_ASC" <?php selected($orderby == 'created_at' && $order == 'ASC'); ?>>الأقدم أولاً</option>
+                        <option value="created_at_DESC" <?php selected($orderby == 'created_at' && $order == 'DESC'); ?>>الأحدث أوNoً</option>
+                        <option value="created_at_ASC" <?php selected($orderby == 'created_at' && $order == 'ASC'); ?>>الأقدم أوNoً</option>
                         <option value="degree_DESC" <?php selected($orderby == 'degree' && $order == 'DESC'); ?>>الأعلى درجة</option>
                         <option value="degree_ASC" <?php selected($orderby == 'degree' && $order == 'ASC'); ?>>الأقل درجة</option>
-                        <option value="student_ASC" <?php selected($orderby == 'student' && $order == 'ASC'); ?>>اسم اللاعب (أ - ي)</option>
+                        <option value="student_ASC" <?php selected($orderby == 'student' && $order == 'ASC'); ?>>Player Name (أ - ي)</option>
                     </select>
                 </div>
 
                 <!-- Page limit dropdown -->
                 <div style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #64748b; font-weight: 600;">
-                    <span>عرض:</span>
+                    <span>View:</span>
                     <select id="table_limit_select" onchange="changeTableLimit(this.value)" style="height: 36px; padding: 0 24px 0 10px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 12.5px; color: #334155; font-weight: 700; outline: none; background: #f8fafc; cursor: pointer;">
                         <option value="10" <?php selected($limit == 10); ?>>10</option>
                         <option value="25" <?php selected($limit == 25); ?>>25</option>
@@ -320,13 +320,13 @@
             <table style="width: 100%; border-collapse: separate; border-spacing: 0; text-align: right;">
                 <thead>
                     <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
-                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; width: 28%;">اللاعب</th>
-                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; width: 20%;">الأكاديمية الرياضية / المجموعة التدريبية / المجموعة التدريبية</th>
+                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; width: 28%;">الNoعب</th>
+                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; width: 20%;">Academy الرياضية / Training Group / Training Group</th>
                         <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; width: 14%;">التاريخ واليوم</th>
                         <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; width: 18%;">بند المخالفة والدرجة</th>
                         <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; text-align: center; width: 5%;">تكرار</th>
-                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; text-align: center; width: 8%;">الشدة / الحالة</th>
-                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; text-align: center; width: 17%;">الإجراءات الإدارية</th>
+                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; text-align: center; width: 8%;">الشدة / Status</th>
+                        <th style="padding: 14px 18px; font-size: 12.5px; font-weight: 800; color: #475569; border-bottom: 2px solid #e2e8f0; text-align: center; width: 17%;">الActions الإدارية</th>
                     </tr>
                 </thead>
                 <tbody id="violations-table-body">
@@ -338,7 +338,7 @@
         <!-- 4. Pagination Footer -->
         <div style="padding: 16px 24px; border-top: 1px solid #f1f5f9; background: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
             <div id="pagination-info" style="font-size: 13px; color: #64748b; font-weight: 600;">
-                عرض <span id="pag-from" style="color: #0f172a; font-weight: 800;"><?php echo $from_num; ?></span> - <span id="pag-to" style="color: #0f172a; font-weight: 800;"><?php echo $to_num; ?></span> من إجمالي <span id="pag-total" style="color: #0f172a; font-weight: 800;"><?php echo $total_records; ?></span> مخالفة
+                View <span id="pag-from" style="color: #0f172a; font-weight: 800;"><?php echo $from_num; ?></span> - <span id="pag-to" style="color: #0f172a; font-weight: 800;"><?php echo $to_num; ?></span> من إجمالي <span id="pag-total" style="color: #0f172a; font-weight: 800;"><?php echo $total_records; ?></span> مخالفة
             </div>
 
             <div id="pagination-controls" style="display: flex; align-items: center; gap: 6px;">
@@ -348,7 +348,7 @@
                 $next_disabled = ($paged >= $total_pages);
                 ?>
                 <button type="button" onclick="goToPage(1)" <?php if ($prev_disabled) echo 'disabled'; ?> class="pag-btn" style="height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: <?php echo $prev_disabled ? '#f8fafc' : '#ffffff'; ?>; color: <?php echo $prev_disabled ? '#94a3b8' : '#334155'; ?>; font-size: 12px; font-weight: 700; cursor: <?php echo $prev_disabled ? 'not-allowed' : 'pointer'; ?>;">الأولى</button>
-                <button type="button" onclick="goToPage(<?php echo max(1, $paged - 1); ?>)" <?php if ($prev_disabled) echo 'disabled'; ?> class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: <?php echo $prev_disabled ? '#f8fafc' : '#ffffff'; ?>; color: <?php echo $prev_disabled ? '#94a3b8' : '#334155'; ?>; font-size: 12px; font-weight: 700; cursor: <?php echo $prev_disabled ? 'not-allowed' : 'pointer'; ?>;">السابق</button>
+                <button type="button" onclick="goToPage(<?php echo max(1, $paged - 1); ?>)" <?php if ($prev_disabled) echo 'disabled'; ?> class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: <?php echo $prev_disabled ? '#f8fafc' : '#ffffff'; ?>; color: <?php echo $prev_disabled ? '#94a3b8' : '#334155'; ?>; font-size: 12px; font-weight: 700; cursor: <?php echo $prev_disabled ? 'not-allowed' : 'pointer'; ?>;">Previous</button>
 
                 <div id="pag-numbers" style="display: flex; gap: 4px;">
                     <?php
@@ -361,7 +361,7 @@
                     <?php endfor; ?>
                 </div>
 
-                <button type="button" onclick="goToPage(<?php echo min($total_pages, $paged + 1); ?>)" <?php if ($next_disabled) echo 'disabled'; ?> class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: <?php echo $next_disabled ? '#f8fafc' : '#ffffff'; ?>; color: <?php echo $next_disabled ? '#94a3b8' : '#334155'; ?>; font-size: 12px; font-weight: 700; cursor: <?php echo $next_disabled ? 'not-allowed' : 'pointer'; ?>;">التالي</button>
+                <button type="button" onclick="goToPage(<?php echo min($total_pages, $paged + 1); ?>)" <?php if ($next_disabled) echo 'disabled'; ?> class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: <?php echo $next_disabled ? '#f8fafc' : '#ffffff'; ?>; color: <?php echo $next_disabled ? '#94a3b8' : '#334155'; ?>; font-size: 12px; font-weight: 700; cursor: <?php echo $next_disabled ? 'not-allowed' : 'pointer'; ?>;">Next</button>
                 <button type="button" onclick="goToPage(<?php echo $total_pages; ?>)" <?php if ($next_disabled) echo 'disabled'; ?> class="pag-btn" style="height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: <?php echo $next_disabled ? '#f8fafc' : '#ffffff'; ?>; color: <?php echo $next_disabled ? '#94a3b8' : '#334155'; ?>; font-size: 12px; font-weight: 700; cursor: <?php echo $next_disabled ? 'not-allowed' : 'pointer'; ?>;">الأخيرة</button>
             </div>
         </div>
@@ -369,7 +369,7 @@
     </div>
 
     <!-- Unified Student Profile Edit Modal -->
-    <?php if (current_user_can('إدارة_اللاعبين')): ?>
+    <?php if (current_user_can('إدارة_الNoعبين')): ?>
         <?php include SM_PLUGIN_DIR . 'templates/partials/student-profile-edit-modal.php'; ?>
     <?php endif; ?>
 
@@ -377,7 +377,7 @@
     <div id="edit-record-modal" class="sm-modal-overlay" style="display: none;">
         <div class="sm-modal-content" style="max-width: 750px; border-radius: 20px; padding: 28px;">
             <div class="sm-modal-header" style="border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="margin:0; font-size: 18px; font-weight: 800; color: #0f172a;">تعديل بيانات المخالفة</h3>
+                <h3 style="margin:0; font-size: 18px; font-weight: 800; color: #0f172a;">Edit بيانات المخالفة</h3>
                 <button class="sm-modal-close" onclick="document.getElementById('edit-record-modal').style.display='none'" style="background: none; border: none; font-size: 24px; color: #94a3b8; cursor: pointer;">&times;</button>
             </div>
             <form method="post" id="edit-record-form" class="sm-form-container">
@@ -386,12 +386,12 @@
                 
                 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 16px; background: #f8fafc; padding: 18px; border-radius: 14px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
                     <div class="sm-form-group" style="margin-bottom:0;">
-                        <label class="sm-label" style="font-size: 12.5px; font-weight: 700; color: #334155;">درجة المخالفة (المستوى):</label>
+                        <label class="sm-label" style="font-size: 12.5px; font-weight: 700; color: #334155;">درجة المخالفة (الLevel):</label>
                         <select name="degree" id="edit_violation_degree" class="sm-select" onchange="updateEditHierarchicalViolations()" required style="height: 40px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
-                            <option value="1">المستوى الأول (بسيطة)</option>
-                            <option value="2">المستوى الثاني (متوسطة)</option>
-                            <option value="3">المستوى الثالث (جسيمة)</option>
-                            <option value="4">المستوى الرابع (شديدة الخطورة)</option>
+                            <option value="1">الLevel الأول (بسيطة)</option>
+                            <option value="2">الLevel الثاني (Intermediateة)</option>
+                            <option value="3">الLevel الثالث (جسيمة)</option>
+                            <option value="4">الLevel الرابع (شديدة الخطورة)</option>
                         </select>
                     </div>
 
@@ -408,7 +408,7 @@
                         <label class="sm-label" style="font-size: 12.5px; font-weight: 700; color: #334155;">تصنيف الموقف:</label>
                         <select name="classification" id="edit_classification" class="sm-select" style="height: 40px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
                             <option value="general">عام</option>
-                            <option value="inside_class">داخل المجموعة التدريبية</option>
+                            <option value="inside_class">داخل Training Group</option>
                             <option value="yard">في الساحة</option>
                             <option value="labs">في المختبرات</option>
                             <option value="bus">الحافلة المدرسية</option>
@@ -434,8 +434,8 @@
                 </div>
 
                 <div style="display:flex; gap:12px; justify-content: flex-end;">
-                    <button type="submit" name="sm_update_record" class="sm-btn" style="background: #dc2626; color: #fff; height: 42px; border-radius: 10px; padding: 0 20px; font-weight: 800; border: none;">حفظ التغييرات</button>
-                    <button type="button" onclick="document.getElementById('edit-record-modal').style.display='none'" class="sm-btn" style="background: #cbd5e1; color: #334155; height: 42px; border-radius: 10px; padding: 0 16px; font-weight: 700; border: none;">إلغاء</button>
+                    <button type="submit" name="sm_update_record" class="sm-btn" style="background: #dc2626; color: #fff; height: 42px; border-radius: 10px; padding: 0 20px; font-weight: 800; border: none;">Save التغييرات</button>
+                    <button type="button" onclick="document.getElementById('edit-record-modal').style.display='none'" class="sm-btn" style="background: #cbd5e1; color: #334155; height: 42px; border-radius: 10px; padding: 0 16px; font-weight: 700; border: none;">Cancel</button>
                 </div>
             </form>
         </div>
@@ -509,7 +509,7 @@
                     <div>
                         <div id="view_stu_name" style="font-size: 16px; font-weight: 800; color: #0f172a;"></div>
                         <div style="font-size: 12px; color: #64748b; margin-top: 3px;">
-                            الأكاديمية الرياضية: <span id="view_school_name" style="font-weight: 700; color: #334155;"></span> | المجموعة التدريبية والمجموعة التدريبية: <span id="view_class_sec" style="font-weight: 700; color: #334155;"></span>
+                            Academy الرياضية: <span id="view_school_name" style="font-weight: 700; color: #334155;"></span> | Training Group وTraining Group: <span id="view_class_sec" style="font-weight: 700; color: #334155;"></span>
                         </div>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
             </div>
 
             <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
-                <button type="button" onclick="document.getElementById('view-record-modal').style.display='none'" class="sm-btn" style="background: #475569; color: #fff; border-radius: 10px; padding: 0 22px; height: 40px; font-weight: 700; border: none;">إغلاق</button>
+                <button type="button" onclick="document.getElementById('view-record-modal').style.display='none'" class="sm-btn" style="background: #475569; color: #fff; border-radius: 10px; padding: 0 22px; height: 40px; font-weight: 700; border: none;">Close</button>
             </div>
         </div>
     </div>
@@ -556,11 +556,11 @@
             <div style="color: #dc2626; font-size: 40px; margin-bottom: 15px;">
                 <svg width="48" height="48" fill="none" stroke="#dc2626" viewBox="0 0 24 24" style="margin: 0 auto;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             </div>
-            <h3 style="margin:0 0 10px 0; border:none; font-size: 18px; font-weight: 800; color: #0f172a;">تأكيد حذف المخالفة</h3>
-            <p style="color: #64748b; font-size: 13.5px; margin-bottom: 20px; line-height: 1.5;">هل أنت متأكد من حذف هذا السجل نهائياً؟ لا يمكن التراجع عن هذه العملية.</p>
+            <h3 style="margin:0 0 10px 0; border:none; font-size: 18px; font-weight: 800; color: #0f172a;">Confirm Delete المخالفة</h3>
+            <p style="color: #64748b; font-size: 13.5px; margin-bottom: 20px; line-height: 1.5;">هل أنت متأكد من Delete هذا السجل نهائياً؟ No يمكن التراجع عن هذه العملية.</p>
             <input type="hidden" id="confirm_delete_record_id">
             <div style="display: flex; gap: 12px; justify-content: center;">
-                <button onclick="executeDeleteRecord()" class="sm-btn" style="background: #dc2626; color: #fff; border-radius: 10px; height: 40px; padding: 0 20px; font-weight: 800; border: none;">حذف نهائي</button>
+                <button onclick="executeDeleteRecord()" class="sm-btn" style="background: #dc2626; color: #fff; border-radius: 10px; height: 40px; padding: 0 20px; font-weight: 800; border: none;">Delete نهائي</button>
                 <button onclick="document.getElementById('delete-record-modal').style.display='none'" class="sm-btn" style="background: #cbd5e1; color: #334155; border-radius: 10px; height: 40px; padding: 0 20px; font-weight: 700; border: none;">تراجع</button>
             </div>
         </div>
@@ -632,7 +632,7 @@
 
         let html = '';
         html += `<button type="button" onclick="goToPage(1)" ${prevDisabled ? 'disabled' : ''} class="pag-btn" style="height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: ${prevDisabled ? '#f8fafc' : '#ffffff'}; color: ${prevDisabled ? '#94a3b8' : '#334155'}; font-size: 12px; font-weight: 700; cursor: ${prevDisabled ? 'not-allowed' : 'pointer'};">الأولى</button>`;
-        html += `<button type="button" onclick="goToPage(${Math.max(1, page - 1)})" ${prevDisabled ? 'disabled' : ''} class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: ${prevDisabled ? '#f8fafc' : '#ffffff'}; color: ${prevDisabled ? '#94a3b8' : '#334155'}; font-size: 12px; font-weight: 700; cursor: ${prevDisabled ? 'not-allowed' : 'pointer'};">السابق</button>`;
+        html += `<button type="button" onclick="goToPage(${Math.max(1, page - 1)})" ${prevDisabled ? 'disabled' : ''} class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: ${prevDisabled ? '#f8fafc' : '#ffffff'}; color: ${prevDisabled ? '#94a3b8' : '#334155'}; font-size: 12px; font-weight: 700; cursor: ${prevDisabled ? 'not-allowed' : 'pointer'};">Previous</button>`;
 
         html += `<div style="display: flex; gap: 4px;">`;
         const startP = Math.max(1, page - 2);
@@ -643,7 +643,7 @@
         }
         html += `</div>`;
 
-        html += `<button type="button" onclick="goToPage(${Math.min(totalPages, page + 1)})" ${nextDisabled ? 'disabled' : ''} class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: ${nextDisabled ? '#f8fafc' : '#ffffff'}; color: ${nextDisabled ? '#94a3b8' : '#334155'}; font-size: 12px; font-weight: 700; cursor: ${nextDisabled ? 'not-allowed' : 'pointer'};">التالي</button>`;
+        html += `<button type="button" onclick="goToPage(${Math.min(totalPages, page + 1)})" ${nextDisabled ? 'disabled' : ''} class="pag-btn" style="height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: ${nextDisabled ? '#f8fafc' : '#ffffff'}; color: ${nextDisabled ? '#94a3b8' : '#334155'}; font-size: 12px; font-weight: 700; cursor: ${nextDisabled ? 'not-allowed' : 'pointer'};">Next</button>`;
         html += `<button type="button" onclick="goToPage(${totalPages})" ${nextDisabled ? 'disabled' : ''} class="pag-btn" style="height: 36px; padding: 0 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: ${nextDisabled ? '#f8fafc' : '#ffffff'}; color: ${nextDisabled ? '#94a3b8' : '#334155'}; font-size: 12px; font-weight: 700; cursor: ${nextDisabled ? 'not-allowed' : 'pointer'};">الأخيرة</button>`;
 
         container.innerHTML = html;
@@ -707,13 +707,13 @@
 
         window.viewViolationDetails = function(record) {
             document.getElementById('view_stu_name').innerText = record.student_name || '---';
-            document.getElementById('view_school_name').innerText = record.school_name || 'الأكاديمية الرياضية الرئيسية';
+            document.getElementById('view_school_name').innerText = record.school_name || 'Academy الرياضية Home';
             document.getElementById('view_class_sec').innerText = (record.class_name || '') + ' ' + (record.section || '');
             document.getElementById('view_violation_code').innerText = record.violation_code || record.type || '---';
-            document.getElementById('view_degree').innerText = 'المستوى / الدرجة ' + (record.degree || 1);
+            document.getElementById('view_degree').innerText = 'الLevel / الدرجة ' + (record.degree || 1);
             document.getElementById('view_date').innerText = record.created_at || '---';
             document.getElementById('view_recurrence').innerText = record.recurrence_count || 1;
-            document.getElementById('view_details_text').innerText = record.details || 'لا توجد تفاصيل إضافية مسجلة.';
+            document.getElementById('view_details_text').innerText = record.details || 'No توجد تفاصيل إضافية مسجلة.';
             document.getElementById('view_action_text').innerText = record.action_taken || 'لم يتم تسجيل إجراء إداري بعد.';
 
             const photoBox = document.getElementById('view_stu_photo');
@@ -738,7 +738,7 @@
             .then(res => {
                 if (res.success) {
                     if (typeof smShowNotification === 'function') {
-                        smShowNotification('تم تحديث حالة المخالفة بنجاح');
+                        smShowNotification('تم Update حالة المخالفة بنجاح');
                     }
                     fetchViolationsData();
                 }
@@ -797,7 +797,7 @@
             .then(r => r.json())
             .then(res => {
                 if (res.success) {
-                    if (typeof smShowNotification === 'function') smShowNotification('تم حذف السجل بنجاح');
+                    if (typeof smShowNotification === 'function') smShowNotification('تم Delete السجل بنجاح');
                     const row = document.getElementById('record-row-' + id);
                     if (row) row.remove();
                     document.getElementById('delete-record-modal').style.display = 'none';

@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="no-print" style="background: #f8fafc; padding: 20px; text-align: center; border-bottom: 1px solid #e2e8f0; margin-bottom: 30px;">
-        <button onclick="window.print()" style="padding: 12px 30px; background: #38a169; color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Rubik', sans-serif;">بدء الطباعة الآن</button>
+        <button onclick="window.print()" style="padding: 12px 30px; background: #38a169; color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Rubik', sans-serif;">بدء الPrint الآن</button>
     </div>
 
     <?php
@@ -68,7 +68,7 @@
         </div>
 
         <div class="report-meta">
-            <span>عدد اللاعبين: <?php echo count($students); ?></span>
+            <span>عدد الNoعبين: <?php echo count($students); ?></span>
             <span>الحاضرين: <?php echo count(array_filter($students, function($s) { return $s->status == 'present'; })); ?></span>
             <span>الغائبين: <?php echo count(array_filter($students, function($s) { return $s->status == 'absent'; })); ?></span>
         </div>
@@ -77,10 +77,10 @@
             <thead>
                 <tr>
                     <th style="width: 40px;">#</th>
-                    <th>كود اللاعب</th>
-                    <th style="text-align: right;">اسم اللاعب</th>
-                    <th>الحالة</th>
-                    <th style="text-align: right;">ملاحظات</th>
+                    <th>كود الNoعب</th>
+                    <th style="text-align: right;">Player Name</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Notes</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,11 +110,11 @@
 
         <div style="margin-top: 40px; display: flex; justify-content: space-between; align-items: flex-start;">
             <div style="text-align: center;">
-                <p style="font-weight: 800; margin-bottom: 30px;">توقيع رائد المجموعة التدريبية</p>
+                <p style="font-weight: 800; margin-bottom: 30px;">توقيع رائد Training Group</p>
                 <p>............................</p>
             </div>
             <div style="text-align: center;">
-                <p style="font-weight: 800; margin-bottom: 10px;">يعتمد مدير الأكاديمية الرياضية</p>
+                <p style="font-weight: 800; margin-bottom: 10px;">يعتمد مدير Academy الرياضية</p>
                 <p style="font-weight: 900; color: #111F35; margin-bottom: 20px;"><?php echo esc_html($school['school_principal_name'] ?? ''); ?></p>
                 <p>التوقيع: ............................</p>
             </div>

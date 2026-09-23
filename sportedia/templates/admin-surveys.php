@@ -1,20 +1,20 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 <div class="sm-surveys-container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h3 style="margin:0;">إدارة استطلاعات الرأي</h3>
-        <button class="sm-btn" onclick="smOpenNewSurveyModal()" style="width: auto;">+ إنشاء استطلاع جديد</button>
+        <h3 style="margin:0;">إدارة استطNoعات الرأي</h3>
+        <button class="sm-btn" onclick="smOpenNewSurveyModal()" style="width: auto;">+ إنشاء استطNoع جديد</button>
     </div>
 
     <div class="sm-table-container">
         <table class="sm-table">
             <thead>
                 <tr>
-                    <th>العنوان</th>
+                    <th>Address</th>
                     <th>الفئة المستهدفة</th>
                     <th>تاريخ الإنشاء</th>
-                    <th>الحالة</th>
+                    <th>Status</th>
                     <th>النتائج</th>
-                    <th>الإجراءات</th>
+                    <th>الActions</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,8 +30,8 @@
                     <td>
                         <?php
                         if ($s->target_roles === 'all') echo 'الجميع';
-                        elseif ($s->target_roles === 'sm_student') echo 'اللاعبين';
-                        elseif ($s->target_roles === 'sm_teacher') echo 'المدربون';
+                        elseif ($s->target_roles === 'sm_student') echo 'الNoعبين';
+                        elseif ($s->target_roles === 'sm_teacher') echo 'Coaches';
                         elseif ($s->target_roles === 'sm_coordinator') echo 'المنسقون';
                         else echo esc_html($s->target_roles);
                         ?>
@@ -39,7 +39,7 @@
                     <td><?php echo date('Y-m-d', strtotime($s->created_at)); ?></td>
                     <td>
                         <span class="sm-badge" style="background: <?php echo $s->status === 'active' ? '#38a169' : '#e53e3e'; ?>;">
-                            <?php echo $s->status === 'active' ? 'نشط' : 'ملغى'; ?>
+                            <?php echo $s->status === 'active' ? 'Active' : 'ملغى'; ?>
                         </span>
                     </td>
                     <td>
@@ -49,7 +49,7 @@
                     </td>
                     <td>
                         <?php if ($s->status === 'active'): ?>
-                            <button class="sm-btn sm-btn-outline" onclick="smCancelSurvey(<?php echo $s->id; ?>)" style="color: #e53e3e; border-color: #feb2b2; padding: 2px 10px; font-size: 11px;">إلغاء</button>
+                            <button class="sm-btn sm-btn-outline" onclick="smCancelSurvey(<?php echo $s->id; ?>)" style="color: #e53e3e; border-color: #feb2b2; padding: 2px 10px; font-size: 11px;">Cancel</button>
                         <?php endif; ?>
                         <a href="<?php echo admin_url('admin-ajax.php?action=sm_export_survey_results&id='.$s->id); ?>" class="sm-btn sm-btn-outline" style="padding: 2px 10px; font-size: 11px;">CSV</a>
                     </td>
@@ -64,7 +64,7 @@
 <div id="new-survey-modal" class="sm-modal-overlay">
     <div class="sm-modal-content" style="max-width: 700px;">
         <div class="sm-modal-header">
-            <h3>إنشاء استطلاع رأي جديد</h3>
+            <h3>إنشاء استطNoع رأي جديد</h3>
             <button class="sm-modal-close" onclick="this.closest('.sm-modal-overlay').style.display='none'">&times;</button>
         </div>
         <div class="sm-modal-body">
@@ -72,22 +72,22 @@
                 <label class="sm-label">استخدام نموذج جاهز (اختياري):</label>
                 <select id="survey_template_select" class="sm-select" onchange="smLoadSurveyTemplate(this.value)">
                     <option value="">-- اختر نموذجاً --</option>
-                    <option value="student_satisfaction">استبيان رضا اللاعبين عن الخدمات المدرسية</option>
+                    <option value="student_satisfaction">استبيان رضا الNoعبين عن الخدمات المدرسية</option>
                     <option value="teacher_feedback">استبيان تقييم أداء المدرب (من قبل المنسق)</option>
-                    <option value="parent_engagement">استبيان التواصل مع أولياء الأمور والأوصياء</option>
+                    <option value="parent_engagement">استبيان التواصل مع أولياء Motherور والأوصياء</option>
                     <option value="academic_environment">استبيان البيئة التعليمية والمرافق</option>
                 </select>
             </div>
             <div class="sm-form-group">
-                <label class="sm-label">عنوان الاستطلاع:</label>
+                <label class="sm-label">عنوان اNoستطNoع:</label>
                 <input type="text" id="survey_title" class="sm-input" placeholder="مثال: استبيان رضا المدربين">
             </div>
             <div class="sm-form-group">
                 <label class="sm-label">الفئة المستهدفة:</label>
                 <select id="survey_recipients" class="sm-select">
                     <option value="all">الجميع</option>
-                    <option value="sm_student">اللاعبين فقط</option>
-                    <option value="sm_teacher">المدربون فقط</option>
+                    <option value="sm_student">الNoعبين فقط</option>
+                    <option value="sm_teacher">Coaches فقط</option>
                     <option value="sm_coordinator">المنسقون فقط</option>
                 </select>
             </div>
@@ -98,11 +98,11 @@
                     <button class="sm-btn sm-btn-outline" style="color:red; border-color:red; width:40px;" onclick="this.parentElement.remove()">×</button>
                 </div>
             </div>
-            <button class="sm-btn sm-btn-outline" onclick="smAddSurveyQuestion()" style="margin-top:10px;">+ إضافة سؤال آخر</button>
+            <button class="sm-btn sm-btn-outline" onclick="smAddSurveyQuestion()" style="margin-top:10px;">+ Add سؤال آخر</button>
 
             <div style="margin-top:30px; display:flex; gap:10px;">
-                <button class="sm-btn" onclick="smSaveSurvey()" style="flex:1;">نشر الاستطلاع</button>
-                <button class="sm-btn sm-btn-outline" onclick="this.closest('.sm-modal-overlay').style.display='none'" style="flex:1;">إلغاء</button>
+                <button class="sm-btn" onclick="smSaveSurvey()" style="flex:1;">نشر اNoستطNoع</button>
+                <button class="sm-btn sm-btn-outline" onclick="this.closest('.sm-modal-overlay').style.display='none'" style="flex:1;">Cancel</button>
             </div>
         </div>
     </div>
@@ -112,7 +112,7 @@
 <div id="survey-results-modal" class="sm-modal-overlay">
     <div class="sm-modal-content" style="max-width: 800px;">
         <div class="sm-modal-header">
-            <h3 id="res-modal-title">نتائج الاستطلاع</h3>
+            <h3 id="res-modal-title">نتائج اNoستطNoع</h3>
             <button class="sm-modal-close" onclick="this.closest('.sm-modal-overlay').style.display='none'">&times;</button>
         </div>
         <div id="survey-results-body" style="max-height: 500px; overflow-y: auto; padding: 20px;">
@@ -124,14 +124,14 @@
 <script>
 const surveyTemplates = {
     'student_satisfaction': {
-        title: 'استبيان رضا اللاعبين عن الخدمات المدرسية',
+        title: 'استبيان رضا الNoعبين عن الخدمات المدرسية',
         recipients: 'sm_student',
         questions: [
             'ما مدى رضاك عن نظافة المرافق المدرسية؟',
             'هل تجد الوجبات المدرسية متنوعة وصحية؟',
             'ما تقييمك لتوفر الأدوات في المختبرات العلمية؟',
-            'هل تشعر بالأمان داخل الحرم المدرسي؟',
-            'ما مدى سرعة استجابة الإدارة لطلبات اللاعبين؟'
+            'هل تشعر بMotherان داخل الحرم المدرسي؟',
+            'ما مدى سرعة استجابة الإدارة لطلبات الNoعبين؟'
         ]
     },
     'teacher_feedback': {
@@ -140,20 +140,20 @@ const surveyTemplates = {
         questions: [
             'مدى التزام المدرب بالخطة الدراسية المعتمدة؟',
             'استخدام الوسائل التعليمية المبتكرة والذكية؟',
-            'القدرة على إدارة المجموعة التدريبية وتفاعل اللاعبين؟',
-            'دقة وسرعة رصد درجات اللاعبين وتقييمهم؟',
-            'التعاون مع الزملاء والإدارة المدرسية؟'
+            'القدرة على إدارة Training Group وتفاعل الNoعبين؟',
+            'دقة وسرعة رصد درجات الNoعبين وتقييمهم؟',
+            'التعاون مع الزمNoء والإدارة المدرسية؟'
         ]
     },
     'parent_engagement': {
-        title: 'استبيان تواصل الأكاديمية الرياضية مع ولي الأمر',
+        title: 'استبيان تواصل Academy الرياضية مع ولي Motherر',
         recipients: 'all',
         questions: [
             'ما مدى سهولة الوصول إلى تقارير سلوك ابنك/ابنتك؟',
             'هل تجد تجاوباً سريعاً من المشرف الرياضي؟',
             'ما رأيك في جودة الرسائل التنبيهية التي تصلك؟',
-            'هل تساهم الاجتماعات الدورية في تحسين مستوى اللاعب؟',
-            'تقييمك العام لسهولة استخدام نظام الأكاديمية الرياضية الإلكتروني؟'
+            'هل تساهم اNoجتماعات الدورية في تحسين Level الNoعب؟',
+            'تقييمك العام لسهولة استخدام نظام Academy الرياضية الإلكتروني؟'
         ]
     },
     'academic_environment': {
@@ -163,8 +163,8 @@ const surveyTemplates = {
             'توفر الموارد التعليمية والكتب في الوقت المحدد؟',
             'مناسبة التجهيزات التقنية في القاعات الدراسية؟',
             'كفاءة نظام رصد الغياب والحضور؟',
-            'مدى وضوح اللائحة السلوكية وتطبيقها بعدالة؟',
-            'رضاك العام عن بيئة العمل داخل الأكاديمية الرياضية؟'
+            'مدى وضوح الNoئحة السلوكية وتطبيقها بعدالة؟',
+            'رضاك العام عن بيئة العمل داخل Academy الرياضية؟'
         ]
     }
 };
@@ -216,7 +216,7 @@ function smSaveSurvey() {
     });
 
     if (!title || questions.length === 0) {
-        smShowNotification('يرجى إدخال العنوان وسؤال واحد على الأقل', true);
+        smShowNotification('يرجى إدخال Address وسؤال واحد على الأقل', true);
         return;
     }
 
@@ -231,7 +231,7 @@ function smSaveSurvey() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم نشر الاستطلاع بنجاح');
+            smShowNotification('تم نشر اNoستطNoع بنجاح');
             location.reload();
         } else {
             smShowNotification('خطأ: ' + res.data, true);
@@ -240,7 +240,7 @@ function smSaveSurvey() {
 }
 
 function smCancelSurvey(id) {
-    if (!confirm('هل أنت متأكد من إلغاء هذا الاستطلاع؟ لن يتمكن أحد من الرد عليه بعد الآن.')) return;
+    if (!confirm('هل أنت متأكد من Cancel هذا اNoستطNoع؟ لن يتمكن أحد من الرد عليه بعد الآن.')) return;
 
     const formData = new FormData();
     formData.append('action', 'sm_cancel_survey');
@@ -251,7 +251,7 @@ function smCancelSurvey(id) {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم إلغاء الاستطلاع');
+            smShowNotification('تم Cancel اNoستطNoع');
             location.reload();
         }
     });
@@ -260,7 +260,7 @@ function smCancelSurvey(id) {
 function smViewSurveyResults(id, title) {
     document.getElementById('res-modal-title').innerText = 'نتائج: ' + title;
     const body = document.getElementById('survey-results-body');
-    body.innerHTML = '<p style="text-align:center;">جاري تحميل النتائج...</p>';
+    body.innerHTML = '<p style="text-align:center;">جاري Upload النتائج...</p>';
     document.getElementById('survey-results-modal').style.display = 'flex';
 
     fetch('<?php echo admin_url('admin-ajax.php'); ?>?action=sm_get_survey_results&id=' + id)
@@ -282,14 +282,14 @@ function smViewSurveyResults(id, title) {
                 }
 
                 if (Object.keys(item.answers).length === 0) {
-                    html += '<div style="font-size: 12px; color: #718096; font-style: italic;">لا توجد ردود بعد</div>';
+                    html += '<div style="font-size: 12px; color: #718096; font-style: italic;">No توجد ردود بعد</div>';
                 }
 
                 html += `</div></div>`;
             });
             body.innerHTML = html;
         } else {
-            body.innerHTML = '<p style="color:red;">فشل تحميل النتائج</p>';
+            body.innerHTML = '<p style="color:red;">فشل Upload النتائج</p>';
         }
     });
 }

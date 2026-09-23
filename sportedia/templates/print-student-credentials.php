@@ -5,7 +5,7 @@ $school = SM_Settings::get_school_info();
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>بيانات دخول اللاعبين</title>
+    <title>بيانات دخول الNoعبين</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap');
         body { font-family: 'Rubik', sans-serif; margin: 0; padding: 20px; background: #fff; }
@@ -27,7 +27,7 @@ $school = SM_Settings::get_school_info();
 <body>
     <div class="header">
         <div class="school-name"><?php echo esc_html($school['school_name']); ?></div>
-        <div class="report-title">كشف بيانات دخول اللاعبين (ولي الأمر / اللاعب)</div>
+        <div class="report-title">كشف بيانات دخول الNoعبين (ولي Motherر / الNoعب)</div>
         <div style="font-size: 12px; margin-top: 5px;">تاريخ التوليد: <?php echo date_i18n('j F Y'); ?></div>
     </div>
 
@@ -35,10 +35,10 @@ $school = SM_Settings::get_school_info();
         <thead>
             <tr>
                 <th style="width: 50px;">#</th>
-                <th>اسم اللاعب</th>
-                <th>المجموعة التدريبية والمجموعة التدريبية</th>
-                <th>اسم المستخدم (الكود)</th>
-                <th>كلمة المرور المؤقتة</th>
+                <th>Player Name</th>
+                <th>Training Group وTraining Group</th>
+                <th>Username (الكود)</th>
+                <th>Password المؤقتة</th>
             </tr>
         </thead>
         <tbody>
@@ -60,12 +60,12 @@ $school = SM_Settings::get_school_info();
     </table>
 
     <div class="footer">
-        * يتم استخدام الكود كاسم مستخدم للدخول للنظام لكل من اللاعب وولي الأمر.<br>
-        * ينصح بتغيير كلمة المرور فور الدخول الأول للنظام.
+        * يتم استخدام الكود كاسم مستخدم للدخول للنظام لكل من الNoعب وولي Motherر.<br>
+        * ينصح بتغيير Password فور الدخول الأول للنظام.
     </div>
 
     <div class="no-print" style="margin-top: 30px; text-align: center;">
-        <button onclick="window.print()" style="padding: 10px 30px; background: #111F35; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-family: 'Rubik'; font-weight: 700;">طباعة الكشف الآن</button>
+        <button onclick="window.print()" style="padding: 10px 30px; background: #111F35; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-family: 'Rubik'; font-weight: 700;">Print الكشف الآن</button>
     </div>
 </body>
 </html>

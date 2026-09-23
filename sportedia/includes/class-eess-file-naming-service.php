@@ -55,7 +55,7 @@ class EESS_File_Naming_Service {
         $subject = is_object($plan) ? ($plan->subject ?? '') : ($plan['subject'] ?? '');
         $ext = self::extract_extension(is_object($plan) ? ($plan->file_url ?? '') : ($plan['file_url'] ?? ''), 'pdf');
 
-        $term_label = 'المجموعة التدريبية_' . $term_num;
+        $term_label = 'Training Group_' . $term_num;
         $raw_name = sprintf('خطة_فصلية_-_%s_-_%s_-_TP%d.%s', $teacher_name, $term_label, $plan_id, $ext);
         return self::sanitize_filename($raw_name);
     }

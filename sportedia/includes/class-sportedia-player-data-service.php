@@ -43,17 +43,17 @@ class EESS_Student_Data_Service {
      * Normalize Grade input (numeric or string)
      */
     public static function normalize_grade($input) {
-        $clean = trim(str_ireplace(array('المجموعة التدريبية', 'Grade', 'grade'), '', $input));
+        $clean = trim(str_ireplace(array('Training Group', 'Grade', 'grade'), '', $input));
         $num = intval($clean);
         if ($num >= 1 && $num <= 12) {
             $grade_map = array(
-                1 => 'المجموعة التدريبية الأول', 2 => 'المجموعة التدريبية الثاني', 3 => 'المجموعة التدريبية الثالث', 4 => 'المجموعة التدريبية الرابع',
-                5 => 'المجموعة التدريبية الخامس', 6 => 'المجموعة التدريبية السادس', 7 => 'المجموعة التدريبية السابع', 8 => 'المجموعة التدريبية الثامن',
-                9 => 'المجموعة التدريبية التاسع', 10 => 'المجموعة التدريبية العاشر', 11 => 'المجموعة التدريبية الحادي عشر', 12 => 'المجموعة التدريبية الثاني عشر'
+                1 => 'Training Group الأول', 2 => 'Training Group الثاني', 3 => 'Training Group الثالث', 4 => 'Training Group الرابع',
+                5 => 'Training Group الخامس', 6 => 'Training Group السادس', 7 => 'Training Group السابع', 8 => 'Training Group الثامن',
+                9 => 'Training Group التاسع', 10 => 'Training Group العاشر', 11 => 'Training Group الحادي عشر', 12 => 'Training Group الثاني عشر'
             );
             return $grade_map[$num];
         }
-        return !empty($input) ? sanitize_text_field($input) : 'المجموعة التدريبية الأول';
+        return !empty($input) ? sanitize_text_field($input) : 'Training Group الأول';
     }
 
     /**
@@ -72,7 +72,7 @@ class EESS_Student_Data_Service {
      */
     public static function normalize_special_needs($input) {
         $clean = mb_strtolower(trim($input));
-        if (in_array($clean, array('نعم', 'yes', '1', 'true'))) {
+        if (in_array($clean, array('Yes', 'yes', '1', 'true'))) {
             return 1;
         }
         return 0;
@@ -86,11 +86,11 @@ class EESS_Student_Data_Service {
         $items = array_map('trim', explode(';', $input));
         $cleaned = array();
         foreach ($items as $item) {
-            if (!empty($item) && $item !== 'لا توجد حساسية' && $item !== 'No Known Allergy') {
+            if (!empty($item) && $item !== 'No توجد حساسية' && $item !== 'No Known Allergy') {
                 $cleaned[] = sanitize_text_field($item);
             }
         }
-        return !empty($cleaned) ? implode('; ', array_unique($cleaned)) : 'لا توجد حساسية';
+        return !empty($cleaned) ? implode('; ', array_unique($cleaned)) : 'No توجد حساسية';
     }
 
     /**
@@ -126,16 +126,16 @@ class EESS_Student_Data_Service {
 
         // Required fields validation: Name, School, Grade, and Section are mandatory
         if (empty($raw_name)) {
-            return new WP_Error('missing_required_name', 'اسم اللاعب حقل إجباري.');
+            return new WP_Error('missing_required_name', 'Player Name حقل إجباري.');
         }
         if (empty($raw_school)) {
-            return new WP_Error('missing_required_school', 'رمز/اسم الأكاديمية الرياضية حقل إجباري.');
+            return new WP_Error('missing_required_school', 'رمز/اسم Academy الرياضية حقل إجباري.');
         }
         if (empty($raw_grade)) {
-            return new WP_Error('missing_required_grade', 'المجموعة التدريبية الدراسي حقل إجباري.');
+            return new WP_Error('missing_required_grade', 'Training Group الدراسي حقل إجباري.');
         }
         if (empty($raw_sec)) {
-            return new WP_Error('missing_required_section', 'المجموعة التدريبية / المجموعة التدريبية حقل إجباري.');
+            return new WP_Error('missing_required_section', 'Training Group / Training Group حقل إجباري.');
         }
 
         $name        = $raw_name;
@@ -147,10 +147,10 @@ class EESS_Student_Data_Service {
         $curr_user_id = get_current_user_id();
         if ($curr_user_id > 0) {
             $user_roles = (array) wp_get_current_user()->roles;
-            $can_edit_student = current_user_can('manage_options') || current_user_can('إدارة_اللاعبين') || in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_supervisor', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
+            $can_edit_student = current_user_can('manage_options') || current_user_can('إدارة_الNoعبين') || in_array('administrator', $user_roles) || in_array('sm_system_admin', $user_roles) || in_array('sm_principal', $user_roles) || in_array('sm_supervisor', $user_roles) || in_array('sm_discipline_supervisor', $user_roles);
 
             if (!$can_edit_student) {
-                return new WP_Error('unauthorized', 'عفواً، لا تمتلك الصلاحية الكافية لإضافة أو تعديل بيانات اللاعبين.');
+                return new WP_Error('unauthorized', 'عفواً، No تمتلك الصNoحية الكافية لAdd أو Edit بيانات الNoعبين.');
             }
 
             if (class_exists('EESS_Org_Helper')) {
@@ -162,7 +162,7 @@ class EESS_Student_Data_Service {
                         if ($existing_stu) {
                             $st_inst = intval($existing_stu->institution_id ?: $existing_stu->school_id);
                             if ($st_inst > 0 && !empty($allowed_insts) && !in_array($st_inst, $allowed_insts, true)) {
-                                return new WP_Error('access_denied', 'عفواً، لا تملك صلاحية تعديل لاعب ينتمي لمؤسسة أخرى.');
+                                return new WP_Error('access_denied', 'عفواً، No تملك صNoحية Edit Noعب ينتمي لمؤسسة أخرى.');
                             }
                         }
                     }
@@ -171,7 +171,7 @@ class EESS_Student_Data_Service {
         }
 
         if (empty($name)) {
-            return new WP_Error('missing_name', 'اسم اللاعب حقل إجباري.');
+            return new WP_Error('missing_name', 'Player Name حقل إجباري.');
         }
 
         // De-duplication check during CSV Import / Creation (Resolve student_id before National ID check)
@@ -204,14 +204,14 @@ class EESS_Student_Data_Service {
                 $national_id, $student_id
             ));
             if ($existing_nat_stu) {
-                return new WP_Error('duplicate_national_id', 'رقم الهوية الوطنية مكرر — لم يتم قبول التسجيل.');
+                return new WP_Error('duplicate_national_id', 'رقم National ID مكرر — لم يتم قبول التسجيل.');
             }
 
             $existing_nat_user = username_exists($national_id);
             if ($existing_nat_user) {
                 $linked_stu_id = get_user_meta($existing_nat_user, 'eess_student_id', true);
                 if ($linked_stu_id && intval($linked_stu_id) !== $student_id) {
-                    return new WP_Error('duplicate_national_id', 'رقم الهوية الوطنية مكرر — لم يتم قبول التسجيل.');
+                    return new WP_Error('duplicate_national_id', 'رقم National ID مكرر — لم يتم قبول التسجيل.');
                 }
             }
         }
@@ -263,7 +263,7 @@ class EESS_Student_Data_Service {
         }
 
         // Resolve Department ID for Student Affairs (Department Code 3)
-        $student_affairs_dept_id = $wpdb->get_var("SELECT id FROM {$wpdb->prefix}eess_departments WHERE code = '3' OR name LIKE '%شؤون اللاعبين%' OR name LIKE '%شؤون اللاعبين%' ORDER BY id ASC LIMIT 1");
+        $student_affairs_dept_id = $wpdb->get_var("SELECT id FROM {$wpdb->prefix}eess_departments WHERE code = '3' OR name LIKE '%Player Affairs%' OR name LIKE '%Player Affairs%' ORDER BY id ASC LIMIT 1");
         if (!$student_affairs_dept_id) {
             $student_affairs_dept_id = 3;
         }
@@ -279,9 +279,9 @@ class EESS_Student_Data_Service {
             'name'                  => $name,
             'class_name'            => $grade,
             'section'               => $section,
-            'gender'                => sanitize_text_field($data['gender'] ?? 'ذكر'),
+            'gender'                => sanitize_text_field($data['gender'] ?? 'Male'),
             'dob'                   => !empty($data['dob']) ? sanitize_text_field($data['dob']) : null,
-            'nationality'           => sanitize_text_field($data['nationality'] ?? 'الإمارات العربية المتحدة'),
+            'nationality'           => sanitize_text_field($data['nationality'] ?? 'United Arab Emirates'),
             'national_id'           => $national_id,
             'institution_id'        => $institution_id ?: null,
             'school_id'             => $school_id ?: null,
@@ -297,7 +297,7 @@ class EESS_Student_Data_Service {
             'emirate'               => self::normalize_emirate($data['emirate'] ?? 'أبوظبي'),
             'address'               => sanitize_textarea_field($data['address'] ?? ''),
             'academic_level'        => sanitize_text_field($data['academic_level'] ?? 'ممتار'),
-            'special_needs'         => self::normalize_special_needs($data['special_needs'] ?? 'لا'),
+            'special_needs'         => self::normalize_special_needs($data['special_needs'] ?? 'No'),
             'health_status'         => sanitize_textarea_field($data['health_status'] ?? 'سليم'),
             'allergies'             => self::normalize_allergies($data['allergies'] ?? ''),
             'photo_url'             => esc_url_raw($data['photo_url'] ?? ''),
@@ -346,7 +346,7 @@ class EESS_Student_Data_Service {
 
             $updated = $wpdb->update("{$wpdb->prefix}sm_students", $fields, array('id' => $student_id));
             if ($updated === false) {
-                return new WP_Error('db_update_failed', 'فشل تحديث بيانات اللاعب في قاعدة البيانات: ' . $wpdb->last_error);
+                return new WP_Error('db_update_failed', 'فشل Update بيانات الNoعب في قاعدة البيانات: ' . $wpdb->last_error);
             }
             $final_id = $student_id;
 
@@ -354,7 +354,7 @@ class EESS_Student_Data_Service {
             if ($institution_id > 0) {
                 $saved_inst_id = $wpdb->get_var($wpdb->prepare("SELECT institution_id FROM {$wpdb->prefix}sm_students WHERE id = %d", $final_id));
                 if (intval($saved_inst_id) !== intval($institution_id)) {
-                    return new WP_Error('db_verification_failed', 'فشل التحقق من حفظ المنظمة الرياضية في قاعدة البيانات. لم تتم عملية الحفظ بنجاح.');
+                    return new WP_Error('db_verification_failed', 'فشل التحقق من Save Organization الرياضية في قاعدة البيانات. لم تتم عملية الSave بنجاح.');
                 }
             }
         } else {
@@ -370,7 +370,7 @@ class EESS_Student_Data_Service {
             }
             $inserted = $wpdb->insert("{$wpdb->prefix}sm_students", $fields);
             if ($inserted === false || !$wpdb->insert_id) {
-                return new WP_Error('db_insert_failed', 'فشل إضافة اللاعب في قاعدة البيانات: ' . $wpdb->last_error);
+                return new WP_Error('db_insert_failed', 'فشل Add الNoعب في قاعدة البيانات: ' . $wpdb->last_error);
             }
             $final_id = $wpdb->insert_id;
 
@@ -378,7 +378,7 @@ class EESS_Student_Data_Service {
             if ($institution_id > 0) {
                 $saved_inst_id = $wpdb->get_var($wpdb->prepare("SELECT institution_id FROM {$wpdb->prefix}sm_students WHERE id = %d", $final_id));
                 if (intval($saved_inst_id) !== intval($institution_id)) {
-                    return new WP_Error('db_verification_failed', 'فشل التحقق من حفظ المنظمة الرياضية في قاعدة البيانات. لم تتم عملية الحفظ بنجاح.');
+                    return new WP_Error('db_verification_failed', 'فشل التحقق من Save Organization الرياضية في قاعدة البيانات. لم تتم عملية الSave بنجاح.');
                 }
             }
         }
@@ -394,10 +394,10 @@ class EESS_Student_Data_Service {
             if (!empty($behavior_note)) {
                 $wpdb->insert("{$wpdb->prefix}sm_records", array(
                     'student_id'   => $final_id,
-                    'type'         => 'ملاحظة سلوكية',
+                    'type'         => 'مNoحظة سلوكية',
                     'degree'       => 1,
                     'severity'     => 'low',
-                    'action_taken' => 'ملاحظة سلوكية مسجلة عند قيد/تعديل بيانات اللاعب',
+                    'action_taken' => 'مNoحظة سلوكية مسجلة عند قيد/Edit بيانات الNoعب',
                     'details'      => $behavior_note,
                     'status'       => 'approved',
                     'created_at'   => current_time('mysql')

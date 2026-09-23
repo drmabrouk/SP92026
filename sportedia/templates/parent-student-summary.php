@@ -15,12 +15,12 @@
             </div>
         </div>
         <div style="flex: 1;">
-            <h2 style="margin: 0 0 12px 0; border: none; padding: 0; color: white; font-size: 2em; font-weight: 800;">لاعب: <?php echo esc_html($student->name); ?></h2>
+            <h2 style="margin: 0 0 12px 0; border: none; padding: 0; color: white; font-size: 2em; font-weight: 800;">Noعب: <?php echo esc_html($student->name); ?></h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.95em; opacity: 0.9;">
                 <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-welcome-learn-more"></span> <?php echo SM_Settings::format_grade_name($student->class_name, $student->section); ?></span>
-                <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-id"></span> كود اللاعب: <?php echo esc_html($student->student_code); ?></span>
-                <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-admin-site"></span> الجنسية: <?php echo esc_html($student->nationality ?: 'غير محدد'); ?></span>
-                <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-calendar-alt"></span> تاريخ التسجيل: <?php echo esc_html($student->registration_date); ?></span>
+                <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-id"></span> كود الNoعب: <?php echo esc_html($student->student_code); ?></span>
+                <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-admin-site"></span> Genderية: <?php echo esc_html($student->nationality ?: 'غير محدد'); ?></span>
+                <span style="display: flex; align-items: center; gap: 8px;"><span class="dashicons dashicons-calendar-alt"></span> Registration Date: <?php echo esc_html($student->registration_date); ?></span>
             </div>
         </div>
         <div style="text-align: left; display: flex; flex-direction: column; gap: 10px; align-items: flex-end;">
@@ -29,7 +29,7 @@
                     🔴 ملف متابعة سلوكية مفتوح
                 </div>
             <?php endif; ?>
-            <a href="<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=disciplinary_report&student_id=' . $student->id); ?>" target="_blank" class="sm-btn" style="background: white !important; color: var(--sm-primary-color) !important; width: auto; font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📂 تحميل الملف الشامل PDF</a>
+            <a href="<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=disciplinary_report&student_id=' . $student->id); ?>" target="_blank" class="sm-btn" style="background: white !important; color: var(--sm-primary-color) !important; width: auto; font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📂 Upload الملف الشامل PDF</a>
         </div>
     </div>
 </div>
@@ -61,13 +61,13 @@
         <div style="font-size: 1.2em; font-weight: 700; color: var(--sm-secondary-color); margin-top: 15px;">
             <?php 
             $types = SM_Settings::get_violation_types();
-            echo isset($types[$stats['frequent_type']]) ? $types[$stats['frequent_type']] : 'لا يوجد'; 
+            echo isset($types[$stats['frequent_type']]) ? $types[$stats['frequent_type']] : 'No يوجد';
             ?>
         </div>
     </div>
     <div class="sm-stat-card">
         <div style="font-size: 0.85em; color: var(--sm-text-gray); margin-bottom: 10px; font-weight: 700;">آخر إجراء متخذ</div>
-        <div style="font-size: 1.1em; font-weight: 700; color: #27ae60; margin-top: 15px;"><?php echo $stats['last_action'] ?: 'لا يوجد'; ?></div>
+        <div style="font-size: 1.1em; font-weight: 700; color: #27ae60; margin-top: 15px;"><?php echo $stats['last_action'] ?: 'No يوجد'; ?></div>
     </div>
 </div>
 
@@ -75,7 +75,7 @@
     <div style="background: #fff; padding: 30px; border-radius: 12px; border: 1px solid var(--sm-border-color);">
         <h3 style="margin-top:0; border-bottom: 2px solid var(--sm-primary-color); padding-bottom: 10px;">الواجبات المدرسية</h3>
         <?php if (empty($student_assignments)): ?>
-            <p style="padding: 20px; text-align: center; color: var(--sm-text-gray);">لا يوجد واجبات حالياً.</p>
+            <p style="padding: 20px; text-align: center; color: var(--sm-text-gray);">No يوجد واجبات حالياً.</p>
         <?php else: ?>
             <div style="max-height: 400px; overflow-y: auto;">
                 <?php foreach ($student_assignments as $assign): ?>
@@ -88,7 +88,7 @@
                         </div>
                         <div style="font-size: 12px;"><?php echo nl2br(esc_html($assign->description)); ?></div>
                         <?php if ($assign->file_url): ?>
-                            <a href="<?php echo esc_url($assign->file_url); ?>" target="_blank" class="sm-btn" style="height: 28px; font-size: 10px; margin-top: 10px; width: auto;">📎 تحميل المرفق</a>
+                            <a href="<?php echo esc_url($assign->file_url); ?>" target="_blank" class="sm-btn" style="height: 28px; font-size: 10px; margin-top: 10px; width: auto;">📎 Upload المرفق</a>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
@@ -97,35 +97,35 @@
     </div>
 
     <div style="background: #fff; padding: 30px; border-radius: 12px; border: 1px solid var(--sm-border-color);">
-        <h3 style="margin-top:0; border-bottom: 2px solid var(--sm-accent-color); padding-bottom: 10px;">نظام الاستشارات والاستفسارات</h3>
+        <h3 style="margin-top:0; border-bottom: 2px solid var(--sm-accent-color); padding-bottom: 10px;">نظام اNoستشارات واNoستفسارات</h3>
         <?php if (!$supervisor): ?>
-            <p style="padding: 20px; text-align: center; color: var(--sm-text-gray);">لم يتم تعيين مشرف لهذا المجموعة التدريبية بعد.</p>
+            <p style="padding: 20px; text-align: center; color: var(--sm-text-gray);">لم يتم تعيين مشرف لهذا Training Group بعد.</p>
         <?php else: ?>
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
                 <?php echo get_avatar($supervisor->ID, 40, '', '', array('style' => 'border-radius:50%;')); ?>
                 <div>
                     <div style="font-weight: 800; font-size: 0.9em;">المشرف: <?php echo esc_html($supervisor->display_name); ?></div>
-                    <div style="font-size: 11px; color: #38a169;">متاح لاستلام استفساراتك</div>
+                    <div style="font-size: 11px; color: #38a169;">متاح NoستNoم استفساراتك</div>
                 </div>
             </div>
             <div class="sm-form-group">
-                <label class="sm-label">موضوع الاستفسار:</label>
-                <textarea id="student-inquiry-msg" class="sm-textarea" rows="4" placeholder="اكتب استفسارك هنا وسيتم إرساله للمشرف مباشرة..."></textarea>
+                <label class="sm-label">موضوع اNoستفسار:</label>
+                <textarea id="student-inquiry-msg" class="sm-textarea" rows="4" placeholder="اكتب استفسارك هنا وسيتم Sendه للمشرف مباشرة..."></textarea>
             </div>
-            <button onclick="sendStudentInquiry(<?php echo $supervisor->ID; ?>)" class="sm-btn" style="background: var(--sm-accent-color);">إرسال الاستفسار الآن</button>
+            <button onclick="sendStudentInquiry(<?php echo $supervisor->ID; ?>)" class="sm-btn" style="background: var(--sm-accent-color);">Send اNoستفسار الآن</button>
         <?php endif; ?>
     </div>
 </div>
 
 
 <div style="background: #fff; padding: 30px; border-radius: 12px; border: 1px solid var(--sm-border-color); margin-bottom: 30px; grid-column: span 2;">
-    <h3 style="margin-top:0; border-bottom: 2px solid var(--sm-secondary-color); padding-bottom: 10px;">المدربون المكلفون بالمجموعة التدريبية</h3>
+    <h3 style="margin-top:0; border-bottom: 2px solid var(--sm-secondary-color); padding-bottom: 10px;">Coaches المكلفون بTraining Group</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px;">
         <?php
         $grade_num = preg_replace('/[^0-9]/', '', $student->class_name);
         $assigned_teachers = SM_DB::get_staff_by_section($grade_num, $student->section);
         if (empty($assigned_teachers)):
-            echo '<p style="grid-column: 1/-1; text-align:center; color:#718096;">لا يوجد معلمون مكلفون حالياً.</p>';
+            echo '<p style="grid-column: 1/-1; text-align:center; color:#718096;">No يوجد معلمون مكلفون حالياً.</p>';
         else:
             foreach ($assigned_teachers as $t):
                 $spec = get_user_meta($t->ID, 'sm_specialization', true);
@@ -142,9 +142,9 @@
 </div>
 
     <div style="background: #fff; padding: 30px; border-radius: 12px; border: 1px solid var(--sm-border-color); grid-column: span 2; margin-bottom: 30px;">
-        <h3 style="margin-top:0; border-bottom: 2px solid #3498db; padding-bottom: 10px;">النتائج الأكاديمية</h3>
+        <h3 style="margin-top:0; border-bottom: 2px solid #3498db; padding-bottom: 10px;">النتائج Academy</h3>
         <div id="student-grades-display">
-            <div style="text-align: center; padding: 20px; color: var(--sm-text-gray);">جاري تحميل النتائج...</div>
+            <div style="text-align: center; padding: 20px; color: var(--sm-text-gray);">جاري Upload النتائج...</div>
         </div>
     </div>
 
@@ -158,12 +158,12 @@
 <script>
 function sendStudentInquiry(supervisorId) {
     const msg = document.getElementById('student-inquiry-msg').value;
-    if (!msg) { alert('يرجى كتابة نص الاستفسار'); return; }
+    if (!msg) { alert('يرجى كتابة نص اNoستفسار'); return; }
 
     const formData = new FormData();
     formData.append('action', 'sm_send_message_ajax');
     formData.append('receiver_id', supervisorId);
-    formData.append('message', "استفسار لاعب: " + msg);
+    formData.append('message', "استفسار Noعب: " + msg);
     formData.append('student_id', <?php echo $student->id; ?>);
     formData.append('sm_message_nonce', '<?php echo wp_create_nonce("sm_message_action"); ?>');
 
@@ -171,7 +171,7 @@ function sendStudentInquiry(supervisorId) {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم إرسال استفسارك بنجاح');
+            smShowNotification('تم Send استفسارك بنجاح');
             document.getElementById('student-inquiry-msg').value = '';
         }
     });
@@ -217,9 +217,9 @@ function sendStudentInquiry(supervisorId) {
         .then(res => {
             if (res.success) {
                 if (res.data.length === 0) {
-                    container.innerHTML = '<p style="text-align:center; padding:20px; color:#718096;">لا يوجد نتائج معتمدة حالياً.</p>';
+                    container.innerHTML = '<p style="text-align:center; padding:20px; color:#718096;">No يوجد نتائج معتمدة حالياً.</p>';
                 } else {
-                    let html = '<table class="sm-table" style="box-shadow:none; border:none;"><thead><tr><th>النشاط الرياضي</th><th>المجموعة التدريبية</th><th>الدرجة</th></tr></thead><tbody>';
+                    let html = '<table class="sm-table" style="box-shadow:none; border:none;"><thead><tr><th>Sport Activity</th><th>Training Group</th><th>الدرجة</th></tr></thead><tbody>';
                     res.data.forEach(g => {
                         html += `<tr><td style="font-weight:700;">${g.subject}</td><td>${g.term}</td><td><span class="sm-badge" style="background:var(--sm-bg-light); color:var(--sm-primary-color); font-size:1.1em;">${g.grade_val}</span></td></tr>`;
                     });
@@ -251,7 +251,7 @@ function uploadStudentPhoto(input, studentId) {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم تحديث الصورة الشخصية');
+            smShowNotification('تم Update الصورة الشخصية');
             const img = document.getElementById('stu_main_photo');
             if (img) img.src = res.data.photo_url;
             else location.reload();

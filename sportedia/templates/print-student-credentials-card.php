@@ -58,18 +58,18 @@ if (empty($students_to_print) || !$students_to_print[0]) wp_die('Student(s) not 
                 <div class="student-class"><?php echo SM_Settings::format_grade_name($student->class_name, $student->section); ?></div>
 
                 <div class="cred-box">
-                    <div class="cred-label">اسم المستخدم (User ID):</div>
+                    <div class="cred-label">Username (User ID):</div>
                     <div class="cred-value"><?php echo esc_html($student->student_code); ?></div>
                 </div>
 
                 <div class="cred-box" style="margin-bottom: 0;">
-                    <div class="cred-label">كلمة المرور (Password):</div>
+                    <div class="cred-label">Password (Password):</div>
                     <div class="cred-value" style="color: #111F35;"><?php echo esc_html($pass); ?></div>
                 </div>
 
                 <div class="note">
-                    * يستخدم هذا الحساب للدخول لنظام إدارة الأكاديمية الرياضية (اللاعب وولي الأمر).<br>
-                    * يرجى الحفاظ على سرية هذه البيانات وتغيير كلمة المرور بعد أول دخول.
+                    * يستخدم هذا الحساب للدخول لنظام إدارة Academy الرياضية (الNoعب وولي Motherر).<br>
+                    * يرجى الحفاظ على سرية هذه البيانات وتغيير Password بعد أول دخول.
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@ if (empty($students_to_print) || !$students_to_print[0]) wp_die('Student(s) not 
     </div>
 
     <div class="no-print" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);">
-        <button onclick="window.print()" style="padding: 12px 40px; background: #F63049; color: #fff; border: none; border-radius: 12px; cursor: pointer; font-family: 'Rubik'; font-weight: 900; box-shadow: 0 4px 14px 0 rgba(246, 48, 73, 0.39);">طباعة البطاقات الآن</button>
+        <button onclick="window.print()" style="padding: 12px 40px; background: #F63049; color: #fff; border: none; border-radius: 12px; cursor: pointer; font-family: 'Rubik'; font-weight: 900; box-shadow: 0 4px 14px 0 rgba(246, 48, 73, 0.39);">Print البطاقات الآن</button>
     </div>
 </body>
 </html>

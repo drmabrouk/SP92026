@@ -12,10 +12,10 @@ $tt_settings = SM_Settings::get_timetable_settings();
         <form method="get" style="display: flex; gap: 15px; align-items: flex-end;">
             <input type="hidden" name="sm_tab" value="timetables">
             <div class="sm-form-group">
-                <label class="sm-label">المجموعة التدريبية الدراسي:</label>
+                <label class="sm-label">Training Group الدراسي:</label>
                 <select name="class_name" class="sm-select" onchange="this.form.submit()">
-                    <option value="">اختر المجموعة التدريبية</option>
-                    <?php foreach ($db_structure as $grade => $sects): $cname = 'المجموعة التدريبية '.$grade; ?>
+                    <option value="">اختر Training Group</option>
+                    <?php foreach ($db_structure as $grade => $sects): $cname = 'Training Group '.$grade; ?>
                         <option value="<?php echo $cname; ?>" <?php selected($selected_class, $cname); ?>><?php echo $cname; ?></option>
                     <?php endforeach; ?>
                 </select>
@@ -25,9 +25,9 @@ $tt_settings = SM_Settings::get_timetable_settings();
                 $sections = $db_structure[$grade_num] ?? array();
             ?>
             <div class="sm-form-group">
-                <label class="sm-label">المجموعة التدريبية:</label>
+                <label class="sm-label">Training Group:</label>
                 <select name="section" class="sm-select" onchange="this.form.submit()">
-                    <option value="">اختر المجموعة التدريبية</option>
+                    <option value="">اختر Training Group</option>
                     <?php foreach ($sections as $s): ?>
                         <option value="<?php echo $s; ?>" <?php selected($selected_section, $s); ?>><?php echo $s; ?></option>
                     <?php endforeach; ?>
@@ -49,8 +49,8 @@ $tt_settings = SM_Settings::get_timetable_settings();
         }
         $all_days = array(
             'sun' => 'الأحد',
-            'mon' => 'الاثنين',
-            'tue' => 'الثلاثاء',
+            'mon' => 'اNoثنين',
+            'tue' => 'الثNoثاء',
             'wed' => 'الأربعاء',
             'thu' => 'الخميس',
             'fri' => 'الجمعة',
@@ -87,7 +87,7 @@ $tt_settings = SM_Settings::get_timetable_settings();
                                     <div style="font-weight: 800; font-size: 13px; color: var(--sm-dark-color);"><?php echo esc_html($entry->subject_name); ?></div>
                                     <div style="font-size: 11px; color: #718096; margin-top: 5px;"><?php echo esc_html($entry->teacher_name); ?></div>
                                 <?php else: ?>
-                                    <div style="color: #a0aec0; font-size: 11px; text-align: center;">إضافة</div>
+                                    <div style="color: #a0aec0; font-size: 11px; text-align: center;">Add</div>
                                 <?php endif; ?>
                             </div>
                         </td>
@@ -105,7 +105,7 @@ $tt_settings = SM_Settings::get_timetable_settings();
 <div id="edit-timetable-modal" class="sm-modal-overlay">
     <div class="sm-modal-content" style="max-width: 450px;">
         <div class="sm-modal-header">
-            <h3>تعديل الحصة الدراسية</h3>
+            <h3>Edit الحصة الدراسية</h3>
             <button class="sm-modal-close" onclick="this.closest('.sm-modal-overlay').style.display='none'">&times;</button>
         </div>
         <div class="sm-modal-body">
@@ -114,9 +114,9 @@ $tt_settings = SM_Settings::get_timetable_settings();
             <input type="hidden" id="tt_period">
 
             <div class="sm-form-group">
-                <label class="sm-label">النشاط الرياضي الدراسية:</label>
+                <label class="sm-label">Sport Activity الدراسية:</label>
                 <select id="tt_subject" class="sm-select">
-                    <option value="">-- اختر النشاط الرياضي --</option>
+                    <option value="">-- اختر Sport Activity --</option>
                     <?php foreach ($subjects as $sub) echo "<option value='{$sub->id}'>{$sub->name}</option>"; ?>
                 </select>
             </div>
@@ -132,7 +132,7 @@ $tt_settings = SM_Settings::get_timetable_settings();
                 <label style="font-weight: 800; font-size: 13px; display: block; margin-bottom: 10px; color: #4a5568;">تطبيق على صفوف أخرى (اختياري):</label>
                 <div style="max-height: 150px; overflow-y: auto; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                     <?php foreach ($db_structure as $grade => $sects):
-                        $cname = 'المجموعة التدريبية '.$grade;
+                        $cname = 'Training Group '.$grade;
                         foreach ($sects as $s):
                             if ($cname == $selected_class && $s == $selected_section) continue;
                     ?>
@@ -143,7 +143,7 @@ $tt_settings = SM_Settings::get_timetable_settings();
                 </div>
             </div>
 
-            <button class="sm-btn" onclick="smSaveTimetableEntry()">حفظ وتحديث الجدول</button>
+            <button class="sm-btn" onclick="smSaveTimetableEntry()">Save وUpdate الجدول</button>
         </div>
     </div>
 </div>
@@ -164,7 +164,7 @@ $tt_settings = SM_Settings::get_timetable_settings();
                 <label class="sm-label">أيام العمل الأسبوعية:</label>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
                     <?php
-                    $all_days = array('sun' => 'الأحد', 'mon' => 'الاثنين', 'tue' => 'الثلاثاء', 'wed' => 'الأربعاء', 'thu' => 'الخميس', 'fri' => 'الجمعة', 'sat' => 'السبت');
+                    $all_days = array('sun' => 'الأحد', 'mon' => 'اNoثنين', 'tue' => 'الثNoثاء', 'wed' => 'الأربعاء', 'thu' => 'الخميس', 'fri' => 'الجمعة', 'sat' => 'السبت');
                     foreach ($all_days as $key => $label): ?>
                         <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
                             <input type="checkbox" name="tt_set_days[]" value="<?php echo $key; ?>" <?php checked(in_array($key, $tt_settings['days'])); ?>> <?php echo $label; ?>
@@ -172,7 +172,7 @@ $tt_settings = SM_Settings::get_timetable_settings();
                     <?php endforeach; ?>
                 </div>
             </div>
-            <button class="sm-btn" onclick="smSaveTimetableSettings()">حفظ إعدادات الهيكل</button>
+            <button class="sm-btn" onclick="smSaveTimetableSettings()">Save إعدادات الهيكل</button>
         </div>
     </div>
 </div>
@@ -194,7 +194,7 @@ function smSaveTimetableEntry() {
     const teacherId = document.getElementById('tt_teacher').value;
 
     if (!subjectId || !teacherId) {
-        smShowNotification('يرجى اختيار النشاط الرياضي والمدرب', true);
+        smShowNotification('يرجى اختيار Sport Activity والمدرب', true);
         return;
     }
 
@@ -219,10 +219,10 @@ function smSaveTimetableEntry() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification(`تم تحديث الجدول لعدد (${res.data}) فصول بنجاح`);
+            smShowNotification(`تم Update الجدول لعدد (${res.data}) فصول بنجاح`);
             location.reload();
         } else {
-            smShowNotification('فشل التحديث', true);
+            smShowNotification('فشل الUpdate', true);
         }
     });
 }
@@ -249,7 +249,7 @@ function smSaveTimetableSettings() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم حفظ إعدادات الجدول');
+            smShowNotification('تم Save إعدادات الجدول');
             location.reload();
         }
     });

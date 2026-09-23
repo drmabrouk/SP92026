@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) exit;
 
 class Sportedia_Roles {
 
-    const ROLES_VERSION = '1.0.0';
+    const ROLES_VERSION = '1.0.1';
 
     public static function get_capabilities() {
         return array(
@@ -34,7 +34,15 @@ class Sportedia_Roles {
             'sportedia_manage_users',
             'sportedia_manage_roles',
             'sportedia_manage_permissions',
-            'sportedia_view_audit_logs'
+            'sportedia_view_audit_logs',
+            'إدارة_الNoعبين',
+            'إدارة_المدربين',
+            'إدارة_النظام',
+            'إدارة_Users',
+            'إدارة_المخالفات',
+            'تسجيل_مخالفة',
+            'manage_students',
+            'manage_teachers'
         );
     }
 
@@ -45,7 +53,7 @@ class Sportedia_Roles {
 
         $all_caps = self::get_capabilities();
 
-        // 1. Grant all Sportedia capabilities to native WordPress Administrator
+        // 1. Grant all Sportedia & legacy capabilities to native WordPress Administrator
         $wp_admin = get_role('administrator');
         if ($wp_admin) {
             foreach ($all_caps as $cap) {
@@ -77,7 +85,12 @@ class Sportedia_Roles {
             'sportedia_send_invoices' => true,
             'sportedia_view_reports' => true,
             'sportedia_manage_reports' => true,
-            'sportedia_manage_users' => true
+            'sportedia_manage_users' => true,
+            'إدارة_الNoعبين' => true,
+            'إدارة_المدربين' => true,
+            'إدارة_Users' => true,
+            'manage_students' => true,
+            'manage_teachers' => true
         );
         add_role('sportedia_org_admin', 'Sports Organization Administrator', $org_caps);
 
@@ -99,7 +112,11 @@ class Sportedia_Roles {
             'sportedia_manage_invoices' => true,
             'sportedia_print_invoices' => true,
             'sportedia_send_invoices' => true,
-            'sportedia_view_reports' => true
+            'sportedia_view_reports' => true,
+            'إدارة_الNoعبين' => true,
+            'إدارة_المدربين' => true,
+            'manage_students' => true,
+            'manage_teachers' => true
         );
         add_role('sportedia_branch_manager', 'Branch Manager', $branch_caps);
 
@@ -131,7 +148,9 @@ class Sportedia_Roles {
             'sportedia_edit_players' => true,
             'sportedia_manage_subscriptions' => true,
             'sportedia_manage_renewals' => true,
-            'sportedia_manage_attendance' => true
+            'sportedia_manage_attendance' => true,
+            'إدارة_الNoعبين' => true,
+            'manage_students' => true
         );
         add_role('sportedia_player_affairs', 'Player Affairs Officer', $affairs_caps);
 
@@ -153,7 +172,8 @@ class Sportedia_Roles {
             'sportedia_view_players' => true,
             'sportedia_create_players' => true,
             'sportedia_manage_renewals' => true,
-            'sportedia_view_payments' => true
+            'sportedia_view_payments' => true,
+            'إدارة_الNoعبين' => true
         );
         add_role('sportedia_receptionist', 'Reception / Registration Officer', $reception_caps);
 

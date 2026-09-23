@@ -14,7 +14,7 @@ class SM_Settings {
     public static function get_severities() {
         return array(
             'low' => 'منخفضة',
-            'medium' => 'متوسطة',
+            'medium' => 'Intermediateة',
             'high' => 'خطيرة'
         );
     }
@@ -79,10 +79,10 @@ class SM_Settings {
 
     public static function get_notifications() {
         $default = array(
-            'email_subject' => 'تنبيه بخصوص سلوك اللاعب: {student_name}',
-            'email_template' => "تم تسجيل ملاحظة بخصوص اللاعب: {student_name}\nنوع المخالفة: {type}\nالحدة: {severity}\nالتفاصيل: {details}\nالإجراء المتخذ: {action_taken}",
-            'whatsapp_template' => "تنبيه من الأكاديمية الرياضية: تم تسجيل ملاحظة سلوكية بحق اللاعب {student_name}. نوع الملاحظة: {type}. تفاصيل: {details}. الإجراء: {action_taken}",
-            'internal_template' => "إشعار نظام: تم تسجيل مخالفة {type} لللاعب {student_name}. الرجاء مراجعة سجل اللاعب."
+            'email_subject' => 'تنبيه بخصوص سلوك الNoعب: {student_name}',
+            'email_template' => "تم تسجيل مNoحظة بخصوص الNoعب: {student_name}\nنوع المخالفة: {type}\nالحدة: {severity}\nالتفاصيل: {details}\nالإجراء المتخذ: {action_taken}",
+            'whatsapp_template' => "تنبيه من Academy الرياضية: تم تسجيل مNoحظة سلوكية بحق الNoعب {student_name}. نوع المNoحظة: {type}. تفاصيل: {details}. الإجراء: {action_taken}",
+            'internal_template' => "إشعار نظام: تم تسجيل مخالفة {type} للNoعب {student_name}. الرجاء مراجعة سجل الNoعب."
         );
         return get_option('sm_notification_settings', $default);
     }
@@ -93,7 +93,7 @@ class SM_Settings {
 
     public static function get_school_info() {
         $default = array(
-            'school_name' => 'خدمات الأنظمة الإلكترونية التعليمية (EESS)',
+            'school_name' => 'Sportedia Sports Management System',
             'school_principal_name' => 'أحمد علي',
             'school_logo' => '',
             'address' => 'الرياض، المملكة العربية السعودية',
@@ -128,8 +128,8 @@ class SM_Settings {
             'sections_count' => 5,
             'section_letters' => "أ, ب, ج, د, هـ",
             'academic_stages' => array(
-                array('name' => 'المرحلة الابتدائية', 'start' => 1, 'end' => 4),
-                array('name' => 'المرحلة المتوسطة', 'start' => 5, 'end' => 8),
+                array('name' => 'المرحلة اNoبتدائية', 'start' => 1, 'end' => 4),
+                array('name' => 'المرحلة الIntermediateة', 'start' => 5, 'end' => 8),
                 array('name' => 'المرحلة الثانوية', 'start' => 9, 'end' => 12)
             )
         );
@@ -146,15 +146,15 @@ class SM_Settings {
     public static function format_grade_name($grade, $section = '', $format = 'full') {
         if (empty($grade)) return '---';
 
-        // Remove "المجموعة التدريبية" prefix if it exists in data
-        $grade_num = str_replace('المجموعة التدريبية ', '', $grade);
+        // Remove "Training Group" prefix if it exists in data
+        $grade_num = str_replace('Training Group ', '', $grade);
 
         if ($format === 'short') {
             return trim($grade_num . ' ' . $section);
         }
 
         // Full format: "Grade + Number + Section"
-        $output = 'المجموعة التدريبية ' . $grade_num;
+        $output = 'Training Group ' . $grade_num;
         if (!empty($section)) {
             $output .= ' شعبة ' . $section;
         }
@@ -182,8 +182,8 @@ class SM_Settings {
 
     public static function get_last_backup_info() {
         return array(
-            'export' => get_option('sm_last_backup_download', 'لم يتم التصدير مسبقاً'),
-            'import' => get_option('sm_last_backup_import', 'لم يتم الاستيراد مسبقاً')
+            'export' => get_option('sm_last_backup_download', 'لم يتم الExport مسبقاً'),
+            'import' => get_option('sm_last_backup_import', 'لم يتم الImport مسبقاً')
         );
     }
 
@@ -205,8 +205,8 @@ class SM_Settings {
             'english' => 'اللغة الإنجليزية',
             'math' => 'الرياضيات',
             'science' => 'العلوم',
-            'islamic' => 'التربية الإسلامية',
-            'social' => 'الدراسات الاجتماعية',
+            'islamic' => 'التربية الإسNoمية',
+            'social' => 'الدراسات اNoجتماعية',
             'pe' => 'التربية البدنية والرياضية',
             'art' => 'التربية الفنية',
             'music' => 'التربية الموسيقية',
@@ -216,10 +216,10 @@ class SM_Settings {
 
     public static function get_departments() {
         return array(
-            'academic' => 'الشؤون الأكاديمية والتعليمية',
+            'academic' => 'الشؤون Academy والتعليمية',
             'hr' => 'إدارة الموارد البشرية (HR)',
-            'student_affairs' => 'شؤون اللاعبين والانضباط',
-            'activities' => 'الأنشطة المدرسية والفعاليات',
+            'student_affairs' => 'Player Affairs واNoنضباط',
+            'activities' => 'الأActiveة المدرسية والفعاليات',
             'finance' => 'الشؤون المالية والمحاسبة',
             'services' => 'الخدمات المساندة والنقل',
             'medical' => 'العيادة والرعاية الصحية'
@@ -228,7 +228,7 @@ class SM_Settings {
 
     public static function get_suggested_actions() {
         $default = array(
-            'low' => "تنبيه شفوي\nتسجيل ملاحظة\nنصيحة تربوية",
+            'low' => "تنبيه شفوي\nتسجيل مNoحظة\nنصيحة تربوية",
             'medium' => "إنذار خطي\nاستدعاء ولي أمر\nحسم درجات سلوك",
             'high' => "فصل مؤقت\nمجلس انضباط\nتعهد خطي شديد"
         );
@@ -257,49 +257,49 @@ class SM_Settings {
             1 => array(
                 '1.1' => array('name' => 'التأخر عن الطابور الصباحي', 'points' => 1, 'action' => 'تنبيه شفوي'),
                 '1.2' => array('name' => 'التأخر عن بداية الحصة الدراسية', 'points' => 1, 'action' => 'تنبيه شفوي'),
-                '1.3' => array('name' => 'عدم الالتزام بالزي المدرسي أو الرياضي', 'points' => 2, 'action' => 'تسجيل ملاحظة'),
-                '1.4' => array('name' => 'مخالفة قصات الشعر أو المظهر العام', 'points' => 2, 'action' => 'تسجيل ملاحظة'),
+                '1.3' => array('name' => 'عدم اNoلتزام بالزي المدرسي أو الرياضي', 'points' => 2, 'action' => 'تسجيل مNoحظة'),
+                '1.4' => array('name' => 'مخالفة قصات الشعر أو المظهر العام', 'points' => 2, 'action' => 'تسجيل مNoحظة'),
                 '1.5' => array('name' => 'عدم إحضار الكتب أو الأدوات المدرسية', 'points' => 1, 'action' => 'تنبيه شفوي'),
-                '1.6' => array('name' => 'إثارة الفوضى داخل المجموعة التدريبية', 'points' => 2, 'action' => 'نصيحة تربوية'),
+                '1.6' => array('name' => 'إثارة الفوضى داخل Training Group', 'points' => 2, 'action' => 'نصيحة تربوية'),
                 '1.7' => array('name' => 'النوم أثناء الحصة الدراسية', 'points' => 1, 'action' => 'تنبيه شفوي'),
                 '1.8' => array('name' => 'تناول الطعام أو العلكة أثناء الحصص', 'points' => 1, 'action' => 'تنبيه شفوي'),
-                '1.9' => array('name' => 'سوء استخدام الأجهزة الإلكترونية الشخصية', 'points' => 3, 'action' => 'مصادرة النشاط الرياضي'),
+                '1.9' => array('name' => 'سوء استخدام الأجهزة الإلكترونية الشخصية', 'points' => 3, 'action' => 'مصادرة Sport Activity'),
                 '1.10' => array('name' => 'إهمال الواجبات المدرسية المتكرر', 'points' => 2, 'action' => 'نصيحة تربوية'),
                 '1.11' => array('name' => 'عدم اتباع تعليمات المناوبين في الساحة', 'points' => 2, 'action' => 'تنبيه شفوي'),
             ),
             2 => array(
-                '2.1' => array('name' => 'الغياب عن الأكاديمية الرياضية بدون عذر مقبول', 'points' => 4, 'action' => 'إنذار خطي واستدعاء ولي أمر'),
-                '2.2' => array('name' => 'الدخول أو الخروج من المجموعة التدريبية بدون استئذان', 'points' => 3, 'action' => 'إنذار خطي'),
-                '2.3' => array('name' => 'عدم حضور الأنشطة المدرسية الإلزامية', 'points' => 3, 'action' => 'إنذار خطي'),
+                '2.1' => array('name' => 'الغياب عن Academy الرياضية بدون عذر مقبول', 'points' => 4, 'action' => 'إنذار خطي واستدعاء ولي أمر'),
+                '2.2' => array('name' => 'الدخول أو الخروج من Training Group بدون استئذان', 'points' => 3, 'action' => 'إنذار خطي'),
+                '2.3' => array('name' => 'عدم حضور الأActiveة المدرسية الإلزامية', 'points' => 3, 'action' => 'إنذار خطي'),
                 '2.4' => array('name' => 'التحريض على الشجار أو التخويف', 'points' => 5, 'action' => 'استدعاء ولي أمر وتعهد'),
-                '2.5' => array('name' => 'مخالفة الزي التي تخدش قيم الأكاديمية الرياضية', 'points' => 4, 'action' => 'إنذار خطي وتغيير الملابس'),
-                '2.6' => array('name' => 'الكتابة على الجدران أو الأثاث المدرسي', 'points' => 5, 'action' => 'إصلاح الضرر وإنذار خطي'),
-                '2.7' => array('name' => 'استخدام ألفاظ غير لائقة تجاه الزملاء', 'points' => 4, 'action' => 'اعتذار خطي وإنذار'),
+                '2.5' => array('name' => 'مخالفة الزي التي تخدش قيم Academy الرياضية', 'points' => 4, 'action' => 'إنذار خطي وتغيير المNoبس'),
+                '2.6' => array('name' => 'الكتابة على الجدران أو الأثاث المدرسي', 'points' => 5, 'action' => 'إصNoح الضرر وإنذار خطي'),
+                '2.7' => array('name' => 'استخدام ألفاظ غير Noئقة تجاه الزمNoء', 'points' => 4, 'action' => 'اعتذار خطي وإنذار'),
             ),
             3 => array(
                 '3.1' => array('name' => 'التنمر أو المضايقات الجسدية/اللفظية', 'points' => 10, 'action' => 'فصل مؤقت ومجلس انضباط'),
-                '3.2' => array('name' => 'الغش في الامتحانات أو التزوير الأكاديمي', 'points' => 8, 'action' => 'إلغاء الدرجة وإنذار نهائي'),
-                '3.3' => array('name' => 'الهروب من الأكاديمية الرياضية أثناء الدوام الرسمي', 'points' => 12, 'action' => 'فصل مؤقت واستدعاء ولي أمر'),
-                '3.6' => array('name' => 'العبث بممتلكات الأكاديمية الرياضية أو تخريبها', 'points' => 15, 'action' => 'دفع قيمة التلفيات وفصل مؤقت'),
-                '3.7' => array('name' => 'تعريض سلامة اللاعبين أو الكادر للخطر', 'points' => 15, 'action' => 'مجلس انضباط وإيقاف عن الدراسة'),
+                '3.2' => array('name' => 'الغش في اNoمتحانات أو التزوير الأكاديمي', 'points' => 8, 'action' => 'Cancel الدرجة وإنذار نهائي'),
+                '3.3' => array('name' => 'الهروب من Academy الرياضية أثناء الدوام الرسمي', 'points' => 12, 'action' => 'فصل مؤقت واستدعاء ولي أمر'),
+                '3.6' => array('name' => 'العبث بممتلكات Academy الرياضية أو تخريبها', 'points' => 15, 'action' => 'دفع قيمة التلفيات وفصل مؤقت'),
+                '3.7' => array('name' => 'تعريض سNoمة الNoعبين أو الكادر للخطر', 'points' => 15, 'action' => 'مجلس انضباط وإيقاف عن الدراسة'),
                 '3.8' => array('name' => 'التطاول اللفظي على أحد أعضاء الكادر', 'points' => 12, 'action' => 'اعتذار رسمي وفصل مؤقت'),
-                '3.9' => array('name' => 'حيازة مواد ممنوعة (تبغ أو سجائر)', 'points' => 10, 'action' => 'مصادرة النشاط الرياضي وإنذار نهائي'),
-                '3.10' => array('name' => 'التصوير داخل الأكاديمية الرياضية بدون إذن', 'points' => 10, 'action' => 'حذف المحتوى ومصادرة الهاتف'),
+                '3.9' => array('name' => 'حيازة مواد ممنوعة (تبغ أو سجائر)', 'points' => 10, 'action' => 'مصادرة Sport Activity وإنذار نهائي'),
+                '3.10' => array('name' => 'التصوير داخل Academy الرياضية بدون إذن', 'points' => 10, 'action' => 'Delete المحتوى ومصادرة الهاتف'),
                 '3.11' => array('name' => 'التحريض على الهروب أو التغيب الجماعي', 'points' => 10, 'action' => 'استدعاء ولي أمر وفصل مؤقت'),
             ),
             4 => array(
-                '4.1' => array('name' => 'الاستخدام غير القانوني لوسائل التواصل', 'points' => 20, 'action' => 'إيقاف فوري وتصعيد للجهات المختصة'),
+                '4.1' => array('name' => 'اNoستخدام غير القانوني لوسائل التواصل', 'points' => 20, 'action' => 'إيقاف فوري وتصعيد للجهات المختصة'),
                 '4.2' => array('name' => 'حيازة أو استخدام الأسلحة أو الأدوات الحادة', 'points' => 25, 'action' => 'فصل نهائي وتصعيد أمني'),
-                '4.3' => array('name' => 'السلوك الأخلاقي المشين أو التحرش', 'points' => 25, 'action' => 'فصل نهائي وتحقيق رسمي'),
-                '4.4' => array('name' => 'السرقة أو الاستيلاء على ممتلكات الغير', 'points' => 20, 'action' => 'إعادة المسروقات وفصل نهائي'),
-                '4.5' => array('name' => 'التخريب العمدي للمرافق الحيوية بالأكاديمية الرياضية', 'points' => 20, 'action' => 'تحميل التكاليف وفصل نهائي'),
-                '4.6' => array('name' => 'الاعتداء الجسدي العنيف على اللاعبين أو الكادر', 'points' => 25, 'action' => 'إيقاف عن الدراسة وتصعيد قانوني'),
+                '4.3' => array('name' => 'السلوك الأخNoقي المشين أو التحرش', 'points' => 25, 'action' => 'فصل نهائي وتحقيق رسمي'),
+                '4.4' => array('name' => 'السرقة أو اNoستيNoء على ممتلكات الغير', 'points' => 20, 'action' => 'إعادة المسروقات وفصل نهائي'),
+                '4.5' => array('name' => 'التخريب العمدي للمرافق الحيوية بAcademy الرياضية', 'points' => 20, 'action' => 'Upload التكاليف وفصل نهائي'),
+                '4.6' => array('name' => 'اNoعتداء الجسدي العنيف على الNoعبين أو الكادر', 'points' => 25, 'action' => 'إيقاف عن الدراسة وتصعيد قانوني'),
                 '4.7' => array('name' => 'ترويج أو تعاطي المخدرات والممنوعات', 'points' => 30, 'action' => 'فصل نهائي وتسليم للشرطة'),
                 '4.10' => array('name' => 'الإساءة للرموز الوطنية أو الدينية', 'points' => 30, 'action' => 'فصل نهائي وتصعيد للجهات العليا'),
                 '4.11' => array('name' => 'حيازة مواد مخلة بالآداب العامة', 'points' => 20, 'action' => 'فصل نهائي وتحقيق تربوي'),
-                '4.12' => array('name' => 'انتحال صفة الغير في معاملات رسمية', 'points' => 15, 'action' => 'إيقاف عن الدراسة وتحقيق'),
-                '4.13' => array('name' => 'التهديد المباشر بالقتل أو الأذى الجسيم', 'points' => 30, 'action' => 'فصل فوري وإبلاغ السلطات'),
-                '4.14' => array('name' => 'إشعال الحرائق عمدًا داخل حرم الأكاديمية الرياضية', 'points' => 30, 'action' => 'فصل نهائي وتحمل التبعات القانونية'),
+                '4.12' => array('name' => 'انتحال صفة الغير في معامNoت رسمية', 'points' => 15, 'action' => 'إيقاف عن الدراسة وتحقيق'),
+                '4.13' => array('name' => 'التهديد المباشر بالقتل أو الأذى الجسيم', 'points' => 30, 'action' => 'فصل فوري وإبNoغ السلطات'),
+                '4.14' => array('name' => 'إشعال الحرائق عمدًا داخل حرم Academy الرياضية', 'points' => 30, 'action' => 'فصل نهائي وتحمل التبعات القانونية'),
             )
         );
         return get_option('sm_hierarchical_violations', $default);
@@ -354,7 +354,7 @@ class SM_Settings {
 
         $structure = array();
         foreach ($results as $row) {
-            $grade_num = (int)str_replace('المجموعة التدريبية ', '', $row->class_name);
+            $grade_num = (int)str_replace('Training Group ', '', $row->class_name);
             if (!isset($structure[$grade_num])) {
                 $structure[$grade_num] = array();
             }
@@ -431,7 +431,7 @@ class SM_Settings {
                 )
             ),
             'term-plans' => array(
-                'label' => 'الخطط المجموعة التدريبيةية والسنوية',
+                'label' => 'الخطط Training Groupية والAnnualة',
                 'dashicon' => 'dashicons-calendar-alt',
                 'tab' => 'term-plans',
                 'default' => array(
@@ -469,7 +469,7 @@ class SM_Settings {
                 )
             ),
             'students' => array(
-                'label' => 'شؤون اللاعبين',
+                'label' => 'Player Affairs',
                 'dashicon' => 'dashicons-groups',
                 'tab' => 'students',
                 'default' => array(
@@ -489,7 +489,7 @@ class SM_Settings {
                 )
             ),
             'stats' => array(
-                'label' => 'سجل سلوك اللاعبين',
+                'label' => 'سجل سلوك الNoعبين',
                 'dashicon' => 'dashicons-list-view',
                 'tab' => 'stats',
                 'default' => array(
@@ -625,7 +625,7 @@ class SM_Settings {
                 )
             ),
             'global-settings' => array(
-                'label' => 'إعدادات النظام',
+                'label' => 'System Settings',
                 'dashicon' => 'dashicons-admin-generic',
                 'tab' => 'global-settings',
                 'default' => array(
@@ -930,9 +930,9 @@ class SM_Settings {
         <div class="sm-container" style="padding:60px 20px; text-align:center; max-width:550px; margin: 0 auto; font-family: 'Cairo', sans-serif;" dir="rtl">
             <div style="background:#ffffff; padding:45px 30px; border-radius:12px; border:1px solid #cbd5e1; box-shadow:0 10px 15px -3px rgba(0,0,0,0.05);">
                 <div style="font-size:75px; color:#ea580c; line-height:1; margin-bottom:20px;">🔒</div>
-                <h2 style="margin:0 0 10px 0; font-weight:800; color:#0f172a; font-size:1.6rem;">عفواً، الدخول غير مصرح به</h2>
-                <p style="margin:0 0 30px 0; font-size:14px; color:#64748b; line-height:1.7;">يرجى العلم بأنك لا تملك الصلاحيات الكافية للوصول إلى هذا القسم. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع إدارة النظام.</p>
-                <a href="<?php echo home_url('/sm-admin'); ?>" class="sm-btn" style="width:100%; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; font-weight:700; color:white !important; background-color:#000000 !important; border:1px solid #000000;">العودة للوحة الإدارة الرئيسية</a>
+                <h2 style="margin:0 0 10px 0; font-weight:800; color:#0f172a; font-size:1.6rem;">عفواً، الدخول Unauthorized به</h2>
+                <p style="margin:0 0 30px 0; font-size:14px; color:#64748b; line-height:1.7;">يرجى العلم بأنك No تملك Permissions الكافية للوصول إلى هذا القسم. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع System Management.</p>
+                <a href="<?php echo home_url('/sm-admin'); ?>" class="sm-btn" style="width:100%; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; font-weight:700; color:white !important; background-color:#000000 !important; border:1px solid #000000;">العودة للوحة الإدارة Home</a>
             </div>
         </div>
         <?php
@@ -1006,16 +1006,16 @@ class SM_Settings {
         $role_map = array(
             'administrator' => 'الإدارة المركزية (المطور)',
             'sm_system_admin' => 'مدير النظام',
-            'sm_principal' => 'مدير الأكاديمية الرياضية',
+            'sm_principal' => 'مدير Academy الرياضية',
             'sm_supervisor' => 'مشرف تربوي',
             'sm_coordinator' => 'منسق مادة',
             'sm_hod' => 'رئيس قسم',
             'sm_teacher' => 'معلم',
-            'sm_student' => 'لاعب',
+            'sm_student' => 'Noعب',
             'sm_parent' => 'ولي أمر',
             'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-            'sm_activities_supervisor' => 'مشرف أنشطة',
-            'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+            'sm_activities_supervisor' => 'مشرف أActiveة',
+            'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
             'sm_bus_supervisor' => 'مشرف حافلة',
             'sm_clinic' => 'العيادة المدرسية',
             'sm_hr' => 'الموارد البشرية (HR)'
@@ -1102,10 +1102,10 @@ class SM_Settings {
                 'label1' => 'الإعداد البدني واللياقة العامة والخاصة (Physical Preparation)',
                 'placeholder1' => 'تمارين الإحماء واكتساب عناصر اللياقة العامة والخاصة بالمهارة...',
                 'label2' => 'الإعداد المهاري والخطوات الفنية (Skill Preparation)',
-                'placeholder2' => 'شرح وعرض الخطوات التعليمية والفنية للمهارة الحركية...',
+                'placeholder2' => 'شرح وView الخطوات التعليمية والفنية للمهارة الحركية...',
                 'label3' => 'النشاط التطبيقي والتقسيمات (Main Practical Activity)',
                 'placeholder3' => 'الألعاب والتقسيمات والتطبيقات والمنافسات الجماعية...',
-                'label4' => 'الخاتمة والتهدئة وتجميع اللاعبين (Cool-down & Closing)',
+                'label4' => 'الخاتمة والتهدئة وتجميع الNoعبين (Cool-down & Closing)',
                 'placeholder4' => 'تمارين التهدئة وتجميع الأدوات والتقييم الحركي الختامي...'
             );
         }
@@ -1115,11 +1115,11 @@ class SM_Settings {
                 'label1' => 'الأهداف والبراهين الرياضية والمفاهيم (Objectives & Concepts)',
                 'placeholder1' => 'صياغة المفاهيم الرياضية، النظريات، والقوانين المقرر إثباتها...',
                 'label2' => 'التهيئة والتمهيد ومراجعة المكتسبات (Warm-up & Prior Knowledge)',
-                'placeholder2' => 'مراجعة المهارات السابقة والتمهيد للمسألة النموذجية...',
-                'label3' => 'استراتيجيات الحل والأنشطة التطبيقية (Problem Solving & Activities)',
+                'placeholder2' => 'مراجعة المهارات Previousة والتمهيد للمسألة النموذجية...',
+                'label3' => 'استراتيجيات الحل والأActiveة التطبيقية (Problem Solving & Activities)',
                 'placeholder3' => 'خطوات حل المسائل والتطبيق التدريجي على البراهين والتمارين...',
                 'label4' => 'التقويم الذاتي والتحقق من فهم المسائل (Assessment & Proof Check)',
-                'placeholder4' => 'تمارين قياس مستوى الاستيعاب والتأكد من صحة الحلول...'
+                'placeholder4' => 'تمارين قياس Level اNoستيعاب والتأكد من صحة الحلول...'
             );
         }
 
@@ -1127,23 +1127,23 @@ class SM_Settings {
             return array(
                 'label1' => 'الأهداف والتجارب والتفسيرات العلمية (Scientific Objectives & Concepts)',
                 'placeholder1' => 'الأهداف العلمية والتجارب المعملية والمفاهيم العلمية المستهدفة...',
-                'label2' => 'التهيئة الاستكشافية والمشاهدة (Warm-up & Observation)',
-                'placeholder2' => 'طرح التساؤل العلمي أو الظاهرة الاستكشافية قبل التجربة...',
-                'label3' => 'التجربة العملية واستراتيجية الاستقصاء (Lab Experiment & Inquiry)',
-                'placeholder3' => 'خطوات تنفيذ التجربة، السلامة المعملية، وجمع البيانات والتطبيقات...',
+                'label2' => 'التهيئة اNoستكشافية والمشاهدة (Warm-up & Observation)',
+                'placeholder2' => 'طرح التساؤل العلمي أو الظاهرة اNoستكشافية قبل التجربة...',
+                'label3' => 'التجربة العملية واستراتيجية اNoستقصاء (Lab Experiment & Inquiry)',
+                'placeholder3' => 'خطوات تنفيذ التجربة، السNoمة المعملية، وجمع البيانات والتطبيقات...',
                 'label4' => 'تحليل النتائج والتقويم العلمي (Data Analysis & Evaluation)',
                 'placeholder4' => 'استنتاج نتائج التجربة والإجابة على أسئلة التقييم المعملي...'
             );
         }
 
-        if (strpos($sub, 'إسلامية') !== false || strpos($sub, 'قرآن') !== false || strpos($sub, 'تربية إسلامية') !== false || strpos($sub, 'islamic') !== false) {
+        if (strpos($sub, 'إسNoمية') !== false || strpos($sub, 'قرآن') !== false || strpos($sub, 'تربية إسNoمية') !== false || strpos($sub, 'islamic') !== false) {
             return array(
-                'label1' => 'الأهداف السلوكية والأحكام الشرعية والتلاوة (Objectives & Recitation)',
+                'label1' => 'الأهداف السلوكية والأحكام الشرعية والتNoوة (Objectives & Recitation)',
                 'placeholder1' => 'الآيات والمفاهيم والأحكام الشرعية والقيم التربوية المستفادة...',
                 'label2' => 'التمهيد وربط الآيات بالواقع (Warm-up & Reflection)',
                 'placeholder2' => 'نشاط تمهيدي لربط الدرس بالقيم السلوكية والحياة اليومية...',
-                'label3' => 'الشرح والتفسير والأنشطة الإيمانية (Tafseer & Learning Activities)',
-                'placeholder3' => 'شرح المعاني، تطبيق قواعد التلاوة، والاستراتيجيات التفاعلية...',
+                'label3' => 'الشرح والتفسير والأActiveة الإيمانية (Tafseer & Learning Activities)',
+                'placeholder3' => 'شرح المعاني، تطبيق قواعد التNoوة، واNoستراتيجيات التفاعلية...',
                 'label4' => 'التقويم السلوكي والتطبيق الحياتي (Behavioral Assessment & Closing)',
                 'placeholder4' => 'قياس فهم الأحكام والآثار السلوكية المكتسبة...'
             );
@@ -1153,11 +1153,11 @@ class SM_Settings {
             'label1' => 'الأهداف السلوكية والتعليمية (Objectives)',
             'placeholder1' => 'أدخل الأهداف السلوكية المحددة والواضحة للدرس...',
             'label2' => 'التمهيد والتهيئة الحافزة (Warm-up)',
-            'placeholder2' => 'نشاط تمهيدي لجذب انتباه اللاعبين للمفهوم الجديد...',
-            'label3' => 'الاستراتيجيات والأنشطة والخطوات التعليمية (Learning Activities)',
-            'placeholder3' => 'شرح طريقة عرض المفهوم والوسائل والأنشطة المتبعة...',
-            'label4' => 'التقويم المجموعة التدريبيةي وأدوات القياس (Evaluation & Assessment)',
-            'placeholder4' => 'أسئلة وأدوات تقييم فهم واستيعاب اللاعبين خلال الحصة...'
+            'placeholder2' => 'نشاط تمهيدي لجذب انتباه الNoعبين للمفهوم الجديد...',
+            'label3' => 'اNoستراتيجيات والأActiveة والخطوات التعليمية (Learning Activities)',
+            'placeholder3' => 'شرح طريقة View المفهوم والوسائل والأActiveة المتبعة...',
+            'label4' => 'التقويم Training Groupي وأدوات القياس (Evaluation & Assessment)',
+            'placeholder4' => 'أسئلة وأدوات تقييم فهم واستيعاب الNoعبين خNoل الحصة...'
         );
     }
 }

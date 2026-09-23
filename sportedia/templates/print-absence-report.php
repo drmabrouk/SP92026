@@ -32,7 +32,7 @@
 </head>
 <body>
     <div class="no-print" style="background: #f8fafc; padding: 20px; text-align: center; border-bottom: 1px solid #e2e8f0; margin-bottom: 30px;">
-        <button onclick="window.print()" style="padding: 12px 30px; background: #38a169; color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Rubik', sans-serif;">بدء الطباعة الآن</button>
+        <button onclick="window.print()" style="padding: 12px 30px; background: #38a169; color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-family: 'Rubik', sans-serif;">بدء الPrint الآن</button>
     </div>
 
     <?php $school = SM_Settings::get_school_info(); ?>
@@ -58,19 +58,19 @@
         <thead>
             <tr>
                 <th style="width: 50px;">#</th>
-                <th>كود اللاعب</th>
-                <th style="text-align: right;">اسم اللاعب</th>
-                <th>المجموعة التدريبية والمجموعة التدريبية</th>
+                <th>كود الNoعب</th>
+                <th style="text-align: right;">Player Name</th>
+                <th>Training Group وTraining Group</th>
                 <?php if ($report_type === 'daily'): ?>
-                    <th>ملاحظات</th>
+                    <th>Notes</th>
                 <?php else: ?>
-                    <th>إجمالي الغياب (هذا المجموعة التدريبية)</th>
+                    <th>إجمالي الغياب (هذا Training Group)</th>
                 <?php endif; ?>
             </tr>
         </thead>
         <tbody>
             <?php if (empty($data)): ?>
-                <tr><td colspan="5">لا يوجد بيانات لعرضها في هذا التقرير.</td></tr>
+                <tr><td colspan="5">No يوجد بيانات لViewها في هذا التقرير.</td></tr>
             <?php else: ?>
                 <?php foreach ($data as $index => $row): ?>
                 <tr>
@@ -97,7 +97,7 @@
             <p>............................</p>
         </div>
         <div class="signature-box">
-            <p>يعتمد مدير الأكاديمية الرياضية</p>
+            <p>يعتمد مدير Academy الرياضية</p>
             <div class="principal-name"><?php echo esc_html($school['school_principal_name'] ?? ''); ?></div>
             <p>التوقيع: ............................</p>
         </div>

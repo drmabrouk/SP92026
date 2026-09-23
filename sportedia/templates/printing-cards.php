@@ -1,9 +1,9 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 <div class="sm-printing-center" dir="rtl">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h3 style="margin:0; border:none; padding:0;">مركز الطباعة والتقارير</h3>
+        <h3 style="margin:0; border:none; padding:0;">مركز الPrint والتقارير</h3>
         <div style="background: #f0f7ff; padding: 10px 20px; border-radius: 8px; border: 1px solid #c3dafe; font-size: 0.9em; color: var(--sm-primary-color); font-weight: 600;">
-            إعدادات الطباعة: A4 عمودي
+            إعدادات الPrint: A4 عمودي
         </div>
     </div>
 
@@ -21,20 +21,20 @@
                         <div style="width: 50px; height: 50px; background: #F8FAFC; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #3182CE;">
                             <span class="dashicons dashicons-groups" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بطاقات اللاعبين (الكل)</h4>
-                <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">طباعة بطاقات التعريف لكافة اللاعبين في النظام أو حسب صف محدد.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بطاقات الNoعبين (الكل)</h4>
+                <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">Print بطاقات التعريف لكافة الNoعبين في النظام أو حسب صف محدد.</p>
                 <div class="sm-form-group">
                     <select id="card_class_filter" class="sm-select" style="font-size: 12px; padding: 8px;">
-                        <option value="">كافة المجموعات التدريبية</option>
+                        <option value="">كافة Training Groups</option>
                         <?php
                         global $wpdb;
-                        $classes = $wpdb->get_col("SELECT DISTINCT class_name FROM {$wpdb->prefix}sm_students ORDER BY CAST(REPLACE(class_name, 'المجموعة التدريبية ', '') AS UNSIGNED) ASC");
+                        $classes = $wpdb->get_col("SELECT DISTINCT class_name FROM {$wpdb->prefix}sm_students ORDER BY CAST(REPLACE(class_name, 'Training Group ', '') AS UNSIGNED) ASC");
                         foreach($classes as $c) echo '<option value="'.$c.'">'.$c.'</option>';
                         ?>
                     </select>
                 </div>
             </div>
-            <button onclick="printCards()" class="sm-btn" style="background: #3182CE; font-size: 12px;">طباعة البطاقات</button>
+            <button onclick="printCards()" class="sm-btn" style="background: #3182CE; font-size: 12px;">Print البطاقات</button>
         </div>
 
                 <!-- Specific Student ID Card -->
@@ -43,8 +43,8 @@
                         <div style="width: 50px; height: 50px; background: #FFF5F5; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #E53E3E;">
                             <span class="dashicons dashicons-id-alt" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بطاقة لاعب محدد</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">استخراج بطاقة تعريفية رسمية للاعب واحد فقط بالاسم والكود.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بطاقة Noعب محدد</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">استخراج بطاقة تعريفية رسمية لNoعب واحد فقط باNoسم والكود.</p>
                         <div class="sm-form-group">
                             <select id="specific_card_student_id" class="sm-select" style="font-size: 12px; padding: 8px;">
                                 <?php
@@ -72,12 +72,12 @@
                             <span class="dashicons dashicons-calendar-alt" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
                         <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">تقرير الغياب اليومي</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">كشف بجميع اللاعبين الغائبين في تاريخ محدد مع بيان عدد غياباتهم السابقة.</p>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">كشف بجميع الNoعبين الغائبين في تاريخ محدد مع بيان عدد غياباتهم Previousة.</p>
                         <div class="sm-form-group">
                             <input type="date" id="abs_daily_date" class="sm-input" value="<?php echo date('Y-m-d'); ?>" style="font-size: 12px;">
                         </div>
                     </div>
-                    <button onclick="printAbsenceFromCenter('daily')" class="sm-btn" style="background: #e53e3e; font-size: 12px;">طباعة غيابات اليوم</button>
+                    <button onclick="printAbsenceFromCenter('daily')" class="sm-btn" style="background: #e53e3e; font-size: 12px;">Print غيابات اليوم</button>
                 </div>
 
                 <!-- Class Attendance Sheets -->
@@ -87,28 +87,28 @@
                             <span class="dashicons dashicons-clipboard" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
                         <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">كشوف الحضور والغياب</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">طباعة كشوف الحضور لليوم الحالي لكافة المجموعات التدريبية أو صف محدد.</p>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">Print كشوف الحضور لليوم الحالي لكافة Training Groups أو صف محدد.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px;">
                             <select id="att_sheet_class" class="sm-select" style="font-size: 11px; padding: 5px;">
-                                <option value="">كافة المجموعات التدريبية</option>
+                                <option value="">كافة Training Groups</option>
                                 <?php foreach($classes as $c) echo '<option value="'.$c.'">'.$c.'</option>'; ?>
                             </select>
                             <input type="date" id="att_sheet_date" class="sm-input" value="<?php echo date('Y-m-d'); ?>" style="font-size: 11px; padding: 5px;">
                         </div>
                     </div>
-                    <button onclick="printAttendanceSheets()" class="sm-btn" style="background: #3182CE; font-size: 12px;">طباعة الكشوف</button>
+                    <button onclick="printAttendanceSheets()" class="sm-btn" style="background: #3182CE; font-size: 12px;">Print الكشوف</button>
                 </div>
 
-                <!-- الأكثر غياباً (المجموعة التدريبية) -->
+                <!-- الأكثر غياباً (Training Group) -->
                 <div style="background: #fff; padding: 25px; border-radius: 15px; border: 1px solid var(--sm-border-color); display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--sm-shadow);">
                     <div>
                         <div style="width: 50px; height: 50px; background: #111F35; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #fff;">
                             <span class="dashicons dashicons-chart-bar" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">اللاعبين الأكثر غياباً</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">إحصائية باللاعبين الذين تجاوزوا نسب الغياب المسموح بها خلال المجموعة التدريبية الدراسي الحالي.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">الNoعبين الأكثر غياباً</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">إحصائية بالNoعبين الذين تجاوزوا نسب الغياب المسموح بها خNoل Training Group الدراسي الحالي.</p>
                     </div>
-                    <button onclick="printAbsenceFromCenter('term')" class="sm-btn" style="background: #111F35; font-size: 12px;">تحليل غياب المجموعة التدريبية</button>
+                    <button onclick="printAbsenceFromCenter('term')" class="sm-btn" style="background: #111F35; font-size: 12px;">تحليل غياب Training Group</button>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
         <!-- Section: Disciplinary & Behavior -->
         <div>
             <h4 style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #38A169; display: flex; align-items: center; gap: 10px; color: var(--sm-dark-color);">
-                <span class="dashicons dashicons-warning"></span> تقارير السلوك والانضباط
+                <span class="dashicons dashicons-warning"></span> تقارير السلوك واNoنضباط
             </h4>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
                 <!-- Disciplinary Reports -->
@@ -125,15 +125,15 @@
                         <div style="width: 50px; height: 50px; background: #F0FFF4; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #38A169;">
                             <span class="dashicons dashicons-media-document" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">التقارير الانضباطية</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">تقرير رسمي مفصل وشامل لسلوك اللاعب، جاهز للطباعة والختم.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">التقارير اNoنضباطية</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">تقرير رسمي مفصل وشامل لسلوك الNoعب، جاهز للPrint والختم.</p>
                         <div class="sm-form-group">
                             <select id="report_student_id" class="sm-select" style="font-size: 12px; padding: 8px;">
                                 <?php foreach($students as $s) echo '<option value="'.$s->id.'">'.$s->name.'</option>'; ?>
                             </select>
                         </div>
                     </div>
-                    <button onclick="printReport()" class="sm-btn" style="background: #38A169; font-size: 12px;">عرض التقرير</button>
+                    <button onclick="printReport()" class="sm-btn" style="background: #38A169; font-size: 12px;">View التقرير</button>
                 </div>
 
                 <!-- General Disciplinary Log -->
@@ -143,13 +143,13 @@
                             <span class="dashicons dashicons-list-view" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
                         <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">سجل المخالفات العام</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">طباعة كشف كامل بكافة المخالفات المسجلة بالأكاديمية الرياضية خلال فترة زمنية.</p>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">Print كشف كامل بكافة المخالفات المسجلة بAcademy الرياضية خNoل فترة زمنية.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px;">
                             <input type="date" id="log_start_date" class="sm-input" style="font-size: 10px; padding: 5px;">
                             <input type="date" id="log_end_date" class="sm-input" style="font-size: 10px; padding: 5px;">
                         </div>
                     </div>
-                    <button onclick="printGeneralLog()" class="sm-btn" style="background: #111F35; font-size: 12px;">تحميل السجل</button>
+                    <button onclick="printGeneralLog()" class="sm-btn" style="background: #111F35; font-size: 12px;">Upload السجل</button>
                 </div>
 
                 <!-- Reports by Grade/Section -->
@@ -158,15 +158,15 @@
                         <div style="width: 50px; height: 50px; background: #FAF5FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #805AD5;">
                             <span class="dashicons dashicons-category" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">التقارير حسب المجموعة التدريبية</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">استخراج إحصائيات وتقارير مجمعة لمستوى انضباط صف أو شعبة محددة.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">التقارير حسب Training Group</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">استخراج إحصائيات وتقارير مجمعة لLevel انضباط صف أو شعبة محددة.</p>
                         <div class="sm-form-group">
                             <select id="grade_report_class" class="sm-select" style="font-size: 12px; padding: 8px;">
                                 <?php foreach($classes as $c) echo '<option value="'.$c.'">'.$c.'</option>'; ?>
                             </select>
                         </div>
                     </div>
-                    <button onclick="alert('قريباً: تقارير المجموعات التدريبية')" class="sm-btn" style="background: #805AD5; font-size: 12px;">توليد التقرير</button>
+                    <button onclick="alert('قريباً: تقارير Training Groups')" class="sm-btn" style="background: #805AD5; font-size: 12px;">توليد التقرير</button>
                 </div>
             </div>
         </div>
@@ -183,10 +183,10 @@
                         <div style="width: 50px; height: 50px; background: #EBF8FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #2B6CB0;">
                             <span class="dashicons dashicons-editor-ul" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">قائمة اللاعبين الكاملة</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">طباعة كشف بجميع طلاب الأكاديمية الرياضية مصنفين حسب المجموعة التدريبية والمجموعة التدريبية.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">قائمة الNoعبين الكاملة</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">Print كشف بجميع طNoب Academy الرياضية مصنفين حسب Training Group وTraining Group.</p>
                     </div>
-                    <button onclick="alert('قريباً: طباعة القائمة الكاملة')" class="sm-btn" style="background: #2B6CB0; font-size: 12px;">طباعة القائمة</button>
+                    <button onclick="alert('قريباً: Print القائمة الكاملة')" class="sm-btn" style="background: #2B6CB0; font-size: 12px;">Print القائمة</button>
                 </div>
 
                 <!-- Student Login Credentials -->
@@ -195,11 +195,11 @@
                         <div style="width: 50px; height: 50px; background: #F7FAFC; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #4A5568;">
                             <span class="dashicons dashicons-lock" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بيانات دخول اللاعبين</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">توليد كشف بأسماء اللاعبين مع اسم المستخدم (الكود) وكلمة المرور المؤقتة.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بيانات دخول الNoعبين</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">توليد كشف بأسماء الNoعبين مع Username (الكود) وPassword المؤقتة.</p>
                         <div class="sm-form-group">
                             <select id="creds_class_filter" class="sm-select" style="font-size: 12px; padding: 8px;">
-                                <option value="">كافة المجموعات التدريبية</option>
+                                <option value="">كافة Training Groups</option>
                                 <?php foreach($classes as $c) echo '<option value="'.$c.'">'.$c.'</option>'; ?>
                             </select>
                         </div>
@@ -216,8 +216,8 @@
                         <div style="width: 50px; height: 50px; background: #FFF5F7; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #D53F8C;">
                             <span class="dashicons dashicons-admin-users" style="font-size: 28px; width: 28px; height: 28px;"></span>
                         </div>
-                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بيانات دخول لاعب واحد</h4>
-                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">استخراج بيانات الدخول (الاسم، المستخدم، كلمة المرور) للاعب واحد فقط.</p>
+                        <h4 style="margin: 0 0 10px 0; border: none; font-weight: 800; font-size: 15px;">بيانات دخول Noعب واحد</h4>
+                        <p style="font-size: 11px; color: #718096; line-height: 1.6; margin-bottom: 20px;">استخراج بيانات الدخول (اNoسم، المستخدم، Password) لNoعب واحد فقط.</p>
                         <div class="sm-form-group">
                             <select id="single_creds_student_id" class="sm-select" style="font-size: 12px; padding: 8px;">
                                 <?php foreach($students as $s) echo '<option value="'.$s->id.'">'.$s->name.'</option>'; ?>
@@ -232,18 +232,18 @@
         <!-- Excel Templates Section -->
         <div style="grid-column: 1 / -1; background: #f8fafc; padding: 30px; border-radius: 12px; border: 2px dashed #cbd5e1; margin-top: 20px;">
             <h4 style="margin-top:0; color:var(--sm-secondary-color); display:flex; align-items:center; gap:10px;">
-                <span class="dashicons dashicons-media-spreadsheet"></span> نماذج إكسل جاهزة للاستخدام
+                <span class="dashicons dashicons-media-spreadsheet"></span> نماذج إكسل جاهزة لNoستخدام
             </h4>
-            <p style="font-size: 0.9em; color: #64748b; margin-bottom: 20px;">قم بتحميل النماذج التالية، املأ البيانات، ثم ارفعها في الأقسام المخصصة لتسريع عملية إدخال البيانات.</p>
+            <p style="font-size: 0.9em; color: #64748b; margin-bottom: 20px;">قم بUpload النماذج Nextة، املأ البيانات، ثم ارفعها في الأقسام المخصصة لتسريع عملية إدخال البيانات.</p>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <a href="data:text/csv;charset=utf-8,<?php echo rawurlencode("الاسم,المجموعة التدريبية,البريد,الكود\nاسم اللاعب,المجموعة التدريبية الأول,parent@example.com,STU001"); ?>" download="students_template.csv" class="sm-btn" style="background:#fff; color:#2d3748; border:1px solid #cbd5e1; font-size:13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
-                    <span class="dashicons dashicons-download"></span> نموذج اللاعبين
+                <a href="data:text/csv;charset=utf-8,<?php echo rawurlencode("اNoسم,Training Group,البريد,الكود\nPlayer Name,Training Group الأول,parent@example.com,STU001"); ?>" download="students_template.csv" class="sm-btn" style="background:#fff; color:#2d3748; border:1px solid #cbd5e1; font-size:13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
+                    <span class="dashicons dashicons-download"></span> نموذج الNoعبين
                 </a>
-                <a href="data:text/csv;charset=utf-8,<?php echo rawurlencode("الاسم,المستخدم,البريد,كلمة السر\nاسم ولي الأمر,parent_user,parent@example.com,pass123"); ?>" download="parents_template.csv" class="sm-btn" style="background:#fff; color:#2d3748; border:1px solid #cbd5e1; font-size:13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
-                    <span class="dashicons dashicons-download"></span> نموذج أولياء الأمور والأوصياء
+                <a href="data:text/csv;charset=utf-8,<?php echo rawurlencode("اNoسم,المستخدم,البريد,كلمة السر\nاسم ولي Motherر,parent_user,parent@example.com,pass123"); ?>" download="parents_template.csv" class="sm-btn" style="background:#fff; color:#2d3748; border:1px solid #cbd5e1; font-size:13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
+                    <span class="dashicons dashicons-download"></span> نموذج أولياء Motherور والأوصياء
                 </a>
-                <a href="data:text/csv;charset=utf-8,<?php echo rawurlencode("الاسم,المستخدم,البريد,المعرف الوظيفي,المسمى,الجوال,كلمة السر\nاسم المدرب,teacher_user,teacher@example.com,T100,معلم فصل,0500000000,pass123"); ?>" download="teachers_template.csv" class="sm-btn" style="background:#fff; color:#2d3748; border:1px solid #cbd5e1; font-size:13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <a href="data:text/csv;charset=utf-8,<?php echo rawurlencode("اNoسم,المستخدم,البريد,المعرف الوظيفي,المسمى,الجوال,كلمة السر\nاسم المدرب,teacher_user,teacher@example.com,T100,معلم فصل,0500000000,pass123"); ?>" download="teachers_template.csv" class="sm-btn" style="background:#fff; color:#2d3748; border:1px solid #cbd5e1; font-size:13px; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
                     <span class="dashicons dashicons-download"></span> نموذج المدربين
                 </a>
             </div>
