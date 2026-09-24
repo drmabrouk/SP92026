@@ -17,7 +17,7 @@ $is_hr = in_array('sm_hr', $roles) || current_user_can('manage_hr');
 $can_evaluate = $is_admin || $is_sys_admin || $is_principal || $is_supervisor || $is_coordinator || $is_hod || $is_hr || $is_activities_sup || $is_discipline_sup;
 
 if (!$can_evaluate) {
-    echo '<div style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:8px; border:1px solid #fca5a5; font-weight:700; font-family:\'Cairo\'; text-align:center;">🚫 عذراً، لا تمتلك الصلاحيات الكافية للوصول لصفحة تقييم أعضاء هيئة التدريب والكادر.</div>';
+    echo '<div style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:8px; border:1px solid #fca5a5; font-weight:700; font-family:\'Cairo\'; text-align:center;">🚫 عذراً، No تمتلك Permissions الكافية للوصول لصفحة تقييم أعضاء هيئة التدريب والكادر.</div>';
     return;
 }
 
@@ -35,7 +35,7 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
             </div>
             <div>
                 <h2 style="margin: 0 0 2px 0; font-size: 18px; font-weight: 800; color: #0f172a;">منظومة تقييم أداء أعضاء هيئة التدريب والكادر والكادر التعليمي</h2>
-                <p style="margin: 0; font-size: 11.5px; color: #64748b; font-weight: 500;">تقييم أداء أعضاء هيئة التدريب والكادر خطوة بخطوة، ربط المؤشرات الموضوعية، وإدارة أرشيف التقييمات السنوية</p>
+                <p style="margin: 0; font-size: 11.5px; color: #64748b; font-weight: 500;">تقييم أداء أعضاء هيئة التدريب والكادر خطوة بخطوة، ربط المؤشرات الموضوعية، وإدارة أرشيف التقييمات الAnnualة</p>
             </div>
         </div>
 
@@ -72,7 +72,7 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
             <div style="background: #f8fafc; padding: 14px 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <div id="ew_node_1" style="font-weight: 800; font-size: 12px; color: #881337; display: flex; align-items: center; gap: 6px;">
                     <span style="background: #881337; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">1</span>
-                    <span>البحث واختيار الموظف</span>
+                    <span>الSearch واختيار الموظف</span>
                 </div>
                 <div id="ew_node_2" style="font-weight: 700; font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
                     <span style="background: #e2e8f0; color: #475569; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">2</span>
@@ -84,17 +84,17 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                 </div>
                 <div id="ew_node_4" style="font-weight: 700; font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
                     <span style="background: #e2e8f0; color: #475569; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;">4</span>
-                    <span>مراجعة النتيجة والحفظ للأرشيف</span>
+                    <span>مراجعة النتيجة والSave للأرشيف</span>
                 </div>
             </div>
 
             <!-- STEP 1: EMPLOYEE SEARCH -->
             <div id="ew_step_1" style="display: block;">
-                <h4 style="margin: 0 0 10px 0; font-size: 15px; font-weight: 800; color: #0f172a;">الخطوة 1: البحث عن الموظف واختياره من سجلات النظام</h4>
-                <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b;">ادخل اسم الموظف أو الكود الوظيفي للاستدعاء المباشر من قاعدة المستخدمين المركزية:</p>
+                <h4 style="margin: 0 0 10px 0; font-size: 15px; font-weight: 800; color: #0f172a;">الخطوة 1: الSearch عن الموظف واختياره من سجNoت النظام</h4>
+                <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b;">ادخل اسم الموظف أو الكود الوظيفي لNoستدعاء المباشر من قاعدة Users المركزية:</p>
 
                 <div style="position: relative; width: 100%; max-width: 480px; margin-bottom: 20px;">
-                    <input type="text" id="ew_emp_search_input" onkeyup="eessSearchEmployeeForEval(this.value)" class="sm-input" placeholder="ابحث باسم الموظف أو الكود..." style="height: 42px; border-radius: 9999px !important; border: 1px solid #cbd5e1; padding: 0 36px 0 14px; font-size: 13px; width: 100%; box-sizing: border-box;">
+                    <input type="text" id="ew_emp_search_input" onkeyup="eessSearchEmployeeForEval(this.value)" class="sm-input" placeholder="اSearch باسم الموظف أو الكود..." style="height: 42px; border-radius: 9999px !important; border: 1px solid #cbd5e1; padding: 0 36px 0 14px; font-size: 13px; width: 100%; box-sizing: border-box;">
                     <span class="dashicons dashicons-search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></span>
                 </div>
 
@@ -127,13 +127,13 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
             <!-- STEP 2: SYSTEM OBJECTIVE INDICATORS & CATEGORY SELECTION -->
             <div id="ew_step_2" style="display: none;">
                 <h4 style="margin: 0 0 10px 0; font-size: 15px; font-weight: 800; color: #0f172a;">الخطوة 2: مؤشرات الأداء الموضوعية وتحديد فئة التقييم</h4>
-                <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b;">المؤشرات التلقائية المستخرجة مباشرة من سجلات تقديم تقارير أعضاء هيئة التدريب والكادر والخطط المجموعة التدريبيةية والسنوية بالمنظومة:</p>
+                <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b;">المؤشرات التلقائية المستخرجة مباشرة من سجNoت تقديم تقارير أعضاء هيئة التدريب والكادر والخطط Training Groupية والAnnualة بالمنظومة:</p>
 
                 <!-- System Performance Indicators Card -->
                 <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 18px; margin-bottom: 20px;">
                     <h5 style="margin: 0 0 12px 0; font-size: 13.5px; font-weight: 800; color: #0369a1; display: flex; align-items: center; gap: 6px;">
                         <span class="dashicons dashicons-analytics"></span>
-                        <span>المؤشرات الأكاديمية الموضوعية (System Performance Indicators)</span>
+                        <span>المؤشرات Academy الموضوعية (System Performance Indicators)</span>
                     </h5>
 
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; text-align: center;">
@@ -143,12 +143,12 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                             <small id="ew_sys_prep_sub" style="font-size: 10px; color: #94a3b8;">---</small>
                         </div>
                         <div style="background: #ffffff; padding: 12px; border-radius: 10px; border: 1px solid #bae6fd;">
-                            <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 4px;">التزام اعتماد الخطط المجموعة التدريبيةية</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 4px;">التزام اعتماد الخطط Training Groupية</div>
                             <div id="ew_sys_plan_pct" style="font-size: 20px; font-weight: 900; color: #16a34a;">100%</div>
                             <small id="ew_sys_plan_sub" style="font-size: 10px; color: #94a3b8;">---</small>
                         </div>
                         <div style="background: #ffffff; padding: 12px; border-radius: 10px; border: 1px solid #bae6fd;">
-                            <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 4px;">معدل الامتثال العام بالنظام</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 700; margin-bottom: 4px;">معدل اNoمتثال العام بالنظام</div>
                             <div id="ew_sys_overall_score" style="font-size: 20px; font-weight: 900; color: #881337;">100%</div>
                             <small style="font-size: 10px; color: #94a3b8;">مستخرج تلقائياً</small>
                         </div>
@@ -158,10 +158,10 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                 <!-- Select Category -->
                 <h5 style="margin: 0 0 10px 0; font-size: 13.5px; font-weight: 800; color: #0f172a;">اختر فئة التقييم المطلوبة للبدء:</h5>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 24px;">
-                    <button type="button" onclick="eessSelectEvalCategory('تقييم الانضباط والسلوك')" class="sm-btn sm-btn-outline" style="height: 48px; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; border: 1.5px solid #cbd5e1;">📋 تقييم الانضباط والسلوك</button>
+                    <button type="button" onclick="eessSelectEvalCategory('تقييم اNoنضباط والسلوك')" class="sm-btn sm-btn-outline" style="height: 48px; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; border: 1.5px solid #cbd5e1;">📋 تقييم اNoنضباط والسلوك</button>
                     <button type="button" onclick="eessSelectEvalCategory('التقييم التربوي والمهني')" class="sm-btn sm-btn-outline" style="height: 48px; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; border: 1.5px solid #cbd5e1;">🎓 التقييم التربوي والمهني</button>
                     <button type="button" onclick="eessSelectEvalCategory('تقييم الأداء الوظيفي')" class="sm-btn sm-btn-outline" style="height: 48px; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; border: 1.5px solid #cbd5e1;">💼 تقييم الأداء الوظيفي</button>
-                    <button type="button" onclick="eessSelectEvalCategory('تقييم الالتزام والتواصل')" class="sm-btn sm-btn-outline" style="height: 48px; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; border: 1.5px solid #cbd5e1;">🤝 تقييم التواصل والتفاعل</button>
+                    <button type="button" onclick="eessSelectEvalCategory('تقييم اNoلتزام والتواصل')" class="sm-btn sm-btn-outline" style="height: 48px; border-radius: 12px; font-weight: 800; font-size: 13px; text-align: center; border: 1.5px solid #cbd5e1;">🤝 تقييم التواصل والتفاعل</button>
                 </div>
 
                 <div style="display: flex; justify-content: space-between;">
@@ -187,8 +187,8 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                 </div>
 
                 <div style="margin-bottom: 20px;">
-                    <label style="display: block; font-size: 12.5px; font-weight: 800; color: #334155; margin-bottom: 6px;">ملاحظات المقيم والتوصيات الرسمية (اختياري):</label>
-                    <textarea id="ew_comments_input" rows="3" class="sm-input" placeholder="اكتب أي ملاحظات إدارية، نقاط قوة، أو فرص تطوير للموظف..." style="width: 100%; border-radius: 10px; border: 1px solid #cbd5e1; padding: 8px 12px; font-size: 12.5px; box-sizing: border-box;"></textarea>
+                    <label style="display: block; font-size: 12.5px; font-weight: 800; color: #334155; margin-bottom: 6px;">Notes المقيم والتوصيات الرسمية (اختياري):</label>
+                    <textarea id="ew_comments_input" rows="3" class="sm-input" placeholder="اكتب أي Notes إدارية، نقاط قوة، أو فرص تطوير للموظف..." style="width: 100%; border-radius: 10px; border: 1px solid #cbd5e1; padding: 8px 12px; font-size: 12.5px; box-sizing: border-box;"></textarea>
                 </div>
 
                 <div style="display: flex; justify-content: space-between;">
@@ -199,7 +199,7 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
 
             <!-- STEP 4: REVIEW & SUMMARY BEFORE SUBMISSION -->
             <div id="ew_step_4" style="display: none;">
-                <h4 style="margin: 0 0 10px 0; font-size: 15px; font-weight: 800; color: #0f172a;">الخطوة 4: مراجعة نتيجة التقييم واعتماد حفظ السجل</h4>
+                <h4 style="margin: 0 0 10px 0; font-size: 15px; font-weight: 800; color: #0f172a;">الخطوة 4: مراجعة نتيجة التقييم واعتماد Save السجل</h4>
                 <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b;">راجع تفاصيل الدرجات والنتيجة النهائية قبل التثبيت النهائي في الأرشيف التاريخي:</p>
 
                 <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 16px; padding: 20px; margin-bottom: 20px;">
@@ -224,9 +224,9 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                 </div>
 
                 <div style="display: flex; justify-content: space-between;">
-                    <button type="button" onclick="eessGoToEvalStep(3)" class="sm-btn sm-btn-outline" style="height: 38px; border-radius: 9999px !important; font-size: 12px; font-weight: 700;">← العودة للتعديل</button>
+                    <button type="button" onclick="eessGoToEvalStep(3)" class="sm-btn sm-btn-outline" style="height: 38px; border-radius: 9999px !important; font-size: 12px; font-weight: 700;">← العودة للEdit</button>
                     <button type="button" onclick="eessSubmitFinalEvaluation()" id="ew_final_submit_btn" class="sm-btn" style="background: #16a34a; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 28px; font-weight: 800; font-size: 13px; border: none; cursor: pointer;">
-                        <span>تأكيد واعتماد التقييم رسمياً ✓</span>
+                        <span>Confirm واعتماد التقييم رسمياً ✓</span>
                     </button>
                 </div>
             </div>
@@ -241,7 +241,7 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                 <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">سجل وأرشيف التقييمات التاريخية للموظفين</h3>
 
                 <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                    <input type="text" id="eval_archive_search" onkeyup="eessLoadEvaluationsArchive()" placeholder="بحث باسم الموظف أو المقيم..." class="sm-input" style="height: 36px; border-radius: 9999px !important; border: 1px solid #cbd5e1; font-size: 12px; padding: 0 14px; width: 220px;">
+                    <input type="text" id="eval_archive_search" onkeyup="eessLoadEvaluationsArchive()" placeholder="Search باسم الموظف أو المقيم..." class="sm-input" style="height: 36px; border-radius: 9999px !important; border: 1px solid #cbd5e1; font-size: 12px; padding: 0 14px; width: 220px;">
                     <select id="eval_archive_year_filter" onchange="eessLoadEvaluationsArchive()" class="sm-select" style="height: 36px; border-radius: 9999px !important; border: 1px solid #cbd5e1; font-size: 12px; padding: 0 10px;">
                         <option value="">كافة الأعوام الدراسية</option>
                         <option value="2025/2026" selected>العام 2025/2026</option>
@@ -275,7 +275,7 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
     <div id="eval_tab_templates" style="display: none;">
         <div style="background: #ffffff; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,0.02);">
             <h3 style="margin: 0 0 14px 0; font-size: 16px; font-weight: 800; color: #0f172a;">إنشاء وتخصيص نماذج وأسئلة التقييم (0–10)</h3>
-            <p style="margin: 0 0 20px 0; font-size: 12.5px; color: #64748b;">إضافة نموذج جديد وتحديد الأسئلة المخصصة لكل رتبة أو قسم بالمجموعة التدريبية:</p>
+            <p style="margin: 0 0 20px 0; font-size: 12.5px; color: #64748b;">Add نموذج جديد وتحديد الأسئلة المخصصة لكل رتبة أو قسم بTraining Group:</p>
 
             <form id="eess_create_template_form" onsubmit="eessSaveEvalTemplateSubmit(event)">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
@@ -297,13 +297,13 @@ $active_academic_year = $acad_struct['academic_year'] ?? '2025/2026';
                 <div style="margin-bottom: 16px;">
                     <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 8px;">أسئلة ومعايير التقييم (مقياس 0 إلى 10 نقاط):</label>
                     <div id="tmpl_questions_builder" style="display: flex; flex-direction: column; gap: 10px;">
-                        <input type="text" class="sm-input tmpl-q-input" placeholder="السؤال 1: الالتزام بالجدول الدراسي والمواعيد..." style="height: 38px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 12px;">
+                        <input type="text" class="sm-input tmpl-q-input" placeholder="السؤال 1: اNoلتزام بالجدول الدراسي والمواعيد..." style="height: 38px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 12px;">
                         <input type="text" class="sm-input tmpl-q-input" placeholder="السؤال 2: جودة التحضير والتخطيط الأكاديمي..." style="height: 38px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 12px;">
                     </div>
-                    <button type="button" onclick="eessAddTemplateQuestionRow()" class="sm-btn sm-btn-outline" style="margin-top: 10px; height: 34px; font-size: 11.5px; border-radius: 8px; font-weight: 700;">+ إضافة سؤال جديد</button>
+                    <button type="button" onclick="eessAddTemplateQuestionRow()" class="sm-btn sm-btn-outline" style="margin-top: 10px; height: 34px; font-size: 11.5px; border-radius: 8px; font-weight: 700;">+ Add سؤال جديد</button>
                 </div>
 
-                <button type="submit" id="tmpl_save_btn" class="sm-btn" style="background: #881337; color: #ffffff !important; height: 40px; border-radius: 9999px !important; padding: 0 24px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer;">حفظ واعتماد النموذج الجديد</button>
+                <button type="submit" id="tmpl_save_btn" class="sm-btn" style="background: #881337; color: #ffffff !important; height: 40px; border-radius: 9999px !important; padding: 0 24px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer;">Save واعتماد النموذج الجديد</button>
             </form>
         </div>
     </div>
@@ -340,7 +340,7 @@ function eessSwitchEvalTab(tabKey) {
 function eessSearchEmployeeForEval(query) {
     var grid = document.getElementById('ew_emp_results_grid');
     if (!query || query.length < 1) {
-        grid.innerHTML = '<div style="color:#94a3b8; font-size:12px; grid-column: span 3;">ادخل حرفين على الأقل للبحث عن الموظف...</div>';
+        grid.innerHTML = '<div style="color:#94a3b8; font-size:12px; grid-column: span 3;">ادخل حرفين على الأقل للSearch عن الموظف...</div>';
         return;
     }
 
@@ -510,7 +510,7 @@ function eessProceedToEvalStep4() {
 function eessSubmitFinalEvaluation() {
     var btn = document.getElementById('ew_final_submit_btn');
     btn.disabled = true;
-    btn.innerText = 'جاري الاعتماد والحفظ...';
+    btn.innerText = 'جاري اNoعتماد والSave...';
 
     var formData = new FormData();
     formData.append('action', 'eess_save_evaluation_submission');
@@ -528,12 +528,12 @@ function eessSubmitFinalEvaluation() {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'تأكيد واعتماد التقييم رسمياً ✓';
+        btn.innerText = 'Confirm واعتماد التقييم رسمياً ✓';
         if (res.success) {
-            if (typeof smShowNotification === 'function') smShowNotification('تم حفظ وتثبيت التقييم بالأرشيف بنجاح');
+            if (typeof smShowNotification === 'function') smShowNotification('تم Save وتثبيت التقييم بالأرشيف بنجاح');
             eessSwitchEvalTab('archive');
         } else {
-            alert('خطأ: ' + (res.data || 'تعذر حفظ التقييم.'));
+            alert('خطأ: ' + (res.data || 'تعذر Save التقييم.'));
         }
     });
 }
@@ -584,14 +584,14 @@ function eessLoadEvaluationsArchive() {
                         <td style="padding:10px 14px; text-align:center;"><strong style="color:#16a34a; font-size:14px;">${row.average_pct}%</strong> (${row.total_score} درجة)</td>
                         <td style="padding:10px 14px; text-align:center; font-family:monospace; color:#64748b;">${row.date}</td>
                         <td style="padding:10px 14px; text-align:center;">
-                            <button type="button" onclick="window.open('<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=eval_report&eval_id='); ?>' + ${row.id}, '_blank')" class="sm-btn" style="background:#0f172a; color:#fff !important; height:30px; font-size:11px; padding:0 12px; border-radius:9999px;">🖨️ طباعة A4</button>
+                            <button type="button" onclick="window.open('<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=eval_report&eval_id='); ?>' + ${row.id}, '_blank')" class="sm-btn" style="background:#0f172a; color:#fff !important; height:30px; font-size:11px; padding:0 12px; border-radius:9999px;">🖨️ Print A4</button>
                         </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = html;
         } else {
-            tbody.innerHTML = '<tr><td colspan="6" style="padding:30px; text-align:center; color:#94a3b8;">لا توجد تقييمات محفوظة بالأرشيف حالياً.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" style="padding:30px; text-align:center; color:#94a3b8;">No توجد تقييمات محفوظة بالأرشيف حالياً.</td></tr>';
         }
     });
 }
@@ -611,7 +611,7 @@ function eessSaveEvalTemplateSubmit(e) {
     e.preventDefault();
     var btn = document.getElementById('tmpl_save_btn');
     btn.disabled = true;
-    btn.innerText = 'جاري الحفظ...';
+    btn.innerText = 'جاري الSave...';
 
     var formData = new FormData();
     formData.append('action', 'eess_save_eval_template');
@@ -628,12 +628,12 @@ function eessSaveEvalTemplateSubmit(e) {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'حفظ واعتماد النموذج الجديد';
+        btn.innerText = 'Save واعتماد النموذج الجديد';
         if (res.success) {
-            alert('تم حفظ نموذج التقييم الجديد بنجاح');
+            alert('تم Save نموذج التقييم الجديد بنجاح');
             document.getElementById('eess_create_template_form').reset();
         } else {
-            alert('خطأ: ' + (res.data || 'تعذر حفظ النموذج.'));
+            alert('خطأ: ' + (res.data || 'تعذر Save النموذج.'));
         }
     });
 }

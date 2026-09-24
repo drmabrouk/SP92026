@@ -10,7 +10,7 @@
                 <span class="dashicons dashicons-id" style="font-size: 22px; width: 22px; height: 22px; color: #0f172a; margin-top: 2px;"></span>
                 <div>
                     <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">الملف الوظيفي والأكاديمي للمعلم</h3>
-                    <p style="margin: 2px 0 0 0; font-size: 11.5px; color: #64748b; font-weight: 500;">عرض البيانات الشخصية والتكليفات ونشاط تقديم تقارير أعضاء هيئة التدريب والكادر والخطط المجموعة التدريبيةية</p>
+                    <p style="margin: 2px 0 0 0; font-size: 11.5px; color: #64748b; font-weight: 500;">View Personal Information والتكليفات ونشاط تقديم تقارير أعضاء هيئة التدريب والكادر والخطط Training Groupية</p>
                 </div>
             </div>
             <button type="button" onclick="eessCloseTeacherReadOnlyProfileModal()" style="background: none; border: none; color: #0f172a; font-size: 26px; cursor: pointer; line-height: 1;">&times;</button>
@@ -22,7 +22,7 @@
             <!-- Loading Indicator -->
             <div id="tp_ro_loading" style="text-align: center; padding: 40px; color: #64748b;">
                 <span class="dashicons dashicons-update spin" style="font-size: 32px; width: 32px; height: 32px; margin-bottom: 10px; color: #881337;"></span>
-                <div style="font-size: 14px; font-weight: 800; color: #0f172a;">جاري تحميل البيانات والملف الأكاديمي للمعلم...</div>
+                <div style="font-size: 14px; font-weight: 800; color: #0f172a;">جاري Upload البيانات والملف الأكاديمي للمعلم...</div>
             </div>
 
             <div id="tp_ro_content" style="display: none; display: flex; flex-direction: column; gap: 16px;">
@@ -43,7 +43,7 @@
 
                     <button type="button" onclick="eessPrintTeacherProfilePDF()" class="sm-btn" style="background: #0f172a; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 20px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                         <span class="dashicons dashicons-printer" style="font-size: 16px; width: 16px; height: 16px;"></span>
-                        <span>طباعة التقرير PDF</span>
+                        <span>Print التقرير PDF</span>
                     </button>
                 </div>
 
@@ -51,16 +51,16 @@
                 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
                     <h4 style="margin: 0 0 12px 0; font-size: 13.5px; font-weight: 800; color: #881337; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                         <span class="dashicons dashicons-welcome-learn-more" style="color: #881337; font-size: 16px; width: 16px; height: 16px;"></span>
-                        <span>البيانات الشخصية والمهنية والتكليفات التعليمية</span>
+                        <span>Personal Information والمهنية والتكليفات التعليمية</span>
                     </h4>
 
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 12px; color: #334155;">
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">القسم والنشاط الرياضي الدراسية:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">القسم وSport Activity الدراسية:</span>
                             <strong id="tp_ro_dept_subject" style="color: #0f172a;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">المجموعات التدريبية والمناهج المسندة:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">Training Groups والمناهج المسندة:</span>
                             <strong id="tp_ro_grades" style="color: #0f172a;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
@@ -68,11 +68,11 @@
                             <strong id="tp_ro_sections" style="color: #0f172a;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">رقم الهاتف:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">Phone Number:</span>
                             <strong id="tp_ro_phone" style="color: #0f172a; font-family: monospace;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">البريد الإلكتروني:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">Email Address:</span>
                             <strong id="tp_ro_email" style="color: #0f172a;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
@@ -80,15 +80,15 @@
                             <strong id="tp_ro_appoint_emirate" style="color: #0f172a;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">الجنسية / الجنس:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">Genderية / Gender:</span>
                             <strong id="tp_ro_nat_gender" style="color: #0f172a;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">تاريخ الميلاد:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">Date of Birth:</span>
                             <strong id="tp_ro_dob" style="color: #0f172a; font-family: monospace;">-</strong>
                         </div>
                         <div style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">الهوية الوطنية / الرقم المدني:</span>
+                            <span style="color: #64748b; font-size: 10.5px; display: block; font-weight: 700;">National ID / الرقم المدني:</span>
                             <strong id="tp_ro_civil_id" style="color: #0f172a; font-family: monospace;">-</strong>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px;">
                         <h4 style="margin: 0; font-size: 13.5px; font-weight: 800; color: #0284c7; display: flex; align-items: center; gap: 6px;">
                             <span class="dashicons dashicons-calendar-alt" style="color: #0284c7; font-size: 16px; width: 16px; height: 16px;"></span>
-                            <span>إنجاز الخطط المجموعة التدريبيةية والسنوية</span>
+                            <span>إنجاز الخطط Training Groupية والAnnualة</span>
                         </h4>
                         <span id="tp_ro_plans_badge" style="font-size: 11px; font-weight: 800; background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px;">0 خطط</span>
                     </div>
@@ -125,10 +125,10 @@
                                 <tr style="background: #0f172a; color: #ffffff;">
                                     <th style="padding: 8px 10px; font-weight: 800; border-radius: 0 6px 0 0;">الأسبوع</th>
                                     <th style="padding: 8px 10px; font-weight: 800;">عنوان الدرس</th>
-                                    <th style="padding: 8px 10px; font-weight: 800;">النشاط الرياضي والمجموعة التدريبية</th>
+                                    <th style="padding: 8px 10px; font-weight: 800;">Sport Activity وTraining Group</th>
                                     <th style="padding: 8px 10px; font-weight: 800;">تاريخ ووقت التسليم</th>
-                                    <th style="padding: 8px 10px; font-weight: 800; text-align: center;">مؤشر الالتزام</th>
-                                    <th style="padding: 8px 10px; font-weight: 800; text-align: center; border-radius: 6px 0 0 0;">حالة الاعتماد</th>
+                                    <th style="padding: 8px 10px; font-weight: 800; text-align: center;">مؤشر اNoلتزام</th>
+                                    <th style="padding: 8px 10px; font-weight: 800; text-align: center; border-radius: 6px 0 0 0;">حالة اNoعتماد</th>
                                 </tr>
                             </thead>
                             <tbody id="tp_ro_preps_table_body">
@@ -144,7 +144,7 @@
 
         <!-- Footer -->
         <div style="padding: 12px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
-            <button type="button" onclick="eessCloseTeacherReadOnlyProfileModal()" class="sm-btn sm-btn-outline" style="height: 36px; font-size: 12px; font-weight: 700; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569;">إغلاق النافذة</button>
+            <button type="button" onclick="eessCloseTeacherReadOnlyProfileModal()" class="sm-btn sm-btn-outline" style="height: 36px; font-size: 12px; font-weight: 700; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569;">Close النافذة</button>
         </div>
     </div>
 </div>
@@ -194,12 +194,12 @@ window.eessOpenTeacherReadOnlyProfileModal = function(userId) {
                     var stBg = '#f1f5f9', stCol = '#475569', stLbl = 'مسودة';
                     if (p.status === 'submitted') { stBg = '#e0f2fe'; stCol = '#0369a1'; stLbl = 'مرفوعة'; }
                     else if (p.status === 'approved') { stBg = '#dcfce7'; stCol = '#15803d'; stLbl = 'معتمدة'; }
-                    else if (p.status === 'returned') { stBg = '#fee2e2'; stCol = '#b91c1c'; stLbl = 'طلب تعديل'; }
+                    else if (p.status === 'returned') { stBg = '#fee2e2'; stCol = '#b91c1c'; stLbl = 'طلب Edit'; }
 
                     plansHtml += `
                         <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; font-size:12px;">
                             <div>
-                                <strong style="color:#0f172a;">المجموعة التدريبية الدراسي ${p.term_number}</strong> — <small style="color:#64748b;">${p.subject} (${p.grade})</small>
+                                <strong style="color:#0f172a;">Training Group الدراسي ${p.term_number}</strong> — <small style="color:#64748b;">${p.subject} (${p.grade})</small>
                                 <div style="font-size:10.5px; color:#94a3b8; margin-top:2px;">📅 ${p.date}</div>
                             </div>
                             <span style="background:${stBg}; color:${stCol}; padding:2px 10px; border-radius:9999px; font-weight:800; font-size:10.5px;">${stLbl}</span>
@@ -207,7 +207,7 @@ window.eessOpenTeacherReadOnlyProfileModal = function(userId) {
                     `;
                 });
             } else {
-                plansHtml = '<div style="color:#94a3b8; font-size:12px; text-align:center; padding:10px; grid-column: span 3;">لا توجد خطط فصلية مرفوعة حالياً.</div>';
+                plansHtml = '<div style="color:#94a3b8; font-size:12px; text-align:center; padding:10px; grid-column: span 3;">No توجد خطط فصلية مرفوعة حالياً.</div>';
             }
             document.getElementById('tp_ro_plans_list').innerHTML = plansHtml;
 
@@ -219,7 +219,7 @@ window.eessOpenTeacherReadOnlyProfileModal = function(userId) {
                     var stBg = '#f1f5f9', stCol = '#475569', stLbl = 'مسودة';
                     if (lp.status === 'submitted') { stBg = '#e0f2fe'; stCol = '#0369a1'; stLbl = 'مرفوع'; }
                     else if (lp.status === 'approved') { stBg = '#dcfce7'; stCol = '#15803d'; stLbl = 'معتمد رسمياً'; }
-                    else if (lp.status === 'revision_required' || lp.status === 'returned') { stBg = '#fee2e2'; stCol = '#b91c1c'; stLbl = 'طلب تعديل'; }
+                    else if (lp.status === 'revision_required' || lp.status === 'returned') { stBg = '#fee2e2'; stCol = '#b91c1c'; stLbl = 'طلب Edit'; }
                     else if (lp.status === 'rejected') { stBg = '#fef2f2'; stCol = '#991b1b'; stLbl = 'مرفوض'; }
 
                     var latenessHtml = lp.is_late
@@ -240,19 +240,19 @@ window.eessOpenTeacherReadOnlyProfileModal = function(userId) {
                     `;
                 });
             } else {
-                prepsHtml = '<tr><td colspan="6" style="color:#94a3b8; font-size:12px; text-align:center; padding:15px;">لا توجد تحضيرات دروس مسجلة حالياً.</td></tr>';
+                prepsHtml = '<tr><td colspan="6" style="color:#94a3b8; font-size:12px; text-align:center; padding:15px;">No توجد تحضيرات دروس مسجلة حالياً.</td></tr>';
             }
             document.getElementById('tp_ro_preps_table_body').innerHTML = prepsHtml;
 
             document.getElementById('tp_ro_loading').style.display = 'none';
             document.getElementById('tp_ro_content').style.display = 'flex';
         } else {
-            alert('تعذر تحميل بيانات الملف الوظيفي.');
+            alert('تعذر Upload بيانات الملف الوظيفي.');
             eessCloseTeacherReadOnlyProfileModal();
         }
     })
     .catch(err => {
-        alert('حدث خطأ في الاتصال بالسيرفر.');
+        alert('An error occurred في اNoتصال بالسيرفر.');
         eessCloseTeacherReadOnlyProfileModal();
     });
 };

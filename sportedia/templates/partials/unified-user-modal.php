@@ -26,7 +26,7 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; background: #ffffff; color: #000000; border-bottom: 1px solid #e2e8f0; box-sizing: border-box; width: 100%; margin: 0;">
             <div style="display: flex; align-items: center; gap: 12px;">
                 <span id="u_modal_icon" class="dashicons dashicons-admin-users" style="font-size: 24px; width: 24px; height: 24px; color: #000000; margin: 0;"></span>
-                <h3 id="u_modal_title" style="margin: 0; font-size: 16px; font-weight: 800; color: #000000; font-family: 'Cairo', sans-serif;">تعديل بيانات الحساب وتعيينات الموظف</h3>
+                <h3 id="u_modal_title" style="margin: 0; font-size: 16px; font-weight: 800; color: #000000; font-family: 'Cairo', sans-serif;">Edit بيانات الحساب وتعيينات الموظف</h3>
             </div>
             <button type="button" class="sm-modal-close" onclick="eessCloseUnifiedUserModal()" style="background: transparent; border: none; font-size: 26px; color: #000000; cursor: pointer; line-height: 1;">&times;</button>
         </div>
@@ -37,7 +37,7 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
             <div style="display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2; width: 100%; gap: 6px; flex-wrap: wrap;">
                 <div id="u_indicator_step1" class="u-step-indicator active" style="background: #fce7f3; color: #9f1239; border: 1px solid #fbcfe8; padding: 5px 12px; border-radius: 9999px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
                     <span style="background: #9f1239; color: white; width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;">1</span>
-                    <span>البيانات الشخصية</span>
+                    <span>Personal Information</span>
                 </div>
                 <div id="u_indicator_step2" class="u-step-indicator" style="background: #f8fafc; color: #64748b; border: 1px solid #cbd5e1; padding: 5px 12px; border-radius: 9999px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
                     <span style="background: #cbd5e1; color: #334155; width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;">2</span>
@@ -53,7 +53,7 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                 </div>
                 <div id="u_indicator_step5" class="u-step-indicator" style="background: #f8fafc; color: #64748b; border: 1px solid #cbd5e1; padding: 5px 12px; border-radius: 9999px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
                     <span style="background: #cbd5e1; color: #334155; width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;">5</span>
-                    <span>التأكيد وحفظ البيانات</span>
+                    <span>الConfirm وSave البيانات</span>
                 </div>
             </div>
         </div>
@@ -77,8 +77,8 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px; margin-top: 10px;">
                     <div class="eess-float-group">
                         <input type="text" name="first_name" id="u_first_name" class="sm-input eess-float-input" placeholder=" " required style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px;" oninput="eessValidateField(this)">
-                        <label for="u_first_name" class="eess-float-label">الاسم الأول <span style="color:#ef4444;">*</span></label>
-                        <span class="eess-field-error" id="err_u_first_name" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى إدخال الاسم الأول.</span>
+                        <label for="u_first_name" class="eess-float-label">اNoسم الأول <span style="color:#ef4444;">*</span></label>
+                        <span class="eess-field-error" id="err_u_first_name" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى إدخال اNoسم الأول.</span>
                     </div>
 
                     <div class="eess-float-group">
@@ -89,28 +89,28 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
 
                     <div class="eess-float-group">
                         <input type="date" name="dob" id="u_dob" class="sm-input eess-float-input" required style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 12.5px;" oninput="eessValidateField(this)">
-                        <label for="u_dob" class="eess-float-label">تاريخ الميلاد <span style="color:#ef4444;">*</span></label>
-                        <span class="eess-field-error" id="err_u_dob" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى تحديد تاريخ الميلاد.</span>
+                        <label for="u_dob" class="eess-float-label">Date of Birth <span style="color:#ef4444;">*</span></label>
+                        <span class="eess-field-error" id="err_u_dob" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى تحديد Date of Birth.</span>
                     </div>
 
                     <div class="eess-float-group">
                         <input type="text" name="nationality" id="u_nationality" class="sm-input eess-float-input" placeholder=" " required style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px;" oninput="eessValidateField(this)">
-                        <label for="u_nationality" class="eess-float-label">الجنسية <span style="color:#ef4444;">*</span></label>
-                        <span class="eess-field-error" id="err_u_nationality" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى تحديد الجنسية.</span>
+                        <label for="u_nationality" class="eess-float-label">Genderية <span style="color:#ef4444;">*</span></label>
+                        <span class="eess-field-error" id="err_u_nationality" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى تحديد Genderية.</span>
                     </div>
 
                     <div class="eess-float-group">
                         <select name="gender" id="u_gender" class="sm-select eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px;">
-                            <option value="">-- اختر الجنس --</option>
-                            <option value="male">ذكر (Male)</option>
-                            <option value="female">أنثى (Female)</option>
+                            <option value="">-- اختر Gender --</option>
+                            <option value="male">Male (Male)</option>
+                            <option value="female">Female (Female)</option>
                         </select>
-                        <label for="u_gender" class="eess-float-label">الجنس</label>
+                        <label for="u_gender" class="eess-float-label">Gender</label>
                     </div>
 
                     <div class="eess-float-group">
                         <input type="text" name="civil_id" id="u_civil_id" class="sm-input eess-float-input" placeholder=" " style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px;">
-                        <label for="u_civil_id" class="eess-float-label">الرقم المدني / الهوية الوطنية</label>
+                        <label for="u_civil_id" class="eess-float-label">الرقم المدني / National ID</label>
                     </div>
                 </div>
             </div>
@@ -120,7 +120,7 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 16px; margin-top: 10px;">
                     <div class="eess-float-group">
                         <input type="email" name="user_email" id="u_user_email" class="sm-input eess-float-input" placeholder=" " required style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; direction: ltr; text-align: right;" onblur="eessCheckUniqueness('email')" oninput="eessValidateField(this)">
-                        <label for="u_user_email" class="eess-float-label">البريد الإلكتروني الرسمي <span style="color:#ef4444;">*</span></label>
+                        <label for="u_user_email" class="eess-float-label">Email Address الرسمي <span style="color:#ef4444;">*</span></label>
                         <span class="eess-field-error" id="err_u_user_email" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى إدخال بريد إلكتروني صحيح.</span>
                     </div>
 
@@ -136,14 +136,14 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                             </select>
                             <div class="eess-float-group" style="flex: 1;">
                                 <input type="text" name="phone_number" id="u_phone_number" class="sm-input eess-float-input" placeholder=" " required style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; text-align: left; direction: ltr;" oninput="eessValidateField(this)">
-                                <label for="u_phone_number" class="eess-float-label">رقم الجوال الأساسي <span style="color:#ef4444;">*</span></label>
+                                <label for="u_phone_number" class="eess-float-label">Mobile Number الأساسي <span style="color:#ef4444;">*</span></label>
                             </div>
                         </div>
-                        <span class="eess-field-error" id="err_u_phone_number" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى إدخال رقم الجوال الأساسي.</span>
+                        <span class="eess-field-error" id="err_u_phone_number" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى إدخال Mobile Number الأساسي.</span>
                     </div>
 
                     <div class="eess-float-group">
-                        <input type="text" name="country_residence" id="u_country_residence" value="الإمارات العربية المتحدة" readonly class="sm-input eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; background: #f8fafc; font-weight: 800; color: #0f172a;">
+                        <input type="text" name="country_residence" id="u_country_residence" value="United Arab Emirates" readonly class="sm-input eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; background: #f8fafc; font-weight: 800; color: #0f172a;">
                         <label for="u_country_residence" class="eess-float-label">دولة الإقامة <span style="color:#ef4444;">*</span></label>
                     </div>
 
@@ -172,14 +172,14 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                         <!-- Row 1: School Selection & Employee Number -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <div id="u_institution_wrapper" class="eess-float-group">
-                                <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 6px;">الأكاديمية الرياضية / المنظمة الرياضية التعليمية <span style="color:#ef4444;">*</span></label>
+                                <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 6px;">Academy الرياضية / Organization الرياضية التعليمية <span style="color:#ef4444;">*</span></label>
                                 <select name="institution_id" id="u_institution_id" class="sm-select eess-float-input" onchange="eessOnInstitutionChanged()" required style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; width: 100%;">
-                                    <option value="">-- اختر الأكاديمية الرياضية / المنظمة الرياضية التعليمية --</option>
+                                    <option value="">-- اختر Academy الرياضية / Organization الرياضية التعليمية --</option>
                                     <?php foreach ($institutions as $inst): ?>
                                         <option value="<?php echo esc_attr($inst->id); ?>"><?php echo esc_html($inst->name); ?> — <?php echo esc_html(intval($inst->code ?: $inst->id)); ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <span class="eess-field-error" id="err_u_institution_id" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى اختيار المنظمة الرياضية.</span>
+                                <span class="eess-field-error" id="err_u_institution_id" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى اختيار Organization الرياضية.</span>
                             </div>
 
                             <div id="u_empid_wrapper" class="eess-float-group">
@@ -200,7 +200,7 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                                     <option value="sm_hod">رئيس قسم (HOD)</option>
                                     <option value="sm_principal">مدير مدرسة / القائد التربوي</option>
                                     <option value="sm_supervisor">موجه / مشرف تربوي</option>
-                                    <option value="sm_activities_supervisor">مشرف أنشطة وفعاليات</option>
+                                    <option value="sm_activities_supervisor">مشرف أActiveة وفعاليات</option>
                                     <option value="sm_clinic">طبيب / زائر صحي للمدرسة</option>
                                     <option value="administrator">مدير النظام (System Administrator)</option>
                                 </select>
@@ -221,18 +221,18 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                         <!-- Row 3: Subject & Assigned Grade Levels -->
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <div id="u_subject_wrapper" class="eess-float-group">
-                                <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 6px;">النشاط الرياضي / التخصص <span style="color:#ef4444;">*</span></label>
+                                <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 6px;">Sport Activity / التخصص <span style="color:#ef4444;">*</span></label>
                                 <select name="specialization" id="u_specialization" class="sm-select eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; width: 100%;">
-                                    <option value="">-- اختر النشاط الرياضي --</option>
+                                    <option value="">-- اختر Sport Activity --</option>
                                     <?php foreach ($subjects as $subj_code => $subj_name): ?>
                                         <option value="<?php echo esc_attr($subj_name); ?>"><?php echo esc_html($subj_name); ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <span class="eess-field-error" id="err_u_specialization" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى اختيار النشاط الرياضي للتخصص.</span>
+                                <span class="eess-field-error" id="err_u_specialization" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">يرجى اختيار Sport Activity للتخصص.</span>
                             </div>
 
                             <div id="u_grades_wrapper">
-                                <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 6px;">المجموعات التدريبية الدراسية المسندة (كبسولات متعددة):</label>
+                                <label style="display: block; font-size: 12px; font-weight: 800; color: #334155; margin-bottom: 6px;">Training Groups الدراسية المسندة (كبسوNoت متعددة):</label>
                                 <div style="display: flex; flex-wrap: wrap; gap: 6px; background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; max-height: 120px; overflow-y: auto;">
                                     <?php foreach (EESS_Org_Helper::get_official_grades() as $g_item): ?>
                                         <label class="u-grade-capsule-label" style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 9999px; background: #f1f5f9; border: 1px solid #cbd5e1; font-size: 11.5px; font-weight: 700; color: #334155; cursor: pointer; user-select: none;">
@@ -256,12 +256,12 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                         <div class="eess-float-group">
                             <input type="email" id="u_login_email_display" readonly class="sm-input eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; background: #f8fafc; font-weight: bold; cursor: not-allowed; direction: ltr; text-align: right;">
-                            <label class="eess-float-label">البريد الإلكتروني (للعرض فقط)</label>
+                            <label class="eess-float-label">Email Address (للView فقط)</label>
                         </div>
 
                         <div class="eess-float-group">
                             <input type="text" id="u_login_username_display" readonly class="sm-input eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; background: #f8fafc; font-weight: bold; cursor: not-allowed; direction: ltr; text-align: right;">
-                            <label class="eess-float-label">اسم المستخدم / الرقم الوظيفي (للعرض فقط)</label>
+                            <label class="eess-float-label">Username / الرقم الوظيفي (للView فقط)</label>
                         </div>
                     </div>
 
@@ -269,21 +269,21 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div class="eess-float-group">
                             <input type="password" name="user_pass" id="u_user_pass" class="sm-input eess-float-input" placeholder=" " style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px;" oninput="eessValidateField(this)">
-                            <label for="u_user_pass" class="eess-float-label">كلمة المرور <span style="color:#ef4444;">*</span></label>
-                            <span class="eess-field-error" id="err_u_user_pass" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">كلمة المرور يجب أن تتضمن 8 خانات على الأقل مع حرف كبير وحرف صغير ورقم.</span>
+                            <label for="u_user_pass" class="eess-float-label">Password <span style="color:#ef4444;">*</span></label>
+                            <span class="eess-field-error" id="err_u_user_pass" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">Password يجب أن تتضمن 8 خانات على الأقل مع حرف كبير وحرف صغير ورقم.</span>
                         </div>
 
                         <div class="eess-float-group">
                             <input type="password" name="user_pass_confirm" id="u_user_pass_confirm" class="sm-input eess-float-input" placeholder=" " style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px;" oninput="eessValidateField(this)">
-                            <label for="u_user_pass_confirm" class="eess-float-label">تأكيد كلمة المرور <span style="color:#ef4444;">*</span></label>
+                            <label for="u_user_pass_confirm" class="eess-float-label">Confirm Password <span style="color:#ef4444;">*</span></label>
                             <span class="eess-field-error" id="err_u_user_pass_confirm" style="display:none; color:#dc2626; font-size:11px; font-weight:bold; margin-top:2px;">كلمتا المرور غير متطابقتين.</span>
                         </div>
 
                         <div class="eess-float-group" style="grid-column: span 2;">
                             <select name="user_status" id="u_user_status" class="sm-select eess-float-input" style="height: 44px; border-radius: 12px; border: 1px solid #cbd5e1; padding: 0 14px; font-size: 13px; font-weight: bold;">
-                                <option value="active">نشط بالكامل (Active)</option>
+                                <option value="active">Active بالكامل (Active)</option>
                                 <option value="suspended">موقوف مؤقتاً (Suspended)</option>
-                                <option value="pending">قيد الانتظار (Pending Approval)</option>
+                                <option value="pending">قيد اNoنتظار (Pending Approval)</option>
                             </select>
                             <label for="u_user_status" class="eess-float-label">حالة الحساب والوصول <span style="color:#ef4444;">*</span></label>
                         </div>
@@ -294,30 +294,30 @@ if (empty($departments) && class_exists('EESS_Org_Helper')) {
             <!-- STEP 5: FINAL CONFIRMATION & REVIEW SUMMARY -->
             <div id="u_step_5_container" style="display: none;">
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin-bottom: 20px;">
-                    <h4 style="margin: 0 0 14px 0; font-size: 14px; font-weight: 800; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">التأكيد وحفظ البيانات الشاملة</h4>
+                    <h4 style="margin: 0 0 14px 0; font-size: 14px; font-weight: 800; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">الConfirm وSave البيانات الشاملة</h4>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 13px; color: #334155;">
-                        <div><strong>الاسم الكامل:</strong> <span id="rev_u_fullname">-</span></div>
-                        <div><strong>الجنسية وتاريخ الميلاد:</strong> <span id="rev_u_nat_dob">-</span></div>
-                        <div><strong>الجنس والنوع:</strong> <span id="rev_u_gender">-</span></div>
-                        <div><strong>البريد الإلكتروني:</strong> <span id="rev_u_email" style="font-family: monospace;">-</span></div>
-                        <div><strong>رقم الجوال الأساسي:</strong> <span id="rev_u_phone" style="font-family: monospace;">-</span></div>
+                        <div><strong>Full Name:</strong> <span id="rev_u_fullname">-</span></div>
+                        <div><strong>Genderية وDate of Birth:</strong> <span id="rev_u_nat_dob">-</span></div>
+                        <div><strong>Gender والنوع:</strong> <span id="rev_u_gender">-</span></div>
+                        <div><strong>Email Address:</strong> <span id="rev_u_email" style="font-family: monospace;">-</span></div>
+                        <div><strong>Mobile Number الأساسي:</strong> <span id="rev_u_phone" style="font-family: monospace;">-</span></div>
                         <div><strong>دولة الإقامة والإمارة:</strong> <span id="rev_u_location">-</span></div>
-                        <div><strong>العنوان والبناية:</strong> <span id="rev_u_address_info">-</span></div>
+                        <div><strong>Address والبناية:</strong> <span id="rev_u_address_info">-</span></div>
                         <div><strong>الرتبة والرقم الوظيفي:</strong> <span id="rev_u_role_id" style="color: #881337; font-weight: 800;">-</span></div>
-                        <div id="rev_u_inst_container"><strong>المنظمة الرياضية والتخصص:</strong> <span id="rev_u_inst_subj" style="color: #0284c7; font-weight: 800;">-</span></div>
-                        <div id="rev_u_grades_container"><strong>المجموعات التدريبية والشعب المسندة:</strong> <span id="rev_u_grades">-</span></div>
+                        <div id="rev_u_inst_container"><strong>Organization الرياضية والتخصص:</strong> <span id="rev_u_inst_subj" style="color: #0284c7; font-weight: 800;">-</span></div>
+                        <div id="rev_u_grades_container"><strong>Training Groups والشعب المسندة:</strong> <span id="rev_u_grades">-</span></div>
                     </div>
                 </div>
             </div>
 
             <!-- Footer Navigation Controls -->
             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 20px;">
-                <button type="button" onclick="eessCloseUnifiedUserModal()" class="sm-btn sm-btn-outline" style="height: 40px; padding: 0 20px; font-size: 13px; color: #64748b; border-radius: 9999px !important;">إلغاء</button>
+                <button type="button" onclick="eessCloseUnifiedUserModal()" class="sm-btn sm-btn-outline" style="height: 40px; padding: 0 20px; font-size: 13px; color: #64748b; border-radius: 9999px !important;">Cancel</button>
                 <div style="display: flex; gap: 10px;">
-                    <button type="button" id="u_btn_prev" onclick="eessGoToStep(eessCurrentStep - 1)" class="sm-btn sm-btn-outline" style="height: 40px; padding: 0 22px; font-size: 13px; border-radius: 9999px !important; display: none;">السابق</button>
-                    <button type="button" id="u_btn_next" onclick="eessGoToStep(eessCurrentStep + 1)" class="sm-btn" style="height: 40px; padding: 0 24px; font-size: 13px; font-weight: 800; background: #881337; color: white !important; border: none; border-radius: 9999px !important; cursor: pointer;">التالي</button>
-                    <button type="button" id="u_btn_save" onclick="eessSubmitUnifiedUserForm()" class="sm-btn" style="height: 40px; padding: 0 28px; font-size: 13px; font-weight: 800; background: #000000; color: white !important; border: none; border-radius: 9999px !important; cursor: pointer; display: none;">حفظ وتزامن البيانات</button>
+                    <button type="button" id="u_btn_prev" onclick="eessGoToStep(eessCurrentStep - 1)" class="sm-btn sm-btn-outline" style="height: 40px; padding: 0 22px; font-size: 13px; border-radius: 9999px !important; display: none;">Previous</button>
+                    <button type="button" id="u_btn_next" onclick="eessGoToStep(eessCurrentStep + 1)" class="sm-btn" style="height: 40px; padding: 0 24px; font-size: 13px; font-weight: 800; background: #881337; color: white !important; border: none; border-radius: 9999px !important; cursor: pointer;">Next</button>
+                    <button type="button" id="u_btn_save" onclick="eessSubmitUnifiedUserForm()" class="sm-btn" style="height: 40px; padding: 0 28px; font-size: 13px; font-weight: 800; background: #000000; color: white !important; border: none; border-radius: 9999px !important; cursor: pointer; display: none;">Save وتزامن البيانات</button>
                 </div>
             </div>
         </form>

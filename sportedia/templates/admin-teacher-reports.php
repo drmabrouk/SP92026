@@ -1,26 +1,26 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 <div class="sm-content-wrapper" dir="rtl">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-        <h3 style="margin:0; border:none; padding:0;">مراجعة بلاغات المدربين</h3>
-        <span class="sm-badge sm-badge-high"><?php echo count($records); ?> بلاغ معلق</span>
+        <h3 style="margin:0; border:none; padding:0;">مراجعة بNoغات المدربين</h3>
+        <span class="sm-badge sm-badge-high"><?php echo count($records); ?> بNoغ Pending</span>
     </div>
 
     <div style="background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 15px; margin-bottom: 25px; color: #c53030; font-size: 0.9em; display: flex; align-items: center; gap: 10px;">
         <span class="dashicons dashicons-warning"></span>
-        <span>هذه البلاغات تم تسجيلها بواسطة المدربين وهي بانتظار اعتماد الإدارة أو مسؤول الانضباط لاتخاذ القرار النهائي.</span>
+        <span>هذه البNoغات تم تسجيلها بواسطة المدربين وهي بانتظار اعتماد الإدارة أو مسؤول اNoنضباط Noتخاذ القرار النهائي.</span>
     </div>
 
     <div class="sm-table-container">
         <table class="sm-table">
             <thead>
                 <tr>
-                    <th>اللاعب</th>
-                    <th>مقدم البلاغ</th>
+                    <th>الNoعب</th>
+                    <th>مقدم البNoغ</th>
                     <th>التاريخ</th>
                     <th>النوع</th>
                     <th>التفاصيل</th>
                     <th>الحدة</th>
-                    <th>الإجراءات</th>
+                    <th>الActions</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                     <tr>
                         <td colspan="7" style="padding: 60px; text-align: center; color: var(--sm-text-gray);">
                             <span class="dashicons dashicons-yes-alt" style="font-size: 50px; width:50px; height:50px; margin-bottom:10px; color:#38a169;"></span>
-                            <p>عمل رائع! لا توجد بلاغات معلقة حالياً.</p>
+                            <p>عمل رائع! No توجد بNoغات Pendingة حالياً.</p>
                         </td>
                     </tr>
                 <?php else: ?>
@@ -59,7 +59,7 @@
                             <td>
                                 <div style="display: flex; gap: 8px; justify-content: flex-end;">
                                     <button onclick="reviewReportDecision(<?php echo htmlspecialchars(json_encode($row)); ?>)" class="sm-btn sm-btn-outline" style="padding: 5px 12px; font-size: 12px;">اعتماد</button>
-                                    <button onclick="updateRecordStatus(<?php echo $row->id; ?>, 'rejected')" class="sm-btn sm-btn-outline" style="padding: 5px 12px; font-size: 12px; color: #e53e3e;">رفض</button>
+                                    <button onclick="updateRecordStatus(<?php echo $row->id; ?>, 'rejected')" class="sm-btn sm-btn-outline" style="padding: 5px 12px; font-size: 12px; color: #e53e3e;">Reject</button>
                                 </div>
                             </td>
                         </tr>
@@ -82,7 +82,7 @@
                 <input type="hidden" name="status" value="accepted">
                 
                 <div class="sm-form-group">
-                    <label class="sm-label">تعديل الإجراء المتخذ (اختياري):</label>
+                    <label class="sm-label">Edit الإجراء المتخذ (اختياري):</label>
                     <input type="text" name="action_taken" id="decision_action" class="sm-input" placeholder="مثال: فصل يومين، استدعاء رسمي...">
                 </div>
 
@@ -92,7 +92,7 @@
                 </div>
 
                 <div style="display: flex; gap: 15px; margin-top: 25px;">
-                    <button type="submit" name="sm_update_record" class="sm-btn" style="background:#38a169;">اعتماد وحفظ القرار</button>
+                    <button type="submit" name="sm_update_record" class="sm-btn" style="background:#38a169;">اعتماد وSave القرار</button>
                     <button type="button" onclick="document.getElementById('decision-modal').style.display='none'" class="sm-btn" style="background:#cbd5e0; color:#2d3748;">تراجع</button>
                 </div>
             </form>

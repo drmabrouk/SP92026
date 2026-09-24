@@ -2,7 +2,7 @@
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>تقرير اللاعب الانضباطي - <?php echo esc_html($student->name); ?></title>
+    <title>تقرير الNoعب اNoنضباطي - <?php echo esc_html($student->name); ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@
 </head>
 <body>
     <div class="no-print" style="text-align:center; margin-bottom: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 5px;">طباعة التقرير (أو حفظ كـ PDF)</button>
+        <button onclick="window.print()" style="padding: 10px 20px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 5px;">Print التقرير (أو Save كـ PDF)</button>
     </div>
 
     <?php 
@@ -74,23 +74,23 @@
                 <?php if (!empty($school['school_logo'])): ?>
                     <img src="<?php echo esc_url($school['school_logo']); ?>" style="max-height: 70px; width: auto;">
                 <?php endif; ?>
-                <div class="report-title">السجل الانضباطي لللاعب</div>
+                <div class="report-title">السجل اNoنضباطي للNoعب</div>
             </div>
             <div class="header-column left" style="font-size: 11px;">
-                <div>تاريخ الإصدار: <?php echo date_i18n('Y-m-d'); ?></div>
+                <div>تاريخ الIssue: <?php echo date_i18n('Y-m-d'); ?></div>
                 <div>الرقم المرجعي: <?php echo 'REP-' . date('Ym') . '-' . $student->id; ?></div>
             </div>
         </div>
     <?php endif; ?>
 
-    <div class="section-title">أولاً: بيانات اللاعب الشخصية</div>
+    <div class="section-title">أوNoً: بيانات الNoعب الشخصية</div>
     <div class="info-grid">
-        <div class="info-item"><span class="info-label">اسم اللاعب:</span> <span class="info-value"><?php echo esc_html($student->name); ?></span></div>
+        <div class="info-item"><span class="info-label">Player Name:</span> <span class="info-value"><?php echo esc_html($student->name); ?></span></div>
         <div class="info-item"><span class="info-label">الرقم الأكاديمي:</span> <span class="info-value"><?php echo esc_html($student->student_code); ?></span></div>
-        <div class="info-item"><span class="info-label">المجموعة التدريبية / المجموعة التدريبية:</span> <span class="info-value"><?php echo SM_Settings::format_grade_name($student->class_name, $student->section); ?></span></div>
+        <div class="info-item"><span class="info-label">Training Group / Training Group:</span> <span class="info-value"><?php echo SM_Settings::format_grade_name($student->class_name, $student->section); ?></span></div>
         <div class="info-item"><span class="info-label">رقم الهوية (ID):</span> <span class="info-value"><?php echo esc_html($student->national_id ?? '---'); ?></span></div>
-        <div class="info-item"><span class="info-label">الجنسية:</span> <span class="info-value"><?php echo esc_html($student->nationality ?: '---'); ?></span></div>
-        <div class="info-item"><span class="info-label">تاريخ التسجيل:</span> <span class="info-value"><?php echo esc_html($student->registration_date); ?></span></div>
+        <div class="info-item"><span class="info-label">Genderية:</span> <span class="info-value"><?php echo esc_html($student->nationality ?: '---'); ?></span></div>
+        <div class="info-item"><span class="info-label">Registration Date:</span> <span class="info-value"><?php echo esc_html($student->registration_date); ?></span></div>
     </div>
 
 
@@ -99,7 +99,7 @@
         <thead>
             <tr>
                 <th style="width: 100px;">التاريخ</th>
-                <th style="width: 70px;">المستوى</th>
+                <th style="width: 70px;">الLevel</th>
                 <th>بند المخالفة والوصف</th>
                 <th style="width: 60px;">النقاط</th>
                 <th>الإجراء المتخذ</th>
@@ -107,7 +107,7 @@
         </thead>
         <tbody>
             <?php if (empty($records)): ?>
-                <tr><td colspan="5" style="text-align:center; padding: 30px;">لا توجد سجلات انضباطية مسجلة لهذا اللاعب.</td></tr>
+                <tr><td colspan="5" style="text-align:center; padding: 30px;">No توجد سجNoت انضباطية مسجلة لهذا الNoعب.</td></tr>
             <?php else: ?>
                 <?php
                 // Sort records: Newest first
@@ -132,7 +132,7 @@
         </tbody>
     </table>
 
-    <div class="section-title">ثالثاً: ملخص الحالة الانضباطية</div>
+    <div class="section-title">ثالثاً: ملخص Status اNoنضباطية</div>
     <div class="summary-grid">
         <div class="summary-item">
             <span class="label">إجمالي المخالفات</span>
@@ -143,10 +143,10 @@
             <span class="value"><?php echo (int)$student->behavior_points; ?></span>
         </div>
         <div class="summary-item">
-            <span class="label">مستوى الانضباط</span>
+            <span class="label">Level اNoنضباط</span>
             <span class="value"><?php
                 if ($student->behavior_points > 20) echo 'حرج';
-                elseif ($student->behavior_points > 10) echo 'متوسط';
+                elseif ($student->behavior_points > 10) echo 'Intermediate';
                 else echo 'جيد';
             ?></span>
         </div>
@@ -158,12 +158,12 @@
 
     <div class="footer-sigs">
         <div>
-            <div style="font-weight:800; font-size:14px;">مسؤول وحدة الانضباط</div>
+            <div style="font-weight:800; font-size:14px;">مسؤول وحدة اNoنضباط</div>
             <div class="sig-space"></div>
             <div style="font-size:11px; color:#666;">التوقيع والختم</div>
         </div>
         <div>
-            <div style="font-weight:800; font-size:14px;">مدير الأكاديمية الرياضية</div>
+            <div style="font-weight:800; font-size:14px;">مدير Academy الرياضية</div>
             <div class="sig-space"></div>
             <div style="font-size:11px; color:#666;">الختم والتوقيع</div>
         </div>

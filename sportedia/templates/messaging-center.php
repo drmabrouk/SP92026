@@ -11,7 +11,7 @@
             $my_id = get_current_user_id();
             $conversations = SM_DB::get_conversations($my_id);
             if (empty($conversations)): ?>
-                <p style="text-align: center; color: #999; margin-top: 30px; font-size: 0.9em;">لا يوجد محادثات نشطة.</p>
+                <p style="text-align: center; color: #999; margin-top: 30px; font-size: 0.9em;">No يوجد محادثات Activeة.</p>
             <?php else: ?>
                 <?php foreach ($conversations as $conv): 
                     $other_user = $conv['user'];
@@ -51,7 +51,7 @@
             <form id="chat-form" style="display: flex; gap: 15px;">
                 <input type="hidden" name="receiver_id" id="chat_receiver_id">
                 <textarea name="message" class="sm-textarea" style="flex: 1; resize: none;" rows="1" placeholder="اكتب رسالتك هنا..." required></textarea>
-                <button type="submit" class="sm-btn" style="width: auto; padding: 0 25px;">إرسال</button>
+                <button type="submit" class="sm-btn" style="width: auto; padding: 0 25px;">Send</button>
             </form>
         </div>
     </div>
@@ -68,7 +68,7 @@
             <div class="sm-form-group">
                 <label class="sm-label">اختر المستلم:</label>
                 <select name="receiver_id" class="sm-select" required>
-                    <option value="">بحث عن مستخدم...</option>
+                    <option value="">Search عن مستخدم...</option>
                     <?php 
                     $users = get_users(array('exclude' => array($my_id)));
                     foreach ($users as $u) {
@@ -125,7 +125,7 @@ window.loadConversation = function(otherId, otherName) {
 
 window.fetchMessages = function(otherId) {
     const container = document.getElementById('chat-messages');
-    container.innerHTML = '<div style="text-align:center; margin-top:50px;">جاري تحميل الرسائل...</div>';
+    container.innerHTML = '<div style="text-align:center; margin-top:50px;">جاري Upload الرسائل...</div>';
 
     const formData = new FormData();
     formData.append('action', 'sm_get_conversation_ajax');

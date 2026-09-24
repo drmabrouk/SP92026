@@ -42,8 +42,8 @@ class SM_Notifications {
             $admins = get_users(array('role' => 'sm_principal'));
             $emails = array_map(function($u) { return $u->user_email; }, $admins);
             
-            $subject = "تنبيه: سلوك متكرر لللاعب " . $student->name;
-            $message = "تم رصد $count مخالفات لللاعب خلال الأسبوع الأخير. يرجى مراجعة ملف اللاعب واتخاذ الإجراء اللازم.";
+            $subject = "تنبيه: سلوك متكرر للNoعب " . $student->name;
+            $message = "تم رصد $count مخالفات للNoعب خNoل الأسبوع الأخير. يرجى مراجعة ملف الNoعب واتخاذ الإجراء الNoزم.";
             
             wp_mail($emails, $subject, $message);
             // In a real scenario, integrate WhatsApp API here
@@ -64,7 +64,7 @@ class SM_Notifications {
             'lateness' => 'تأخر',
             'absence' => 'غياب',
             'low' => 'منخفضة',
-            'medium' => 'متوسطة',
+            'medium' => 'Intermediateة',
             'high' => 'خطيرة'
         );
         return isset($labels[$key]) ? $labels[$key] : $key;

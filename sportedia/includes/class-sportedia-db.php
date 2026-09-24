@@ -96,7 +96,7 @@ class Sportedia_DB {
         $table_payments = "{$wpdb->prefix}sportedia_payments";
 
         $total_players = $wpdb->get_var("SELECT COUNT(*) FROM {$table_players}") ?: 0;
-        $active_players = $wpdb->get_var("SELECT COUNT(*) FROM {$table_players} WHERE status = 'نشط'") ?: 0;
+        $active_players = $wpdb->get_var("SELECT COUNT(*) FROM {$table_players} WHERE status = 'Active'") ?: 0;
         $expiring_subscriptions = $wpdb->get_var("SELECT COUNT(*) FROM {$table_players} WHERE remaining_sessions <= 2 OR end_date <= DATE_ADD(CURDATE(), INTERVAL 7 DAY)") ?: 0;
         $monthly_revenue = $wpdb->get_var("SELECT SUM(amount) FROM {$table_payments} WHERE MONTH(payment_date) = MONTH(CURDATE()) AND YEAR(payment_date) = YEAR(CURDATE())") ?: 0;
 

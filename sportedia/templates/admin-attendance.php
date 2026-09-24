@@ -19,7 +19,7 @@ if (!isset($attendance_summary)) {
             </div>
             <div>
                 <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #0f172a;">سجل الحضور والغياب</h2>
-                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">تسجيل ورصد الحضور والغياب اليومي للطلاب ومتابعة الإحصائيات العامة المعتمدة</p>
+                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">تسجيل ورصد الحضور والغياب اليومي للطNoب ومتابعة الإحصائيات العامة المعتمدة</p>
             </div>
         </div>
 
@@ -38,7 +38,7 @@ if (!isset($attendance_summary)) {
                 </button>
                 <div id="eess-absence-dropdown" style="display: none; position: absolute; left: 0; top: 115%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 6px 0; text-align: right;">
                     <a href="javascript:void(0)" onclick="printAbsenceReport('daily'); document.getElementById('eess-absence-dropdown').style.display='none';" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; text-decoration: none; border-bottom: 1px solid #f1f5f9; font-weight: 700;">📊 غيابات اليوم</a>
-                    <a href="javascript:void(0)" onclick="printAbsenceReport('term'); document.getElementById('eess-absence-dropdown').style.display='none';" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; text-decoration: none; font-weight: 700;">📈 الأكثر غياباً (المجموعة التدريبية)</a>
+                    <a href="javascript:void(0)" onclick="printAbsenceReport('term'); document.getElementById('eess-absence-dropdown').style.display='none';" style="display: block; padding: 10px 16px; color: #334155; font-size: 12px; text-decoration: none; font-weight: 700;">📈 الأكثر غياباً (Training Group)</a>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@ if (!isset($attendance_summary)) {
         }
         ?>
         <div class="sm-stat-card" style="padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0;">
-            <div style="font-size: 11px; color: var(--sm-text-gray); font-weight: 700;">إجمالي اللاعبين</div>
+            <div style="font-size: 11px; color: var(--sm-text-gray); font-weight: 700;">إجمالي الNoعبين</div>
             <div style="font-size: 1.8em; font-weight: 900; color: var(--sm-dark-color);"><?php echo $total_students; ?></div>
         </div>
         <div class="sm-stat-card" style="padding: 15px; border: 1px solid #c6f6d5; background: #f0fff4;">
@@ -85,9 +85,9 @@ if (!isset($attendance_summary)) {
 
     <!-- Filters -->
     <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--sm-border-color); margin-bottom: 30px; display: flex; gap: 15px;">
-        <input type="text" id="card-search" class="sm-input" placeholder="بحث عن صف أو شعبة..." onkeyup="filterAttendanceCards()">
+        <input type="text" id="card-search" class="sm-input" placeholder="Search عن صف أو شعبة..." onkeyup="filterAttendanceCards()">
         <select id="card-status-filter" class="sm-select" onchange="filterAttendanceCards()" style="width: 200px;">
-            <option value="all">كل الحالات</option>
+            <option value="all">كل الحاNoت</option>
             <option value="complete">مكتمل</option>
             <option value="incomplete">غير مكتمل</option>
             <option value="absences">يوجد غيابات</option>
@@ -110,7 +110,7 @@ if (!isset($attendance_summary)) {
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid var(--sm-border-color); padding-bottom: 10px;">
                     <h3 style="margin: 0; font-weight: 900; color: var(--sm-primary-color);"><?php echo esc_html($grade_name); ?></h3>
                     <button onclick="printAttendance('grade', '<?php echo esc_js($grade_name); ?>')" class="sm-btn sm-btn-outline" style="font-size: 11px; padding: 4px 10px;">
-                        <span class="dashicons dashicons-printer" style="font-size: 14px;"></span> طباعة المجموعة التدريبية
+                        <span class="dashicons dashicons-printer" style="font-size: 14px;"></span> Print Training Group
                     </button>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
@@ -142,7 +142,7 @@ if (!isset($attendance_summary)) {
                 <div>
                     <h4 style="margin: 0; font-weight: 900; color: var(--sm-dark-color); font-size: 1.1em;"><?php echo esc_html($card['class_name']); ?> - شعبة <?php echo esc_html($card['section']); ?></h4>
                     <div style="font-size: 12px; color: var(--sm-text-gray); font-weight: 700; margin-top: 4px;">
-                        إجمالي اللاعبين: <?php echo $card['student_count']; ?>
+                        إجمالي الNoعبين: <?php echo $card['student_count']; ?>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@ if (!isset($attendance_summary)) {
 
             <div style="flex: 1; display: flex; align-items: center; gap: 15px; border-right: 1px dashed #e2e8f0; padding-right: 15px;">
                 <div>
-                    <div style="font-size: 10px; color: var(--sm-text-gray); font-weight: 700; margin-bottom: 2px;">كود الأمان:</div>
+                    <div style="font-size: 10px; color: var(--sm-text-gray); font-weight: 700; margin-bottom: 2px;">كود Motherان:</div>
                     <div id="code-<?php echo sanitize_title($card['class_name'] . '-' . $card['section']); ?>" style="font-family: monospace; font-size: 18px; font-weight: 900; color: var(--sm-dark-color); letter-spacing: 2px;">
                         <?php echo SM_Settings::get_class_security_code($card['class_name'], $card['section']); ?>
                     </div>
@@ -172,10 +172,10 @@ if (!isset($attendance_summary)) {
             </div>
 
             <div style="display: flex; gap: 10px;">
-                <button onclick="printAttendance('section', '<?php echo esc_js($card['class_name']); ?>', '<?php echo esc_js($card['section']); ?>')" class="sm-btn sm-btn-outline" style="width: 38px; height: 38px; padding: 0;" title="طباعة الكشف">
+                <button onclick="printAttendance('section', '<?php echo esc_js($card['class_name']); ?>', '<?php echo esc_js($card['section']); ?>')" class="sm-btn sm-btn-outline" style="width: 38px; height: 38px; padding: 0;" title="Print الكشف">
                     <span class="dashicons dashicons-printer"></span>
                 </button>
-                <button onclick="openAttendanceModal('<?php echo esc_js($card['class_name']); ?>', '<?php echo esc_js($card['section']); ?>')" class="sm-btn" style="height: 38px; font-size: 11px;">تحديث</button>
+                <button onclick="openAttendanceModal('<?php echo esc_js($card['class_name']); ?>', '<?php echo esc_js($card['section']); ?>')" class="sm-btn" style="height: 38px; font-size: 11px;">Update</button>
             </div>
         </div>
                     <?php endforeach; ?>
@@ -206,11 +206,11 @@ if (!isset($attendance_summary)) {
 
         <div id="attendance-students-list" style="max-height: 400px; overflow-y: auto;">
             <!-- Loaded via AJAX -->
-            <div style="text-align: center; padding: 40px; color: var(--sm-text-gray);">جاري تحميل قائمة اللاعبين...</div>
+            <div style="text-align: center; padding: 40px; color: var(--sm-text-gray);">جاري Upload قائمة الNoعبين...</div>
         </div>
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--sm-border-color); display: flex; justify-content: flex-end;">
-            <button onclick="closeAttendanceModal()" class="sm-btn" style="background: var(--sm-dark-color);">إغلاق وحفظ</button>
+            <button onclick="closeAttendanceModal()" class="sm-btn" style="background: var(--sm-dark-color);">Close وSave</button>
         </div>
     </div>
 </div>
@@ -241,7 +241,7 @@ function filterAttendanceCards() {
 function openAttendanceModal(className, section) {
     const date = document.getElementById('attendance-filter-date').value;
     document.getElementById('modal-attendance-title').innerText = 'تسجيل حضور: ' + className;
-    document.getElementById('modal-attendance-subtitle').innerText = 'المجموعة التدريبية: ' + section + ' | التاريخ: ' + date;
+    document.getElementById('modal-attendance-subtitle').innerText = 'Training Group: ' + section + ' | التاريخ: ' + date;
     document.getElementById('sm-attendance-marking-modal').style.display = 'flex';
 
     loadAttendanceStudents(className, section, date);
@@ -255,7 +255,7 @@ function closeAttendanceModal() {
 
 function loadAttendanceStudents(className, section, date) {
     const listContainer = document.getElementById('attendance-students-list');
-    listContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--sm-text-gray);">جاري التحميل...</div>';
+    listContainer.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--sm-text-gray);">جاري الUpload...</div>';
 
     const formData = new FormData();
     formData.append('action', 'sm_get_students_attendance_ajax');
@@ -277,7 +277,7 @@ function loadAttendanceStudents(className, section, date) {
 function renderStudentsList(students) {
     const listContainer = document.getElementById('attendance-students-list');
     if (students.length === 0) {
-        listContainer.innerHTML = '<div style="padding: 20px; text-align: center;">لا يوجد طلاب في هذا المجموعة التدريبية.</div>';
+        listContainer.innerHTML = '<div style="padding: 20px; text-align: center;">No يوجد طNoب في هذا Training Group.</div>';
         return;
     }
 
@@ -326,7 +326,7 @@ function saveAttendance(studentId, status, btn) {
     .then(r => r.json())
     .then(res => {
         if (!res.success) {
-            smShowNotification('خطأ في حفظ الحضور: ' + res.data, true);
+            smShowNotification('خطأ في Save الحضور: ' + res.data, true);
             btn.classList.remove('active');
         }
     });
@@ -338,7 +338,7 @@ function setAllAttendance(status) {
 }
 
 function resetClassCode(grade, section, btn) {
-    if (!confirm('هل أنت متأكد من إعادة تعيين كود الأمان لهذا المجموعة التدريبية؟')) return;
+    if (!confirm('هل أنت متأكد من إعادة تعيين كود Motherان لهذا Training Group؟')) return;
 
     btn.disabled = true;
     const formData = new FormData();

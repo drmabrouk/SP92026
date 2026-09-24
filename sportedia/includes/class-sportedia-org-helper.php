@@ -14,16 +14,16 @@ class Sportedia_Org_Helper {
      */
     public static function get_role_department_mapping() {
         return array(
-            'sportedia_coach'              => 'الأقسام التدريبية - الأنشطة الرياضية',
-            'sm_teacher'                   => 'الأقسام التدريبية - الأنشطة الرياضية',
-            'sm_coordinator'               => 'الأقسام التدريبية - الأنشطة الرياضية',
-            'sm_hod'                       => 'الأقسام التدريبية - الأنشطة الرياضية',
+            'sportedia_coach'              => 'الأقسام التدريبية - Sports Activities',
+            'sm_teacher'                   => 'الأقسام التدريبية - Sports Activities',
+            'sm_coordinator'               => 'الأقسام التدريبية - Sports Activities',
+            'sm_hod'                       => 'الأقسام التدريبية - Sports Activities',
             'sm_hr'                        => 'إدارة الموارد البشرية (HR)',
-            'sportedia_sports_supervisor'  => 'شؤون اللاعبين والانضباط الرياضي',
-            'sportedia_player'             => 'شؤون اللاعبين والانضباط الرياضي',
-            'sm_student'                   => 'شؤون اللاعبين والانضباط الرياضي',
-            'sm_parent'                    => 'شؤون اللاعبين والانضباط الرياضي',
-            'sm_activities_supervisor'     => 'الأنشطة المدرسية والفعاليات',
+            'sportedia_sports_supervisor'  => 'Player Affairs واNoنضباط الرياضي',
+            'sportedia_player'             => 'Player Affairs واNoنضباط الرياضي',
+            'sm_student'                   => 'Player Affairs واNoنضباط الرياضي',
+            'sm_parent'                    => 'Player Affairs واNoنضباط الرياضي',
+            'sm_activities_supervisor'     => 'الأActiveة المدرسية والفعاليات',
             'sm_finance'                   => 'المالية والحسابات',
             'sm_bus_supervisor'            => 'الخدمات المساندة والنقل',
             'sm_transportation_supervisor' => 'الخدمات المساندة والنقل',
@@ -60,12 +60,12 @@ class Sportedia_Org_Helper {
         return array(
             1  => array('code' => 1,  'name' => 'إدارة الأكاديميات والفروع'),
             2  => array('code' => 2,  'name' => 'الشؤون التدريبية والرياضية'),
-            3  => array('code' => 3,  'name' => 'شؤون اللاعبين الاشتراكات'),
+            3  => array('code' => 3,  'name' => 'Player Affairs اNoشتراكات'),
             4  => array('code' => 4,  'name' => 'الشؤون الإدارية'),
             5  => array('code' => 5,  'name' => 'الموارد البشرية'),
             6  => array('code' => 6,  'name' => 'الشؤون المالية والإيرادات'),
             10 => array('code' => 10, 'name' => 'قسم التدريب والتطوير الرياضي'),
-            18 => array('code' => 18, 'name' => 'قسم البطولات والأنشطة الخارجية'),
+            18 => array('code' => 18, 'name' => 'قسم البطوNoت والأActiveة الخارجية'),
             20 => array('code' => 20, 'name' => 'قسم الأنظمة والتقنية')
         );
     }
@@ -79,7 +79,7 @@ class Sportedia_Org_Helper {
             2  => array('code' => 2,  'name' => 'مجموعة ناشئين (Under 12)'),
             3  => array('code' => 3,  'name' => 'مجموعة شباب (Under 16)'),
             4  => array('code' => 4,  'name' => 'مجموعة الفريق الأول (Senior)'),
-            5  => array('code' => 5,  'name' => 'مجموعة السباحة المتقدمة'),
+            5  => array('code' => 5,  'name' => 'مجموعة السباحة الAdvancedة'),
             6  => array('code' => 6,  'name' => 'مجموعة اللياقة والتخسيس')
         );
     }
@@ -234,7 +234,7 @@ class Sportedia_Org_Helper {
             'parent_id' => "BIGINT(20) DEFAULT NULL",
             'type' => "VARCHAR(100) DEFAULT 'فرع رياضية' NOT NULL",
             'logo_url' => "VARCHAR(255) DEFAULT '' NOT NULL",
-            'country' => "VARCHAR(100) DEFAULT 'الإمارات العربية المتحدة' NOT NULL",
+            'country' => "VARCHAR(100) DEFAULT 'United Arab Emirates' NOT NULL",
             'emirate' => "VARCHAR(100) DEFAULT 'دبي' NOT NULL",
             'address' => "TEXT DEFAULT NULL",
             'phone' => "VARCHAR(50) DEFAULT '' NOT NULL",

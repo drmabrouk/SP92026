@@ -3,7 +3,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
         <h3 style="margin: 0; font-weight: 800;">الواجبات المدرسية والمرفقات</h3>
         <?php if ($is_teacher || $is_student): ?>
-            <button onclick="document.getElementById('add-assignment-modal').style.display='flex'" class="sm-btn" style="width: auto;">+ إضافة واجب / تسليم</button>
+            <button onclick="document.getElementById('add-assignment-modal').style.display='flex'" class="sm-btn" style="width: auto;">+ Add واجب / تسليم</button>
         <?php endif; ?>
     </div>
 
@@ -19,16 +19,16 @@
                     <tr>
                         <th>التاريخ</th>
                         <th>من</th>
-                        <th>العنوان</th>
+                        <th>Address</th>
                         <th>المرفقات</th>
-                        <th>الإجراءات</th>
+                        <th>الActions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $received = SM_DB::get_assignments($user->ID, 'assignment');
                     if (empty($received)): ?>
-                        <tr><td colspan="5" style="text-align: center; padding: 40px;">لا يوجد واجبات مستلمة.</td></tr>
+                        <tr><td colspan="5" style="text-align: center; padding: 40px;">No يوجد واجبات مستلمة.</td></tr>
                     <?php else: foreach($received as $a): ?>
                         <tr>
                             <td><?php echo date('Y-m-d', strtotime($a->created_at)); ?></td>
@@ -42,7 +42,7 @@
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <button onclick='viewAssignment(<?php echo json_encode($a); ?>)' class="sm-btn sm-btn-outline" style="font-size: 11px; padding: 4px 8px;">عرض التفاصيل</button>
+                                <button onclick='viewAssignment(<?php echo json_encode($a); ?>)' class="sm-btn sm-btn-outline" style="font-size: 11px; padding: 4px 8px;">View التفاصيل</button>
                             </td>
                         </tr>
                     <?php endforeach; endif; ?>
@@ -58,7 +58,7 @@
                     <tr>
                         <th>التاريخ</th>
                         <th>إلى</th>
-                        <th>العنوان</th>
+                        <th>Address</th>
                         <th>المرفقات</th>
                     </tr>
                 </thead>
@@ -66,7 +66,7 @@
                     <?php
                     $sent = SM_DB::get_sent_assignments($user->ID);
                     if (empty($sent)): ?>
-                        <tr><td colspan="4" style="text-align: center; padding: 40px;">لم تقم بإرسال أي واجبات بعد.</td></tr>
+                        <tr><td colspan="4" style="text-align: center; padding: 40px;">لم تقم بSend أي واجبات بعد.</td></tr>
                     <?php else: foreach($sent as $a): ?>
                         <tr>
                             <td><?php echo date('Y-m-d', strtotime($a->created_at)); ?></td>
@@ -91,7 +91,7 @@
 <div id="add-assignment-modal" class="sm-modal-overlay">
     <div class="sm-modal-content" style="max-width: 600px;">
         <div class="sm-modal-header">
-            <h3>إضافة واجب جديد</h3>
+            <h3>Add واجب جديد</h3>
             <button class="sm-modal-close" onclick="document.getElementById('add-assignment-modal').style.display='none'">&times;</button>
         </div>
         <form id="add-assignment-form">
@@ -105,10 +105,10 @@
                 <textarea name="description" class="sm-textarea" rows="4"></textarea>
             </div>
             <div class="sm-form-group">
-                <label class="sm-label">إرسال إلى:</label>
+                <label class="sm-label">Send إلى:</label>
                 <select name="receiver_id" class="sm-select" required>
                     <?php if ($is_teacher || $is_admin || $is_sys_admin || $is_principal): ?>
-                        <option value="">-- اختر اللاعب --</option>
+                        <option value="">-- اختر الNoعب --</option>
                         <?php
                         $my_students = SM_DB::get_students();
                         foreach($my_students as $s) {
@@ -122,7 +122,7 @@
                         <?php
                         $stu = SM_DB::get_student_by_parent($user->ID);
                         if ($stu) {
-                            $grade_num = (int)str_replace('المجموعة التدريبية ', '', $stu->class_name);
+                            $grade_num = (int)str_replace('Training Group ', '', $stu->class_name);
                             $my_teachers = SM_DB::get_staff_by_section($grade_num, $stu->section);
                             foreach($my_teachers as $t) {
                                 echo "<option value='{$t->ID}'>{$t->display_name}</option>";
@@ -139,7 +139,7 @@
                     <button type="button" onclick="smOpenMediaUploader('assignment_file_url')" class="sm-btn" style="width:auto; font-size:12px; background:var(--sm-secondary-color);">رفع ملف</button>
                 </div>
             </div>
-            <button type="submit" class="sm-btn">إرسال الواجب الآن</button>
+            <button type="submit" class="sm-btn">Send الواجب الآن</button>
         </form>
     </div>
 </div>
@@ -156,7 +156,7 @@
             .then(r => r.json())
             .then(res => {
                 if (res.success) {
-                    smShowNotification('تم إرسال الواجب بنجاح');
+                    smShowNotification('تم Send الواجب بنجاح');
                     setTimeout(() => location.reload(), 500);
                 }
             });

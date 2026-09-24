@@ -18,7 +18,7 @@ if (empty($assigned_school)) {
     $assigned_school = get_user_meta($prep->teacher_id, 'sm_school_name', true);
 }
 if (empty($assigned_school)) {
-    $assigned_school = $school_info['school_name'] ?? 'خدمات الأنظمة الإلكترونية التعليمية (EESS)';
+    $assigned_school = $school_info['school_name'] ?? 'Sportedia Sports Management System';
 }
 
 $school_logo = get_user_meta($prep->teacher_id, 'eess_school_logo', true) ?: ($school_info['school_logo'] ?? '');
@@ -127,10 +127,10 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
 <body onload="window.print()">
 
     <div class="no-print" style="background: #f1f5f9; padding: 10px 16px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #cbd5e1;">
-        <span style="font-weight: 700; font-size: 12px; color: #334155;">وثيقة تحضير رسمية معتمدة (A4) قابلة للطباعة والمشاركة الحية</span>
+        <span style="font-weight: 700; font-size: 12px; color: #334155;">وثيقة تحضير رسمية معتمدة (A4) قابلة للPrint والمشاركة الحية</span>
         <div style="display: flex; gap: 8px; align-items: center;">
             <button onclick="eessShareDocumentPDF()" style="padding: 6px 14px; background: #881337; color: white; border: none; border-radius: 9999px; font-weight: bold; cursor: pointer; font-size: 12px; display: flex; align-items: center; gap: 4px;">📤 مشاركة الوثيقة</button>
-            <button onclick="window.print()" style="padding: 6px 14px; background: #0f172a; color: white; border: none; border-radius: 9999px; font-weight: bold; cursor: pointer; font-size: 12px;">🖨️ طباعة / حفظ PDF</button>
+            <button onclick="window.print()" style="padding: 6px 14px; background: #0f172a; color: white; border: none; border-radius: 9999px; font-weight: bold; cursor: pointer; font-size: 12px;">🖨️ Print / Save PDF</button>
         </div>
     </div>
 
@@ -162,7 +162,7 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
             <?php endif; ?>
             <div>
                 <h1 class="doc-title"><?php echo esc_html($assigned_school); ?></h1>
-                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px; font-weight: 700;">وثيقة تحضير وإعداد درس معتمدة | تاريخ التصدير: <?php echo current_time('Y-m-d H:i'); ?></p>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px; font-weight: 700;">وثيقة تحضير وإعداد درس معتمدة | تاريخ الExport: <?php echo current_time('Y-m-d H:i'); ?></p>
             </div>
         </div>
         <div style="text-align: left;">
@@ -184,9 +184,9 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
             <td><?php echo esc_html($emp_id); ?></td>
         </tr>
         <tr>
-            <th>المنظمة الرياضية / الأكاديمية الرياضية:</th>
+            <th>Organization الرياضية / Academy الرياضية:</th>
             <td><?php echo esc_html($assigned_school); ?></td>
-            <th>التخصص والنشاط الرياضي:</th>
+            <th>التخصص وSport Activity:</th>
             <td><?php echo esc_html($prep->subject); ?></td>
         </tr>
         <tr>
@@ -196,7 +196,7 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
             <td><?php echo esc_html($prep->lesson_date); ?></td>
         </tr>
         <tr>
-            <th>المجموعة التدريبية والمجموعة التدريبية:</th>
+            <th>Training Group وTraining Group:</th>
             <td><?php echo esc_html($prep->grade_level . ' / ' . $prep->class_section); ?></td>
             <th>حالة التوثيق:</th>
             <td>
@@ -242,7 +242,7 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
         </div>
 
         <div class="section-card" style="margin-bottom: 0; border-color: #fecdd3; background: #fff1f2;">
-            <h3 class="section-card-title" style="color: #991b1b; font-size: 11.5px;">🧘 4. الخاتمة والتهدئة الإطالات</h3>
+            <h3 class="section-card-title" style="color: #991b1b; font-size: 11.5px;">🧘 4. الخاتمة والتهدئة الإطاNoت</h3>
             <div class="section-card-body" style="font-size: 11px;"><?php echo esc_html(!empty($data['conclusion']) ? $data['conclusion'] : 'غير مسجل'); ?></div>
         </div>
     </div>
@@ -261,12 +261,12 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
     <!-- Educational Connections Card -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
         <div class="section-card" style="margin-bottom: 0; background: #f8fafc;">
-            <h3 class="section-card-title" style="color: #0f172a; font-size: 11.5px;">🇦🇪 الربط بالأجندة الوطنية ورؤية الدولة</h3>
+            <h3 class="section-card-title" style="color: #0f172a; font-size: 11.5px;">🇦🇪 الربط بالأجندة الوطنية ورؤية Country</h3>
             <div class="section-card-body" style="font-size: 11px;"><?php echo esc_html(!empty($data['national_agenda']) ? $data['national_agenda'] : 'غير مسجل'); ?></div>
         </div>
 
         <div class="section-card" style="margin-bottom: 0; background: #f8fafc;">
-            <h3 class="section-card-title" style="color: #0f172a; font-size: 11.5px;">🔗 الربط بالأنشطة الرياضية والتخصصات الأخرى</h3>
+            <h3 class="section-card-title" style="color: #0f172a; font-size: 11.5px;">🔗 الربط بSports Activities والتخصصات الأخرى</h3>
             <div class="section-card-body" style="font-size: 11px;"><?php echo esc_html(!empty($data['cross_subject']) ? $data['cross_subject'] : 'غير مسجل'); ?></div>
         </div>
     </div>
@@ -285,8 +285,8 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
     <?php endif; ?>
 
     <div class="section-card">
-        <h3 class="section-card-title">الملاحظات والتأملات التربوية / إرشادات السلامة والتوجيهات</h3>
-        <div class="section-card-body"><?php echo esc_html(!empty($data['notes']) ? $data['notes'] : 'لا توجد ملاحظات إضافية مسجلة'); ?></div>
+        <h3 class="section-card-title">الNotes والتأمNoت التربوية / إرشادات السNoمة والتوجيهات</h3>
+        <div class="section-card-body"><?php echo esc_html(!empty($data['notes']) ? $data['notes'] : 'No توجد Notes إضافية مسجلة'); ?></div>
     </div>
 
     <!-- Official Signatures Footer Alignment (Right: Teacher, Center: HOD PE, Left: Principal) -->
@@ -297,11 +297,11 @@ $fields = SM_Settings::get_subject_lesson_fields($prep->subject);
         </div>
         <div style="text-align: center;">
             <div style="font-weight: 800; font-size: 11.5px; color: #0f172a; margin-bottom: 20px;">توقيع رئيس قسم التربية البدنية:</div>
-            <div style="font-size: 11px; color: #64748b; font-weight: 700;">الاسم والتوقيع: ...........................</div>
+            <div style="font-size: 11px; color: #64748b; font-weight: 700;">اNoسم والتوقيع: ...........................</div>
         </div>
         <div style="text-align: left;">
-            <div style="font-weight: 800; font-size: 11.5px; color: #0f172a; margin-bottom: 20px;">توقيع مدير الأكاديمية الرياضية:</div>
-            <div style="font-size: 11px; color: #64748b; font-weight: 700;">الاسم والتوقيع: ...........................</div>
+            <div style="font-weight: 800; font-size: 11.5px; color: #0f172a; margin-bottom: 20px;">توقيع مدير Academy الرياضية:</div>
+            <div style="font-size: 11px; color: #64748b; font-weight: 700;">اNoسم والتوقيع: ...........................</div>
         </div>
     </div>
 

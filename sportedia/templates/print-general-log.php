@@ -19,18 +19,18 @@
 </head>
 <body>
     <div class="no-print" style="text-align:center; margin-bottom: 20px; padding: 20px;">
-        <button onclick="window.print()" style="padding: 10px 25px; background: #27ae60; color: #fff; border: none; border-radius: 5px; cursor: pointer;">طباعة السجل</button>
+        <button onclick="window.print()" style="padding: 10px 25px; background: #27ae60; color: #fff; border: none; border-radius: 5px; cursor: pointer;">Print السجل</button>
     </div>
 
     <?php $school = SM_Settings::get_school_info(); ?>
     <div class="report-header">
         <h2 style="margin: 0;"><?php echo esc_html($school['school_name']); ?></h2>
-        <h3 style="margin: 10px 0 0 0; color: #4a5568;">سجل المخالفات السلوكية والانضباطية</h3>
+        <h3 style="margin: 10px 0 0 0; color: #4a5568;">سجل المخالفات السلوكية واNoنضباطية</h3>
         <p style="margin: 5px 0; font-size: 0.9em;"><?php 
             if(!empty($_GET['start_date']) || !empty($_GET['end_date'])) {
                 echo 'الفترة من: ' . ($_GET['start_date'] ?: '---') . ' إلى: ' . ($_GET['end_date'] ?: '---');
             } else {
-                echo 'كافة السجلات المسجلة';
+                echo 'كافة السجNoت المسجلة';
             }
         ?></p>
     </div>
@@ -39,8 +39,8 @@
         <thead>
             <tr>
                 <th>التاريخ</th>
-                <th>اسم اللاعب</th>
-                <th>المجموعة التدريبية</th>
+                <th>Player Name</th>
+                <th>Training Group</th>
                 <th>نوع المخالفة</th>
                 <th>الحدة</th>
                 <th>الإجراء المتخذ</th>
@@ -64,7 +64,7 @@
     </table>
 
     <div style="margin-top: 50px; text-align: left; font-size: 0.9em;">
-        <p>يعتمد مدير الأكاديمية الرياضية: <?php echo esc_html($school['school_principal_name'] ?? ''); ?></p>
+        <p>يعتمد مدير Academy الرياضية: <?php echo esc_html($school['school_principal_name'] ?? ''); ?></p>
         <br>
         <p>التوقيع: ................................................</p>
     </div>

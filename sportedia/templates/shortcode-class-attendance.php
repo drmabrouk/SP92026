@@ -38,7 +38,7 @@ $academic = SM_Settings::get_academic_structure();
             <video id="eess-cam-video" style="width: 100%; height: 260px; object-fit: cover;" playsinline></video>
             <div style="position: absolute; inset: 0; border: 2px dashed rgba(56, 189, 248, 0.6); margin: 30px; pointer-events: none; border-radius: 8px;"></div>
             <div id="eess-cam-status-pill" style="position: absolute; top: 10px; right: 10px; background: rgba(15, 23, 42, 0.85); color: #38bdf8; padding: 4px 12px; border-radius: 9999px; font-size: 11px; font-weight: 800; backdrop-filter: blur(4px);">
-                الكاميرا نشطة
+                الكاميرا Activeة
             </div>
         </div>
 
@@ -56,35 +56,35 @@ $academic = SM_Settings::get_academic_structure();
 
     <!-- Selection: Grade & Section -->
     <?php
-    $is_staff = is_user_logged_in() && (current_user_can('إدارة_اللاعبين') || current_user_can('تسجيل_مخالفة'));
+    $is_staff = is_user_logged_in() && (current_user_can('إدارة_الNoعبين') || current_user_can('تسجيل_مخالفة'));
     ?>
     <div id="at-selection-area" style="display: grid; grid-template-columns: <?php echo $is_staff ? '1fr 1fr 1fr' : '1fr'; ?>; gap: 20px; margin-bottom: 40px; background: #f8fafc; padding: 25px; border-radius: 15px; border: 1px solid #edf2f7;">
         <?php if ($is_staff): ?>
         <div class="sm-form-group" style="margin-bottom: 0;">
-            <label class="sm-label" style="font-size: 1.1em;">المجموعة التدريبية الدراسي:</label>
+            <label class="sm-label" style="font-size: 1.1em;">Training Group الدراسي:</label>
             <select id="at-grade-select" class="sm-select" style="height: 50px; font-size: 1.1em;" onchange="atUpdateSections()">
-                <option value="">-- اختر المجموعة التدريبية --</option>
+                <option value="">-- اختر Training Group --</option>
                 <?php
                 $active_grades = $academic['active_grades'] ?? array();
                 sort($active_grades, SORT_NUMERIC);
                 foreach ($active_grades as $grade_num): ?>
-                    <option value="المجموعة التدريبية <?php echo $grade_num; ?>" data-grade-num="<?php echo $grade_num; ?>">المجموعة التدريبية <?php echo $grade_num; ?></option>
+                    <option value="Training Group <?php echo $grade_num; ?>" data-grade-num="<?php echo $grade_num; ?>">Training Group <?php echo $grade_num; ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <div class="sm-form-group" style="margin-bottom: 0;">
-            <label class="sm-label" style="font-size: 1.1em;">المجموعة التدريبية / المجموعة التدريبية:</label>
+            <label class="sm-label" style="font-size: 1.1em;">Training Group / Training Group:</label>
             <select id="at-section-select" class="sm-select" style="height: 50px; font-size: 1.1em;" disabled onchange="atLoadStudents()">
-                <option value="">-- اختر المجموعة التدريبية --</option>
+                <option value="">-- اختر Training Group --</option>
             </select>
         </div>
         <?php endif; ?>
 
         <div class="sm-form-group" style="margin-bottom: 0; text-align: center;">
-            <label class="sm-label" style="font-size: 1.1em;">كود دخول المجموعة التدريبية:</label>
+            <label class="sm-label" style="font-size: 1.1em;">كود دخول Training Group:</label>
             <input type="text" id="at-security-code" class="sm-input" maxlength="4" style="height: 50px; font-size: 1.5em; text-align: center; letter-spacing: 5px; font-family: monospace; max-width: 200px; margin: 0 auto;" placeholder="0000" oninput="checkSecurityCode()">
             <?php if (!$is_staff): ?>
-                <div style="font-size: 11px; color: #718096; margin-top: 8px;">أدخل الكود المكون من 4 أرقام للوصول لقائمة اللاعبين</div>
+                <div style="font-size: 11px; color: #718096; margin-top: 8px;">أدخل الكود المكون من 4 أرقام للوصول لقائمة الNoعبين</div>
             <?php endif; ?>
         </div>
     </div>
@@ -92,7 +92,7 @@ $academic = SM_Settings::get_academic_structure();
     <!-- Students List Area -->
     <div id="at-students-container" style="display: none;">
         <div id="at-list-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
-            <div style="font-weight: 900; color: var(--sm-dark-color); font-size: 1.3em;">قائمة طلاب المجموعة التدريبية:</div>
+            <div style="font-weight: 900; color: var(--sm-dark-color); font-size: 1.3em;">قائمة طNoب Training Group:</div>
             <div id="at-bulk-actions" style="display: flex; gap: 15px;">
                 <button onclick="atSetAll('present')" class="sm-btn" style="background: #38a169; padding: 10px 25px;">رصد حضور الجميع</button>
             </div>
@@ -103,18 +103,18 @@ $academic = SM_Settings::get_academic_structure();
         </div>
 
         <div id="at-footer-actions" style="text-align: center; padding-top: 30px; border-top: 1px solid #eee;">
-            <button id="at-submit-btn" onclick="atSubmitAttendance()" class="sm-btn" style="width: 100%; height: 60px; font-size: 1.3em; font-weight: 900; background: var(--sm-primary-color); border-radius: 12px; box-shadow: 0 4px 14px 0 rgba(246, 48, 73, 0.39);">تأكيد وإرسال الكشف للنظام</button>
+            <button id="at-submit-btn" onclick="atSubmitAttendance()" class="sm-btn" style="width: 100%; height: 60px; font-size: 1.3em; font-weight: 900; background: var(--sm-primary-color); border-radius: 12px; box-shadow: 0 4px 14px 0 rgba(246, 48, 73, 0.39);">Confirm وSend الكشف للنظام</button>
             <p id="at-post-submit-note" style="display: none; margin-top: 20px; color: #718096; font-weight: 700;">
                 <span class="dashicons dashicons-info" style="font-size: 18px; width: 18px; height: 18px;"></span>
-                تم إرسال كشف الحضور. يمكنك الآن تعديل حالات الغياب أو التأخير فقط.
+                تم Send كشف الحضور. يمكنك الآن Edit حاNoت الغياب أو التأخير فقط.
             </p>
         </div>
     </div>
 
     <div id="at-no-selection" style="text-align: center; padding: 80px 40px; color: var(--sm-text-gray); background: #fcfcfc; border-radius: 15px; border: 2px dashed #eee;">
         <span class="dashicons dashicons-id-alt" style="font-size: 64px; width: 64px; height: 64px; margin-bottom: 25px; opacity: 0.2;"></span>
-        <h3 style="margin: 0; color: #a0aec0; border: none;">يرجى اختيار المجموعة التدريبية والمجموعة التدريبية للمتابعة</h3>
-        <p style="margin-top: 10px;">سيتم عرض قائمة اللاعبين فور اختيار بيانات المجموعة التدريبية الصحيحة (أو إدخال كود الأمان للزوار).</p>
+        <h3 style="margin: 0; color: #a0aec0; border: none;">يرجى اختيار Training Group وTraining Group للمتابعة</h3>
+        <p style="margin-top: 10px;">سيتم View قائمة الNoعبين فور اختيار بيانات Training Group الصحيحة (أو إدخال كود Motherان للزوار).</p>
     </div>
 </div>
 
@@ -239,7 +239,7 @@ function eessProcessBarcodeAttendance(barcode) {
     .then(res => {
         eessBarcodeProcessing = false;
         if (res.success) {
-            const stuName = (res.data && res.data.student_name) ? res.data.student_name : 'اللاعب';
+            const stuName = (res.data && res.data.student_name) ? res.data.student_name : 'الNoعب';
             const className = (res.data && res.data.class_name) ? res.data.class_name : '';
             const section = (res.data && res.data.section) ? res.data.section : '';
 
@@ -284,7 +284,7 @@ function eessProcessBarcodeAttendance(barcode) {
     })
     .catch(() => {
         eessBarcodeProcessing = false;
-        eessShowAttendanceToast('❌ خطأ في الاتصال بالسيرفر', 'error');
+        eessShowAttendanceToast('❌ خطأ في اNoتصال بالسيرفر', 'error');
     });
 }
 
@@ -376,7 +376,7 @@ function atLoadStudentsForVisitor(className, section) {
 
     noSel.style.display = 'none';
     container.style.display = 'block';
-    listContainer.innerHTML = '<div style="text-align: center; padding: 60px;"><div class="at-spinner"></div><p style="margin-top: 20px; color: #718096; font-weight: 700;">جاري تحميل قائمة اللاعبين...</p></div>';
+    listContainer.innerHTML = '<div style="text-align: center; padding: 60px;"><div class="at-spinner"></div><p style="margin-top: 20px; color: #718096; font-weight: 700;">جاري Upload قائمة الNoعبين...</p></div>';
 
     const date = new Date().toISOString().split('T')[0];
     const code = document.getElementById('at-security-code').value;
@@ -405,7 +405,7 @@ function atUpdateSections() {
     const sectionSelect = document.getElementById('at-section-select');
     const gradeNum = gradeSelect.options[gradeSelect.selectedIndex].getAttribute('data-grade-num');
 
-    sectionSelect.innerHTML = '<option value="">-- اختر المجموعة التدريبية --</option>';
+    sectionSelect.innerHTML = '<option value="">-- اختر Training Group --</option>';
     isSubmitted = false; // Reset on change
 
     if (!gradeNum) {
@@ -455,7 +455,7 @@ function atLoadStudents() {
 
     noSel.style.display = 'none';
     container.style.display = 'block';
-    listContainer.innerHTML = '<div style="text-align: center; padding: 60px;"><div class="at-spinner"></div><p style="margin-top: 20px; color: #718096; font-weight: 700;">جاري تحميل قائمة اللاعبين...</p></div>';
+    listContainer.innerHTML = '<div style="text-align: center; padding: 60px;"><div class="at-spinner"></div><p style="margin-top: 20px; color: #718096; font-weight: 700;">جاري Upload قائمة الNoعبين...</p></div>';
 
     const date = new Date().toISOString().split('T')[0];
     const formData = new FormData();
@@ -483,7 +483,7 @@ function atRenderList() {
     const note = document.getElementById('at-post-submit-note');
 
     if (currentStudents.length === 0) {
-        listContainer.innerHTML = '<div style="padding: 60px; text-align: center; background: #fcfcfc; border-radius: 15px;">لا يوجد طلاب مسجلين في هذه المجموعة التدريبية.</div>';
+        listContainer.innerHTML = '<div style="padding: 60px; text-align: center; background: #fcfcfc; border-radius: 15px;">No يوجد طNoب مسجلين في هذه Training Group.</div>';
         return;
     }
 
@@ -569,7 +569,7 @@ async function atSubmitAttendance() {
     const nonce = '<?php echo wp_create_nonce("sm_attendance_action"); ?>';
 
     btn.disabled = true;
-    btn.innerHTML = '<div class="at-spinner-sm"></div> جاري حفظ البيانات...';
+    btn.innerHTML = '<div class="at-spinner-sm"></div> جاري Save البيانات...';
 
     const batch = currentStudents.map(s => ({
         student_id: s.id,
@@ -588,12 +588,12 @@ async function atSubmitAttendance() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم حفظ كشف الحضور بنجاح لعدد ' + res.data + ' لاعب');
+            smShowNotification('تم Save كشف الحضور بنجاح لعدد ' + res.data + ' Noعب');
 
         // Show submission confirmation notification
         const confirmNotif = document.createElement('div');
         confirmNotif.style.cssText = "position:fixed; top:80px; left:50%; transform:translateX(-50%); background:#38a169; color:white; padding:15px 30px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:10002; font-weight:800; animation: smFadeIn 0.3s ease-out;";
-        confirmNotif.innerHTML = '✅ تم إرسال كشف الحضور بنجاح';
+        confirmNotif.innerHTML = '✅ تم Send كشف الحضور بنجاح';
         document.body.appendChild(confirmNotif);
         setTimeout(() => {
             confirmNotif.style.opacity = '0';
@@ -604,15 +604,15 @@ async function atSubmitAttendance() {
             isSubmitted = true;
             atRenderList();
         } else {
-            smShowNotification('حدث خطأ في الاتصال بالنظام: ' + res.data, true);
+            smShowNotification('An error occurred في اNoتصال بالنظام: ' + res.data, true);
             btn.disabled = false;
-            btn.innerText = 'تأكيد وإرسال الكشف للنظام';
+            btn.innerText = 'Confirm وSend الكشف للنظام';
         }
     })
     .catch(err => {
-        smShowNotification('حدث خطأ تقني في الاتصال', true);
+        smShowNotification('An error occurred تقني في اNoتصال', true);
         btn.disabled = false;
-        btn.innerText = 'تأكيد وإرسال الكشف للنظام';
+        btn.innerText = 'Confirm وSend الكشف للنظام';
     });
 }
 
@@ -631,7 +631,7 @@ function saveAttendanceToDB(sid, status) {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم التحديث بنجاح');
+            smShowNotification('تم الUpdate بنجاح');
             // If it was changed to absent/late from something else, or vice-versa
             // In this specific UI, we just keep the filtered view if submitted
             atRenderList();

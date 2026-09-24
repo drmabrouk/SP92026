@@ -66,7 +66,7 @@ if (isset($_POST['eess_delete_lesson_prep']) && wp_verify_nonce($_POST['eess_les
         if ($owner_id == $user_id || $is_admin || $is_sys_admin) {
             $wpdb->delete("{$wpdb->prefix}sm_lesson_preps", array('id' => $prep_id_to_delete));
             $wpdb->delete("{$wpdb->prefix}sm_lesson_comments", array('prep_id' => $prep_id_to_delete));
-            echo '<div style="background:#dcfce7; color:#15803d; padding:15px; border-radius:8px; border:1px solid #bbf7d0; font-weight:700; margin-bottom:20px; font-family:\'Cairo\'; text-align:right;">✅ تم حذف وثيقة التحضير والملاحظات التابعة لها بنجاح.</div>';
+            echo '<div style="background:#dcfce7; color:#15803d; padding:15px; border-radius:8px; border:1px solid #bbf7d0; font-weight:700; margin-bottom:20px; font-family:\'Cairo\'; text-align:right;">✅ تم Delete وثيقة التحضير والNotes التابعة لها بنجاح.</div>';
         }
     }
 }
@@ -206,7 +206,7 @@ if (isset($_POST['eess_save_lesson_prep']) && wp_verify_nonce($_POST['eess_lesso
             )
         );
     }
-    echo '<div class="updated" style="background:#def7ec; color:#03543f; padding:12px; border-radius:8px; border:1px solid #bcf0da; margin-bottom:15px; font-weight:700; font-size:13px;">تم حفظ التحضير بنجاح.</div>';
+    echo '<div class="updated" style="background:#def7ec; color:#03543f; padding:12px; border-radius:8px; border:1px solid #bcf0da; margin-bottom:15px; font-weight:700; font-size:13px;">تم Save التحضير بنجاح.</div>';
 }
 
 // Handle Supervisor Actions
@@ -232,7 +232,7 @@ if (isset($_POST['eess_supervisor_action']) && wp_verify_nonce($_POST['eess_supe
             )
         );
     }
-    echo '<div class="updated" style="background:#def7ec; color:#03543f; padding:12px; border-radius:8px; border:1px solid #bcf0da; margin-bottom:15px; font-weight:700; font-size:13px;">تم تحديث حالة التحضير وإضافة الملاحظات بنجاح.</div>';
+    echo '<div class="updated" style="background:#def7ec; color:#03543f; padding:12px; border-radius:8px; border:1px solid #bcf0da; margin-bottom:15px; font-weight:700; font-size:13px;">تم Update حالة التحضير وAdd الNotes بنجاح.</div>';
 }
 
 // Handle Settings Update (expanded fields)
@@ -255,7 +255,7 @@ if (isset($_POST['eess_save_prep_settings']) && wp_verify_nonce($_POST['eess_set
     update_option('sm_lesson_prep_settings', $new_settings);
     $prep_settings = $new_settings;
     $deadline_time = ($prep_settings['submission_deadline'] ?? '10:00') . ':00';
-    echo '<div class="updated" style="background:#def7ec; color:#03543f; padding:12px; border-radius:8px; border:1px solid #bcf0da; margin-bottom:15px; font-weight:700; font-size:13px;">تم حفظ إعدادات منظومة التحضير بنجاح.</div>';
+    echo '<div class="updated" style="background:#def7ec; color:#03543f; padding:12px; border-radius:8px; border:1px solid #bcf0da; margin-bottom:15px; font-weight:700; font-size:13px;">تم Save إعدادات منظومة التحضير بنجاح.</div>';
 }
 
 // Load edit prep details
@@ -290,21 +290,21 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
             </div>
             <div>
                 <h2 style="margin: 0 0 2px 0; font-size: 18px; font-weight: 800; color: #0f172a;">تقديم تقارير أعضاء هيئة التدريب والكادر</h2>
-                <p style="margin: 0; font-size: 11.5px; color: #64748b; font-weight: 500;">متابعة وإعداد واعتماد التحضيرات والخطط الأكاديمية والتعليمية للكادر التدريسي والأكاديمي</p>
+                <p style="margin: 0; font-size: 11.5px; color: #64748b; font-weight: 500;">متابعة وإعداد واعتماد التحضيرات والخطط Academy والتعليمية للكادر التدريسي والأكاديمي</p>
             </div>
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <!-- Modern Compact Pastel Wine-Red Bulk Download Button -->
-            <button type="button" onclick="document.getElementById('eess-prep-bulk-download-modal').style.display='flex'" title="تحميل كافة التحضيرات المرفوعة بالجملة" style="background: #fef2f2; color: #881337; border: 1px solid #fecdd3; height: 34px; border-radius: 10px; padding: 0 14px; font-weight: 800; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); transition: background 0.2s; flex-shrink: 0;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fef2f2'">
+            <button type="button" onclick="document.getElementById('eess-prep-bulk-download-modal').style.display='flex'" title="Upload كافة التحضيرات المرفوعة بالجملة" style="background: #fef2f2; color: #881337; border: 1px solid #fecdd3; height: 34px; border-radius: 10px; padding: 0 14px; font-weight: 800; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); transition: background 0.2s; flex-shrink: 0;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fef2f2'">
                 <span class="dashicons dashicons-download" style="font-size: 15px; width: 15px; height: 15px; margin: 0; color: #881337;"></span>
-                <span>تحميل كافة التحضيرات</span>
+                <span>Upload كافة التحضيرات</span>
             </button>
 
             <?php if ($is_teacher): ?>
             <button type="button" onclick="document.getElementById('prep-modal').style.display='flex'" class="sm-btn" style="background: #881337; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 20px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                 <span class="dashicons dashicons-plus-alt2" style="font-size: 15px; width: 15px; height: 15px; color: #fff;"></span>
-                <span>إضافة تحضير جديد</span>
+                <span>Add تحضير جديد</span>
             </button>
             <?php endif; ?>
 
@@ -313,17 +313,17 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
             <div style="position: relative; display: inline-block;">
                 <button type="button" onclick="const d=document.getElementById('eess-print-report-dropdown'); d.style.display = d.style.display==='none'?'block':'none'; event.stopPropagation();" class="sm-btn" style="background: #0284c7; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 18px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(2,132,199,0.2);">
                     <span class="dashicons dashicons-printer" style="font-size: 16px; width: 16px; height: 16px; color: #fff;"></span>
-                    <span>طباعة التقرير</span>
+                    <span>Print التقرير</span>
                     <span class="dashicons dashicons-arrow-down-alt2" style="font-size: 10px; width: 10px; height: 10px; color: #fff;"></span>
                 </button>
                 <div id="eess-print-report-dropdown" style="display: none; position: absolute; right: 0; top: 115%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; width: 230px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 99999; padding: 6px 0; text-align: right;">
                     <a href="javascript:void(0)" onclick="document.getElementById('eess-print-report-dropdown').style.display='none'; eessOpenSchoolPrepReportModal();" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; color: #334155; font-size: 12px; font-weight: 700; text-decoration: none; border-bottom: 1px solid #f1f5f9;">
                         <span class="dashicons dashicons-building" style="font-size: 16px; width: 16px; height: 16px;"></span>
-                        <span>طباعة تقرير مدرسة محددة</span>
+                        <span>Print تقرير مدرسة محددة</span>
                     </a>
                     <a href="<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=non_submission_lesson_prep'); ?>" target="_blank" onclick="document.getElementById('eess-print-report-dropdown').style.display='none';" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; color: #dc2626; font-size: 12px; font-weight: 700; text-decoration: none;">
                         <span class="dashicons dashicons-dismiss" style="font-size: 16px; width: 16px; height: 16px;"></span>
-                        <span>طباعة تقرير غير المغطين للتحضير</span>
+                        <span>Print تقرير غير المغطين للتحضير</span>
                     </a>
                 </div>
             </div>
@@ -412,7 +412,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                 <div style="font-size: 18px; font-weight: 900; color: #16a34a;"><?php echo $stats_approved; ?></div>
             </div>
             <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; border-top: 3px solid #d97706; text-align: center;">
-                <div style="font-size: 11px; color: #b45309; font-weight: 700; margin-bottom: 4px;">طلب تعديل</div>
+                <div style="font-size: 11px; color: #b45309; font-weight: 700; margin-bottom: 4px;">طلب Edit</div>
                 <div style="font-size: 18px; font-weight: 900; color: #d97706;"><?php echo $stats_revision; ?></div>
             </div>
             <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; border-top: 3px solid #b91c1c; text-align: center;">
@@ -443,9 +443,9 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         </div>
                         <div>
                             <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #0f172a; font-family: 'Cairo', sans-serif;">
-                                <?php echo ($edit_prep && $edit_prep->id > 0) ? 'تعديل وثيقة تحضير درس' : 'إعداد وتحضير درس جديد'; ?>
+                                <?php echo ($edit_prep && $edit_prep->id > 0) ? 'Edit وثيقة تحضير درس' : 'إعداد وتحضير درس جديد'; ?>
                             </h3>
-                            <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">إعداد وتوثيق الخطط والأنشطة الدراسية خطوة بخطوة</p>
+                            <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">إعداد وتوثيق الخطط والأActiveة الدراسية خطوة بخطوة</p>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
@@ -473,7 +473,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
 
                         <!-- Initial Preparation Method Selection Screen -->
                         <div id="eess-prep-method-select" style="display: <?php echo ($edit_prep && $edit_prep->id > 0) ? 'none' : 'block'; ?>; text-align: center; padding: 15px 0;">
-                            <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #0f172a; text-align: center;">مرحباً أ. <?php echo esc_html($user->display_name); ?> — اختيار طريقة التحضير</h4>
+                            <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #0f172a; text-align: center;">Welcomeً أ. <?php echo esc_html($user->display_name); ?> — اختيار طريقة التحضير</h4>
                             <p style="margin: 0 0 24px 0; font-size: 13px; color: #64748b; line-height: 1.6; text-align: center;">يرجى اختيار طريقة إعداد وتوثيق تحضير الدرس للبدء:</p>
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 10px;">
@@ -483,7 +483,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                         <span class="dashicons dashicons-welcome-write-blog" style="font-size: 26px; width: 26px; height: 26px;"></span>
                                     </div>
                                     <h4 style="margin: 0 0 6px 0; font-size: 14.5px; font-weight: 800; color: #881337;">إعداد تحضير الدرس بالنظام</h4>
-                                    <p style="margin: 0; font-size: 12px; color: #64748b; line-height: 1.5;">إدخال الأهداف والتهيئة والأنشطة والتقويم خطوة بخطوة.</p>
+                                    <p style="margin: 0; font-size: 12px; color: #64748b; line-height: 1.5;">إدخال الأهداف والتهيئة والأActiveة والتقويم خطوة بخطوة.</p>
                                 </div>
 
                                 <!-- Option 2: Upload Ready Lesson File -->
@@ -492,7 +492,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                         <span class="dashicons dashicons-upload" style="font-size: 26px; width: 26px; height: 26px;"></span>
                                     </div>
                                     <h4 style="margin: 0 0 6px 0; font-size: 14.5px; font-weight: 800; color: #0f172a;">رفع ملف تحضير جاهز (PDF / Word)</h4>
-                                    <p style="margin: 0; font-size: 12px; color: #64748b; line-height: 1.5;">رفع وثيقة تحضير مكتملة جاهزة مباشرة للمراجعة والاعتماد.</p>
+                                    <p style="margin: 0; font-size: 12px; color: #64748b; line-height: 1.5;">رفع وثيقة تحضير مكتملة جاهزة مباشرة للمراجعة واNoعتماد.</p>
                                 </div>
                             </div>
                         </div>
@@ -511,18 +511,18 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                 </div>
                                 <div class="eess-prep-step-indicator" id="eess-prep-ind-3" style="font-weight: 700; font-size: 11.5px; color: #94a3b8; display: flex; flex-direction: column; align-items: center; gap: 4px; background: #f8fafc; padding: 0 6px;">
                                     <span id="eess-prep-num-3" style="background: #e2e8f0; color: #475569; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; box-shadow: 0 0 0 4px #f8fafc;">3</span>
-                                    <span id="eess-prep-step-lbl-3">المراجعة والإرسال</span>
+                                    <span id="eess-prep-step-lbl-3">المراجعة والSend</span>
                                 </div>
                                 <div class="eess-prep-step-indicator" id="eess-prep-ind-4" style="display: none; font-weight: 700; font-size: 11.5px; color: #94a3b8; flex-direction: column; align-items: center; gap: 4px; background: #f8fafc; padding: 0 6px;">
                                     <span id="eess-prep-num-4" style="background: #e2e8f0; color: #475569; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; box-shadow: 0 0 0 4px #f8fafc;">4</span>
-                                    <span id="eess-prep-step-lbl-4">المراجعة والإرسال</span>
+                                    <span id="eess-prep-step-lbl-4">المراجعة والSend</span>
                                 </div>
                             </div>
                         </div>
 
                         <?php
-                            $teacher_school = get_user_meta($user_id, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
-                            $teacher_grade  = get_user_meta($user_id, 'sm_grade_level', true) ?: (get_user_meta($user_id, 'grade', true) ?: 'المجموعة التدريبية العاشر');
+                            $teacher_school = get_user_meta($user_id, 'eess_school_name', true) ?: 'Academy الرياضية Home';
+                            $teacher_grade  = get_user_meta($user_id, 'sm_grade_level', true) ?: (get_user_meta($user_id, 'grade', true) ?: 'Training Group العاشر');
                             $teacher_section= get_user_meta($user_id, 'sm_class_section', true) ?: (get_user_meta($user_id, 'section', true) ?: 'أ');
                         ?>
                         <input type="hidden" id="eess_lesson_subject" name="lesson_subject" value="<?php echo esc_attr($current_subject); ?>">
@@ -533,7 +533,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         <div id="eess-prep-workflow-upload" style="display: none;">
                             <!-- Upload Step 1: Lesson Information -->
                             <div class="eess-prep-upload-stage" id="eess-prep-upload-stage-1" style="display: block;">
-                                <h4 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 800; color: #0f172a;">الخطوة الأولى: بيانات الدرس الرئيسية</h4>
+                                <h4 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 800; color: #0f172a;">الخطوة الأولى: بيانات الدرس Home</h4>
                                 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 20px;">
                                     <div>
                                         <label for="eess_upload_lesson_title" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">عنوان وثيقة التحضير <span style="color:#ef4444;">*</span></label>
@@ -553,7 +553,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                 <h4 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 800; color: #0f172a;">الخطوة الثانية: رفع ملف التحضير الجاهز</h4>
                                 <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 14px; padding: 22px; margin-bottom: 16px;">
                                     <label for="eess_prep_document_file" style="display: block; font-weight: 800; font-size: 13px; color: #0369a1; margin-bottom: 2px;">اختر ملف التحضير المكتمل بصيغة (PDF, DOC, DOCX) <span style="color:#ef4444;">*</span></label>
-                                    <span style="display: block; font-size: 11px; color: #0284c7; font-weight: 500; margin-bottom: 10px;">يجب ألا يتجاوز حجم الملف المرفق 10 ميجابايت وأن يكون مطابقاً لنموذج التحضير المعتمد</span>
+                                    <span style="display: block; font-size: 11px; color: #0284c7; font-weight: 500; margin-bottom: 10px;">يجب أNo يتجاوز حجم الملف المرفق 10 ميجابايت وأن يكون مطابقاً لنموذج التحضير المعتمد</span>
                                     <input type="file" name="prep_document_file" id="eess_prep_document_file" accept=".pdf,.doc,.docx" class="sm-input" onchange="eessValidatePrepFile(this)" style="height: 44px; border-radius: 10px; border: 1px solid #cbd5e1; background: #ffffff; font-size: 12.5px; padding: 8px 12px; width: 100%; box-sizing: border-box;">
                                     <div id="eess_prep_file_status_preview" style="display: none; margin-top: 12px; font-size: 12px; font-weight: 700; color: #166534; background: #dcfce7; padding: 10px 14px; border-radius: 8px; border: 1px solid #bbf7d0;"></div>
                                 </div>
@@ -589,7 +589,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                 <!-- Lesson Objective Field (150 - 350 chars) -->
                                 <div style="margin-bottom: 6px;">
                                     <label for="eess_objectives" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">هدف الدرس السلوكي والتعليمي <span style="color:#ef4444;">*</span></label>
-                                    <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">صياغة الأهداف السلوكية (أن يتعلم اللاعب المهارة المحددة) — الحد الأدنى: 150 حرفاً، الحد الأقصى: 350 حرفاً</span>
+                                    <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">صياغة الأهداف السلوكية (أن يتعلم الNoعب المهارة المحددة) — الحد الأدنى: 150 حرفاً، الحد الأقصى: 350 حرفاً</span>
                                     <textarea id="eess_objectives" name="objectives" maxlength="350" oninput="eessUpdateCharBounds(this, 150, 350, 'cnt_objectives')" class="sm-input" style="height: 100px; font-size: 12.5px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px 12px; width: 100%; box-sizing: border-box; line-height: 1.5;" placeholder="أدخل هدف الدرس تفصيلياً..."><?php echo esc_textarea($data['objectives'] ?? ''); ?></textarea>
                                 </div>
                                 <div style="text-align: left; font-size: 11px; font-weight: 700; color: #dc2626; font-family: monospace; margin-bottom: 20px;" id="cnt_objectives">0 / 150 - 350 حرف (المتبقي 150 حرف على الأقل)</div>
@@ -625,8 +625,8 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
 
                                 <!-- Conclusion (150 - 350 chars) -->
                                 <div style="margin-bottom: 4px;">
-                                    <label for="eess_conclusion" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">4. الخاتمة والتهدئة والإطالات <span style="color:#ef4444;">*</span></label>
-                                    <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">تمارين العودة إلى الحالة الطبيعية والتقويم الختامي (150 – 350 حرفاً)</span>
+                                    <label for="eess_conclusion" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">4. الخاتمة والتهدئة والإطاNoت <span style="color:#ef4444;">*</span></label>
+                                    <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">تمارين العودة إلى Status الطبيعية والتقويم الختامي (150 – 350 حرفاً)</span>
                                     <textarea id="eess_conclusion" name="conclusion" maxlength="350" oninput="eessUpdateCharBounds(this, 150, 350, 'cnt_conclusion')" class="sm-input" style="height: 85px; font-size: 12.5px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px 12px; width: 100%; box-sizing: border-box; line-height: 1.5;" placeholder="أدخل تفاصيل التهدئة والختام..."><?php echo esc_textarea($data['conclusion'] ?? ''); ?></textarea>
                                 </div>
                                 <div style="text-align: left; font-size: 11px; font-weight: 700; color: #dc2626; font-family: monospace; margin-bottom: 16px;" id="cnt_conclusion">0 / 150 - 350 حرف (المتبقي 150 حرف على الأقل)</div>
@@ -638,22 +638,22 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
 
                                 <!-- Connection to National Agenda -->
                                 <div style="margin-bottom: 20px;">
-                                    <label for="eess_national_agenda" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بالأجندة الوطنية ورؤية الدولة <span style="color:#ef4444;">*</span></label>
+                                    <label for="eess_national_agenda" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بالأجندة الوطنية ورؤية Country <span style="color:#ef4444;">*</span></label>
                                     <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">شرح كيفية ربط المهارة بقيم الأجندة الوطنية وجودة الحياة الصحية</span>
                                     <textarea id="eess_national_agenda" name="national_agenda" class="sm-input" style="height: 85px; font-size: 12.5px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px 12px; width: 100%; box-sizing: border-box; line-height: 1.5;" placeholder="أدخل تفاصيل الربط بالأجندة الوطنية..."><?php echo esc_textarea($data['national_agenda'] ?? ''); ?></textarea>
                                 </div>
 
                                 <!-- Connection to Other Subjects -->
                                 <div style="margin-bottom: 18px;">
-                                    <label for="eess_cross_subject" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بالأنشطة الرياضية والتخصصات الأخرى <span style="color:#ef4444;">*</span></label>
-                                    <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">الربط بالعلوم، الرياضيات، اللغة العربية، أو الدراسات الاجتماعية</span>
-                                    <textarea id="eess_cross_subject" name="cross_subject" class="sm-input" style="height: 85px; font-size: 12.5px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px 12px; width: 100%; box-sizing: border-box; line-height: 1.5;" placeholder="أدخل تفاصيل الربط بالأنشطة الرياضية الأخرى..."><?php echo esc_textarea($data['cross_subject'] ?? ''); ?></textarea>
+                                    <label for="eess_cross_subject" style="display: block; font-size: 12.5px; font-weight: 800; color: #0f172a; margin-bottom: 2px;">الربط بSports Activities والتخصصات الأخرى <span style="color:#ef4444;">*</span></label>
+                                    <span style="display: block; font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 6px;">الربط بالعلوم، الرياضيات، اللغة العربية، أو الدراسات اNoجتماعية</span>
+                                    <textarea id="eess_cross_subject" name="cross_subject" class="sm-input" style="height: 85px; font-size: 12.5px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px 12px; width: 100%; box-sizing: border-box; line-height: 1.5;" placeholder="أدخل تفاصيل الربط بSports Activities الأخرى..."><?php echo esc_textarea($data['cross_subject'] ?? ''); ?></textarea>
                                 </div>
                             </div>
 
                             <!-- Create Step 4: Review & Submission -->
                             <div class="eess-prep-create-stage" id="eess-prep-create-stage-4" style="display: none;">
-                                <h4 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 800; color: #0f172a;">الخطوة الرابعة: مراجعة تحضير الدرس والإرسال النهائي</h4>
+                                <h4 style="margin: 0 0 15px 0; font-size: 14px; font-weight: 800; color: #0f172a;">الخطوة الرابعة: مراجعة تحضير الدرس والSend النهائي</h4>
                                 <div style="background: #f8fafc; padding: 20px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 12.5px; line-height: 1.6; margin-bottom: 20px;" id="eess-prep-create-review-summary">
                                     <!-- Dynamic Create Summary -->
                                 </div>
@@ -708,7 +708,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                 if (method === 'upload') {
                                     document.getElementById('eess-prep-step-lbl-1').innerText = 'البيانات الأساسية';
                                     document.getElementById('eess-prep-step-lbl-2').innerText = 'رفع المستند';
-                                    document.getElementById('eess-prep-step-lbl-3').innerText = 'المراجعة والإرسال';
+                                    document.getElementById('eess-prep-step-lbl-3').innerText = 'المراجعة والSend';
                                     if (ind4) ind4.style.display = 'none';
 
                                     document.getElementById('eess-prep-workflow-upload').style.display = 'block';
@@ -717,7 +717,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                     document.getElementById('eess-prep-step-lbl-1').innerText = 'البيانات والأهداف';
                                     document.getElementById('eess-prep-step-lbl-2').innerText = 'مكونات الدرس';
                                     document.getElementById('eess-prep-step-lbl-3').innerText = 'الربط التربوي';
-                                    document.getElementById('eess-prep-step-lbl-4').innerText = 'المراجعة والإرسال';
+                                    document.getElementById('eess-prep-step-lbl-4').innerText = 'المراجعة والSend';
                                     if (ind4) ind4.style.display = 'flex';
 
                                     document.getElementById('eess-prep-workflow-upload').style.display = 'none';
@@ -731,17 +731,17 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         <!-- Wizard Step Action Controls (RTL structure: Next/Submit on far-left, Previous on far-right) -->
                         <div style="display: flex; gap: 12px; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 15px;">
                             <div style="display: flex; gap: 10px; align-items: center;">
-                                <button type="button" id="eess-prep-next-btn" class="sm-btn" style="width: auto; height: 38px; padding: 0 22px; font-size: 12.5px; background: #881337; border: none; border-radius: 9999px !important; cursor:pointer; color: white !important; font-weight: 800;" onclick="eessGoToPrepStage(eessActivePrepStage + 1)">المتابعة للخطوة التالية ➔</button>
+                                <button type="button" id="eess-prep-next-btn" class="sm-btn" style="width: auto; height: 38px; padding: 0 22px; font-size: 12.5px; background: #881337; border: none; border-radius: 9999px !important; cursor:pointer; color: white !important; font-weight: 800;" onclick="eessGoToPrepStage(eessActivePrepStage + 1)">المتابعة للخطوة Nextة ➔</button>
 
                                 <!-- Submit for Review Action (Dark Red Primary Token) -->
-                                <button type="submit" name="eess_save_lesson_prep" id="eess-prep-submit-btn" onclick="document.getElementById('lesson_status').value='submitted'; eessClearPrepDraftBackup();" class="sm-btn" style="width: auto; height: 38px; padding: 0 22px; font-size: 12.5px; background: #dc2626; border-radius: 9999px !important; border: none; color: white !important; font-weight: 800; display: none; cursor:pointer; box-shadow: 0 4px 12px rgba(220,38,38,0.2);">إرسال للمراجعة</button>
+                                <button type="submit" name="eess_save_lesson_prep" id="eess-prep-submit-btn" onclick="document.getElementById('lesson_status').value='submitted'; eessClearPrepDraftBackup();" class="sm-btn" style="width: auto; height: 38px; padding: 0 22px; font-size: 12.5px; background: #dc2626; border-radius: 9999px !important; border: none; color: white !important; font-weight: 800; display: none; cursor:pointer; box-shadow: 0 4px 12px rgba(220,38,38,0.2);">Send للمراجعة</button>
 
                                 <!-- Save as Draft Action (Secondary Token) -->
-                                <button type="submit" name="eess_save_lesson_prep" id="eess-prep-draft-btn" onclick="document.getElementById('lesson_status').value='draft'" class="sm-btn sm-btn-secondary" style="width: auto; height: 38px; padding: 0 18px; font-size: 12.5px; background: #475569; color: white !important; border-radius: 9999px !important; border: none; font-weight: 700; display: none; cursor:pointer;">حفظ كمسودة</button>
+                                <button type="submit" name="eess_save_lesson_prep" id="eess-prep-draft-btn" onclick="document.getElementById('lesson_status').value='draft'" class="sm-btn sm-btn-secondary" style="width: auto; height: 38px; padding: 0 18px; font-size: 12.5px; background: #475569; color: white !important; border-radius: 9999px !important; border: none; font-weight: 700; display: none; cursor:pointer;">Save كمسودة</button>
                             </div>
 
                             <div>
-                                <button type="button" id="eess-prep-prev-btn" class="sm-btn sm-btn-outline" style="width: auto; height: 38px; padding: 0 18px; font-size: 12.5px; border-radius: 9999px !important; display: none; cursor:pointer; border: 1px solid #cbd5e1; color: #475569; font-weight: 700;" onclick="eessGoToPrepStage(eessActivePrepStage - 1)">السابق</button>
+                                <button type="button" id="eess-prep-prev-btn" class="sm-btn sm-btn-outline" style="width: auto; height: 38px; padding: 0 18px; font-size: 12.5px; border-radius: 9999px !important; display: none; cursor:pointer; border: 1px solid #cbd5e1; color: #475569; font-weight: 700;" onclick="eessGoToPrepStage(eessActivePrepStage - 1)">Previous</button>
                             </div>
                         </div>
 
@@ -772,11 +772,11 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                 localStorage.setItem('eess_lesson_prep_draft_' + <?php echo $user_id; ?>, JSON.stringify(draftData));
 
                 const badge = document.getElementById('prep-autosave-badge');
-                if (badge) badge.innerText = 'مسودة (جاري الحفظ...)';
+                if (badge) badge.innerText = 'مسودة (جاري الSave...)';
 
                 clearTimeout(eessAutoSaveTimeout);
                 eessAutoSaveTimeout = setTimeout(() => {
-                    if (badge) badge.innerText = 'مسودة (تم الحفظ)';
+                    if (badge) badge.innerText = 'مسودة (تم الSave)';
                 }, 1000);
             }
 
@@ -820,28 +820,28 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; background: #ffffff; padding: 12px 18px; border-radius: 14px; border: 1px solid #cbd5e1; font-family: 'Cairo', sans-serif;">
                 <h3 style="margin: 0; font-size: 15px; font-weight: 800; color: #0f172a; white-space: nowrap; display: flex; align-items: center; gap: 6px;">
                     <span class="dashicons dashicons-list-view" style="font-size: 18px; width: 18px; height: 18px; color: #881337;"></span>
-                    <span>سجلات تقديم تقارير أعضاء هيئة التدريب والكادر المقدمة</span>
+                    <span>سجNoت تقديم تقارير أعضاء هيئة التدريب والكادر المقدمة</span>
                 </h3>
 
                 <form method="get" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 0; flex-grow: 1; justify-content: flex-end; direction: rtl;">
                     <input type="hidden" name="sm_tab" value="lesson-plans">
 
                     <div style="position: relative; width: 220px; min-width: 160px; max-width: 100%;">
-                        <input type="text" name="s_query" value="<?php echo isset($_GET['s_query']) ? esc_attr($_GET['s_query']) : ''; ?>" placeholder="بحث باسم المدرب، النشاط الرياضي، أو الدرس..." class="sm-input" style="height: 36px; font-size: 12px; border-radius: 9999px !important; border: 1px solid #cbd5e1; padding: 0 32px 0 12px; width: 100%; box-sizing: border-box;">
+                        <input type="text" name="s_query" value="<?php echo isset($_GET['s_query']) ? esc_attr($_GET['s_query']) : ''; ?>" placeholder="Search باسم المدرب، Sport Activity، أو الدرس..." class="sm-input" style="height: 36px; font-size: 12px; border-radius: 9999px !important; border: 1px solid #cbd5e1; padding: 0 32px 0 12px; width: 100%; box-sizing: border-box;">
                         <span class="dashicons dashicons-search" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 15px; width: 15px; height: 15px; color: #94a3b8; pointer-events: none;"></span>
                     </div>
 
                     <?php $cur_sort = isset($_GET['sort_dir']) && $_GET['sort_dir'] === 'asc' ? 'asc' : 'desc'; ?>
                     <input type="hidden" name="sort_dir" id="eess_sort_dir_val" value="<?php echo $cur_sort; ?>">
-                    <button type="button" onclick="const sInput = document.getElementById('eess_sort_dir_val'); sInput.value = (sInput.value === 'desc' ? 'asc' : 'desc'); this.form.submit();" title="<?php echo $cur_sort === 'asc' ? 'الترتيب: الأقدم أولاً' : 'الترتيب: الأحدث أولاً'; ?>" style="height: 36px; padding: 0 14px; border-radius: 9999px !important; background: #ffffff; color: #475569; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" onmouseover="this.style.borderColor='#881337'" onmouseout="this.style.borderColor='#cbd5e1'">
+                    <button type="button" onclick="const sInput = document.getElementById('eess_sort_dir_val'); sInput.value = (sInput.value === 'desc' ? 'asc' : 'desc'); this.form.submit();" title="<?php echo $cur_sort === 'asc' ? 'الترتيب: الأقدم أوNoً' : 'الترتيب: الأحدث أوNoً'; ?>" style="height: 36px; padding: 0 14px; border-radius: 9999px !important; background: #ffffff; color: #475569; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" onmouseover="this.style.borderColor='#881337'" onmouseout="this.style.borderColor='#cbd5e1'">
                         <span class="dashicons <?php echo $cur_sort === 'asc' ? 'dashicons-arrow-up-alt2' : 'dashicons-arrow-down-alt2'; ?>" style="font-size: 14px; width: 14px; height: 14px; margin: 0; color: #881337;"></span>
-                        <span><?php echo $cur_sort === 'asc' ? 'الأقدم أولاً' : 'الأحدث أولاً'; ?></span>
+                        <span><?php echo $cur_sort === 'asc' ? 'الأقدم أوNoً' : 'الأحدث أوNoً'; ?></span>
                     </button>
 
-                    <button type="submit" class="sm-btn" style="height: 36px; font-size: 12px; padding: 0 18px; background: #881337; border-radius: 9999px !important; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; box-shadow: 0 1px 3px rgba(136,19,55,0.2);">بحث وتصفية</button>
+                    <button type="submit" class="sm-btn" style="height: 36px; font-size: 12px; padding: 0 18px; background: #881337; border-radius: 9999px !important; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer; white-space: nowrap; flex-shrink: 0; box-shadow: 0 1px 3px rgba(136,19,55,0.2);">Search وFilter</button>
                     <?php if (!empty($_GET['s_query']) || (isset($_GET['sort_dir']) && $_GET['sort_dir'] === 'asc')): ?>
-                        <a href="<?php echo esc_url(remove_query_arg(array('s_query', 'filter_status', 'sort_dir'))); ?>" class="sm-btn sm-btn-outline" style="height: 36px; font-size: 11.5px; padding: 0 12px; border-radius: 9999px !important; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 700; flex-shrink: 0;" title="إلغاء التصفية">
-                            <span>إلغاء</span>
+                        <a href="<?php echo esc_url(remove_query_arg(array('s_query', 'filter_status', 'sort_dir'))); ?>" class="sm-btn sm-btn-outline" style="height: 36px; font-size: 11.5px; padding: 0 12px; border-radius: 9999px !important; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 700; flex-shrink: 0;" title="Cancel الFilter">
+                            <span>Cancel</span>
                             <span class="dashicons dashicons-dismiss" style="font-size: 12px; width: 12px; height: 12px; margin: 0;"></span>
                         </a>
                     <?php endif; ?>
@@ -871,12 +871,12 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         <tr style="background: #000000 !important; color: #ffffff !important;">
                             <th style="width: 40px; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">#</th>
                             <th style="width: 18%; text-align: right; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">المدرب ورقم الموظف</th>
-                            <th style="width: 22%; text-align: right; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">الأكاديمية الرياضية والمجموعات التدريبية المسندة</th>
+                            <th style="width: 22%; text-align: right; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">Academy الرياضية وTraining Groups المسندة</th>
                             <th style="width: 18%; text-align: right; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">عنوان الدرس</th>
                             <th style="width: 10%; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">الأسبوع الدراسي</th>
                             <th style="width: 10%; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">حالة التسليم</th>
-                            <th style="width: 10%; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">حالة الاعتماد</th>
-                            <th style="width: 12%; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">الإجراءات</th>
+                            <th style="width: 10%; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">حالة اNoعتماد</th>
+                            <th style="width: 12%; text-align: center; vertical-align: middle; color: #ffffff !important; background: #000000 !important;">الActions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -939,7 +939,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         if (empty($submissions)):
                         ?>
                         <tr>
-                            <td colspan="8" style="text-align: center; color: #94a3b8; padding: 25px; font-size: 13px;">لا توجد خطط تحضير مسجلة حالياً تطابق شروط التصفية.</td>
+                            <td colspan="8" style="text-align: center; color: #94a3b8; padding: 25px; font-size: 13px;">No توجد خطط تحضير مسجلة حالياً تطابق شروط الFilter.</td>
                         </tr>
                         <?php
                         else:
@@ -1001,7 +1001,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                 // School & Grade Assignments
                                 $teacher_school = get_user_meta($sub->teacher_id, 'eess_school_name', true);
                                 if (empty($teacher_school)) {
-                                    $teacher_school = get_user_meta($sub->teacher_id, 'sm_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+                                    $teacher_school = get_user_meta($sub->teacher_id, 'sm_school_name', true) ?: 'Academy الرياضية Home';
                                 }
 
                                 // Clean Grade Levels parsing: strip brackets [], quotes "", trailing commas, etc.
@@ -1130,11 +1130,11 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                     if (!empty($sub->reviewed_by)) {
                                         $rev_user = get_userdata($sub->reviewed_by);
                                         if ($rev_user) {
-                                            $approver_title = 'تم الاعتماد بواسطة: ' . $rev_user->display_name;
+                                            $approver_title = 'تم اNoعتماد بواسطة: ' . $rev_user->display_name;
                                         }
                                     }
                                     if (empty($approver_title)) {
-                                        $approver_title = 'معتمد من قبل إدارة الشؤون التعليمية والرقابة الأكاديمية';
+                                        $approver_title = 'معتمد من قبل إدارة الشؤون التعليمية والرقابة Academy';
                                     }
                                 }
 
@@ -1142,7 +1142,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                     'draft' => array('label' => 'مسودة', 'bg' => '#f1f5f9', 'color' => '#475569', 'border' => '#cbd5e1'),
                                     'submitted' => array('label' => 'قيد المراجعة', 'bg' => '#e0f2fe', 'color' => '#0284c7', 'border' => '#bae6fd'),
                                     'approved' => array('label' => 'معتمد', 'bg' => '#dcfce7', 'color' => '#15803d', 'border' => '#bbf7d0'),
-                                    'revision_required' => array('label' => 'طلب تعديل', 'bg' => '#ffedd5', 'color' => '#c2410c', 'border' => '#fed7aa'),
+                                    'revision_required' => array('label' => 'طلب Edit', 'bg' => '#ffedd5', 'color' => '#c2410c', 'border' => '#fed7aa'),
                                     'rejected' => array('label' => 'مرفوض', 'bg' => '#fee2e2', 'color' => '#b91c1c', 'border' => '#fecdd3'),
                                     'late' => array('label' => 'تسليم متأخر', 'bg' => '#ffedd5', 'color' => '#8b1e1e', 'border' => '#fed7aa'),
                                     'resubmitted' => array('label' => 'معدل ومستلم', 'bg' => '#e0f2fe', 'color' => '#0369a1', 'border' => '#bae6fd'),
@@ -1162,17 +1162,17 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                         </a>
 
                                         <!-- Download Uploaded File Button -->
-                                        <a href="<?php echo esc_url($sub_file_url); ?>" download title="تحميل ملف التحضير المرفوع الأصلي" class="sm-action-btn sm-action-btn-primary">
+                                        <a href="<?php echo esc_url($sub_file_url); ?>" download title="Upload ملف التحضير المرفوع الأصلي" class="sm-action-btn sm-action-btn-primary">
                                             <span class="dashicons dashicons-download"></span>
                                         </a>
                                     <?php else: ?>
                                         <!-- System Lesson Preview Button -->
-                                        <button onclick="smOpenPrepViewer(<?php echo $sub->id; ?>)" class="sm-action-btn sm-action-btn-neutral" title="عرض تفاصيل التحضير الكاملة">
+                                        <button onclick="smOpenPrepViewer(<?php echo $sub->id; ?>)" class="sm-action-btn sm-action-btn-neutral" title="View تفاصيل التحضير الكاملة">
                                             <span class="dashicons dashicons-visibility"></span>
                                         </button>
 
                                         <!-- Print PDF Button -->
-                                        <a href="<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=lesson_prep&prep_id=' . $sub->id); ?>" target="_blank" class="sm-action-btn sm-action-btn-neutral" title="طباعة أو تصدير وثيقة PDF المعتمدة">
+                                        <a href="<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=lesson_prep&prep_id=' . $sub->id); ?>" target="_blank" class="sm-action-btn sm-action-btn-neutral" title="Print أو Export وثيقة PDF المعتمدة">
                                             <span class="dashicons dashicons-printer"></span>
                                         </a>
                                     <?php endif; ?>
@@ -1184,14 +1184,14 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                         </button>
 
                                         <!-- Reject / Return Button -->
-                                        <button id="btn-reject-<?php echo $sub->id; ?>" onclick="eessOpenRejectPrepModal(<?php echo $sub->id; ?>, '<?php echo esc_js($sub->title); ?>')" class="sm-action-btn sm-action-btn-danger" title="رفض أو إعادة الدرس للمراجعة والتعديل">
+                                        <button id="btn-reject-<?php echo $sub->id; ?>" onclick="eessOpenRejectPrepModal(<?php echo $sub->id; ?>, '<?php echo esc_js($sub->title); ?>')" class="sm-action-btn sm-action-btn-danger" title="Reject أو إعادة الدرس للمراجعة والEdit">
                                             <span class="dashicons dashicons-no-alt"></span>
                                         </button>
                                     <?php endif; ?>
 
                                     <?php if ($is_teacher && ($sub->status === 'draft' || $sub->status === 'revision_required')): ?>
                                         <!-- Edit Button -->
-                                        <a href="<?php echo add_query_arg('edit_prep_id', $sub->id, home_url('/lesson-prep')); ?>" class="sm-action-btn sm-action-btn-warning" title="تعديل وثيقة التحضير">
+                                        <a href="<?php echo add_query_arg('edit_prep_id', $sub->id, home_url('/lesson-prep')); ?>" class="sm-action-btn sm-action-btn-warning" title="Edit وثيقة التحضير">
                                             <span class="dashicons dashicons-edit"></span>
                                         </a>
                                     <?php endif; ?>
@@ -1208,7 +1208,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                     $t_phone = get_user_meta($sub->teacher_id, 'phone_number', true) ?: (get_user_meta($sub->teacher_id, 'sm_phone', true) ?: (get_user_meta($sub->teacher_id, 'phone', true) ?: ''));
                                     $clean_phone = preg_replace('/[^0-9]/', '', $t_phone);
                                     if (empty($clean_phone) || strlen($clean_phone) < 8) $clean_phone = '971500000000';
-                                    $wa_msg = rawurlencode("السلام عليكم، كيف حالك؟\nتحية طيبة من نظام إدارة الأكاديميات الرياضية. نود التواصل معك بخصوص متابعتك التعليمية.");
+                                    $wa_msg = rawurlencode("السNoم عليكم، كيف حالك؟\nتحية طيبة من نظام إدارة الأكاديميات الرياضية. نود التواصل معك بخصوص متابعتك التعليمية.");
                                     $wa_url = "https://wa.me/" . $clean_phone . "?text=" . $wa_msg;
                                     ?>
                                     <a href="<?php echo esc_url($wa_url); ?>" target="_blank" onclick="eessMarkTeacherContacted(<?php echo $sub->teacher_id; ?>, 'prep', <?php echo $sub->id; ?>)" class="sm-action-btn sm-action-btn-success" title="تواصل مباشر عبر واتساب مع المدرب">
@@ -1216,7 +1216,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                                     </a>
 
                                     <!-- Delete Button (Far-Left in RTL) -->
-                                    <button onclick="smOpenDeletePrepModal(<?php echo $sub->id; ?>, '<?php echo esc_js($sub->title); ?>')" class="sm-action-btn sm-action-btn-danger" title="حذف التحضير نهائياً">
+                                    <button onclick="smOpenDeletePrepModal(<?php echo $sub->id; ?>, '<?php echo esc_js($sub->title); ?>')" class="sm-action-btn sm-action-btn-danger" title="Delete التحضير نهائياً">
                                         <span class="dashicons dashicons-trash"></span>
                                     </button>
                                 </div>
@@ -1259,15 +1259,15 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">موعد الإغلاق اليومي واستحقاق التأخير</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">موعد الClose اليومي واستحقاق التأخير</label>
                             <input type="time" name="submission_deadline" value="<?php echo esc_attr($prep_settings['submission_deadline'] ?? '10:00'); ?>" class="sm-input" style="height: 38px; font-size: 12px;">
                         </div>
 
                         <div>
                             <label class="sm-label" style="font-weight: 700; font-size: 12px;">استثناءات مادة التربية الرياضية</label>
                             <select name="pe_monday_only" class="sm-select" style="height: 38px; font-size: 12px;">
-                                <option value="yes" <?php selected(($prep_settings['pe_monday_only'] ?? 'yes') === 'yes'); ?>>نعم - تحضير الاثنين فقط لمعلمي الرياضة</option>
-                                <option value="no" <?php selected(($prep_settings['pe_monday_only'] ?? 'yes') === 'no'); ?>>لا - يعامل كباقي الأنشطة الرياضية</option>
+                                <option value="yes" <?php selected(($prep_settings['pe_monday_only'] ?? 'yes') === 'yes'); ?>>Yes - تحضير اNoثنين فقط لمعلمي الرياضة</option>
+                                <option value="no" <?php selected(($prep_settings['pe_monday_only'] ?? 'yes') === 'no'); ?>>No - يعامل كباقي Sports Activities</option>
                             </select>
                         </div>
 
@@ -1277,7 +1277,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">فترة التذكير قبل الإغلاق</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">فترة التذكير قبل الClose</label>
                             <select name="reminder_intervals" class="sm-select" style="height: 38px; font-size: 12px;">
                                 <option value="none" <?php selected(($prep_settings['reminder_intervals'] ?? '') === 'none'); ?>>إيقاف التذكير</option>
                                 <option value="30min" <?php selected(($prep_settings['reminder_intervals'] ?? '') === '30min'); ?>>قبل نصف ساعة</option>
@@ -1287,9 +1287,9 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">صلاحية التعديل القصيرة (عدد المرات)</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">صNoحية الEdit القصيرة (عدد المرات)</label>
                             <select name="revision_limits" class="sm-select" style="height: 38px; font-size: 12px;">
-                                <option value="0" <?php selected(($prep_settings['revision_limits'] ?? '0') === '0'); ?>>مفتوح (لا يوجد قيود)</option>
+                                <option value="0" <?php selected(($prep_settings['revision_limits'] ?? '0') === '0'); ?>>مفتوح (No يوجد قيود)</option>
                                 <option value="1" <?php selected(($prep_settings['revision_limits'] ?? '') === '1'); ?>>مرة واحدة كحد أقصى</option>
                                 <option value="2" <?php selected(($prep_settings['revision_limits'] ?? '') === '2'); ?>>مرتين كحد أقصى</option>
                                 <option value="3" <?php selected(($prep_settings['revision_limits'] ?? '') === '3'); ?>>3 مرات كحد أقصى</option>
@@ -1297,7 +1297,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">منهجية مسار الاعتماد والمراجعة</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">منهجية مسار اNoعتماد والمراجعة</label>
                             <select name="approval_workflow" class="sm-select" style="height: 38px; font-size: 12px;">
                                 <option value="single" <?php selected(($prep_settings['approval_workflow'] ?? 'single') === 'single'); ?>>اعتماد بخطوة واحدة (المشرف المباشر)</option>
                                 <option value="multi" <?php selected(($prep_settings['approval_workflow'] ?? '') === 'multi'); ?>>اعتماد متعدد الخطوات (المنسق ثم المشرف)</option>
@@ -1305,27 +1305,27 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">تخصيص وإدارة القالب الافتراضي</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">تخصيص وإدارة القالب اNoفتراضي</label>
                             <select name="template_mgmt" class="sm-select" style="height: 38px; font-size: 12px;">
                                 <option value="default" <?php selected(($prep_settings['template_mgmt'] ?? 'default') === 'default'); ?>>قالب تحضير مقسم (6 أقسام)</option>
                                 <option value="compact" <?php selected(($prep_settings['template_mgmt'] ?? '') === 'compact'); ?>>قالب مختصر مبسط</option>
-                                <option value="detailed" <?php selected(($prep_settings['template_mgmt'] ?? '') === 'detailed'); ?>>قالب متقدم مع مخرجات التعلم</option>
+                                <option value="detailed" <?php selected(($prep_settings['template_mgmt'] ?? '') === 'detailed'); ?>>قالب Advanced مع مخرجات التعلم</option>
                             </select>
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">التحديث التلقائي للحالة بعد الإغلاق</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">الUpdate التلقائي للحالة بعد الClose</label>
                             <select name="auto_status_updates" class="sm-select" style="height: 38px; font-size: 12px;">
-                                <option value="yes" <?php selected(($prep_settings['auto_status_updates'] ?? 'yes') === 'yes'); ?>>نعم - وسم كمتأخر تلقائياً بعد الإغلاق</option>
-                                <option value="no" <?php selected(($prep_settings['auto_status_updates'] ?? 'yes') === 'no'); ?>>لا - إبقاء الحالة دون تغيير تلقائي</option>
+                                <option value="yes" <?php selected(($prep_settings['auto_status_updates'] ?? 'yes') === 'yes'); ?>>Yes - وسم كمتأخر تلقائياً بعد الClose</option>
+                                <option value="no" <?php selected(($prep_settings['auto_status_updates'] ?? 'yes') === 'no'); ?>>No - إبقاء Status دون تغيير تلقائي</option>
                             </select>
                         </div>
 
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">إجراءات وقواعد التسليمات المتأخرة</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">Actions وقواعد التسليمات المتأخرة</label>
                             <select name="late_submission_rules" class="sm-select" style="height: 38px; font-size: 12px;">
-                                <option value="flag" <?php selected(($prep_settings['late_submission_rules'] ?? 'flag') === 'flag'); ?>>وضع علامة حمراء وتنبيه للمشرف</option>
-                                <option value="deduct" <?php selected(($prep_settings['late_submission_rules'] ?? '') === 'deduct'); ?>>وضع علامة وخصم من درجات التقييم</option>
+                                <option value="flag" <?php selected(($prep_settings['late_submission_rules'] ?? 'flag') === 'flag'); ?>>وضع عNoمة حمراء وتنبيه للمشرف</option>
+                                <option value="deduct" <?php selected(($prep_settings['late_submission_rules'] ?? '') === 'deduct'); ?>>وضع عNoمة وخصم من درجات التقييم</option>
                                 <option value="block" <?php selected(($prep_settings['late_submission_rules'] ?? '') === 'block'); ?>>منع وحظر التسليم المتأخر تماماً</option>
                             </select>
                         </div>
@@ -1334,13 +1334,13 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                             <label class="sm-label" style="font-weight: 700; font-size: 12px;">التزامن والتكامل مع التقويم الأكاديمي</label>
                             <select name="calendar_integration" class="sm-select" style="height: 38px; font-size: 12px;">
                                 <option value="no" <?php selected(($prep_settings['calendar_integration'] ?? 'no') === 'no'); ?>>إيقاف المزامنة</option>
-                                <option value="yes" <?php selected(($prep_settings['calendar_integration'] ?? 'no') === 'yes'); ?>>مزامنة تلقائية مع عطلات التقويم الرسمية</option>
+                                <option value="yes" <?php selected(($prep_settings['calendar_integration'] ?? 'no') === 'yes'); ?>>مزامنة تلقائية مع عطNoت التقويم الرسمية</option>
                             </select>
                         </div>
 
                         <!-- Notification Preferences Checkboxes -->
                         <div>
-                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">قنوات استلام تنبيهات وإشعارات التحضير</label>
+                            <label class="sm-label" style="font-weight: 700; font-size: 12px;">قنوات استNoم تنبيهات وإشعارات التحضير</label>
                             <div style="display:flex; flex-direction: column; gap:5px; background:#f8fafc; padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size: 11px;">
                                 <label style="display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
                                     <input type="checkbox" name="notification_prefs[]" value="email" <?php checked(in_array('email', $prep_settings['notification_prefs'] ?? array())); ?>> بريد إلكتروني رسمي
@@ -1358,7 +1358,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
                             <label class="sm-label" style="font-weight: 700; font-size: 12px;">أيام العمل والتحضير الأسبوعية المعتمدة</label>
                             <div style="display:flex; gap:12px; flex-wrap:wrap; background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #cbd5e1;">
                                 <?php
-                                $days_list = array('sun' => 'الأحد', 'mon' => 'الاثنين', 'tue' => 'الثلاثاء', 'wed' => 'الأربعاء', 'thu' => 'الخميس');
+                                $days_list = array('sun' => 'الأحد', 'mon' => 'اNoثنين', 'tue' => 'الثNoثاء', 'wed' => 'الأربعاء', 'thu' => 'الخميس');
                                 foreach ($days_list as $key => $lbl): ?>
                                     <label style="font-size:11px; display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
                                         <input type="checkbox" name="working_days[]" value="<?php echo $key; ?>" <?php checked(in_array($key, $prep_settings['working_days'] ?? array())); ?>> <?php echo $lbl; ?>
@@ -1369,8 +1369,8 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
 
                     </div>
                     <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                        <button type="submit" name="eess_save_prep_settings" class="sm-btn" style="width: auto; background: var(--sm-primary-color); height: 36px; padding: 0 20px; font-weight: bold; font-size: 12px;">حفظ وتطبيق هذه الإعدادات</button>
-                        <button type="button" onclick="document.getElementById('prep-settings-modal').style.display='none'" class="sm-btn sm-btn-outline" style="width: auto; height: 36px; padding: 0 15px; font-size: 12px;">إلغاء</button>
+                        <button type="submit" name="eess_save_prep_settings" class="sm-btn" style="width: auto; background: var(--sm-primary-color); height: 36px; padding: 0 20px; font-weight: bold; font-size: 12px;">Save وتطبيق هذه Settings</button>
+                        <button type="button" onclick="document.getElementById('prep-settings-modal').style.display='none'" class="sm-btn sm-btn-outline" style="width: auto; height: 36px; padding: 0 15px; font-size: 12px;">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -1386,19 +1386,19 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
         <div style="background: #dc2626; color: #ffffff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="dashicons dashicons-no-alt" style="font-size: 22px; width: 22px; height: 22px; color: #ffffff;"></span>
-                <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #ffffff;" id="reject_prep_modal_title">طلب تعديل / رفض التحضير</h3>
+                <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #ffffff;" id="reject_prep_modal_title">طلب Edit / Reject التحضير</h3>
             </div>
             <button type="button" onclick="document.getElementById('eess-reject-prep-modal').style.display='none'" style="background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer;">&times;</button>
         </div>
         <form onsubmit="eessSubmitRejectPrep(event)" style="padding: 24px;">
             <input type="hidden" id="reject_prep_id" value="0">
             <div style="margin-bottom: 16px;">
-                <label style="font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">أسباب الرفض / ملاحظات التعديل التربوي المطلوبة <span style="color:#ef4444;">*</span></label>
-                <textarea id="reject_prep_notes" required rows="4" class="sm-input" placeholder="اكتب الملاحظات والتوجيهات المطلوبة ليتمكن المدرب من استكمالها..." style="width: 100%; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px; font-size: 12.5px; box-sizing: border-box;"></textarea>
+                <label style="font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">أسباب الReject / Notes الEdit التربوي المطلوبة <span style="color:#ef4444;">*</span></label>
+                <textarea id="reject_prep_notes" required rows="4" class="sm-input" placeholder="اكتب الNotes والتوجيهات المطلوبة ليتمكن المدرب من استكمالها..." style="width: 100%; border-radius: 10px; border: 1px solid #cbd5e1; padding: 10px; font-size: 12.5px; box-sizing: border-box;"></textarea>
             </div>
             <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                <button type="submit" id="reject_prep_submit_btn" class="sm-btn" style="background: #dc2626; color: #ffffff !important; height: 38px; padding: 0 22px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">إرسال الملاحظات والرفض</button>
-                <button type="button" onclick="document.getElementById('eess-reject-prep-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">إلغاء</button>
+                <button type="submit" id="reject_prep_submit_btn" class="sm-btn" style="background: #dc2626; color: #ffffff !important; height: 38px; padding: 0 22px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">Send الNotes والReject</button>
+                <button type="button" onclick="document.getElementById('eess-reject-prep-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">Cancel</button>
             </div>
         </form>
     </div>
@@ -1423,7 +1423,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
         <div style="background: #0f172a; color: #ffffff; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span class="dashicons dashicons-edit" style="font-size: 20px; width: 20px; height: 20px; color: #38bdf8;"></span>
-                <h3 style="margin: 0; font-size: 15px; font-weight: 800; color: #ffffff;" id="eess_edit_prep_modal_title">تعديل حالة التسليم والموعد</h3>
+                <h3 style="margin: 0; font-size: 15px; font-weight: 800; color: #ffffff;" id="eess_edit_prep_modal_title">Edit حالة التسليم والموعد</h3>
             </div>
             <button type="button" onclick="document.getElementById('eess-edit-prep-status-modal').style.display='none'" style="background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer;">&times;</button>
         </div>
@@ -1431,25 +1431,25 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
             <input type="hidden" id="eess_edit_prep_id" value="0">
 
             <div style="margin-bottom: 14px;">
-                <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 5px; display: block;">حالة التسليم والاعتماد المباشر <span style="color:#ef4444;">*</span></label>
+                <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 5px; display: block;">حالة التسليم واNoعتماد المباشر <span style="color:#ef4444;">*</span></label>
                 <select id="eess_edit_prep_status" class="sm-input" style="height: 38px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12.5px; font-weight: 700;" required>
                     <option value="submitted">✓ في الموعد (مرفوع للمراجعة)</option>
                     <option value="late">⚠️ تسليم متأخر</option>
                     <option value="approved">✓ معتمد رسمياً</option>
-                    <option value="revision_required">⚠ طلب تعديل</option>
+                    <option value="revision_required">⚠ طلب Edit</option>
                     <option value="rejected">✗ مرفوض</option>
                     <option value="draft">مسودة</option>
                 </select>
             </div>
 
             <div style="margin-bottom: 18px;">
-                <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 5px; display: block;">تعديل تاريخ ووقت التسليم الفعلي <span style="color:#ef4444;">*</span></label>
+                <label style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 5px; display: block;">Edit تاريخ ووقت التسليم الفعلي <span style="color:#ef4444;">*</span></label>
                 <input type="datetime-local" id="eess_edit_prep_datetime" class="sm-input" style="height: 38px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px;" required>
             </div>
 
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button type="submit" id="eess_edit_prep_submit_btn" class="sm-btn" style="background: #0f172a; color: #ffffff !important; height: 36px; padding: 0 20px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">حفظ التعديلات</button>
-                <button type="button" onclick="document.getElementById('eess-edit-prep-status-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 36px; padding: 0 16px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">إلغاء</button>
+                <button type="submit" id="eess_edit_prep_submit_btn" class="sm-btn" style="background: #0f172a; color: #ffffff !important; height: 36px; padding: 0 20px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">Save الEditات</button>
+                <button type="button" onclick="document.getElementById('eess-edit-prep-status-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 36px; padding: 0 16px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">Cancel</button>
             </div>
         </form>
     </div>
@@ -1458,7 +1458,7 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
 <script>
 function eessOpenEditPrepStatusModal(prepId, title, currentStatus, currentDatetime) {
     document.getElementById('eess_edit_prep_id').value = prepId;
-    document.getElementById('eess_edit_prep_modal_title').innerText = 'تعديل حالة وتسليم: ' + title;
+    document.getElementById('eess_edit_prep_modal_title').innerText = 'Edit حالة وتسليم: ' + title;
     document.getElementById('eess_edit_prep_status').value = currentStatus || 'submitted';
     if (currentDatetime) {
         document.getElementById('eess_edit_prep_datetime').value = currentDatetime;
@@ -1476,7 +1476,7 @@ function eessSubmitEditPrepStatus(e) {
 
     var btn = document.getElementById('eess_edit_prep_submit_btn');
     btn.disabled = true;
-    btn.innerText = 'جاري الحفظ...';
+    btn.innerText = 'جاري الSave...';
 
     var formData = new FormData();
     formData.append('action', 'sm_update_prep_status_and_time');
@@ -1489,15 +1489,15 @@ function eessSubmitEditPrepStatus(e) {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'حفظ التعديلات';
+        btn.innerText = 'Save الEditات';
         if (res.success) {
             document.getElementById('eess-edit-prep-status-modal').style.display = 'none';
             if (typeof smShowNotification === 'function') {
-                smShowNotification(res.data.message || 'تم تحديث حالة وتاريخ تسليم التحضير بنجاح.');
+                smShowNotification(res.data.message || 'تم Update حالة وتاريخ تسليم التحضير بنجاح.');
             }
             setTimeout(() => location.reload(), 500);
         } else {
-            alert('خطأ: ' + (res.data || 'فشل تحديث البيانات.'));
+            alert('خطأ: ' + (res.data || 'فشل Update البيانات.'));
         }
     });
 }
@@ -1511,8 +1511,8 @@ function eessSubmitEditPrepStatus(e) {
             <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <span class="dashicons dashicons-download" style="font-size: 22px; width: 22px; height: 22px; color: #0f172a; margin-top: 2px;"></span>
                 <div>
-                    <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">تحميل أرشيف تقديم تقارير أعضاء هيئة التدريب والكادر بالجملة</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">تجميع وضغط كافة ملفات التحضيرات وتنزيل الملف المضغوط مباشرة.</p>
+                    <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">Upload أرشيف تقديم تقارير أعضاء هيئة التدريب والكادر بالجملة</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">تجميع وضغط كافة ملفات التحضيرات وDownload الملف المضغوط مباشرة.</p>
                 </div>
             </div>
             <button type="button" onclick="document.getElementById('eess-prep-bulk-download-modal').style.display='none'" style="background: none; border: none; color: #0f172a; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
@@ -1523,7 +1523,7 @@ function eessSubmitEditPrepStatus(e) {
             <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('eess_admin_action'); ?>">
 
             <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px;">نطاق وتحديد التنزيل المباشر:</label>
+                <label style="display: block; font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px;">نطاق وتحديد الDownload المباشر:</label>
                 <select name="scope_type" id="eess_prep_scope_type" onchange="eessUpdatePrepScopeFields(this.value)" class="sm-select" style="height: 40px; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 12px; font-size: 13px; width: 100%;">
                     <option value="all">كافة التحضيرات المعتمدة والمتاحة</option>
                     <option value="week">حسب الأسبوع المحدد</option>
@@ -1583,14 +1583,14 @@ function eessSubmitEditPrepStatus(e) {
                     <span class="dashicons dashicons-update spin" style="font-size: 18px; width: 18px; height: 18px;"></span>
                     <span id="eess_prep_bulk_loading_text">جاري تجميع وثائق التحضيرات والمستندات...</span>
                 </div>
-                <div style="font-size: 11.5px; color: #15803d; font-weight: 600; margin-top: 4px;">يرجى الانتظار داخل النافذة دون إغلاقها...</div>
+                <div style="font-size: 11.5px; color: #15803d; font-weight: 600; margin-top: 4px;">Please wait... داخل النافذة دون Closeها...</div>
             </div>
 
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                <button type="button" onclick="document.getElementById('eess-prep-bulk-download-modal').style.display='none'" class="sm-btn" style="background: #f1f5f9; color: #475569; height: 38px; padding: 0 18px; border-radius: 8px; font-weight: 700; border: 1px solid #cbd5e1; cursor: pointer;">إلغاء</button>
+                <button type="button" onclick="document.getElementById('eess-prep-bulk-download-modal').style.display='none'" class="sm-btn" style="background: #f1f5f9; color: #475569; height: 38px; padding: 0 18px; border-radius: 8px; font-weight: 700; border: 1px solid #cbd5e1; cursor: pointer;">Cancel</button>
                 <button type="submit" id="eess_prep_bulk_submit_btn" class="sm-btn" style="background: #0f172a; color: #ffffff; height: 38px; padding: 0 22px; border-radius: 9999px !important; font-weight: 800; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                     <span class="dashicons dashicons-download" style="font-size: 16px; width: 16px; height: 16px; margin: 0;"></span>
-                    <span>توليد وتحميل الأرشيف (ZIP)</span>
+                    <span>توليد وUpload الأرشيف (ZIP)</span>
                 </button>
             </div>
         </form>
@@ -1607,7 +1607,7 @@ function eessExecutePrepBulkDownloadInModal(e) {
 
     btn.disabled = true;
     loadingBox.style.display = 'block';
-    loadingText.innerText = 'جاري البحث واستدعاء وثائق التحضيرات...';
+    loadingText.innerText = 'جاري الSearch واستدعاء وثائق التحضيرات...';
 
     setTimeout(() => { loadingText.innerText = 'جاري ضغط الملفات وتكوين أرشيف ZIP الموحد...'; }, 1200);
 
@@ -1619,14 +1619,14 @@ function eessExecutePrepBulkDownloadInModal(e) {
         var contentType = response.headers.get('content-type') || '';
         if (contentType.includes('application/json')) {
             return response.json().then(data => {
-                throw new Error(data.data || 'حدث خطأ غير متوقع.');
+                throw new Error(data.data || 'An error occurred غير متوقع.');
             });
         }
         if (!response.ok) throw new Error('فشل توليد الأرشيف');
         return response.blob();
     })
     .then(blob => {
-        loadingText.innerText = 'جاري إتمام التنزيل المباشر...';
+        loadingText.innerText = 'جاري إتمام الDownload المباشر...';
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
         a.href = url;
@@ -1645,7 +1645,7 @@ function eessExecutePrepBulkDownloadInModal(e) {
     .catch(err => {
         btn.disabled = false;
         loadingBox.style.display = 'none';
-        alert(err.message || 'حدث خطأ أثناء تنزيل الملف المضغوط.');
+        alert(err.message || 'An error occurred أثناء Download الملف المضغوط.');
     });
 }
 </script>
@@ -1668,14 +1668,14 @@ function eessUpdatePrepScopeFields(scope) {
                 <span class="dashicons dashicons-building" style="font-size: 22px; width: 22px; height: 22px; color: #0f172a; margin-top: 2px;"></span>
                 <div>
                     <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">تقرير مدرسة محددة — تقديم تقارير أعضاء هيئة التدريب والكادر</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">توليد وطباعة التقرير التجميعي الرسمي للتحضيرات حسب الأكاديمية الرياضية والأسبوع الأكاديمي.</p>
+                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">توليد وPrint التقرير التجميعي الرسمي للتحضيرات حسب Academy الرياضية والأسبوع الأكاديمي.</p>
                 </div>
             </div>
             <button type="button" onclick="document.getElementById('eess-school-prep-report-modal').style.display='none'" style="background: none; border: none; color: #0f172a; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
         </div>
         <div style="padding: 24px;">
             <div style="margin-bottom: 14px;">
-                <label style="font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">اختر الأكاديمية الرياضية / المنظمة الرياضية التعليمية المستهدفة <span style="color:#ef4444;">*</span></label>
+                <label style="font-size: 12.5px; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">اختر Academy الرياضية / Organization الرياضية التعليمية المستهدفة <span style="color:#ef4444;">*</span></label>
                 <select id="eess_target_school_prep" onchange="eessFetchSchoolPrepWeeks()" class="sm-input" style="height: 34px; width: 100%; border-radius: 8px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 12px; font-weight: 700;">
                     <?php
                     $all_schools_list = class_exists('EESS_Org_Helper') ? EESS_Org_Helper::get_all_schools() : array();
@@ -1684,7 +1684,7 @@ function eessUpdatePrepScopeFields(scope) {
                             <option value="<?php echo esc_attr($sch->id); ?>"><?php echo esc_html($sch->name); ?></option>
                         <?php endforeach;
                     else: ?>
-                        <option value="1">الأكاديمية الرياضية الرئيسية</option>
+                        <option value="1">Academy الرياضية Home</option>
                     <?php endif; ?>
                 </select>
             </div>
@@ -1695,10 +1695,10 @@ function eessUpdatePrepScopeFields(scope) {
                 </select>
             </div>
             <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                <button type="button" onclick="document.getElementById('eess-school-prep-report-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 8px; border: 1px solid #cbd5e1; color: #475569; cursor: pointer; font-weight: 700;">إلغاء</button>
+                <button type="button" onclick="document.getElementById('eess-school-prep-report-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 8px; border: 1px solid #cbd5e1; color: #475569; cursor: pointer; font-weight: 700;">Cancel</button>
                 <button type="button" onclick="eessGenerateSchoolPrepReport()" class="sm-btn" style="background: #0f172a; color: #ffffff !important; height: 38px; padding: 0 22px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                     <span class="dashicons dashicons-printer" style="font-size: 16px; width: 16px; height: 16px; margin: 0;"></span>
-                    <span>طباعة التقرير الرسمي A4</span>
+                    <span>Print التقرير الرسمي A4</span>
                 </button>
             </div>
         </div>
@@ -1720,7 +1720,7 @@ function eessFetchSchoolPrepWeeks() {
     if (!schoolId) return;
 
     weekSelect.disabled = true;
-    weekSelect.innerHTML = '<option value="0">جاري تحميل الأسابيع المتاحة...</option>';
+    weekSelect.innerHTML = '<option value="0">جاري Upload الأسابيع المتاحة...</option>';
 
     var nonce = '<?php echo wp_create_nonce("eess_admin_action"); ?>';
     var url = '<?php echo admin_url("admin-ajax.php"); ?>?action=sm_get_school_prep_weeks&school_id=' + encodeURIComponent(schoolId) + '&nonce=' + encodeURIComponent(nonce);
@@ -1766,7 +1766,7 @@ function eessGenerateSchoolPrepReport() {
                 <span class="dashicons dashicons-user-freelance" style="font-size: 22px; width: 22px; height: 22px; color: #0f172a; margin-top: 2px;"></span>
                 <div>
                     <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">إسناد ورفع تحضير درس لمعلم</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">تحديد المدرب وتعيين عنوان وتاريخ الدرس مع الاعتماد التلقائي لتسكين النشاط الرياضي والمجموعات التدريبية.</p>
+                    <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b; font-weight: 500;">تحديد المدرب وتعيين عنوان وتاريخ الدرس مع اNoعتماد التلقائي لتسكين Sport Activity وTraining Groups.</p>
                 </div>
             </div>
             <button type="button" onclick="document.getElementById('eess-assign-prep-modal').style.display='none'" style="background: none; border: none; color: #0f172a; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
@@ -1779,7 +1779,7 @@ function eessGenerateSchoolPrepReport() {
                 $teacher_assignments_map = array();
                 foreach ($teachers_list as $t) {
                     $t_subj = get_user_meta($t->ID, 'sm_specialization', true) ?: (get_user_meta($t->ID, 'specialization', true) ?: (get_user_meta($t->ID, 'subject', true) ?: 'التربية البدنية والصحية'));
-                    $t_grade = get_user_meta($t->ID, 'sm_assigned_grades', true) ?: (get_user_meta($t->ID, 'eess_assigned_grades', true) ?: (get_user_meta($t->ID, 'sm_grade_level', true) ?: 'المجموعة التدريبية العاشر'));
+                    $t_grade = get_user_meta($t->ID, 'sm_assigned_grades', true) ?: (get_user_meta($t->ID, 'eess_assigned_grades', true) ?: (get_user_meta($t->ID, 'sm_grade_level', true) ?: 'Training Group العاشر'));
                     if (is_array($t_grade)) $t_grade = implode(',', $t_grade);
                     $t_grade_clean = str_replace(array('[', ']', '"', "'"), '', (string)$t_grade);
                     $teacher_assignments_map[$t->ID] = array('subject' => $t_subj, 'grade' => $t_grade_clean);
@@ -1795,8 +1795,8 @@ function eessGenerateSchoolPrepReport() {
 
             <!-- Auto-retrieved Teacher Metadata Display Capsule -->
             <div id="assign_prep_auto_meta_badge" style="display: none; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: #334155;">
-                <div>📚 <strong>النشاط الرياضي المسندة:</strong> <span id="assign_prep_auto_subj" style="color: #0284c7; font-weight: 800;">---</span></div>
-                <div style="margin-top: 4px;">🎓 <strong>المجموعة التدريبية المعتمد:</strong> <span id="assign_prep_auto_grade" style="color: #166534; font-weight: 800;">---</span></div>
+                <div>📚 <strong>Sport Activity المسندة:</strong> <span id="assign_prep_auto_subj" style="color: #0284c7; font-weight: 800;">---</span></div>
+                <div style="margin-top: 4px;">🎓 <strong>Training Group المعتمد:</strong> <span id="assign_prep_auto_grade" style="color: #166534; font-weight: 800;">---</span></div>
             </div>
 
             <input type="hidden" id="assign_prep_subject" value="">
@@ -1819,7 +1819,7 @@ function eessGenerateSchoolPrepReport() {
 
             <div style="display: flex; gap: 12px; justify-content: flex-end;">
                 <button type="submit" id="assign_prep_submit_btn" class="sm-btn" style="background: #0f172a; color: #ffffff !important; height: 38px; padding: 0 22px; font-weight: 800; border-radius: 9999px !important; border: none; cursor: pointer;">إسناد ورفع التحضير</button>
-                <button type="button" onclick="document.getElementById('eess-assign-prep-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">إلغاء</button>
+                <button type="button" onclick="document.getElementById('eess-assign-prep-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 18px; border-radius: 9999px !important; border: 1px solid #cbd5e1; color: #475569; cursor: pointer;">Cancel</button>
             </div>
         </form>
     </div>
@@ -1833,10 +1833,10 @@ function eessAutoFillTeacherPrepAssignment(tUid) {
     if (tUid && eessTeacherPrepMap[tUid]) {
         var info = eessTeacherPrepMap[tUid];
         document.getElementById('assign_prep_subject').value = info.subject || 'التربية البدنية';
-        document.getElementById('assign_prep_grade').value = info.grade || 'المجموعة التدريبية العاشر';
+        document.getElementById('assign_prep_grade').value = info.grade || 'Training Group العاشر';
 
         document.getElementById('assign_prep_auto_subj').innerText = info.subject || 'التربية البدنية';
-        document.getElementById('assign_prep_auto_grade').innerText = info.grade || 'المجموعة التدريبية العاشر';
+        document.getElementById('assign_prep_auto_grade').innerText = info.grade || 'Training Group العاشر';
         badge.style.display = 'block';
     } else {
         badge.style.display = 'none';
@@ -1924,8 +1924,8 @@ function eessSubmitAssignPrepForm(e) {
             <span class="dashicons dashicons-trash" style="font-size: 28px; width: 28px; height: 28px;"></span>
         </div>
 
-        <h3 style="margin: 0 0 8px 0; font-size: 17px; font-weight: 800; color: #0f172a;">تأكيد حذف وثيقة تحضير الدرس</h3>
-        <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b; line-height: 1.5;">هل أنت متأكد من رغبتك في حذف وثيقة التحضير التالية نهائياً؟ لا يمكن التراجع عن هذا الإجراء.</p>
+        <h3 style="margin: 0 0 8px 0; font-size: 17px; font-weight: 800; color: #0f172a;">Confirm Delete وثيقة تحضير الدرس</h3>
+        <p style="margin: 0 0 16px 0; font-size: 12.5px; color: #64748b; line-height: 1.5;">هل أنت متأكد من رغبتك في Delete وثيقة التحضير Nextة نهائياً؟ No يمكن التراجع عن هذا الإجراء.</p>
 
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; margin-bottom: 24px; font-weight: 700; font-size: 12px; color: #334155;" id="eess_delete_prep_title_display">
             <!-- Title filled dynamically -->
@@ -1933,8 +1933,8 @@ function eessSubmitAssignPrepForm(e) {
         <input type="hidden" id="eess_delete_prep_target_id" value="0">
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <button type="button" id="eess-btn-confirm-delete-prep" onclick="eessExecuteConfirmDeletePrep()" class="sm-btn" style="height: 40px; border-radius: 9999px !important; font-size: 13px; background: #dc2626; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer;">تأكيد الحذف</button>
-            <button type="button" onclick="document.getElementById('eess-delete-prep-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 40px; border-radius: 9999px !important; font-size: 13px; color: #475569; font-weight: 700; border: 1px solid #cbd5e1; background: #ffffff;">إلغاء</button>
+            <button type="button" id="eess-btn-confirm-delete-prep" onclick="eessExecuteConfirmDeletePrep()" class="sm-btn" style="height: 40px; border-radius: 9999px !important; font-size: 13px; background: #dc2626; color: #ffffff !important; font-weight: 800; border: none; cursor: pointer;">Confirm الDelete</button>
+            <button type="button" onclick="document.getElementById('eess-delete-prep-modal').style.display='none'" class="sm-btn sm-btn-outline" style="height: 40px; border-radius: 9999px !important; font-size: 13px; color: #475569; font-weight: 700; border: 1px solid #cbd5e1; background: #ffffff;">Cancel</button>
         </div>
     </div>
 </div>
@@ -1957,20 +1957,20 @@ function eessSubmitAssignPrepForm(e) {
                 </div>
 
                 <div style="margin-bottom: 12px;">
-                    <label class="sm-label" style="font-weight: 700; font-size: 12px;">القرار النهائي والاعتماد</label>
+                    <label class="sm-label" style="font-weight: 700; font-size: 12px;">القرار النهائي واNoعتماد</label>
                     <select name="prep_status_action" class="sm-select" required style="height: 38px; font-size: 12px;">
                         <option value="approved">✓ اعتماد وإجازة التحضير (معتمد)</option>
-                        <option value="revision_required">⚠ طلب مراجعة وتعديل (تعديل مطلوب)</option>
-                        <option value="rejected">✗ رفض وإلغاء وثيقة التحضير (مرفوض)</option>
+                        <option value="revision_required">⚠ طلب مراجعة وEdit (Edit مطلوب)</option>
+                        <option value="rejected">✗ Reject وCancel وثيقة التحضير (مرفوض)</option>
                     </select>
                 </div>
 
                 <div style="margin-bottom: 15px;">
-                    <label class="sm-label" style="font-weight: 700; font-size: 12px;">الملاحظات، التوصيات والتوجيهات الفنية</label>
+                    <label class="sm-label" style="font-weight: 700; font-size: 12px;">الNotes، التوصيات والتوجيهات الفنية</label>
                     <textarea name="supervisor_comment" class="sm-input" style="height: 80px; font-size: 12px;" placeholder="أدخل ملحوظاتك الفنية وتوجيهاتك للمعلم..."></textarea>
                 </div>
 
-                <button type="submit" name="eess_supervisor_action" class="sm-btn" style="background:#16a34a; width: 100%; height: 38px; font-weight: bold; font-size: 13px;">تطبيق القرار وحفظ الملاحظات</button>
+                <button type="submit" name="eess_supervisor_action" class="sm-btn" style="background:#16a34a; width: 100%; height: 38px; font-weight: bold; font-size: 13px;">تطبيق القرار وSave الNotes</button>
             </form>
         </div>
     </div>
@@ -1998,7 +1998,7 @@ function eessGoToPrepStage(stageNum) {
                 const docFile = document.getElementById('eess_prep_document_file');
                 const hasExistingFile = document.getElementById('eess_prep_file_status_preview') && document.getElementById('eess_prep_file_status_preview').style.display !== 'none';
                 if ((!docFile || !docFile.files || docFile.files.length === 0) && !hasExistingFile) {
-                    alert('يرجى اختيار ملف التحضير الجاهز (PDF أو Word) وتأكيد رفعه قبل المتابعة.');
+                    alert('يرجى اختيار ملف التحضير الجاهز (PDF أو Word) وConfirm رفعه قبل المتابعة.');
                     return;
                 }
             }
@@ -2041,7 +2041,7 @@ function eessGoToPrepStage(stageNum) {
                 const natAgenda = document.getElementById('eess_national_agenda').value.trim();
                 const crossSubj = document.getElementById('eess_cross_subject').value.trim();
                 if (!natAgenda || !crossSubj) {
-                    alert('يرجى استكمال بيانات الربط بالأجندة الوطنية والربط بالأنشطة الرياضية الأخرى (*).');
+                    alert('يرجى استكمال بيانات الربط بالأجندة الوطنية والربط بSports Activities الأخرى (*).');
                     return;
                 }
             }
@@ -2109,11 +2109,11 @@ function eessGoToPrepStage(stageNum) {
                 const fileName = (docFile && docFile.files && docFile.files[0]) ? docFile.files[0].name : 'وثيقة التحضير المرفقة';
 
                 summaryEl.innerHTML = `
-                    <div style="font-size:13.5px; font-weight:800; color:#0f172a; margin-bottom:12px; border-bottom:1px solid #cbd5e1; padding-bottom:8px;">ملخص إرسال تحضير درس جاهز (وثيقة مرفوعة):</div>
+                    <div style="font-size:13.5px; font-weight:800; color:#0f172a; margin-bottom:12px; border-bottom:1px solid #cbd5e1; padding-bottom:8px;">ملخص Send تحضير درس جاهز (وثيقة مرفوعة):</div>
                     <div style="margin-bottom:8px;">📌 <strong>عنوان التحضير:</strong> ${titleVal}</div>
-                    <div style="margin-bottom:8px;">📚 <strong>النشاط الرياضي والتاريخ:</strong> ${subjVal} — ${dateVal}</div>
+                    <div style="margin-bottom:8px;">📚 <strong>Sport Activity والتاريخ:</strong> ${subjVal} — ${dateVal}</div>
                     <div style="margin-bottom:8px;">📄 <strong>الملف المرفق:</strong> <span style="color:#0284c7; font-weight:800;">${fileName}</span></div>
-                    <div style="color:#16a34a; font-weight:800; margin-top:14px; background:#f0fdf4; padding:10px 14px; border-radius:8px; border:1px solid #bbf7d0;">✓ تم التحقق من المستند وجاهز للإرسال النهائي للمراجعة والاعتماد الرسميين.</div>
+                    <div style="color:#16a34a; font-weight:800; margin-top:14px; background:#f0fdf4; padding:10px 14px; border-radius:8px; border:1px solid #bbf7d0;">✓ تم التحقق من المستند وجاهز للSend النهائي للمراجعة واNoعتماد الرسميين.</div>
                 `;
             }
         } else {
@@ -2126,7 +2126,7 @@ function eessGoToPrepStage(stageNum) {
                 summaryEl.innerHTML = `
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; border-bottom:1px solid #cbd5e1; padding-bottom:10px; margin-bottom:12px;">
                         <div>📌 <strong>عنوان الدرس:</strong> ${titleVal}</div>
-                        <div>📚 <strong>النشاط الرياضي والتاريخ:</strong> ${subjVal} — ${dateVal}</div>
+                        <div>📚 <strong>Sport Activity والتاريخ:</strong> ${subjVal} — ${dateVal}</div>
                     </div>
                     <div style="margin-bottom:10px;"><strong>🎯 1. هدف الدرس:</strong><p style="margin:4px 0 0 0; color:#334155; background:#fff; padding:8px; border-radius:6px; border:1px solid #e2e8f0;">${document.getElementById('eess_objectives').value.replace(/\n/g, '<br>')}</p></div>
                     <div style="margin-bottom:10px;"><strong>🏃 2. مكونات الدرس البدني:</strong>
@@ -2139,7 +2139,7 @@ function eessGoToPrepStage(stageNum) {
                     </div>
                     <div><strong>🇦🇪 3. الروابط والربط التربوي:</strong>
                         <p style="margin:4px 0 0 0; color:#334155; font-size:12px;">• <strong>الأجندة الوطنية:</strong> ${document.getElementById('eess_national_agenda').value}</p>
-                        <p style="margin:2px 0 0 0; color:#334155; font-size:12px;">• <strong>الأنشطة الرياضية الأخرى:</strong> ${document.getElementById('eess_cross_subject').value}</p>
+                        <p style="margin:2px 0 0 0; color:#334155; font-size:12px;">• <strong>Sports Activities الأخرى:</strong> ${document.getElementById('eess_cross_subject').value}</p>
                     </div>
                 `;
             }
@@ -2203,15 +2203,15 @@ function smOpenPrepViewer(id) {
 
     const label1 = isPe ? 'الإعداد البدني (Physical Prep)' : 'الأهداف السلوكية والتعليمية';
     const label2 = isPe ? 'الإعداد المهاري (Skill Prep)' : 'التمهيد والتهيئة الحافزة';
-    const label3 = isPe ? 'النشاط الرئيسي/العملي (Main/Practical Activity)' : 'الاستراتيجيات والأنشطة والخطوات التعليمية الاستراتيجية';
-    const label4 = isPe ? 'الخاتمة والتهدئة (Cool-down & Closing)' : 'التقويم المجموعة التدريبيةي وأدوات القياس';
-    const label5 = isPe ? 'الواجبات أو التكليفات البدنية المقررة' : 'الواجبات المنزلية والمهام الأكاديمية';
-    const label6 = isPe ? 'توجيهات الأمن والسلامة والملاحظات' : 'ملاحظات تربوية وتأملات إضافية';
+    const label3 = isPe ? 'النشاط الرئيسي/العملي (Main/Practical Activity)' : 'اNoستراتيجيات والأActiveة والخطوات التعليمية اNoستراتيجية';
+    const label4 = isPe ? 'الخاتمة والتهدئة (Cool-down & Closing)' : 'التقويم Training Groupي وأدوات القياس';
+    const label5 = isPe ? 'الواجبات أو التكليفات البدنية المقررة' : 'الواجبات المنزلية والمهام Academy';
+    const label6 = isPe ? 'توجيهات Motherن والسNoمة والNotes' : 'Notes تربوية وتأمNoت إضافية';
 
     let html = `
         <div style="background:#f8fafc; padding: 12px; border-radius: 8px; border:1px solid #e2e8f0; margin-bottom:15px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size: 12px;">
-            <div><strong>النشاط الرياضي:</strong> ${data.subject}</div>
-            <div><strong>المجموعة التدريبية الدراسي:</strong> ${data.grade} (${data.section})</div>
+            <div><strong>Sport Activity:</strong> ${data.subject}</div>
+            <div><strong>Training Group الدراسي:</strong> ${data.grade} (${data.section})</div>
             <div><strong>تاريخ الدرس:</strong> ${data.date}</div>
         </div>
     `;
@@ -2222,7 +2222,7 @@ function smOpenPrepViewer(id) {
                 <div style="font-weight:800; color:#0369a1; font-size:13px; margin-bottom:8px;">📄 وثيقة التحضير المرفوعة للدرس:</div>
                 <a href="${data.file_url}" target="_blank" class="sm-btn" style="background:#0284c7; color:#fff !important; height:36px; padding:0 20px; font-size:12px; border-radius:9999px !important; text-decoration:none; font-weight:800; display:inline-flex; align-items:center; gap:6px;">
                     <span class="dashicons dashicons-visibility"></span>
-                    <span>معاينة وتحميل المستند المرفوع المعتمد</span>
+                    <span>معاينة وUpload المستند المرفوع المعتمد</span>
                 </a>
             </div>
         `;
@@ -2247,18 +2247,18 @@ function smOpenPrepViewer(id) {
         </div>
         <div style="margin-bottom: 12px; border-right: 3px solid #8b1e1e; padding-right:10px;">
             <h4 style="margin:0 0 3px 0; color:#8b1e1e; font-size:12px; font-weight:800;">${label5}</h4>
-            <p style="margin:0; font-size:12px;">${data.homework ? data.homework.replace(/\n/g, '<br>') : 'لا يوجد واجب صفي مقرر'}</p>
+            <p style="margin:0; font-size:12px;">${data.homework ? data.homework.replace(/\n/g, '<br>') : 'No يوجد واجب صفي مقرر'}</p>
         </div>
         <div style="margin-bottom: 12px; border-right: 3px solid #64748b; padding-right:10px;">
             <h4 style="margin:0 0 3px 0; color:#64748b; font-size:12px; font-weight:800;">${label6}</h4>
-            <p style="margin:0; font-size:12px;">${data.notes ? data.notes.replace(/\n/g, '<br>') : 'لا توجد ملاحظات إضافية'}</p>
+            <p style="margin:0; font-size:12px;">${data.notes ? data.notes.replace(/\n/g, '<br>') : 'No توجد Notes إضافية'}</p>
         </div>
     `;
 
     if (data.comments && data.comments.length > 0) {
         html += `
             <div style="margin-top: 20px; padding-top: 12px; border-top: 2px dashed #e2e8f0;">
-                <h4 style="margin: 0 0 10px 0; color:#dc2626; font-size:12px; font-weight:800;">سجل التوجيهات والملاحظات من المشرفين الرياضيين</h4>
+                <h4 style="margin: 0 0 10px 0; color:#dc2626; font-size:12px; font-weight:800;">سجل التوجيهات والNotes من المشرفين الرياضيين</h4>
                 <div style="display:flex; flex-direction:column; gap:8px;">
                     ${data.comments.map(c => `
                         <div style="background:#fff5f5; border:1px solid #fca5a5; padding:10px; border-radius:6px;">
@@ -2288,7 +2288,7 @@ function smOpenReviewModal(id, title) {
 function eessOpenRejectPrepModal(prepId, title) {
     document.getElementById('reject_prep_id').value = prepId;
     document.getElementById('reject_prep_notes').value = '';
-    document.getElementById('reject_prep_modal_title').innerText = 'طلب تعديل / رفض: ' + title;
+    document.getElementById('reject_prep_modal_title').innerText = 'طلب Edit / Reject: ' + title;
     document.getElementById('eess-reject-prep-modal').style.display = 'flex';
 }
 
@@ -2301,7 +2301,7 @@ function eessSubmitRejectPrep(e) {
 
     var btn = document.getElementById('reject_prep_submit_btn');
     btn.disabled = true;
-    btn.innerText = 'جاري الحفظ والرفض...';
+    btn.innerText = 'جاري الSave والReject...';
 
     var formData = new FormData();
     formData.append('action', 'eess_reject_lesson_prep');
@@ -2313,21 +2313,21 @@ function eessSubmitRejectPrep(e) {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'إرسال الملاحظات والرفض';
+        btn.innerText = 'Send الNotes والReject';
         if (res.success) {
             document.getElementById('eess-reject-prep-modal').style.display = 'none';
             if (typeof smShowNotification === 'function') {
-                smShowNotification('✓ تم تسجيل الملاحظات وإعادة تحضير الدرس بنجاح.');
+                smShowNotification('✓ تم تسجيل الNotes وإعادة تحضير الدرس بنجاح.');
             }
             var row = document.getElementById('prep-row-' + prepId);
             if (row) {
                 var badgeCell = row.cells[7];
                 if (badgeCell) {
-                    badgeCell.innerHTML = '<span style="display:inline-block; padding:2px 8px; border-radius:50px; font-size:10px; font-weight:bold; background:#ffedd5; color:#c2410c;">طلب تعديل</span>';
+                    badgeCell.innerHTML = '<span style="display:inline-block; padding:2px 8px; border-radius:50px; font-size:10px; font-weight:bold; background:#ffedd5; color:#c2410c;">طلب Edit</span>';
                 }
             }
         } else {
-            alert('خطأ: ' + (res.data || 'فشل تسجيل الرفض.'));
+            alert('خطأ: ' + (res.data || 'فشل تسجيل الReject.'));
         }
     });
 }
@@ -2335,7 +2335,7 @@ function eessSubmitRejectPrep(e) {
 window.smQuickApprovePrep = function(prepId) {
     if (!prepId) return;
 
-    var confirmMsg = 'هل أنت تأكد من التأكيد والموافقة على اعتماد تحضير الدرس المحدد؟';
+    var confirmMsg = 'هل أنت تأكد من الConfirm والApproveة على اعتماد تحضير الدرس المحدد؟';
     var runApproval = function() {
         var btn = document.getElementById('btn-approve-' + prepId);
         if (btn) btn.disabled = true;
@@ -2372,7 +2372,7 @@ window.smQuickApprovePrep = function(prepId) {
             }
         })
         .catch(err => {
-            alert('حدث خطأ في الاتصال بالخادم.');
+            alert('An error occurred في اNoتصال بالخادم.');
             if (btn) btn.disabled = false;
         });
     };
@@ -2399,7 +2399,7 @@ window.eessExecuteConfirmDeletePrep = function() {
 
     var btn = document.getElementById('eess-btn-confirm-delete-prep');
     btn.disabled = true;
-    btn.innerText = 'جاري الحذف...';
+    btn.innerText = 'جاري الDelete...';
 
     var formData = new FormData();
     formData.append('action', 'eess_bulk_lesson_action');
@@ -2411,19 +2411,19 @@ window.eessExecuteConfirmDeletePrep = function() {
     .then(r => r.json())
     .then(res => {
         btn.disabled = false;
-        btn.innerText = 'تأكيد الحذف النهائي';
+        btn.innerText = 'Confirm الDelete النهائي';
         document.getElementById('eess-delete-prep-modal').style.display = 'none';
 
         if (res.success) {
             if (typeof smShowNotification === 'function') {
-                smShowNotification('تم حذف وثيقة التحضير بنجاح');
+                smShowNotification('تم Delete وثيقة التحضير بنجاح');
             } else {
-                alert('تم حذف وثيقة التحضير بنجاح');
+                alert('تم Delete وثيقة التحضير بنجاح');
             }
             var row = document.getElementById('prep-row-' + prepId);
             if (row) row.remove();
         } else {
-            alert('خطأ: ' + (res.data || 'فشل حذف التحضير.'));
+            alert('خطأ: ' + (res.data || 'فشل Delete التحضير.'));
         }
     });
 };
@@ -2477,10 +2477,10 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
         <!-- Modal Header -->
         <div style="background: #1e293b; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
             <h3 id="eess-report-modal-title" style="margin: 0; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-                <span class="dashicons dashicons-analytics"></span> تقارير تقديم تقارير أعضاء هيئة التدريب والكادر والامتثال الأكاديمي
+                <span class="dashicons dashicons-analytics"></span> تقارير تقديم تقارير أعضاء هيئة التدريب والكادر واNoمتثال الأكاديمي
             </h3>
             <div style="display: flex; gap: 10px; align-items: center;">
-                <button onclick="window.print()" class="sm-btn" style="background: #475569; color: white; border: none; font-size: 11px; padding: 4px 12px; height: auto; cursor:pointer;">🖨️ طباعة التقرير</button>
+                <button onclick="window.print()" class="sm-btn" style="background: #475569; color: white; border: none; font-size: 11px; padding: 4px 12px; height: auto; cursor:pointer;">🖨️ Print التقرير</button>
                 <button type="button" onclick="document.getElementById('eess-prep-report-modal').style.display='none'" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
             </div>
         </div>
@@ -2494,11 +2494,11 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                 <div class="sm-table-container">
                     <table class="sm-table" id="table-rep-submitted" style="width: 100%;">
                         <thead>
-                            <tr><th>المدرب</th><th>عنوان التحضير</th><th>النشاط الرياضي</th><th>المجموعة التدريبية والفرقة</th><th>تاريخ الدرس</th><th>حالة الاعتماد</th></tr>
+                            <tr><th>المدرب</th><th>عنوان التحضير</th><th>Sport Activity</th><th>Training Group والفرقة</th><th>تاريخ الدرس</th><th>حالة اNoعتماد</th></tr>
                         </thead>
                         <tbody>
                             <?php if (empty($prep_report_submitted)): ?>
-                                <tr><td colspan="6" style="text-align: center; color: #94a3b8;">لا توجد تحضيرات مقدمة حتى الآن.</td></tr>
+                                <tr><td colspan="6" style="text-align: center; color: #94a3b8;">No توجد تحضيرات مقدمة حتى الآن.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($prep_report_submitted as $p): ?>
                                     <tr>
@@ -2587,7 +2587,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                     $tab_entry = array(
                         'user'          => $t,
                         'emp_number'    => get_user_meta($t->ID, 'eess_employee_number', true) ?: ($t->ID),
-                        'school_name'   => get_user_meta($t->ID, 'eess_school_name', true) ?: 'المنظمة الرياضية الرئيسية',
+                        'school_name'   => get_user_meta($t->ID, 'eess_school_name', true) ?: 'Organization الرياضية Home',
                         'grades_taught' => EESS_Org_Helper::format_assigned_grades($t->ID),
                         'subject'       => get_user_meta($t->ID, 'sm_specialization', true) ?: 'عام',
                         'total_missing' => count($m_weeks),
@@ -2607,12 +2607,12 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                 ?>
 
                 <div style="text-align: center; font-size: 12px; color: #334155; font-weight: 700; margin-bottom: 12px;">
-                    <div style="font-weight: 900; color: #0f172a;">الأسابيع الأكاديمية المستحقة المعتمدة</div>
+                    <div style="font-weight: 900; color: #0f172a;">الأسابيع Academy المستحقة المعتمدة</div>
                     <div style="font-weight: 900; color: #881337; font-size: 13px;">الأسبوع الأول إلى <?php echo esc_html($tab_range_end_title); ?></div>
                 </div>
 
                 <div style="background: #f8fafc; border-right: 4px solid #881337; padding: 12px 16px; border-radius: 8px; margin-bottom: 15px; font-size: 12px; color: #1e293b; line-height: 1.8; font-weight: 700;">
-                    <p style="margin: 0 0 8px 0;">يتضمن هذا التقرير كشف أعضاء هيئة التدريب والكادر والمدربين الذين لم يقوموا برفع تقديم تقارير أعضاء هيئة التدريب والكادر المطلوب لأسبوع أو أكثر من الأسابيع الأكاديمية المستحقة حتى تاريخه، وذلك للأسابيع من الأسبوع الأول إلى <?php echo esc_html($tab_range_end_title); ?>. وقد تم تحديد الأسابيع غير المسلّمة وفقًا للسجلات الفعلية بالمنظومة والتقويم الأكاديمي المعتمد، مع استثناء التحضير المتأخر الذي تم استكماله واعتماده.</p>
+                    <p style="margin: 0 0 8px 0;">يتضمن هذا التقرير كشف أعضاء هيئة التدريب والكادر والمدربين الذين لم يقوموا برفع تقديم تقارير أعضاء هيئة التدريب والكادر المطلوب لأسبوع أو أكثر من الأسابيع Academy المستحقة حتى تاريخه، وذلك للأسابيع من الأسبوع الأول إلى <?php echo esc_html($tab_range_end_title); ?>. وقد تم تحديد الأسابيع غير المسلّمة وفقًا للسجNoت الفعلية بالمنظومة والتقويم الأكاديمي المعتمد، مع استثناء التحضير المتأخر الذي تم استكماله واعتماده.</p>
                     <p style="margin: 0;">نرجو من المدربين وأعضاء هيئة التدريب والكادر الذين لديهم تحضير متأخر المبادرة إلى استكماله وتسليمه وفقًا للنموذج المعتمد، وذلك في أقرب وقت ممكن.</p>
                 </div>
 
@@ -2622,7 +2622,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                             <tr>
                                 <th style="width: 32px; text-align: center;">#</th>
                                 <th style="width: 35%;">اسم الموظف / المدرب</th>
-                                <th style="width: 30%;">الأكاديمية الرياضية والمجموعات التدريبية المكلّف بها</th>
+                                <th style="width: 30%;">Academy الرياضية وTraining Groups المكلّف بها</th>
                                 <th style="width: 35%;">تفاصيل الأسابيع غير المسلمة</th>
                             </tr>
                         </thead>
@@ -2630,7 +2630,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                             <?php if (empty($tab_non_submitters)): ?>
                                 <tr>
                                     <td colspan="4" style="text-align: center; color: #16a34a; font-weight: bold; padding: 20px;">
-                                        🎉 جميع المدربين قاموا بتقديم كافة تحضيرات الدروس المطلوبة لكافة الأسابيع الأكاديمية المستحقة بنجاح!
+                                        🎉 جميع المدربين قاموا بتقديم كافة تحضيرات الدروس المطلوبة لكافة الأسابيع Academy المستحقة بنجاح!
                                     </td>
                                 </tr>
                             <?php else:
@@ -2655,7 +2655,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                                     </td>
                                     <td>
                                         <div style="font-weight: 800; color: #0f172a; font-size: 11.5px;"><?php echo esc_html($ns['school_name']); ?></div>
-                                        <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">المجموعات التدريبية: <?php echo esc_html($ns['grades_taught']); ?></div>
+                                        <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">Training Groups: <?php echo esc_html($ns['grades_taught']); ?></div>
                                     </td>
                                     <td>
                                         <?php
@@ -2678,7 +2678,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                 </h4>
 
                 <div style="text-align: center; font-size: 12px; color: #334155; font-weight: 700; margin-bottom: 15px;">
-                    <div style="font-weight: 900; color: #0f172a; font-size: 12px;">الأسابيع الأكاديمية المستحقة المعتمدة</div>
+                    <div style="font-weight: 900; color: #0f172a; font-size: 12px;">الأسابيع Academy المستحقة المعتمدة</div>
                     <div style="font-weight: 900; color: #15803d; font-size: 13px; margin-top: 2px;">الأسبوع الأول إلى <?php echo esc_html($tab_range_end_title); ?></div>
                 </div>
 
@@ -2688,15 +2688,15 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                             <tr>
                                 <th style="width: 32px; text-align: center;">#</th>
                                 <th style="width: 35%;">اسم الموظف / المدرب</th>
-                                <th style="width: 30%;">الأكاديمية الرياضية والمجموعات التدريبية المكلّف بها</th>
-                                <th style="width: 35%; text-align: center;">حالة الالتزام والتغطية</th>
+                                <th style="width: 30%;">Academy الرياضية وTraining Groups المكلّف بها</th>
+                                <th style="width: 35%; text-align: center;">حالة اNoلتزام والتغطية</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($tab_compliant_teachers)): ?>
                                 <tr>
                                     <td colspan="4" style="text-align: center; color: #64748b; padding: 15px;">
-                                        لا يوجد كادر مستوفي لجميع الأسابيع حالياً.
+                                        No يوجد كادر مستوفي لجميع الأسابيع حالياً.
                                     </td>
                                 </tr>
                             <?php else:
@@ -2713,7 +2713,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                                     </td>
                                     <td style="text-align: right;">
                                         <div style="font-weight: 800; color: #0f172a; font-size: 11.5px;"><?php echo esc_html($cs['school_name']); ?></div>
-                                        <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">المجموعات التدريبية: <?php echo esc_html($cs['grades_taught']); ?></div>
+                                        <div style="color: #475569; font-size: 10.5px; font-weight: 700; margin-top: 2px;">Training Groups: <?php echo esc_html($cs['grades_taught']); ?></div>
                                     </td>
                                     <td style="text-align: center; vertical-align: middle;">
                                         <span style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 4px 14px; border-radius: 9999px; background: #dcfce7; color: #15803d; border: 1px solid #86efac; font-weight: 900; font-size: 11px;">
@@ -2731,15 +2731,15 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
 
             <!-- Report 3: By Institution -->
             <div id="rep-by_institution" class="eess-report-section" style="display: none;">
-                <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">🏫 إحصائيات التحضيرات حسب المنظمة الرياضية التعليمية</h4>
+                <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">🏫 إحصائيات التحضيرات حسب Organization الرياضية التعليمية</h4>
                 <div class="sm-table-container">
                     <table class="sm-table" id="table-rep-by-institution" style="width: 100%;">
                         <thead>
-                            <tr><th>اسم المنظمة الرياضية / الأكاديمية الرياضية</th><th>عدد التحضيرات المرفوعة</th></tr>
+                            <tr><th>اسم Organization الرياضية / Academy الرياضية</th><th>عدد التحضيرات المرفوعة</th></tr>
                         </thead>
                         <tbody>
                             <?php if (empty($prep_report_inst)): ?>
-                                <tr><td colspan="2" style="text-align: center; color: #94a3b8;">لا توجد بيانات متاحة.</td></tr>
+                                <tr><td colspan="2" style="text-align: center; color: #94a3b8;">No data found متاحة.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($prep_report_inst as $inst): ?>
                                     <tr><td style="font-weight: 700;"><?php echo esc_html($inst->inst); ?></td><td style="font-weight: bold; font-family: monospace; color: var(--sm-primary-color);"><?php echo $inst->cnt; ?> تحضير</td></tr>
@@ -2760,7 +2760,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                         </thead>
                         <tbody>
                             <?php if (empty($prep_report_dept)): ?>
-                                <tr><td colspan="2" style="text-align: center; color: #94a3b8;">لا توجد بيانات متاحة.</td></tr>
+                                <tr><td colspan="2" style="text-align: center; color: #94a3b8;">No data found متاحة.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($prep_report_dept as $dept): ?>
                                     <tr><td style="font-weight: 700;"><?php echo esc_html($dept->dept); ?></td><td style="font-weight: bold; font-family: monospace; color: var(--sm-primary-color);"><?php echo $dept->cnt; ?> تحضير</td></tr>
@@ -2773,15 +2773,15 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
 
             <!-- Report 5: By Subject -->
             <div id="rep-by_subject" class="eess-report-section" style="display: none;">
-                <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">📚 إحصائيات التحضيرات حسب الأنشطة الرياضية الدراسية</h4>
+                <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">📚 إحصائيات التحضيرات حسب Sports Activities الدراسية</h4>
                 <div class="sm-table-container">
                     <table class="sm-table" id="table-rep-by-subject" style="width: 100%;">
                         <thead>
-                            <tr><th>النشاط الرياضي الدراسية</th><th>عدد التحضيرات المرفوعة</th></tr>
+                            <tr><th>Sport Activity الدراسية</th><th>عدد التحضيرات المرفوعة</th></tr>
                         </thead>
                         <tbody>
                             <?php if (empty($prep_report_subject)): ?>
-                                <tr><td colspan="2" style="text-align: center; color: #94a3b8;">لا توجد بيانات متاحة للمواد الدراسية.</td></tr>
+                                <tr><td colspan="2" style="text-align: center; color: #94a3b8;">No data found متاحة للمواد الدراسية.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($prep_report_subject as $sub): ?>
                                     <tr><td style="font-weight: 700; color: var(--sm-primary-color);"><?php echo esc_html($sub->name); ?></td><td style="font-weight: bold; font-family: monospace;"><?php echo $sub->cnt; ?> تحضير</td></tr>
@@ -2821,7 +2821,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                         </thead>
                         <tbody>
                             <?php if (empty($prep_report_ranking)): ?>
-                                <tr><td colspan="3" style="text-align: center; color: #94a3b8;">لا توجد تحضيرات معتمدة بعد لتصنيفها.</td></tr>
+                                <tr><td colspan="3" style="text-align: center; color: #94a3b8;">No توجد تحضيرات معتمدة بعد لتصنيفها.</td></tr>
                             <?php else: ?>
                                 <?php $rank = 1; foreach ($prep_report_ranking as $teacher): ?>
                                     <tr>
@@ -2838,11 +2838,11 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
 
             <!-- Report 8: Compliance -->
             <div id="rep-compliance" class="eess-report-section" style="display: none;">
-                <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">📊 متوسطات الامتثال لنسب التقديم السنوية والدورية</h4>
+                <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">📊 Intermediateات اNoمتثال لنسب التقديم الAnnualة والدورية</h4>
                 <div style="background: #f8fafc; padding: 30px; border-radius: 12px; border: 1px solid #cbd5e1; text-align: center; max-width: 500px; margin: 0 auto;">
-                    <span style="font-size: 15px; color: #475569; font-weight: bold; display: block; margin-bottom: 10px;">📊 متوسط امتثال المدربين والمؤسسات العام</span>
+                    <span style="font-size: 15px; color: #475569; font-weight: bold; display: block; margin-bottom: 10px;">📊 Intermediate امتثال المدربين والمؤسسات العام</span>
                     <strong style="font-size: 3.5rem; color: #16a34a; font-family: monospace;"><?php echo $submission_pct; ?>%</strong>
-                    <p style="margin: 15px 0 0 0; font-size: 13px; color: #64748b; line-height: 1.6;">تُقاس هذه النسبة بناءً على عدد التحضيرات المقدمة مقارنةً بإجمالي التحضيرات المترقبة من الكادر الأكاديمي والتعليمي النشط بالمنظومة.</p>
+                    <p style="margin: 15px 0 0 0; font-size: 13px; color: #64748b; line-height: 1.6;">تُقاس هذه النسبة بناءً على عدد التحضيرات المقدمة مقارنةً بإجمالي التحضيرات المترقبة من الكادر الأكاديمي والتعليمي الActive بالمنظومة.</p>
                 </div>
             </div>
 
@@ -2851,7 +2851,7 @@ $prep_report_total_late = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}sm
                 <h4 style="margin: 0 0 15px 0; color: #1e293b; font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">⏱️ إحصائيات التأخر ومهل التسليم للتحضيرات</h4>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
                     <div style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
-                        <span style="font-size: 13px; color: #64748b; font-weight: bold; display: block; margin-bottom: 5px;">متوسط زمن تأخير التسليم</span>
+                        <span style="font-size: 13px; color: #64748b; font-weight: bold; display: block; margin-bottom: 5px;">Intermediate زمن تأخير التسليم</span>
                         <strong style="font-size: 26px; color: #dc2626; font-family: monospace;"><?php echo round($prep_report_avg_late); ?> دقيقة</strong>
                     </div>
                     <div style="background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">

@@ -16,7 +16,7 @@
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <button onclick="document.getElementById('add-doc-modal').style.display='flex'" class="sm-btn" style="background: #881337; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 20px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                 <span class="dashicons dashicons-plus-alt2" style="font-size: 15px; width: 15px; height: 15px; color: #fff;"></span>
-                <span>إضافة مستند جديد</span>
+                <span>Add مستند جديد</span>
             </button>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <button class="sm-tab-btn sm-active" onclick="smOpenInternalTab('doc-library-tab', this)">مكتبة الوثائق الخاصة والتقارير</button>
         <button class="sm-tab-btn" onclick="smOpenInternalTab('general-doc-library-tab', this)">مكتبة الوثائق والتقارير العامة</button>
         <?php if (!$is_teacher_role && current_user_can('تسجيل_مخالفة')): ?>
-            <button class="sm-tab-btn" onclick="smOpenInternalTab('regulation-custom-tab', this)">تخصيص اللائحة التنظيمية</button>
+            <button class="sm-tab-btn" onclick="smOpenInternalTab('regulation-custom-tab', this)">تخصيص الNoئحة التنظيمية</button>
         <?php endif; ?>
     </div>
 
@@ -49,8 +49,8 @@
     $doc_categories = array(
         'الوثائق الإدارية',
         'مستندات الموارد البشرية',
-        'شؤون اللاعبين',
-        'الوثائق الأكاديمية',
+        'Player Affairs',
+        'الوثائق Academy',
         'التعاميم الرسمية',
         'النماذج والقوالب',
         'السياسات واللوائح',
@@ -61,8 +61,8 @@
     <!-- Instant Search and Filter Bar -->
     <div style="background: #f8fafc; padding: 18px; border-radius: 12px; border: 1px solid #cbd5e0; margin-bottom: 25px; display: grid; grid-template-columns: 2fr 1fr; gap: 15px; direction: rtl;">
         <div>
-            <label class="sm-label" style="font-weight: 700; font-size: 12px;">البحث الفوري عن وثيقة</label>
-            <input type="text" id="doc-instant-search" onkeyup="eessFilterDocuments()" placeholder="ابحث باسم الوثيقة أو الوصف..." class="sm-input" style="height: 38px; font-size: 12px; width: 100%;">
+            <label class="sm-label" style="font-weight: 700; font-size: 12px;">الSearch الفوري عن وثيقة</label>
+            <input type="text" id="doc-instant-search" onkeyup="eessFilterDocuments()" placeholder="اSearch باسم الوثيقة أو الوصف..." class="sm-input" style="height: 38px; font-size: 12px; width: 100%;">
         </div>
         <div>
             <label class="sm-label" style="font-weight: 700; font-size: 12px;">تصنيف الوثيقة</label>
@@ -79,7 +79,7 @@
         <?php if (empty($docs)): ?>
             <div style="grid-column: 1 / -1; background: #f8fafc; padding: 60px; border-radius: 12px; text-align: center; border: 2px dashed #e2e8f0;">
                 <span class="dashicons dashicons-media-document" style="font-size: 50px; width: 50px; height: 50px; color: #cbd5e0; margin-bottom: 15px;"></span>
-                <p style="color: #718096; font-weight: 700;">لا توجد مستندات متاحة حالياً في المكتبة.</p>
+                <p style="color: #718096; font-weight: 700;">No توجد مستندات متاحة حالياً في المكتبة.</p>
             </div>
         <?php else: ?>
             <?php foreach ($docs as $doc): ?>
@@ -104,20 +104,20 @@
                     </div>
                     <div style="padding: 20px;">
                         <p style="margin: 0 0 20px 0; font-size: 13px; color: #4a5568; line-height: 1.6; height: 42px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                            <?php echo esc_html($doc->description ?: 'لا يوجد وصف متاح لهذا المستند.'); ?>
+                            <?php echo esc_html($doc->description ?: 'No يوجد وصف متاح لهذا المستند.'); ?>
                         </p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <a href="<?php echo esc_url($doc->file_url); ?>" download class="sm-btn" style="height: 38px; font-size: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <span class="dashicons dashicons-download"></span> تحميل الملف
+                                <span class="dashicons dashicons-download"></span> Upload الملف
                             </a>
                             <button onclick="printPDF('<?php echo esc_url($doc->file_url); ?>')" class="sm-btn sm-btn-outline" style="height: 38px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                <span class="dashicons dashicons-printer"></span> طباعة فورية
+                                <span class="dashicons dashicons-printer"></span> Print فورية
                             </button>
                         </div>
                         <?php if (current_user_can('إدارة_النظام')): ?>
                             <div style="margin-top: 15px; font-size: 11px; text-align: center;">
                                 <span style="padding: 2px 10px; border-radius: 20px; <?php echo $doc->status === 'published' ? 'background: #f0fff4; color: #2f855a; border: 1px solid #c6f6d5;' : 'background: #fff5f5; color: #c53030; border: 1px solid #fed7d7;'; ?>">
-                                    <?php echo $doc->status === 'published' ? 'منشور للجميع' : 'مخفي عن المستخدمين'; ?>
+                                    <?php echo $doc->status === 'published' ? 'منشور للجميع' : 'مخفي عن Users'; ?>
                                 </span>
                             </div>
                         <?php endif; ?>
@@ -131,7 +131,7 @@
     <div id="add-doc-modal" class="sm-modal-overlay">
         <div class="sm-modal-content" style="max-width: 500px;">
             <div class="sm-modal-header">
-                <h3>إضافة مستند جديد للمكتبة</h3>
+                <h3>Add مستند جديد للمكتبة</h3>
                 <button class="sm-modal-close" onclick="document.getElementById('add-doc-modal').style.display='none'">&times;</button>
             </div>
             <form id="add-doc-form">
@@ -167,8 +167,8 @@
                     </select>
                 </div>
                 <div style="margin-top: 25px; display: flex; gap: 10px;">
-                    <button type="submit" class="sm-btn">حفظ في المكتبة</button>
-                    <button type="button" onclick="document.getElementById('add-doc-modal').style.display='none'" class="sm-btn sm-btn-outline">إلغاء</button>
+                    <button type="submit" class="sm-btn">Save في المكتبة</button>
+                    <button type="button" onclick="document.getElementById('add-doc-modal').style.display='none'" class="sm-btn sm-btn-outline">Cancel</button>
                 </div>
             </form>
         </div>
@@ -178,7 +178,7 @@
     <div id="edit-doc-modal" class="sm-modal-overlay">
         <div class="sm-modal-content" style="max-width: 500px;">
             <div class="sm-modal-header">
-                <h3>تعديل بيانات المستند</h3>
+                <h3>Edit بيانات المستند</h3>
                 <button class="sm-modal-close" onclick="document.getElementById('edit-doc-modal').style.display='none'">&times;</button>
             </div>
             <form id="edit-doc-form">
@@ -215,8 +215,8 @@
                     </select>
                 </div>
                 <div style="margin-top: 25px; display: flex; gap: 10px;">
-                    <button type="submit" class="sm-btn">تحديث البيانات</button>
-                    <button type="button" onclick="document.getElementById('edit-doc-modal').style.display='none'" class="sm-btn sm-btn-outline">إلغاء</button>
+                    <button type="submit" class="sm-btn">Update البيانات</button>
+                    <button type="button" onclick="document.getElementById('edit-doc-modal').style.display='none'" class="sm-btn sm-btn-outline">Cancel</button>
                 </div>
             </form>
         </div>
@@ -240,7 +240,7 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تمت إضافة المستند بنجاح');
+                smShowNotification('تمت Add المستند بنجاح');
                 location.reload();
             } else {
                 smShowNotification('خطأ: ' + res.data, true);
@@ -290,7 +290,7 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تم تحديث بيانات المستند');
+                smShowNotification('تم Update بيانات المستند');
                 location.reload();
             } else {
                 smShowNotification('خطأ: ' + res.data, true);
@@ -299,7 +299,7 @@
     });
 
     window.deleteDoc = function(id) {
-        if (!confirm('هل أنت متأكد من حذف هذا المستند نهائياً؟')) return;
+        if (!confirm('هل أنت متأكد من Delete هذا المستند نهائياً؟')) return;
         const formData = new FormData();
         formData.append('action', 'sm_delete_document_ajax');
         formData.append('doc_id', id);
@@ -309,7 +309,7 @@
         .then(r => r.json())
         .then(res => {
             if (res.success) {
-                smShowNotification('تم حذف المستند بنجاح');
+                smShowNotification('تم Delete المستند بنجاح');
                 location.reload();
             }
         });
@@ -329,8 +329,8 @@
         ?>
         <div style="background: #f8fafc; padding: 18px; border-radius: 12px; border: 1px solid #cbd5e0; margin-bottom: 25px; display: grid; grid-template-columns: 2fr 1fr; gap: 15px; direction: rtl;">
             <div>
-                <label class="sm-label" style="font-weight: 700; font-size: 12px;">البحث الفوري بالتقارير والمستندات العامة</label>
-                <input type="text" id="gen-doc-instant-search" onkeyup="eessFilterGeneralDocuments()" placeholder="ابحث باسم الوثيقة أو التقرير العام..." class="sm-input" style="height: 38px; font-size: 12px; width: 100%;">
+                <label class="sm-label" style="font-weight: 700; font-size: 12px;">الSearch الفوري بالتقارير والمستندات العامة</label>
+                <input type="text" id="gen-doc-instant-search" onkeyup="eessFilterGeneralDocuments()" placeholder="اSearch باسم الوثيقة أو التقرير العام..." class="sm-input" style="height: 38px; font-size: 12px; width: 100%;">
             </div>
             <div>
                 <label class="sm-label" style="font-weight: 700; font-size: 12px;">التصنيف العام</label>
@@ -347,7 +347,7 @@
             <?php if (empty($gen_docs)): ?>
                 <div style="grid-column: 1 / -1; background: #f8fafc; padding: 60px; border-radius: 12px; text-align: center; border: 2px dashed #e2e8f0;">
                     <span class="dashicons dashicons-pdf" style="font-size: 50px; width: 50px; height: 50px; color: #cbd5e0; margin-bottom: 15px;"></span>
-                    <p style="color: #718096; font-weight: 700;">لا توجد وثائق عامة أو تقارير عامة عامة حالياً.</p>
+                    <p style="color: #718096; font-weight: 700;">No توجد وثائق عامة أو تقارير عامة عامة حالياً.</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($gen_docs as $gdoc): ?>
@@ -364,7 +364,7 @@
                                 </div>
                             </div>
                             <a href="<?php echo esc_url($gdoc->file_url); ?>" target="_blank" class="sm-btn" style="height: 32px; padding: 0 12px; font-size: 11px; background: #059669; color: white !important; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 800;">
-                                <span class="dashicons dashicons-download"></span> تحميل
+                                <span class="dashicons dashicons-download"></span> Upload
                             </a>
                         </div>
                     </div>
@@ -406,17 +406,17 @@
                     </div>
                     <div class="sm-form-group">
                         <?php $actions = SM_Settings::get_suggested_actions(); ?>
-                        <label class="sm-label">اقتراحات الإجراءات (كل سطر خيار):</label>
+                        <label class="sm-label">اقتراحات الActions (كل سطر خيار):</label>
                         <div style="font-size:11px; margin-bottom:5px;">منخفضة:</div>
                         <textarea name="suggested_low" class="sm-textarea" rows="2" <?php if (!$can_edit_regulation) echo 'readonly'; ?>><?php echo esc_textarea($actions['low']); ?></textarea>
-                        <div style="font-size:11px; margin-top:5px; margin-bottom:5px;">متوسطة:</div>
+                        <div style="font-size:11px; margin-top:5px; margin-bottom:5px;">Intermediateة:</div>
                         <textarea name="suggested_medium" class="sm-textarea" rows="2" <?php if (!$can_edit_regulation) echo 'readonly'; ?>><?php echo esc_textarea($actions['medium']); ?></textarea>
                         <div style="font-size:11px; margin-top:5px; margin-bottom:5px;">خطيرة:</div>
                         <textarea name="suggested_high" class="sm-textarea" rows="2" <?php if (!$can_edit_regulation) echo 'readonly'; ?>><?php echo esc_textarea($actions['high']); ?></textarea>
                     </div>
                 </div>
                 <?php if ($can_edit_regulation): ?>
-                    <button type="submit" class="sm-btn" style="width:auto;">حفظ إعدادات المخالفات</button>
+                    <button type="submit" class="sm-btn" style="width:auto;">Save إعدادات المخالفات</button>
                 <?php endif; ?>
             </form>
         </div>
@@ -425,13 +425,13 @@
             <?php wp_nonce_field('sm_admin_action', 'sm_nonce');
             $h_violations = SM_Settings::get_hierarchical_violations();
             ?>
-            <h4 style="margin-top:0;">إدارة اللائحة التنظيمية والمخالفات الهرمية</h4>
-            <p style="font-size:12px; color:#666; margin-bottom:20px;">تعديل تفاصيل المخالفات، النقاط المستحقة، والإجراءات الافتراضية لكل مستوى. التغييرات تطبق فوراً عبر النظام.</p>
+            <h4 style="margin-top:0;">إدارة الNoئحة التنظيمية والمخالفات الهرمية</h4>
+            <p style="font-size:12px; color:#666; margin-bottom:20px;">Edit تفاصيل المخالفات، النقاط المستحقة، والActions اNoفتراضية لكل Level. التغييرات تطبق فوراً عبر النظام.</p>
 
             <?php for($i=1; $i<=4; $i++): ?>
                 <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:20px; margin-bottom:20px;">
                     <div style="font-weight:800; color:var(--sm-primary-color); margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
-                        <span>المستوى <?php echo $i; ?> (الدرجة <?php echo $i; ?>)</span>
+                        <span>الLevel <?php echo $i; ?> (الدرجة <?php echo $i; ?>)</span>
                         <span style="font-size:11px; background:#fff; padding:2px 10px; border-radius:4px; color:#666; border:1px solid #ddd;">المخالفات: <?php echo count($h_violations[$i]); ?></span>
                     </div>
                     <div style="display:grid; grid-template-columns: 80px 1fr 60px 1fr <?php echo $can_edit_regulation ? 'auto' : ''; ?>; gap:10px; font-weight:700; font-size:11px; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
@@ -455,13 +455,13 @@
                         <?php endforeach; ?>
                     </div>
                     <?php if ($can_edit_regulation): ?>
-                        <button type="button" class="sm-btn sm-btn-outline" style="font-size:11px; margin-top:10px;" onclick="addViolationRow(<?php echo $i; ?>, this)">+ إضافة بند جديد للمستوى <?php echo $i; ?></button>
+                        <button type="button" class="sm-btn sm-btn-outline" style="font-size:11px; margin-top:10px;" onclick="addViolationRow(<?php echo $i; ?>, this)">+ Add بند جديد للLevel <?php echo $i; ?></button>
                     <?php endif; ?>
                 </div>
             <?php endfor; ?>
 
             <?php if ($can_edit_regulation): ?>
-                <button type="submit" class="sm-btn" style="width:auto; margin-top:10px;">حفظ اللائحة بالكامل</button>
+                <button type="submit" class="sm-btn" style="width:auto; margin-top:10px;">Save الNoئحة بالكامل</button>
             <?php endif; ?>
         </form>
     </div>
@@ -491,7 +491,7 @@
                 formData.append('action', 'sm_save_regulation_settings_ajax');
                 fetch('<?php echo admin_url('admin-ajax.php'); ?>', { method: 'POST', body: formData })
                 .then(r => r.json()).then(res => {
-                    if (res.success) smShowNotification('تم حفظ الإعدادات بنجاح');
+                    if (res.success) smShowNotification('تم Save Settings بنجاح');
                 });
             };
         }
@@ -504,7 +504,7 @@
                 formData.append('action', 'sm_save_hierarchical_violations_ajax');
                 fetch('<?php echo admin_url('admin-ajax.php'); ?>', { method: 'POST', body: formData })
                 .then(r => r.json()).then(res => {
-                    if (res.success) smShowNotification('تم تحديث اللائحة بنجاح وتطبيقها على النظام');
+                    if (res.success) smShowNotification('تم Update الNoئحة بنجاح وتطبيقها على النظام');
                 });
             };
         }

@@ -6,12 +6,12 @@ $user_id = get_current_user_id();
 
 $roles_list = array(
     'sm_system_admin'              => 'مدير النظام',
-    'sm_principal'                 => 'مدير الأكاديمية الرياضية',
+    'sm_principal'                 => 'مدير Academy الرياضية',
     'sm_supervisor'                => 'المشرف الرياضي',
-    'sm_discipline_supervisor'     => 'مشرف الانضباط السلوكي',
-    'sm_activities_supervisor'     => 'مشرف الأنشطة',
-    'sm_transportation_supervisor' => 'مشرف النقل والمواصلات',
-    'sm_coordinator'               => 'منسق النشاط الرياضي',
+    'sm_discipline_supervisor'     => 'مشرف اNoنضباط السلوكي',
+    'sm_activities_supervisor'     => 'مشرف الأActiveة',
+    'sm_transportation_supervisor' => 'مشرف النقل والمواصNoت',
+    'sm_coordinator'               => 'منسق Sport Activity',
     'sm_teacher'                   => 'معلم',
     'sm_bus_supervisor'            => 'مشرف الحافلة',
     'sm_parent'                    => 'ولي أمر'
@@ -44,8 +44,8 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                 <span class="dashicons dashicons-admin-generic" style="font-size: 24px; width: 24px; height: 24px;"></span>
             </div>
             <div>
-                <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #0f172a;">إعدادات النظام والتعاميم الإدارية</h2>
-                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">إدارة إعدادات المنصة، الهوية البصرية، التعاميم الإدارية ومكتبة المدخلات التعليمية</p>
+                <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #0f172a;">System Settings والتعاميم الإدارية</h2>
+                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">إدارة إعدادات المنصة، الهوية البصرية، التعاميم الإدارية ومكتبة المدخNoت التعليمية</p>
             </div>
         </div>
 
@@ -53,7 +53,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <button type="button" onclick="document.getElementById('eess-announcement-form').scrollIntoView({behavior: 'smooth'})" class="sm-btn" style="background: #881337; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 20px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                 <span class="dashicons dashicons-mega" style="font-size: 15px; width: 15px; height: 15px; color: #fff;"></span>
-                <span>إضافة تعميم جديد</span>
+                <span>Add تعميم جديد</span>
             </button>
         </div>
     </div>
@@ -62,7 +62,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
     <div style="background: #ffffff; border-radius: 14px; padding: 16px 18px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 16px;">
         <h3 style="margin: 0 0 20px 0; font-size: 16px; font-weight: 800; color: #0f172a; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; display: flex; align-items: center; gap: 8px;">
             <span class="dashicons dashicons-plus-alt" style="color: #2563eb;"></span>
-            إضافة إعلان أو تعميم إداري جديد
+            Add إعNoن أو تعميم إداري جديد
         </h3>
 
         <form id="eess-announcement-form" onsubmit="eessCreateAnnouncement(event)">
@@ -71,7 +71,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
             <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px;">
                 <div>
                     <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">عنوان الإشعار / التعميم <span style="color:#ef4444;">*</span></label>
-                    <input type="text" name="title" required placeholder="مثال: تنبيه هام بشأن مواعيد الاختبارات النصفية" style="width: 100%; height: 34px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 12px; box-sizing: border-box;">
+                    <input type="text" name="title" required placeholder="مثال: تنبيه هام بشأن مواعيد اNoختبارات النصفية" style="width: 100%; height: 34px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 12px; box-sizing: border-box;">
                 </div>
                 <div>
                     <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">نوع الإشعار / الأيقونة</label>
@@ -79,7 +79,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                         <option value="info">ℹ️ إداري عام (Info)</option>
                         <option value="warning">⚠️ تنبيه هام (Warning)</option>
                         <option value="urgent">🚨 عاجل جداً (Urgent)</option>
-                        <option value="success">✅ تحديث جديد (Success)</option>
+                        <option value="success">✅ Update جديد (Success)</option>
                     </select>
                 </div>
             </div>
@@ -106,7 +106,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
                 <div>
-                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">مدة العرض التلقائي (بالثواني)</label>
+                    <label style="display: block; font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 6px;">مدة الView التلقائي (بالثواني)</label>
                     <input type="number" name="display_duration" value="10" min="3" max="60" style="width: 100%; height: 34px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0 10px; font-size: 12px; box-sizing: border-box;">
                 </div>
                 <div>
@@ -131,7 +131,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                 <span>سجل الإشعارات المنشورة وإحصائيات القراءة</span>
             </h3>
             <div style="display: flex; gap: 8px;">
-                <button type="button" onclick="eessBulkDeleteReadStats()" class="sm-btn" style="background: #fee2e2; color: #b91c1c !important; border: 1px solid #fca5a5; height: 32px; padding: 0 14px; font-size: 11px; border-radius: 9999px; font-weight: 800; cursor: pointer;" title="مسح تفاعلات وإحصائيات قراءة المستخدمين للإشعارات">
+                <button type="button" onclick="eessBulkDeleteReadStats()" class="sm-btn" style="background: #fee2e2; color: #b91c1c !important; border: 1px solid #fca5a5; height: 32px; padding: 0 14px; font-size: 11px; border-radius: 9999px; font-weight: 800; cursor: pointer;" title="مسح تفاعNoت وإحصائيات قراءة Users للإشعارات">
                     🗑️ مسح إحصائيات القراءة بالجملة
                 </button>
             </div>
@@ -141,18 +141,18 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
             <table class="sm-table" style="width: 100%; border-collapse: collapse; font-size: 11.5px;">
                 <thead>
                     <tr style="background: #f8fafc; text-align: right; border-bottom: 2px solid #e2e8f0;">
-                        <th style="padding: 6px 10px;">العنوان</th>
+                        <th style="padding: 6px 10px;">Address</th>
                         <th style="padding: 6px 10px;">الرتب المستهدفة</th>
                         <th style="padding: 6px 10px;">تاريخ النشر</th>
                         <th style="padding: 6px 10px; text-align: center;">المشاهدين</th>
                         <th style="padding: 6px 10px; text-align: center;">المغلقين</th>
-                        <th style="padding: 6px 10px; text-align: center;">الحالة</th>
-                        <th style="padding: 6px 10px; text-align: center;">إجراءات (Actions)</th>
+                        <th style="padding: 6px 10px; text-align: center;">Status</th>
+                        <th style="padding: 6px 10px; text-align: center;">Actions (Actions)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($announcements)): ?>
-                        <tr><td colspan="7" style="padding: 20px; text-align: center; color: #94a3b8;">لا توجد إشعارات منشورة حالياً.</td></tr>
+                        <tr><td colspan="7" style="padding: 20px; text-align: center; color: #94a3b8;">No توجد إشعارات منشورة حالياً.</td></tr>
                     <?php else: ?>
                         <?php foreach ($announcements as $anc):
                             $target_arr = json_decode($anc->target_roles, true) ?: array();
@@ -170,7 +170,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                                 <td style="padding: 12px; text-align: center;"><span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;"><?php echo $closed_count; ?></span></td>
                                 <td style="padding: 12px; text-align: center;">
                                     <?php if ($is_active): ?>
-                                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;">نشط (Active)</span>
+                                        <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;">Active (Active)</span>
                                     <?php else: ?>
                                         <span style="background: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;">معطل (Disabled)</span>
                                     <?php endif; ?>
@@ -189,7 +189,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                                     <?php endif; ?>
                                     <button type="button" onclick="eessDeleteAnnouncement(<?php echo $anc->id; ?>)" style="background: #991b1b; color: white; border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
                                         <span class="dashicons dashicons-trash" style="font-size: 14px; width: 14px; height: 14px;"></span>
-                                        حذف الإشعار
+                                        Delete الإشعار
                                     </button>
                                 </td>
                             </tr>
@@ -205,11 +205,11 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; flex-wrap: wrap; gap: 10px;">
             <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px;">
                 <span class="dashicons dashicons-admin-users" style="color: #2563eb;"></span>
-                <span>سجل تفاعل المستخدمين الفردي وإعادة إظهار الإشعار (Show Again)</span>
+                <span>سجل تفاعل Users الفردي وإعادة إظهار الإشعار (Show Again)</span>
             </h3>
             <div style="display: flex; gap: 8px;">
-                <button type="button" onclick="eessBulkDeleteUserInteractions()" class="sm-btn" style="background: #fee2e2; color: #b91c1c !important; border: 1px solid #fca5a5; height: 32px; padding: 0 14px; font-size: 11px; border-radius: 9999px; font-weight: 800; cursor: pointer;" title="مسح كافة سجلات تفاعل ورؤية المستخدمين الفردية">
-                    🗑️ مسح تفاعلات المستخدمين بالجملة
+                <button type="button" onclick="eessBulkDeleteUserInteractions()" class="sm-btn" style="background: #fee2e2; color: #b91c1c !important; border: 1px solid #fca5a5; height: 32px; padding: 0 14px; font-size: 11px; border-radius: 9999px; font-weight: 800; cursor: pointer;" title="مسح كافة سجNoت تفاعل ورؤية Users الفردية">
+                    🗑️ مسح تفاعNoت Users بالجملة
                 </button>
             </div>
         </div>
@@ -220,15 +220,15 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                     <tr style="background: #f8fafc; text-align: right; border-bottom: 2px solid #e2e8f0;">
                         <th style="padding: 12px;">المستخدم</th>
                         <th style="padding: 12px;">الإشعار</th>
-                        <th style="padding: 12px; text-align: center;">الحالة</th>
+                        <th style="padding: 12px; text-align: center;">Status</th>
                         <th style="padding: 12px; text-align: center;">عدد المشاهدات</th>
-                        <th style="padding: 12px;">تاريخ المشاهدة/الإغلاق</th>
-                        <th style="padding: 12px; text-align: center;">إجراءات (Actions)</th>
+                        <th style="padding: 12px;">تاريخ المشاهدة/الClose</th>
+                        <th style="padding: 12px; text-align: center;">Actions (Actions)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($activity_logs)): ?>
-                        <tr><td colspan="6" style="padding: 20px; text-align: center; color: #94a3b8;">لا توجد سجلات تفاعل حتى الآن.</td></tr>
+                        <tr><td colspan="6" style="padding: 20px; text-align: center; color: #94a3b8;">No توجد سجNoت تفاعل حتى الآن.</td></tr>
                     <?php else: ?>
                         <?php foreach ($activity_logs as $log): ?>
                             <tr id="user-log-row-<?php echo $log->id; ?>" style="border-bottom: 1px solid #f1f5f9;">
@@ -240,7 +240,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                                     <?php elseif ($log->status === 'viewed'): ?>
                                         <span style="background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;">تمت المشاهدة</span>
                                     <?php else: ?>
-                                        <span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;">معلق</span>
+                                        <span style="background: #fef3c7; color: #92400e; padding: 4px 10px; border-radius: 50px; font-weight: 800; font-size: 11px;">Pending</span>
                                     <?php endif; ?>
                                 </td>
                                 <td style="padding: 12px; text-align: center; font-weight: 800;"><?php echo intval($log->view_count); ?></td>
@@ -252,7 +252,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                                     </button>
                                     <button type="button" onclick="eessDeleteUserLog(<?php echo $log->id; ?>)" style="background: #991b1b; color: white; border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
                                         <span class="dashicons dashicons-trash" style="font-size: 14px; width: 14px; height: 14px;"></span>
-                                        حذف السجل
+                                        Delete السجل
                                     </button>
                                 </td>
                             </tr>
@@ -267,7 +267,7 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
     <div id="eess-support-management-card" style="background: #ffffff; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
         <h3 style="margin: 0 0 20px 0; font-size: 16px; font-weight: 800; color: #0f172a; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; display: flex; align-items: center; gap: 8px;">
             <span class="dashicons dashicons-sos" style="color: #2563eb;"></span>
-            سجلات الدعم الفني والتقييمات (Support & Feedback Records)
+            سجNoت الدعم الفني والتقييمات (Support & Feedback Records)
         </h3>
 
         <!-- Search & Category Filters -->
@@ -275,8 +275,8 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
             <input type="hidden" name="sm_tab" value="global-settings">
 
             <div style="flex: 1; min-width: 200px;">
-                <label style="display: block; font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 4px;">البحث الشامل</label>
-                <input type="text" name="support_search" value="<?php echo esc_attr($s_search); ?>" placeholder="اسم المرسل، الرقم الوظيفي، العنوان..." class="sm-input" style="height: 38px; font-size: 12px; width: 100%;">
+                <label style="display: block; font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 4px;">الSearch الشامل</label>
+                <input type="text" name="support_search" value="<?php echo esc_attr($s_search); ?>" placeholder="اسم المرسل، الرقم الوظيفي، Address..." class="sm-input" style="height: 38px; font-size: 12px; width: 100%;">
             </div>
 
             <div style="width: 180px;">
@@ -290,8 +290,8 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
             </div>
 
             <div style="display: flex; align-items: flex-end; gap: 8px;">
-                <button type="submit" class="sm-btn" style="height: 38px; background: #2563eb; padding: 0 16px; font-size: 12px;">تصفية</button>
-                <a href="<?php echo add_query_arg('sm_tab', 'global-settings'); ?>" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 16px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center;">إعادة ضبط</a>
+                <button type="submit" class="sm-btn" style="height: 38px; background: #2563eb; padding: 0 16px; font-size: 12px;">Filter</button>
+                <a href="<?php echo add_query_arg('sm_tab', 'global-settings'); ?>" class="sm-btn sm-btn-outline" style="height: 38px; padding: 0 16px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center;">Reset</a>
             </div>
         </form>
 
@@ -302,16 +302,16 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                     <tr style="background: #f8fafc; text-align: right; border-bottom: 2px solid #e2e8f0;">
                         <th style="padding: 12px;">المرسل</th>
                         <th style="padding: 12px;">التصنيف</th>
-                        <th style="padding: 12px;">العنوان / التقييم</th>
+                        <th style="padding: 12px;">Address / التقييم</th>
                         <th style="padding: 12px;">التاريخ</th>
-                        <th style="padding: 12px; text-align: center;">الحالة</th>
+                        <th style="padding: 12px; text-align: center;">Status</th>
                         <th style="padding: 12px; text-align: center;">المرفق</th>
-                        <th style="padding: 12px; text-align: center;">الإجراءات</th>
+                        <th style="padding: 12px; text-align: center;">الActions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($support_requests)): ?>
-                        <tr><td colspan="7" style="padding: 20px; text-align: center; color: #94a3b8;">لا توجد رسائل أو طلبات دعم متطابقة حالياً.</td></tr>
+                        <tr><td colspan="7" style="padding: 20px; text-align: center; color: #94a3b8;">No توجد رسائل أو طلبات دعم متطابقة حالياً.</td></tr>
                     <?php else: ?>
                         <?php foreach ($support_requests as $s_req):
                             $sender_emp_id = get_user_meta($s_req->user_id, 'eess_employee_number', true) ?: ($s_req->user_login ?? '');
@@ -356,19 +356,19 @@ $edu_inputs = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sm_educational_in
                                 </td>
                                 <td style="padding: 12px; text-align: center;">
                                     <?php if (!empty($s_req->attachment_url)): ?>
-                                        <a href="<?php echo esc_url($s_req->attachment_url); ?>" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700;">🖼️ عرض المرفق</a>
+                                        <a href="<?php echo esc_url($s_req->attachment_url); ?>" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700;">🖼️ View المرفق</a>
                                     <?php else: ?>
-                                        <span style="color: #94a3b8;">لا يوجد</span>
+                                        <span style="color: #94a3b8;">No يوجد</span>
                                     <?php endif; ?>
                                 </td>
                                 <td style="padding: 12px; text-align: center; display: flex; gap: 6px; justify-content: center;">
                                     <button type="button" onclick="eessViewSupportRecord(<?php echo $s_req->id; ?>)" style="background: #334155; color: white; border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
                                         <span class="dashicons dashicons-visibility" style="font-size: 14px; width: 14px; height: 14px;"></span>
-                                        عرض التفاصيل
+                                        View التفاصيل
                                     </button>
                                     <button type="button" onclick="eessDeleteSupportRecord(<?php echo $s_req->id; ?>)" style="background: #dc2626; color: white; border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
                                         <span class="dashicons dashicons-trash" style="font-size: 14px; width: 14px; height: 14px;"></span>
-                                        حذف
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -451,7 +451,7 @@ function eessViewSupportRecord(id) {
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                 <div><strong>المرسل:</strong> ${data.sender_name}</div>
                 <div><strong>الرتبة الوظيفية:</strong> ${data.sender_role}</div>
-                <div><strong>المنظمة الرياضية/الأكاديمية الرياضية:</strong> ${data.institution}</div>
+                <div><strong>Organization الرياضية/Academy الرياضية:</strong> ${data.institution}</div>
                 <div><strong>التاريخ:</strong> ${data.created_at}</div>
             </div>
         </div>
@@ -471,7 +471,7 @@ function eessViewSupportRecord(id) {
         ${attachmentHtml}
 
         <div style="margin-top: 20px; border-top: 2px dashed #cbd5e1; padding-top: 15px;">
-            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">تحديث حالة الطلب:</label>
+            <label style="display: block; font-size: 12px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">Update حالة الطلب:</label>
             <div style="display: flex; gap: 10px; align-items: center;">
                 <select id="update_support_status_select" class="sm-select" style="height: 38px; font-size: 12px; flex: 1;">
                     <option value="new" ${data.status === 'new' ? 'selected' : ''}>جديد (New)</option>
@@ -479,7 +479,7 @@ function eessViewSupportRecord(id) {
                     <option value="resolved" ${data.status === 'resolved' ? 'selected' : ''}>تم الحل (Resolved)</option>
                     <option value="closed" ${data.status === 'closed' ? 'selected' : ''}>مغلق (Closed)</option>
                 </select>
-                <button type="button" onclick="eessSaveSupportStatus(${data.id})" class="sm-btn" style="background: #16a34a; height: 38px; font-size: 12px; padding: 0 16px;">تطبيق الحالة</button>
+                <button type="button" onclick="eessSaveSupportStatus(${data.id})" class="sm-btn" style="background: #16a34a; height: 38px; font-size: 12px; padding: 0 16px;">تطبيق Status</button>
             </div>
         </div>
     `;
@@ -508,7 +508,7 @@ function eessSaveSupportStatus(id) {
 }
 
 function eessDeleteSupportRecord(id) {
-    if (!confirm('هل أنت تأكد من رغبتك في حذف سجل الدعم/التقييم هذا نهائياً مع المرفق الخاص به؟')) return;
+    if (!confirm('هل أنت تأكد من رغبتك في Delete سجل الدعم/التقييم هذا نهائياً مع المرفق الخاص به؟')) return;
 
     const formData = new FormData();
     formData.append('action', 'eess_delete_support_request');
@@ -554,7 +554,7 @@ function eessCreateAnnouncement(e) {
         } else {
             statusBox.style.background = '#fef2f2';
             statusBox.style.color = '#991b1b';
-            statusBox.innerText = res.data || 'حدث خطأ أثناء حفظ الإشعار.';
+            statusBox.innerText = res.data || 'An error occurred أثناء Save الإشعار.';
         }
     });
 }
@@ -569,10 +569,10 @@ function eessResetUserAnnouncement(ancId, userId, logId) {
         nonce: '<?php echo wp_create_nonce('sm_announcement_action'); ?>'
     }, function(res) {
         if (res.success) {
-            alert('تم إعادة ضبط الإشعار بنجاح وسيظهر للمستخدم عند تسجيل الدخول القادم.');
+            alert('تم Reset الإشعار بنجاح وسيظهر للمستخدم عند Login القادم.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء تنفيذ الإجراء.');
+            alert(res.data || 'An error occurred أثناء تنفيذ الإجراء.');
         }
     });
 }
@@ -589,13 +589,13 @@ function eessRepublishAnnouncement(ancId) {
             alert(res.data || 'تم إعادة نشر وتفعيل الإشعار بنجاح.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء إعادة النشر.');
+            alert(res.data || 'An error occurred أثناء إعادة النشر.');
         }
     });
 }
 
 function eessDisableAnnouncement(ancId) {
-    if (!confirm('هل أنت تأكد من تعطيل هذا الإشعار؟ سيتم إيقاف ظهوره فوراً لجميع المستخدمين المستهدفين.')) return;
+    if (!confirm('هل أنت تأكد من تعطيل هذا الإشعار؟ سيتم إيقاف ظهوره فوراً لجميع Users المستهدفين.')) return;
 
     jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
         action: 'sm_disable_system_announcement',
@@ -606,13 +606,13 @@ function eessDisableAnnouncement(ancId) {
             alert(res.data.message || 'تم تعطيل الإشعار بنجاح.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء تعطيل الإشعار.');
+            alert(res.data || 'An error occurred أثناء تعطيل الإشعار.');
         }
     });
 }
 
 function eessBulkDeleteReadStats() {
-    if (!confirm('تنبيه هام: هل أنت متأكد من مسح جميع إحصائيات وتفاعلات قراءة الإشعارات بالجملة؟')) return;
+    if (!confirm('تنبيه هام: هل أنت متأكد من مسح جميع إحصائيات وتفاعNoت قراءة الإشعارات بالجملة؟')) return;
 
     jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
         action: 'eess_bulk_delete_read_stats_ajax',
@@ -622,29 +622,29 @@ function eessBulkDeleteReadStats() {
             alert('تم مسح إحصائيات القراءة والتفاعل بنجاح.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء تنفيذ المسح.');
+            alert(res.data || 'An error occurred أثناء تنفيذ المسح.');
         }
     });
 }
 
 function eessBulkDeleteUserInteractions() {
-    if (!confirm('تنبيه هام: هل أنت متأكد من مسح كافة سجلات تفاعل المستخدمين الفردية بالجملة؟')) return;
+    if (!confirm('تنبيه هام: هل أنت متأكد من مسح كافة سجNoت تفاعل Users الفردية بالجملة؟')) return;
 
     jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
         action: 'eess_bulk_delete_user_interactions_ajax',
         nonce: '<?php echo wp_create_nonce('sm_announcement_action'); ?>'
     }, function(res) {
         if (res.success) {
-            alert('تم مسح كافة سجلات تفاعل المستخدمين بنجاح.');
+            alert('تم مسح كافة سجNoت تفاعل Users بنجاح.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء المسح.');
+            alert(res.data || 'An error occurred أثناء المسح.');
         }
     });
 }
 
 function eessDeleteAnnouncement(ancId) {
-    if (!confirm('تنبيه هام: هل أنت تأكد من حذف هذا الإشعار نهائياً؟ سيتم حذف جميع إحصائيات القراءة والتفاعل المرتبطة به.')) return;
+    if (!confirm('تنبيه هام: هل أنت تأكد من Delete هذا الإشعار نهائياً؟ سيتم Delete جميع إحصائيات القراءة والتفاعل المرتبطة به.')) return;
 
     jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
         action: 'sm_delete_system_announcement',
@@ -652,16 +652,16 @@ function eessDeleteAnnouncement(ancId) {
         nonce: '<?php echo wp_create_nonce('sm_announcement_action'); ?>'
     }, function(res) {
         if (res.success) {
-            alert(res.data.message || 'تم حذف الإشعار نهائياً.');
+            alert(res.data.message || 'تم Delete الإشعار نهائياً.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء حذف الإشعار.');
+            alert(res.data || 'An error occurred أثناء Delete الإشعار.');
         }
     });
 }
 
 function eessDeleteUserLog(logId) {
-    if (!confirm('هل أنت تأكد من حذف سجل تفاعل هذا المستخدم بعينه؟')) return;
+    if (!confirm('هل أنت تأكد من Delete سجل تفاعل هذا المستخدم بعينه؟')) return;
 
     jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', {
         action: 'sm_delete_user_announcement_log',
@@ -669,10 +669,10 @@ function eessDeleteUserLog(logId) {
         nonce: '<?php echo wp_create_nonce('sm_announcement_action'); ?>'
     }, function(res) {
         if (res.success) {
-            alert(res.data.message || 'تم حذف سجل المستخدم بنجاح.');
+            alert(res.data.message || 'تم Delete سجل المستخدم بنجاح.');
             location.reload();
         } else {
-            alert(res.data || 'حدث خطأ أثناء حذف السجل.');
+            alert(res.data || 'An error occurred أثناء Delete السجل.');
         }
     });
 }

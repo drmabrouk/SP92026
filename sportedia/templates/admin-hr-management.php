@@ -13,14 +13,14 @@ $unique_subjects = array_unique(array_map(function($s){ return $s->name; }, $all
 $role_map = array(
     'administrator' => 'الإدارة المركزية (المطور)',
     'sm_system_admin' => 'مدير النظام التقني',
-    'sm_principal' => 'مدير الأكاديمية الرياضية',
+    'sm_principal' => 'مدير Academy الرياضية',
     'sm_supervisor' => 'مشرف تربوي',
     'sm_coordinator' => 'منسق مادة',
     'sm_hod' => 'رئيس قسم',
     'sm_teacher' => 'معلم',
     'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-    'sm_activities_supervisor' => 'مشرف أنشطة',
-    'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+    'sm_activities_supervisor' => 'مشرف أActiveة',
+    'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
     'sm_bus_supervisor' => 'مشرف حافلة',
     'sm_clinic' => 'العيادة المدرسية',
     'sm_hr' => 'الموارد البشرية (HR)'
@@ -54,13 +54,13 @@ if (isset($_GET['eess_print_report'])) {
         </head>
         <body onload="window.print()">
             <div class="no-print" style="background:#f1f5f9; padding:15px; border-radius:8px; margin-bottom:30px; text-align:center;">
-                <button onclick="window.print()" style="padding:10px 20px; font-weight:bold; cursor:pointer;">🖨️ اضغط هنا لبدء الطباعة</button>
+                <button onclick="window.print()" style="padding:10px 20px; font-weight:bold; cursor:pointer;">🖨️ اضغط هنا لبدء الPrint</button>
             </div>
 
             <div class="header">
                 <div>
                     <h1 class="title">الملف المهني والوظيفي المتكامل (EESS)</h1>
-                    <p style="margin:5px 0 0 0; color:#64748b;">تاريخ التصدير: <?php echo current_time('Y-m-d H:i'); ?></p>
+                    <p style="margin:5px 0 0 0; color:#64748b;">تاريخ الExport: <?php echo current_time('Y-m-d H:i'); ?></p>
                 </div>
                 <div style="font-weight: 900; font-size: 20px; color: #8b1e1e;">EESS ONLINE</div>
             </div>
@@ -76,12 +76,12 @@ if (isset($_GET['eess_print_report'])) {
             <h3 class="section-title">📋 البيانات العامة والوظيفية</h3>
             <table class="meta-table">
                 <tr><th>الرقم الوظيفي للموظف</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_employee_number', true) ?: 'غير محدد'); ?></td></tr>
-                <tr><th>البريد الإلكتروني المعتمد</th><td><?php echo esc_html($pe->user_email); ?></td></tr>
-                <tr><th>رقم الهاتف المتحرك</th><td><?php echo esc_html(get_user_meta($pe->ID, 'sm_phone', true) ?: 'غير محدد'); ?></td></tr>
+                <tr><th>Email Address المعتمد</th><td><?php echo esc_html($pe->user_email); ?></td></tr>
+                <tr><th>Phone Number المتحرك</th><td><?php echo esc_html(get_user_meta($pe->ID, 'sm_phone', true) ?: 'غير محدد'); ?></td></tr>
                 <tr><th>القسم / الإدارة</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_department', true) ?: 'غير محدد'); ?></td></tr>
-                <tr><th>المنظمة الرياضية / الأكاديمية الرياضية</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_school_name', true) ?: 'غير محدد'); ?></td></tr>
+                <tr><th>Organization الرياضية / Academy الرياضية</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_school_name', true) ?: 'غير محدد'); ?></td></tr>
                 <tr><th>تاريخ مباشرة العمل</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_hr_employment_date', true) ?: 'غير محدد'); ?></td></tr>
-                <tr><th>حالة التوظيف الحالية</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_hr_employment_status', true) === 'active' ? 'نشط بالخدمة' : 'غير نشط / مقيد'); ?></td></tr>
+                <tr><th>حالة التوظيف الحالية</th><td><?php echo esc_html(get_user_meta($pe->ID, 'eess_hr_employment_status', true) === 'active' ? 'Active بالخدمة' : 'غير Active / مقيد'); ?></td></tr>
             </table>
 
             <h3 class="section-title">📊 سجل الرواتب والمالية</h3>
@@ -94,7 +94,7 @@ if (isset($_GET['eess_print_report'])) {
                     $salaries = get_user_meta($pe->ID, 'eess_hr_salary_records', true) ?: array();
                     if (!is_array($salaries)) $salaries = json_decode($salaries, true) ?: array();
                     if (empty($salaries)): ?>
-                        <tr><td colspan="6" style="text-align:center; color:#94a3b8;">لا توجد سجلات رواتب.</td></tr>
+                        <tr><td colspan="6" style="text-align:center; color:#94a3b8;">No توجد سجNoت رواتب.</td></tr>
                     <?php else: ?>
                         <?php foreach ($salaries as $s): ?>
                             <tr>
@@ -113,7 +113,7 @@ if (isset($_GET['eess_print_report'])) {
             <h3 class="section-title">⚠️ التنبيهات والإنذارات الرسمية</h3>
             <table class="records-table">
                 <thead>
-                    <tr><th>التاريخ</th><th>الموضوع / نوع الإنذار</th><th>تفاصيل ومسببات المخالفة</th><th>الحالة</th></tr>
+                    <tr><th>التاريخ</th><th>الموضوع / نوع الإنذار</th><th>تفاصيل ومسببات المخالفة</th><th>Status</th></tr>
                 </thead>
                 <tbody>
                     <?php
@@ -127,7 +127,7 @@ if (isset($_GET['eess_print_report'])) {
                                 <td><?php echo esc_html($w['date']); ?></td>
                                 <td style="font-weight:bold; color:#dc2626;"><?php echo esc_html($w['subject']); ?></td>
                                 <td><?php echo esc_html($w['details']); ?></td>
-                                <td><?php echo esc_html($w['status'] ?? 'نشط'); ?></td>
+                                <td><?php echo esc_html($w['status'] ?? 'Active'); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -137,14 +137,14 @@ if (isset($_GET['eess_print_report'])) {
             <h3 class="section-title">📈 تقييم الأداء والتقارير</h3>
             <table class="records-table">
                 <thead>
-                    <tr><th>التاريخ / الفترة</th><th>الدرجة (%)</th><th>التقدير العام</th><th>التوصيات والملاحظات</th><th>المقيم المعتمد</th></tr>
+                    <tr><th>التاريخ / الفترة</th><th>الدرجة (%)</th><th>التقدير العام</th><th>التوصيات والNotes</th><th>المقيم المعتمد</th></tr>
                 </thead>
                 <tbody>
                     <?php
                     $evals = get_user_meta($pe->ID, 'eess_hr_evaluations', true) ?: array();
                     if (!is_array($evals)) $evals = json_decode($evals, true) ?: array();
                     if (empty($evals)): ?>
-                        <tr><td colspan="5" style="text-align:center; color:#94a3b8;">لا توجد تقييمات مسجلة.</td></tr>
+                        <tr><td colspan="5" style="text-align:center; color:#94a3b8;">No توجد تقييمات مسجلة.</td></tr>
                     <?php else: ?>
                         <?php foreach ($evals as $ev): ?>
                             <tr>
@@ -171,7 +171,7 @@ if (isset($_GET['eess_print_report'])) {
 }
 
 if (!$is_admin && !$is_sys_admin && !$is_hr) {
-    echo '<div class="error" style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:8px; border:1px solid #fca5a5; font-weight:700;">غير مصرح لك بالوصول لهذه الصفحة.</div>';
+    echo '<div class="error" style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:8px; border:1px solid #fca5a5; font-weight:700;">Unauthorized لك بالوصول لهذه الصفحة.</div>';
     return;
 }
 
@@ -179,17 +179,17 @@ if (!$is_admin && !$is_sys_admin && !$is_hr) {
 $role_map = array(
     'administrator' => 'الإدارة المركزية (المطور)',
     'sm_system_admin' => 'مدير النظام التقني',
-    'sm_principal' => 'مدير الأكاديمية الرياضية',
+    'sm_principal' => 'مدير Academy الرياضية',
     'sm_supervisor' => 'مشرف تربوي',
     'sm_coordinator' => 'منسق مادة',
     'sm_teacher' => 'معلم',
     'sm_discipline_supervisor' => 'مشرف سلوك / انضباط',
-    'sm_activities_supervisor' => 'مشرف أنشطة',
-    'sm_transportation_supervisor' => 'مشرف نقل ومواصلات',
+    'sm_activities_supervisor' => 'مشرف أActiveة',
+    'sm_transportation_supervisor' => 'مشرف نقل ومواصNoت',
     'sm_bus_supervisor' => 'مشرف حافلة',
     'sm_clinic' => 'العيادة المدرسية',
     'sm_hr' => 'الموارد البشرية (HR)',
-    'sm_student' => 'لاعب',
+    'sm_student' => 'Noعب',
     'sm_parent' => 'ولي أمر'
 );
 
@@ -222,8 +222,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
         update_user_meta($emp_id, 'sm_phone', sanitize_text_field($_POST['phone']));
 
         wp_update_user(array('ID' => $emp_id, 'display_name' => sanitize_text_field($_POST['display_name'])));
-        $status_message = 'تم تحديث بيانات التعيين والسجل الوظيفي للموظف وتزامن القسم التلقائي بنجاح.';
-        SM_Logger::log('تحديث السجل الوظيفي', "تم تحديث السجل الوظيفي للموظف المعرف: $emp_id");
+        $status_message = 'تم Update بيانات التعيين والسجل الوظيفي للموظف وتزامن القسم التلقائي بنجاح.';
+        SM_Logger::log('Update السجل الوظيفي', "تم Update السجل الوظيفي للموظف المعرف: $emp_id");
     }
 
     elseif ($action_type === 'restrict_platform_access') {
@@ -260,17 +260,17 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
         if (!is_array($timeline)) $timeline = array();
         array_unshift($timeline, array(
             'date' => current_time('Y-m-d H:i:s'),
-            'action' => 'إلغاء تقييد الوصول للمنصة',
+            'action' => 'Cancel تقييد الوصول للمنصة',
             'actor' => $current_user->display_name,
-            'details' => "تم إلغاء تقييد الوصول وتفعيل الحساب مجدداً."
+            'details' => "تم Cancel تقييد الوصول وتفعيل الحساب مجدداً."
         ));
         update_user_meta($emp_id, 'eess_hr_activity_timeline', $timeline);
 
         clean_user_cache($emp_id);
         wp_cache_flush();
 
-        $status_message = "✅ تم إلغاء تقييد وصول الموظف وتفعيل حسابه مجدداً بنجاح.";
-        SM_Logger::log('تنشيط حساب موظف', "تم إلغاء تقييد حساب الموظف $emp_id");
+        $status_message = "✅ تم Cancel تقييد وصول الموظف وتفعيل حسابه مجدداً بنجاح.";
+        SM_Logger::log('تنشيط حساب موظف', "تم Cancel تقييد حساب الموظف $emp_id");
     }
 
     elseif ($action_type === 'add_salary') {
@@ -287,7 +287,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             'notes' => sanitize_textarea_field($_POST['salary_notes'])
         );
         update_user_meta($emp_id, 'eess_hr_salary_records', $records);
-        $status_message = 'تمت إضافة قيد الرواتب والمالية بنجاح.';
+        $status_message = 'تمت Add قيد الرواتب والمالية بنجاح.';
     }
 
     elseif ($action_type === 'delete_salary') {
@@ -298,7 +298,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             unset($records[$index]);
             $records = array_values($records);
             update_user_meta($emp_id, 'eess_hr_salary_records', $records);
-            $status_message = 'تم حذف قيد الراتب المحدد بنجاح.';
+            $status_message = 'تم Delete قيد الراتب المحدد بنجاح.';
         }
     }
 
@@ -313,7 +313,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             'status' => sanitize_text_field($_POST['warning_status'])
         );
         update_user_meta($emp_id, 'eess_hr_warning_notices', $records);
-        $status_message = 'تم تسجيل الإنذار الرسمي وحفظ المحضر بنجاح.';
+        $status_message = 'تم تسجيل الإنذار الرسمي وSave المحضر بنجاح.';
     }
 
     elseif ($action_type === 'delete_warning') {
@@ -324,7 +324,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             unset($records[$index]);
             $records = array_values($records);
             update_user_meta($emp_id, 'eess_hr_warning_notices', $records);
-            $status_message = 'تم حذف الإنذار بنجاح.';
+            $status_message = 'تم Delete الإنذار بنجاح.';
         }
     }
 
@@ -339,7 +339,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             'supervisor' => sanitize_text_field($_POST['disc_supervisor'])
         );
         update_user_meta($emp_id, 'eess_hr_disciplinary_records', $records);
-        $status_message = 'تم تسجيل قرار مجلس الانضباط بنجاح.';
+        $status_message = 'تم تسجيل قرار مجلس اNoنضباط بنجاح.';
     }
 
     elseif ($action_type === 'delete_disciplinary') {
@@ -350,7 +350,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             unset($records[$index]);
             $records = array_values($records);
             update_user_meta($emp_id, 'eess_hr_disciplinary_records', $records);
-            $status_message = 'تم حذف سجل الانضباط بنجاح.';
+            $status_message = 'تم Delete سجل اNoنضباط بنجاح.';
         }
     }
 
@@ -375,7 +375,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             unset($records[$index]);
             $records = array_values($records);
             update_user_meta($emp_id, 'eess_hr_admin_actions', $records);
-            $status_message = 'تم حذف القرار الإداري بنجاح.';
+            $status_message = 'تم Delete القرار الإداري بنجاح.';
         }
     }
 
@@ -400,7 +400,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             unset($records[$index]);
             $records = array_values($records);
             update_user_meta($emp_id, 'eess_hr_documents', $records);
-            $status_message = 'تم حذف المستند بنجاح.';
+            $status_message = 'تم Delete المستند بنجاح.';
         }
     }
 
@@ -415,7 +415,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             'notes' => sanitize_textarea_field($_POST['hist_notes'])
         );
         update_user_meta($emp_id, 'eess_hr_employment_history', $records);
-        $status_message = 'تم تسجيل الخبرة السابقة للتاريخ الوظيفي بنجاح.';
+        $status_message = 'تم تسجيل الخبرة Previousة للتاريخ الوظيفي بنجاح.';
     }
 
     elseif ($action_type === 'delete_history') {
@@ -426,7 +426,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['eess_hr_actio
             unset($records[$index]);
             $records = array_values($records);
             update_user_meta($emp_id, 'eess_hr_employment_history', $records);
-            $status_message = 'تم حذف السجل التاريخي المحدد بنجاح.';
+            $status_message = 'تم Delete السجل التاريخي المحدد بنجاح.';
         }
     }
 }
@@ -446,7 +446,7 @@ if (isset($_POST['eess_photo_approval_action']) && ($is_admin || $is_sys_admin |
             }
         } elseif ($decision === 'reject') {
             delete_user_meta($approve_emp_id, 'eess_pending_profile_photo');
-            $status_message = "❌ تم رفض الصورة الشخصية الجديدة وإلغاء طلب المراجعة.";
+            $status_message = "❌ تم Reject الصورة الشخصية الجديدة وCancel طلب المراجعة.";
         }
 
         clean_user_cache($approve_emp_id);
@@ -480,7 +480,7 @@ if (isset($_GET['manage_employee_id'])) {
             </div>
             <div>
                 <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #0f172a;">إدارة الموارد البشرية</h2>
-                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">إدارة شاملة لملفات العاملين، الرواتب، الترقيات، المستندات الرسمية والانضباط السلوكي والوظيفي</p>
+                <p style="margin: 0; font-size: 12.5px; color: #64748b; font-weight: 500;">إدارة شاملة لملفات العاملين، الرواتب، الترقيات، المستندات الرسمية واNoنضباط السلوكي والوظيفي</p>
             </div>
         </div>
 
@@ -489,19 +489,19 @@ if (isset($_GET['manage_employee_id'])) {
             <!-- Add Employee Button -->
             <button type="button" onclick="eessOpenUnifiedUserModal('add_employee', 0)" class="sm-btn" style="background: #881337; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 18px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                 <span class="dashicons dashicons-plus-alt2" style="font-size: 15px; width: 15px; height: 15px; color: #fff;"></span>
-                <span>إضافة موظف جديد</span>
+                <span>Add موظف جديد</span>
             </button>
 
             <!-- Excel Export Button -->
-            <button type="button" onclick="window.open('<?php echo admin_url('admin-ajax.php?action=eess_export_employees_excel&nonce=' . wp_create_nonce('eess_hr_add_employee_nonce')); ?>', '_blank')" class="sm-btn" style="background: #15803d; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 18px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="تصدير جميع سجلات أعضاء هيئة التدريب والكادر إلى ملف Excel معتمد (.xlsx)">
+            <button type="button" onclick="window.open('<?php echo admin_url('admin-ajax.php?action=eess_export_employees_excel&nonce=' . wp_create_nonce('eess_hr_add_employee_nonce')); ?>', '_blank')" class="sm-btn" style="background: #15803d; color: #ffffff !important; height: 38px; border-radius: 9999px !important; padding: 0 18px; font-weight: 800; font-size: 12.5px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="Export جميع سجNoت أعضاء هيئة التدريب والكادر إلى ملف Excel معتمد (.xlsx)">
                 <span class="dashicons dashicons-download" style="font-size: 15px; width: 15px; height: 15px; color: #fff;"></span>
-                <span>تصدير Excel (.xlsx)</span>
+                <span>Export Excel (.xlsx)</span>
             </button>
 
             <!-- Excel Import Toggle Button -->
-            <button type="button" onclick="let b=document.getElementById('hr-employee-import-box'); b.style.display=(b.style.display==='none'?'block':'none');" class="sm-btn sm-btn-outline" style="background: #ffffff; color: #1e293b !important; border: 1px solid #cbd5e1; height: 38px; border-radius: 9999px !important; padding: 0 18px; font-weight: 800; font-size: 12.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="استيراد وتحديث سجلات أعضاء هيئة التدريب والكادر عبر ملف Excel/CSV">
+            <button type="button" onclick="let b=document.getElementById('hr-employee-import-box'); b.style.display=(b.style.display==='none'?'block':'none');" class="sm-btn sm-btn-outline" style="background: #ffffff; color: #1e293b !important; border: 1px solid #cbd5e1; height: 38px; border-radius: 9999px !important; padding: 0 18px; font-weight: 800; font-size: 12.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="Import وUpdate سجNoت أعضاء هيئة التدريب والكادر عبر ملف Excel/CSV">
                 <span class="dashicons dashicons-upload" style="font-size: 15px; width: 15px; height: 15px; color: #1e293b;"></span>
-                <span>استيراد Excel</span>
+                <span>Import Excel</span>
             </button>
         </div>
         <?php endif; ?>
@@ -524,7 +524,7 @@ if (isset($_GET['manage_employee_id'])) {
         <div style="background: #fffbeb; border: 1px solid #fef3c7; padding: 20px; border-radius: 12px; margin-bottom: 25px; box-shadow: var(--sm-shadow);">
             <h3 style="margin: 0 0 15px 0; font-weight: 800; color: #b45309; font-size: 14px; border-bottom: 1.5px dashed #fef3c7; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
                 <span class="dashicons dashicons-format-image" style="color: #b45309;"></span>
-                <span>طلبات الصور الشخصية المعلقة بانتظار الاعتماد (HR)</span>
+                <span>طلبات الصور الشخصية الPendingة بانتظار اNoعتماد (HR)</span>
             </h3>
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 <?php foreach ($pending_photo_employees as $pe):
@@ -564,7 +564,7 @@ if (isset($_GET['manage_employee_id'])) {
                                 <input type="hidden" name="eess_photo_approval_action" value="1">
                                 <input type="hidden" name="approve_emp_id" value="<?php echo $pe->ID; ?>">
                                 <input type="hidden" name="decision" value="reject">
-                                <button type="submit" class="sm-btn" style="background: #b91c1c; border-color: #b91c1c; font-size: 12px; height: 32px; padding: 0 15px; color: white !important; font-family: 'Cairo'; font-weight: bold; cursor: pointer;">❌ رفض الطلب</button>
+                                <button type="submit" class="sm-btn" style="background: #b91c1c; border-color: #b91c1c; font-size: 12px; height: 32px; padding: 0 15px; color: white !important; font-family: 'Cairo'; font-weight: bold; cursor: pointer;">❌ Reject الطلب</button>
                             </form>
                         </div>
                     </div>
@@ -578,9 +578,9 @@ if (isset($_GET['manage_employee_id'])) {
         <div id="hr-employee-import-box" style="display: none; background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 25px; box-shadow: var(--sm-shadow); text-align: right; font-family: 'Cairo', sans-serif;">
             <h3 style="margin: 0 0 15px 0; font-weight: 800; color: #1e293b; font-size: 14px; border-bottom: 1.5px dashed #e2e8f0; padding-bottom: 8px; display: flex; align-items: center; gap: 8px;">
                 <span class="dashicons dashicons-upload" style="color: var(--sm-primary-color);"></span>
-                <span>استيراد أعضاء هيئة التدريب والكادر المعتمدين والمزامنة الفورية (CSV)</span>
+                <span>Import أعضاء هيئة التدريب والكادر المعتمدين والمزامنة الفورية (CSV)</span>
             </h3>
-            <p style="font-size: 12px; color: #475569; margin-top:0;">يرجى اختيار ملف CSV يحتوي على سجلات أعضاء هيئة التدريب والكادر لمطابقتها واستيرادها مباشرة إلى النظام والأنظمة المرتبطة.</p>
+            <p style="font-size: 12px; color: #475569; margin-top:0;">يرجى اختيار ملف CSV يحتوي على سجNoت أعضاء هيئة التدريب والكادر لمطابقتها وImportها مباشرة إلى النظام والأنظمة المرتبطة.</p>
 
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 20px;">
                 <label style="display: block; font-weight: bold; font-size: 12px; color: #1e293b; margin-bottom: 8px;">اختر ملف أعضاء هيئة التدريب والكادر (CSV):</label>
@@ -594,12 +594,12 @@ if (isset($_GET['manage_employee_id'])) {
                     <table class="sm-table" style="margin: 0; width: 100%;" id="eess-employees-preview-table">
                         <thead>
                             <tr>
-                                <th style="text-align: right; padding-right: 15px;">الاسم الكامل</th>
-                                <th>البريد الإلكتروني</th>
+                                <th style="text-align: right; padding-right: 15px;">Full Name</th>
+                                <th>Email Address</th>
                                 <th>الرقم الوظيفي</th>
                                 <th>القسم</th>
                                 <th>الدور / الرتبة</th>
-                                <th>الحالة</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -608,8 +608,8 @@ if (isset($_GET['manage_employee_id'])) {
             </div>
 
             <div style="display:flex; justify-content:flex-end; gap:10px;">
-                <button type="button" onclick="document.getElementById('hr-employee-import-box').style.display='none'" class="sm-btn sm-btn-outline" style="background:#f1f5f9; color:#475569; border-color:#cbd5e1; border-radius:8px; height:38px; cursor:pointer;">إلغاء</button>
-                <button type="button" id="eess-employees-confirm-import-btn" class="sm-btn" style="height: 38px; background: #15803d; border-color:#15803d; color:white !important; border-radius:8px; display: none; cursor:pointer;" onclick="eessConfirmEmployeesImport()">بدء الاستيراد الفوري</button>
+                <button type="button" onclick="document.getElementById('hr-employee-import-box').style.display='none'" class="sm-btn sm-btn-outline" style="background:#f1f5f9; color:#475569; border-color:#cbd5e1; border-radius:8px; height:38px; cursor:pointer;">Cancel</button>
+                <button type="button" id="eess-employees-confirm-import-btn" class="sm-btn" style="height: 38px; background: #15803d; border-color:#15803d; color:white !important; border-radius:8px; display: none; cursor:pointer;" onclick="eessConfirmEmployeesImport()">بدء الImport الفوري</button>
             </div>
         </div>
     <?php endif; ?>
@@ -621,11 +621,11 @@ if (isset($_GET['manage_employee_id'])) {
             <!-- Advanced Filters (Replaced Subject/Department Input with Dynamic Role Filter) -->
             <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div>
-                    <label style="font-size: 12px; font-weight: bold; color: #475569;">البحث بالاسم / الرقم الوظيفي</label>
-                    <input type="text" id="hr-search" onkeyup="filterHREmployees()" placeholder="ابحث بالاسم، الرقم الوظيفي..." class="sm-input" style="height: 36px; font-size: 12px;">
+                    <label style="font-size: 12px; font-weight: bold; color: #475569;">الSearch باNoسم / الرقم الوظيفي</label>
+                    <input type="text" id="hr-search" onkeyup="filterHREmployees()" placeholder="اSearch باNoسم، الرقم الوظيفي..." class="sm-input" style="height: 36px; font-size: 12px;">
                 </div>
                 <div>
-                    <label style="font-size: 12px; font-weight: bold; color: #475569;">تصفية حسب المسمى الوظيفي / الرتبة</label>
+                    <label style="font-size: 12px; font-weight: bold; color: #475569;">Filter حسب المسمى الوظيفي / الرتبة</label>
                     <select id="hr-role-filter" onchange="filterHREmployees()" class="sm-select" style="height: 36px; font-size: 12px;">
                         <option value="">جميع المسميات والوظائف</option>
                         <?php foreach ($role_map as $r_key => $r_label): ?>
@@ -636,11 +636,11 @@ if (isset($_GET['manage_employee_id'])) {
                 <div>
                     <label style="font-size: 12px; font-weight: bold; color: #475569;">حالة الموظف</label>
                     <select id="hr-status-filter" onchange="filterHREmployees()" class="sm-select" style="height: 36px; font-size: 12px;">
-                        <option value="">جميع الحالات</option>
-                        <option value="active">نشط بالخدمة</option>
+                        <option value="">جميع الحاNoت</option>
+                        <option value="active">Active بالخدمة</option>
                         <option value="restricted">مقيد الدخول</option>
                         <option value="suspended">موقوف مؤقتاً</option>
-                        <option value="leave">إجازة سنوية</option>
+                        <option value="leave">إجازة Annualة</option>
                     </select>
                 </div>
             </div>
@@ -653,7 +653,7 @@ if (isset($_GET['manage_employee_id'])) {
                     $emp_status = get_user_meta($emp->ID, 'eess_hr_employment_status', true) ?: 'active';
                     $emp_spec = get_user_meta($emp->ID, 'sm_specialization', true) ?: (get_user_meta($emp->ID, 'specialization', true) ?: 'غير محدد');
                     $emp_dept = get_user_meta($emp->ID, 'eess_department', true) ?: (get_user_meta($emp->ID, 'department', true) ?: 'قسم الإدارة والأنظمة');
-                    $emp_school = get_user_meta($emp->ID, 'eess_school_name', true) ?: 'الأكاديمية الرياضية الرئيسية';
+                    $emp_school = get_user_meta($emp->ID, 'eess_school_name', true) ?: 'Academy الرياضية Home';
                     $is_teacher = ($emp_role === 'sm_teacher');
                     $avatar_url = get_user_meta($emp->ID, 'eess_profile_photo', true);
                 ?>
@@ -678,9 +678,9 @@ if (isset($_GET['manage_employee_id'])) {
                                     <h4 style="margin: 0; font-weight: 800; font-size: 14.5px; color: #0f172a;"><?php echo esc_html($emp->display_name); ?></h4>
                                     <!-- Small Green Circular Icon with White Check Mark (Replacing text status) -->
                                     <?php if ($emp_status === 'active'): ?>
-                                        <span style="width: 16px; height: 16px; border-radius: 50%; background: #16a34a; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; box-shadow: 0 1px 3px rgba(22,163,74,0.3);" title="نشط بالخدمة والمعتمدة">✓</span>
+                                        <span style="width: 16px; height: 16px; border-radius: 50%; background: #16a34a; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; box-shadow: 0 1px 3px rgba(22,163,74,0.3);" title="Active بالخدمة والمعتمدة">✓</span>
                                     <?php else: ?>
-                                        <span style="width: 16px; height: 16px; border-radius: 50%; background: #dc2626; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;" title="حساب غير نشط أو مقيد">✕</span>
+                                        <span style="width: 16px; height: 16px; border-radius: 50%; background: #dc2626; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;" title="حساب غير Active أو مقيد">✕</span>
                                     <?php endif; ?>
                                 </div>
 
@@ -717,7 +717,7 @@ if (isset($_GET['manage_employee_id'])) {
                         <!-- Middle block: Employee Number & Email -->
                         <div style="display: flex; gap: 20px; align-items: center; font-size: 12px; color: #475569; flex: 1;">
                             <div><strong>الرقم الوظيفي:</strong> <span style="font-weight: 800; color: #0f172a; font-family: monospace;"><?php echo esc_html($emp_num); ?></span></div>
-                            <div><strong>البريد الإلكتروني:</strong> <span style="font-family: monospace; color: #334155;"><?php echo esc_html($emp->user_email); ?></span></div>
+                            <div><strong>Email Address:</strong> <span style="font-family: monospace; color: #334155;"><?php echo esc_html($emp->user_email); ?></span></div>
                         </div>
 
                         <!-- Right block: Quick Action Buttons (Manage Profile, Edit Account Info, Force Password Reset, Teacher ID Print, Report Print, Lock) -->
@@ -728,28 +728,28 @@ if (isset($_GET['manage_employee_id'])) {
                             </a>
 
                             <!-- Dedicated Edit Account Information Icon Button -->
-                            <button type="button" onclick="eessOpenUnifiedUserModal('edit_user', <?php echo $emp->ID; ?>)" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #0284c7 !important; border: 1px solid #0284c7 !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="تعديل بيانات الحساب والرتبة والتسكين">
+                            <button type="button" onclick="eessOpenUnifiedUserModal('edit_user', <?php echo $emp->ID; ?>)" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #0284c7 !important; border: 1px solid #0284c7 !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="Edit بيانات الحساب والرتبة والتسكين">
                                 <span class="dashicons dashicons-edit" style="font-size:16px; margin:0;"></span>
                             </button>
 
                             <!-- Dedicated Force Password Reset Action Button -->
-                            <button type="button" onclick="eessOpenForceResetModal(<?php echo $emp->ID; ?>, '<?php echo esc_attr($emp->display_name); ?>')" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #d97706 !important; border: 1px solid #d97706 !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="إجبار الموظف على إعادة تعيين كلمة المرور فور الدخول القادم">
+                            <button type="button" onclick="eessOpenForceResetModal(<?php echo $emp->ID; ?>, '<?php echo esc_attr($emp->display_name); ?>')" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #d97706 !important; border: 1px solid #d97706 !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="إجبار الموظف على إعادة تعيين Password فور الدخول القادم">
                                 <span class="dashicons dashicons-admin-network" style="font-size:16px; margin:0;"></span>
                             </button>
 
                             <!-- Icon-Only Print Teacher ID Card Button (Vertical ID Card) -->
-                            <button type="button" onclick="window.open('<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=teacher_card&employee_id=' . $emp->ID); ?>', '_blank')" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #881337 !important; border: 1px solid #881337 !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="طباعة بطاقة المدرب الرقمية (Teacher ID Card)">
+                            <button type="button" onclick="window.open('<?php echo admin_url('admin-ajax.php?action=sm_print&print_type=teacher_card&employee_id=' . $emp->ID); ?>', '_blank')" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #881337 !important; border: 1px solid #881337 !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="Print بطاقة المدرب الرقمية (Teacher ID Card)">
                                 <span class="dashicons dashicons-id" style="font-size:16px; margin:0; color:white;"></span>
                             </button>
 
                             <!-- Print Employee Report (Blue Printer Icon only, without text) -->
-                            <button type="button" onclick="eessPrintEmployeeReport(<?php echo $emp->ID; ?>)" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #3182ce !important; border: 1px solid #3182ce !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="طباعة التقرير المهني">
+                            <button type="button" onclick="eessPrintEmployeeReport(<?php echo $emp->ID; ?>)" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #3182ce !important; border: 1px solid #3182ce !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="Print التقرير المهني">
                                 <span class="dashicons dashicons-printer" style="font-size:16px; margin:0;"></span>
                             </button>
 
                             <!-- Restrict Platform Access (Red Lock Icon only, without text) -->
                             <?php if (get_user_meta($emp->ID, 'eess_access_restricted', true) === 'yes'): ?>
-                                <button type="button" onclick="eessOpenUnrestrictModal(<?php echo $emp->ID; ?>, '<?php echo esc_attr($emp->display_name); ?>')" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #16a34a !important; border: 1px solid #16a34a !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="إلغاء تقييد الدخول">
+                                <button type="button" onclick="eessOpenUnrestrictModal(<?php echo $emp->ID; ?>, '<?php echo esc_attr($emp->display_name); ?>')" class="sm-btn" style="padding: 0 !important; width: 32px !important; min-width: 32px !important; height: 32px !important; background: #16a34a !important; border: 1px solid #16a34a !important; color: white !important; border-radius: 6px !important; cursor: pointer; display: inline-flex !important; align-items: center !important; justify-content: center !important;" title="Cancel تقييد الدخول">
                                     <span class="dashicons dashicons-unlock" style="font-size:16px; margin:0;"></span>
                                 </button>
                             <?php else: ?>
@@ -767,21 +767,21 @@ if (isset($_GET['manage_employee_id'])) {
         <div id="eessAddEmployeeModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99999; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(2px); direction: rtl;">
             <div style="background: #fff; width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; font-family: 'Cairo', sans-serif;">
                 <div style="background: #334155; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: white !important;">➕ إضافة موظف جديد (حساب معلق)</h3>
+                    <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: white !important;">➕ Add موظف جديد (حساب Pending)</h3>
                     <button type="button" onclick="eessCloseAddEmployeeModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
                 </div>
                 <form id="eess-add-employee-form" style="padding: 20px; margin: 0;" onsubmit="eessSubmitAddEmployee(event)">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                         <div class="sm-form-group">
-                            <label class="sm-label" style="font-size: 11px;">الاسم الكامل:</label>
-                            <input type="text" name="display_name" class="sm-input" required placeholder="الاسم ثلاثي" style="height: 38px;">
+                            <label class="sm-label" style="font-size: 11px;">Full Name:</label>
+                            <input type="text" name="display_name" class="sm-input" required placeholder="اNoسم ثNoثي" style="height: 38px;">
                         </div>
                         <div class="sm-form-group">
-                            <label class="sm-label" style="font-size: 11px;">اسم المستخدم (Login):</label>
+                            <label class="sm-label" style="font-size: 11px;">Username (Login):</label>
                             <input type="text" name="user_login" class="sm-input" required placeholder="login_name" style="height: 38px;">
                         </div>
                         <div class="sm-form-group">
-                            <label class="sm-label" style="font-size: 11px;">البريد الإلكتروني:</label>
+                            <label class="sm-label" style="font-size: 11px;">Email Address:</label>
                             <input type="email" name="user_email" class="sm-input" required placeholder="name@company.com" style="height: 38px;">
                         </div>
                         <div class="sm-form-group">
@@ -791,12 +791,12 @@ if (isset($_GET['manage_employee_id'])) {
                                 <option value="sm_coordinator">منسق مادة</option>
                                 <option value="sm_hod">رئيس قسم</option>
                                 <option value="sm_supervisor">مشرف تربوي</option>
-                                <option value="sm_principal">مدير الأكاديمية الرياضية</option>
+                                <option value="sm_principal">مدير Academy الرياضية</option>
                                 <option value="sm_hr">الموارد البشرية (HR)</option>
                                 <option value="sm_clinic">العيادة المدرسية</option>
                                 <option value="sm_discipline_supervisor">مشرف سلوك / انضباط</option>
-                                <option value="sm_activities_supervisor">مشرف أنشطة</option>
-                                <option value="sm_transportation_supervisor">مشرف نقل ومواصلات</option>
+                                <option value="sm_activities_supervisor">مشرف أActiveة</option>
+                                <option value="sm_transportation_supervisor">مشرف نقل ومواصNoت</option>
                                 <option value="sm_bus_supervisor">مشرف حافلة</option>
                             </select>
                         </div>
@@ -805,7 +805,7 @@ if (isset($_GET['manage_employee_id'])) {
                             <input type="text" name="employee_number" class="sm-input" placeholder="EESS-00000" style="height: 38px;">
                         </div>
                         <div class="sm-form-group">
-                            <label class="sm-label" style="font-size: 11px;">الجهة التي يعمل بها (المنظمة الرياضية / الأكاديمية الرياضية):</label>
+                            <label class="sm-label" style="font-size: 11px;">الجهة التي يعمل بها (Organization الرياضية / Academy الرياضية):</label>
                             <select name="institution" class="sm-select" style="height: 38px; padding: 0 10px;">
                                 <option value="">-- اختر الجهة التي يعمل بها --</option>
                                 <?php
@@ -828,16 +828,16 @@ if (isset($_GET['manage_employee_id'])) {
                             <input type="text" name="department" class="sm-input" placeholder="قسم العلوم، الإدارة..." style="height: 38px;">
                         </div>
                         <div class="sm-form-group">
-                            <label class="sm-label" style="font-size: 11px;">النشاط الرياضي التخصصية:</label>
+                            <label class="sm-label" style="font-size: 11px;">Sport Activity التخصصية:</label>
                             <select name="specialization" class="sm-select" style="height: 38px; padding: 0 10px;">
-                                <option value="">-- اختر النشاط الرياضي --</option>
+                                <option value="">-- اختر Sport Activity --</option>
                                 <?php foreach($unique_subjects as $sub_name): ?>
                                     <option value="<?php echo esc_attr($sub_name); ?>"><?php echo esc_html($sub_name); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="sm-form-group" style="grid-column: span 2;">
-                            <label class="sm-label" style="font-size: 11px;">كلمة المرور:</label>
+                            <label class="sm-label" style="font-size: 11px;">Password:</label>
                             <input type="password" name="user_pass" class="sm-input" required placeholder="أدخل كلمة مرور قوية" style="height: 38px;">
                         </div>
                         <div class="sm-form-group" style="grid-column: span 2; margin-bottom: 0;">
@@ -846,8 +846,8 @@ if (isset($_GET['manage_employee_id'])) {
                         </div>
                     </div>
                     <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-                        <button type="button" onclick="eessCloseAddEmployeeModal()" class="sm-btn sm-btn-outline" style="height: 38px;">إلغاء</button>
-                        <button type="submit" class="sm-btn" style="background: #334155; color: white; height: 38px; padding: 0 25px;">إضافة كمعلق والمزامنة</button>
+                        <button type="button" onclick="eessCloseAddEmployeeModal()" class="sm-btn sm-btn-outline" style="height: 38px;">Cancel</button>
+                        <button type="submit" class="sm-btn" style="background: #334155; color: white; height: 38px; padding: 0 25px;">Add كPending والمزامنة</button>
                     </div>
                 </form>
             </div>
@@ -875,7 +875,7 @@ if (isset($_GET['manage_employee_id'])) {
             .then(r => r.json())
             .then(res => {
                 if (res.success) {
-                    smShowNotification('تمت إضافة الموظف بنجاح كحساب معلق لمراجعته في إدارة الحسابات.');
+                    smShowNotification('تمت Add الموظف بنجاح كحساب Pending لمراجعته في إدارة الحسابات.');
                     eessCloseAddEmployeeModal();
                     form.reset();
                     setTimeout(() => location.reload(), 1500);
@@ -884,7 +884,7 @@ if (isset($_GET['manage_employee_id'])) {
                 }
             })
             .catch(err => {
-                smShowNotification('حدث خطأ أثناء معالجة الطلب.', true);
+                smShowNotification('An error occurred أثناء معالجة الطلب.', true);
             });
         }
 
@@ -954,19 +954,19 @@ if (isset($_GET['manage_employee_id'])) {
 
                 <!-- Box 1: Employment Details Form -->
                 <div style="background: #f8fafc; border: 1px solid #cbd5e0; padding: 20px; border-radius: 10px;">
-                    <h4 style="margin: 0 0 15px 0; font-weight: 800; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">⚙️ تعديل بيانات التعيين</h4>
+                    <h4 style="margin: 0 0 15px 0; font-weight: 800; font-size: 14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">⚙️ Edit بيانات التعيين</h4>
                     <form method="post">
                         <?php wp_nonce_field('eess_hr_action_nonce', 'eess_hr_nonce'); ?>
                         <input type="hidden" name="target_employee_id" value="<?php echo $emp_id; ?>">
                         <input type="hidden" name="eess_hr_action" value="save_employment">
 
                         <div class="sm-form-group" style="margin-bottom: 10px;">
-                            <label class="sm-label" style="font-size: 11px;">الاسم الكامل:</label>
+                            <label class="sm-label" style="font-size: 11px;">Full Name:</label>
                             <input type="text" name="display_name" value="<?php echo esc_attr($edit_emp->display_name); ?>" class="sm-input" required style="height: 34px; font-size: 12px;">
                         </div>
 
                         <div class="sm-form-group" style="margin-bottom: 10px;">
-                            <label class="sm-label" style="font-size: 11px;">رقم الهاتف الجوال:</label>
+                            <label class="sm-label" style="font-size: 11px;">Phone Number الجوال:</label>
                             <input type="text" name="phone" value="<?php echo esc_attr($emp_phone); ?>" class="sm-input" style="height: 34px; font-size: 12px;">
                         </div>
 
@@ -981,12 +981,12 @@ if (isset($_GET['manage_employee_id'])) {
                         </div>
 
                         <div class="sm-form-group" style="margin-bottom: 10px;">
-                            <label class="sm-label" style="font-size: 11px;">المنظمة الرياضية / الأكاديمية الرياضية:</label>
+                            <label class="sm-label" style="font-size: 11px;">Organization الرياضية / Academy الرياضية:</label>
                             <input type="text" name="school_name" value="<?php echo esc_attr($emp_school); ?>" class="sm-input" style="height: 34px; font-size: 12px;">
                         </div>
 
                         <div class="sm-form-group" style="margin-bottom: 10px;">
-                            <label class="sm-label" style="font-size: 11px;">تخصيص النشاط الرياضي (العربية):</label>
+                            <label class="sm-label" style="font-size: 11px;">تخصيص Sport Activity (العربية):</label>
                             <select name="specialization" class="sm-select" style="height: 34px; font-size: 12px; padding: 0 10px;">
                                 <option value="">غير محدد</option>
                                 <?php foreach($unique_subjects as $sub_name): ?>
@@ -1001,15 +1001,15 @@ if (isset($_GET['manage_employee_id'])) {
                         </div>
 
                         <div class="sm-form-group" style="margin-bottom: 15px;">
-                            <label class="sm-label" style="font-size: 11px;">الحالة الوظيفية:</label>
+                            <label class="sm-label" style="font-size: 11px;">Status الوظيفية:</label>
                             <select name="employment_status" class="sm-select" style="height: 34px; font-size: 12px; padding: 0 10px;">
-                                <option value="active" <?php selected($emp_status === 'active'); ?>>نشط بالخدمة</option>
+                                <option value="active" <?php selected($emp_status === 'active'); ?>>Active بالخدمة</option>
                                 <option value="suspended" <?php selected($emp_status === 'suspended'); ?>>موقوف مؤقتاً</option>
-                                <option value="leave" <?php selected($emp_status === 'leave'); ?>>إجازة سنوية</option>
+                                <option value="leave" <?php selected($emp_status === 'leave'); ?>>إجازة Annualة</option>
                             </select>
                         </div>
 
-                        <button type="submit" class="sm-btn" style="width: 100%; height: 36px; font-size: 12px; font-weight: bold;">حفظ تحديث السجل الوظيفي</button>
+                        <button type="submit" class="sm-btn" style="width: 100%; height: 36px; font-size: 12px; font-weight: bold;">Save Update السجل الوظيفي</button>
                     </form>
                 </div>
 
@@ -1027,27 +1027,27 @@ if (isset($_GET['manage_employee_id'])) {
                             <input type="text" name="salary_date" placeholder="الشهر (مثال: مارس 2026)" class="sm-input" required style="height: 30px; font-size: 11px;">
                             <input type="number" name="salary_basic" placeholder="الأساسي" class="sm-input" step="0.01" required style="height: 30px; font-size: 11px;">
                             <input type="number" name="salary_housing" placeholder="السكن" class="sm-input" step="0.01" style="height: 30px; font-size: 11px;">
-                            <input type="number" name="salary_transport" placeholder="الانتقال" class="sm-input" step="0.01" style="height: 30px; font-size: 11px;">
-                            <input type="number" name="salary_deductions" placeholder="الاستقطاعات" class="sm-input" step="0.01" style="height: 30px; font-size: 11px;">
-                            <input type="text" name="salary_notes" placeholder="ملاحظات الصرف" class="sm-input" style="height: 30px; font-size: 11px;">
+                            <input type="number" name="salary_transport" placeholder="اNoنتقال" class="sm-input" step="0.01" style="height: 30px; font-size: 11px;">
+                            <input type="number" name="salary_deductions" placeholder="اNoستقطاعات" class="sm-input" step="0.01" style="height: 30px; font-size: 11px;">
+                            <input type="text" name="salary_notes" placeholder="Notes الصرف" class="sm-input" style="height: 30px; font-size: 11px;">
 
-                            <button type="submit" class="sm-btn" style="grid-column: span 2; height: 30px; font-size: 11px; background: #16a34a;">إضافة قيد الراتب</button>
+                            <button type="submit" class="sm-btn" style="grid-column: span 2; height: 30px; font-size: 11px; background: #16a34a;">Add قيد الراتب</button>
                         </form>
 
                         <!-- Existing salary values listing -->
                         <div style="max-height: 120px; overflow-y: auto; font-size: 11px; background: #f8fafc; padding: 8px; border-radius: 4px; border: 1px solid #cbd5e0;">
                             <?php if (empty($salary_records)): ?>
-                                <div style="color:#64748b; text-align: center;">لا يوجد قيود رواتب.</div>
+                                <div style="color:#64748b; text-align: center;">No يوجد قيود رواتب.</div>
                             <?php else: ?>
                                 <?php foreach($salary_records as $idx => $sr): ?>
                                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 4px 0;">
                                         <span><?php echo esc_html($sr['date']); ?>: <?php echo number_format($sr['net'], 2); ?> د.إ</span>
-                                        <form method="post" style="display: inline;" onsubmit="return confirm('حذف هذا القيد المالي؟')">
+                                        <form method="post" style="display: inline;" onsubmit="return confirm('Delete هذا القيد المالي؟')">
                                             <?php wp_nonce_field('eess_hr_action_nonce', 'eess_hr_nonce'); ?>
                                             <input type="hidden" name="target_employee_id" value="<?php echo $emp_id; ?>">
                                             <input type="hidden" name="eess_hr_action" value="delete_salary">
                                             <input type="hidden" name="delete_index" value="<?php echo $idx; ?>">
-                                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 10px;">[حذف]</button>
+                                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 10px;">[Delete]</button>
                                         </form>
                                     </div>
                                 <?php endforeach; ?>
@@ -1070,26 +1070,26 @@ if (isset($_GET['manage_employee_id'])) {
                             <textarea name="warning_details" placeholder="تفاصيل ومحضر الواقعة..." class="sm-input" required style="height: 45px; font-size: 11px; padding: 5px;"></textarea>
 
                             <select name="warning_status" class="sm-select" style="height: 30px; font-size: 11px; padding: 0 5px;">
-                                <option value="نشط (تحت الملاحظة)">نشط (تحت الملاحظة)</option>
-                                <option value="ملغي / منتهي">ملغي / منتهي</option>
+                                <option value="Active (تحت المNoحظة)">Active (تحت المNoحظة)</option>
+                                <option value="ملغي / Expired">ملغي / Expired</option>
                             </select>
 
-                            <button type="submit" class="sm-btn" style="height: 30px; font-size: 11px; background: #dc2626;">إرسال وتسجيل إنذار موظف</button>
+                            <button type="submit" class="sm-btn" style="height: 30px; font-size: 11px; background: #dc2626;">Send وتسجيل إنذار موظف</button>
                         </form>
 
                         <div style="max-height: 120px; overflow-y: auto; font-size: 11px; background: #f8fafc; padding: 8px; border-radius: 4px; border: 1px solid #cbd5e0;">
                             <?php if (empty($warning_notices)): ?>
-                                <div style="color:#64748b; text-align: center;">لا يوجد إنذارات مسجلة.</div>
+                                <div style="color:#64748b; text-align: center;">No يوجد إنذارات مسجلة.</div>
                             <?php else: ?>
                                 <?php foreach($warning_notices as $idx => $wn): ?>
                                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 4px 0;">
                                         <span><?php echo esc_html($wn['date']); ?>: <?php echo esc_html($wn['subject']); ?></span>
-                                        <form method="post" style="display: inline;" onsubmit="return confirm('حذف هذا الإنذار نهائياً؟')">
+                                        <form method="post" style="display: inline;" onsubmit="return confirm('Delete هذا الإنذار نهائياً؟')">
                                             <?php wp_nonce_field('eess_hr_action_nonce', 'eess_hr_nonce'); ?>
                                             <input type="hidden" name="target_employee_id" value="<?php echo $emp_id; ?>">
                                             <input type="hidden" name="eess_hr_action" value="delete_warning">
                                             <input type="hidden" name="delete_index" value="<?php echo $idx; ?>">
-                                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 10px;">[حذف]</button>
+                                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 10px;">[Delete]</button>
                                         </form>
                                     </div>
                                 <?php endforeach; ?>
@@ -1121,22 +1121,22 @@ if (isset($_GET['manage_employee_id'])) {
                                 <button type="button" onclick="smOpenMediaUploader('doc_file_url')" class="sm-btn sm-btn-outline" style="height: 30px; font-size: 11px; padding: 0 10px; width: auto;">رفع</button>
                             </div>
 
-                            <button type="submit" class="sm-btn" style="height: 30px; font-size: 11px; background: #000000;">حفظ وأرشفة الوثيقة بالملف</button>
+                            <button type="submit" class="sm-btn" style="height: 30px; font-size: 11px; background: #000000;">Save وأرشفة الوثيقة بالملف</button>
                         </form>
 
                         <div style="max-height: 120px; overflow-y: auto; font-size: 11px; background: #f8fafc; padding: 8px; border-radius: 4px; border: 1px solid #cbd5e0;">
                             <?php if (empty($hr_documents)): ?>
-                                <div style="color:#64748b; text-align: center;">لا يوجد وثائق مرفوعة.</div>
+                                <div style="color:#64748b; text-align: center;">No يوجد وثائق مرفوعة.</div>
                             <?php else: ?>
                                 <?php foreach($hr_documents as $idx => $doc): ?>
                                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding: 4px 0;">
                                         <a href="<?php echo esc_url($doc['file_url']); ?>" target="_blank" style="color: var(--sm-primary-color); font-weight: bold; text-decoration: underline;"><?php echo esc_html($doc['name']); ?></a>
-                                        <form method="post" style="display: inline;" onsubmit="return confirm('حذف هذا المستند نهائياً؟')">
+                                        <form method="post" style="display: inline;" onsubmit="return confirm('Delete هذا المستند نهائياً؟')">
                                             <?php wp_nonce_field('eess_hr_action_nonce', 'eess_hr_nonce'); ?>
                                             <input type="hidden" name="target_employee_id" value="<?php echo $emp_id; ?>">
                                             <input type="hidden" name="eess_hr_action" value="delete_document">
                                             <input type="hidden" name="delete_index" value="<?php echo $idx; ?>">
-                                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 10px;">[حذف]</button>
+                                            <button type="submit" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 10px;">[Delete]</button>
                                         </form>
                                     </div>
                                 <?php endforeach; ?>
@@ -1178,7 +1178,7 @@ if (isset($_GET['manage_employee_id'])) {
                 </label>
                 <button type="button" id="dp_remove_btn" onclick="eessRemoveDirectPhoto()" class="sm-btn" style="background: #dc2626; color: white !important; height: 38px; padding: 0 18px; font-weight: 800; font-size: 12px; border-radius: 8px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
                     <span class="dashicons dashicons-trash" style="font-size:16px;"></span>
-                    <span>حذف الصورة</span>
+                    <span>Delete الصورة</span>
                 </button>
             </div>
         </div>
@@ -1230,7 +1230,7 @@ function eessUploadDirectPhoto(input) {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم تحديث الصورة الشخصية للموظف بنجاح!');
+            smShowNotification('تم Update الصورة الشخصية للموظف بنجاح!');
             eessCloseDirectPhotoModal();
             setTimeout(() => location.reload(), 1000);
         } else {
@@ -1240,7 +1240,7 @@ function eessUploadDirectPhoto(input) {
 }
 
 function eessRemoveDirectPhoto() {
-    if (!confirm('هل أنت متأكد من رغبتك في حذف الصورة الشخصية للموظف؟')) return;
+    if (!confirm('هل أنت متأكد من رغبتك في Delete الصورة الشخصية للموظف؟')) return;
 
     var empId = document.getElementById('dp_emp_id').value;
     var formData = new FormData();
@@ -1253,11 +1253,11 @@ function eessRemoveDirectPhoto() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم حذف الصورة الشخصية وإعادة تعيين الهوية بنجاح!');
+            smShowNotification('تم Delete الصورة الشخصية وإعادة تعيين الهوية بنجاح!');
             eessCloseDirectPhotoModal();
             setTimeout(() => location.reload(), 1000);
         } else {
-            alert('فشل حذف الصورة: ' + (res.data || 'خطأ غير معروف'));
+            alert('فشل Delete الصورة: ' + (res.data || 'خطأ غير معروف'));
         }
     });
 }
@@ -1297,7 +1297,7 @@ function eessCloseUnrestrictModal() {
         <div style="background: #ffffff; color: #0f172a; padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0;">
             <div style="display: flex; align-items: center; gap: 10px;">
                 <span class="dashicons dashicons-admin-network" style="font-size: 20px; width: 20px; height: 20px; color: #d97706;"></span>
-                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a !important;">إجبار الموظف على إعادة تعيين كلمة المرور</h3>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a !important;">إجبار الموظف على إعادة تعيين Password</h3>
             </div>
             <button type="button" onclick="eessCloseForceResetModal()" style="background: none; border: none; color: #64748b; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
         </div>
@@ -1307,11 +1307,11 @@ function eessCloseUnrestrictModal() {
                 أنت على وشك إجبار الموظف <strong id="fr_emp_name_lbl" style="color:#0f172a;"></strong> على تعيين كلمة مرور جديدة فور تسجيل دخوله القادم للمنصة.
             </p>
             <div style="background: #fffbeb; border: 1px solid #fef3c7; color: #b45309; padding: 10px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 700; margin-bottom: 20px;">
-                ⚠️ لن تتغير كلمة المرور الحالية حتى يقوم الموظف بتعيين كلمة المرور الجديدة عبر صندوق الحماية الأبيض عند تسجيل الدخول.
+                ⚠️ لن تتغير Password الحالية حتى يقوم الموظف بتعيين Password الجديدة عبر صندوق الحماية Fatherيض عند Login.
             </div>
             <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-                <button type="button" onclick="eessCloseForceResetModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">إلغاء</button>
-                <button type="button" onclick="eessConfirmForcePasswordReset()" style="background:#d97706; color:white; border:none; padding:8px 20px; border-radius:8px; font-weight:800; cursor:pointer;">تأكيد وتفعيل الإجبار</button>
+                <button type="button" onclick="eessCloseForceResetModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">Cancel</button>
+                <button type="button" onclick="eessConfirmForcePasswordReset()" style="background:#d97706; color:white; border:none; padding:8px 20px; border-radius:8px; font-weight:800; cursor:pointer;">Confirm وتفعيل الإجبار</button>
             </div>
         </div>
     </div>
@@ -1339,7 +1339,7 @@ function eessConfirmForcePasswordReset() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم تفعيل خيار إعادة تعيين كلمة المرور الإجباري للموظف بنجاح!');
+            smShowNotification('تم تفعيل خيار إعادة تعيين Password الإجباري للموظف بنجاح!');
             eessCloseForceResetModal();
         } else {
             alert('فشل تفعيل الخيار: ' + (res.data || 'خطأ غير معروف'));
@@ -1371,7 +1371,7 @@ function eessConfirmForcePasswordReset() {
                     <option value="">-- اختر سبب الإيقاف --</option>
                     <option value="إيقاف تأديبي مؤقت">إيقاف تأديبي مؤقت</option>
                     <option value="انتهاء التعاقد وفترة العمل">انتهاء التعاقد وفترة العمل</option>
-                    <option value="إجازة غير مدفوعة الأجر">إجازة غير مدفوعة الأجر</option>
+                    <option value="إجازة غير Paidة الأجر">إجازة غير Paidة الأجر</option>
                     <option value="دواعي تقنية وأمن المعلومات">دواعي تقنية وأمن المعلومات</option>
                     <option value="تغيير المسمى الوظيفي">تغيير المسمى الوظيفي</option>
                     <option value="أسباب أخرى مسببة">أسباب أخرى مسببة</option>
@@ -1379,8 +1379,8 @@ function eessConfirmForcePasswordReset() {
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-                <button type="button" onclick="eessCloseRestrictModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:8px 15px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">إلغاء</button>
-                <button type="submit" style="background:#dc2626; color:white; border:none; padding:8px 20px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">تأكيد وتقييد الدخول</button>
+                <button type="button" onclick="eessCloseRestrictModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:8px 15px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">Cancel</button>
+                <button type="submit" style="background:#dc2626; color:white; border:none; padding:8px 20px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">Confirm وتقييد الدخول</button>
             </div>
         </form>
     </div>
@@ -1445,7 +1445,7 @@ document.getElementById('eess-employees-file-input').addEventListener('change', 
             const spec = cols[col_spec] || '';
             const phone = cols[col_phone] || '';
             let role = cols[col_role] || 'sm_teacher';
-            const school = cols[col_school] || 'خدمات الأنظمة الإلكترونية التعليمية (EESS)';
+            const school = cols[col_school] || 'Sportedia Sports Management System';
 
             // Normalize roles if Arabic
             if (role.includes('معلم')) role = 'sm_teacher';
@@ -1453,7 +1453,7 @@ document.getElementById('eess-employees-file-input').addEventListener('change', 
             else if (role.includes('منسق')) role = 'sm_coordinator';
             else if (role.includes('موارد')) role = 'sm_hr';
 
-            let statusHtml = '<span style="color:green; font-weight:bold;">جاهز للاستيراد</span>';
+            let statusHtml = '<span style="color:green; font-weight:bold;">جاهز للImport</span>';
             let isValid = true;
 
             if (!name || !email) {
@@ -1498,12 +1498,12 @@ document.getElementById('eess-employees-file-input').addEventListener('change', 
 
 function eessConfirmEmployeesImport() {
     if (eessParsedEmployees.length === 0) {
-        alert('لا توجد سجلات موظفين صالحة للاستيراد.');
+        alert('No توجد سجNoت موظفين صالحة للImport.');
         return;
     }
 
     const btn = document.getElementById('eess-employees-confirm-import-btn');
-    btn.innerText = 'جاري استيراد أعضاء هيئة التدريب والكادر...';
+    btn.innerText = 'جاري Import أعضاء هيئة التدريب والكادر...';
     btn.disabled = true;
 
     const formData = new FormData();
@@ -1515,12 +1515,12 @@ function eessConfirmEmployeesImport() {
     .then(r => r.json())
     .then(res => {
         if (res.success) {
-            smShowNotification('تم استيراد ' + res.data.imported + ' موظف ومزامنتهم بنجاح!');
+            smShowNotification('تم Import ' + res.data.imported + ' موظف ومزامنتهم بنجاح!');
             document.getElementById('hr-employee-import-box').style.display = 'none';
             setTimeout(() => location.reload(), 1500);
         } else {
-            alert('خطأ أثناء الاستيراد: ' + res.data);
-            btn.innerText = 'بدء الاستيراد الفوري';
+            alert('خطأ أثناء الImport: ' + res.data);
+            btn.innerText = 'بدء الImport الفوري';
             btn.disabled = false;
         }
     });
@@ -1531,7 +1531,7 @@ function eessConfirmEmployeesImport() {
 <div id="eessUnrestrictModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99999; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(2px); direction: rtl;">
     <div style="background: #fff; width: 100%; max-width: 450px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; font-family: 'Cairo', sans-serif;">
         <div style="background: #16a34a; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="margin: 0; font-size: 1rem; font-weight: 800;">🔓 تفعيل وإلغاء تقييد موظف</h3>
+            <h3 style="margin: 0; font-size: 1rem; font-weight: 800;">🔓 تفعيل وCancel تقييد موظف</h3>
             <button type="button" onclick="eessCloseUnrestrictModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1;">&times;</button>
         </div>
         <form method="POST" action="" style="padding: 20px; margin:0;">
@@ -1539,11 +1539,11 @@ function eessConfirmEmployeesImport() {
             <input type="hidden" name="eess_hr_action" value="remove_platform_restriction">
             <input type="hidden" name="target_employee_id" id="unrestrict_target_id" value="">
 
-            <p style="font-size: 13px; color: #475569; margin: 0 0 20px 0;">هل أنت متأكد من رغبتك في إلغاء التقييد وتفعيل حساب الموظف <strong id="unrestrict_emp_name_lbl" style="color:#1e293b;"></strong> وتمكينه من تسجيل الدخول واستخدام كافة ميزات المنصة مجدداً؟</p>
+            <p style="font-size: 13px; color: #475569; margin: 0 0 20px 0;">هل أنت متأكد من رغبتك في Cancel التقييد وتفعيل حساب الموظف <strong id="unrestrict_emp_name_lbl" style="color:#1e293b;"></strong> وتمكينه من Login واستخدام كافة ميزات المنصة مجدداً؟</p>
 
             <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-                <button type="button" onclick="eessCloseUnrestrictModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:8px 15px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">إلغاء</button>
-                <button type="submit" style="background:#16a34a; color:white; border:none; padding:8px 20px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">تفعيل وإلغاء التقييد</button>
+                <button type="button" onclick="eessCloseUnrestrictModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; padding:8px 15px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">Cancel</button>
+                <button type="submit" style="background:#16a34a; color:white; border:none; padding:8px 20px; border-radius:6px; font-weight:700; cursor:pointer; font-family:'Cairo';">تفعيل وCancel التقييد</button>
             </div>
         </form>
     </div>

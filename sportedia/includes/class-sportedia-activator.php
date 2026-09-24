@@ -41,7 +41,7 @@ class Sportedia_Activator {
             sport_type varchar(100) DEFAULT 'كرة القدم',
             training_group varchar(100) DEFAULT NULL,
             coach_id bigint(20) DEFAULT NULL,
-            sports_level varchar(50) DEFAULT 'مبتدئ',
+            sports_level varchar(50) DEFAULT 'Beginner',
             achievements text DEFAULT NULL,
             performance_notes text DEFAULT NULL,
             attendance_rate decimal(5,2) DEFAULT '100.00',
@@ -56,14 +56,14 @@ class Sportedia_Activator {
             medications text DEFAULT NULL,
             fitness_notes text DEFAULT NULL,
             medical_clearance tinyint(1) DEFAULT 1,
-            subscription_type varchar(100) DEFAULT 'شهري',
-            package_name varchar(100) DEFAULT 'الباقة الأساسية',
+            subscription_type varchar(100) DEFAULT 'Monthly',
+            package_name varchar(100) DEFAULT 'الPackage الأساسية',
             total_sessions int(11) DEFAULT 12,
             used_sessions int(11) DEFAULT 0,
             remaining_sessions int(11) DEFAULT 12,
             start_date date DEFAULT NULL,
             end_date date DEFAULT NULL,
-            status varchar(50) DEFAULT 'نشط',
+            status varchar(50) DEFAULT 'Active',
             freeze_periods text DEFAULT NULL,
             renewal_history text DEFAULT NULL,
             institution_id bigint(20) DEFAULT 1,
@@ -108,6 +108,11 @@ class Sportedia_Activator {
         if (file_exists(SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-roles.php')) {
             require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-roles.php';
             Sportedia_Roles::init_roles();
+        }
+
+        if (file_exists(SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-page-generator.php')) {
+            require_once SPORTEDIA_PLUGIN_DIR . 'includes/class-sportedia-page-generator.php';
+            Sportedia_Page_Generator::generate_pages();
         }
 
         self::migrate_legacy_data();
