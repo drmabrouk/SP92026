@@ -45,19 +45,26 @@ $expired_members = $wpdb->get_results($query);
                     <th style="padding: 12px 16px;">Phone</th>
                     <th style="padding: 12px 16px;">Previous Program</th>
                     <th style="padding: 12px 16px;">Expiration Date</th>
-                    <th style="padding: 12px 16px;">Action</th>
+                    <th style="padding: 12px 16px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($expired_members)): foreach ($expired_members as $m): ?>
+                <?php if (!empty($expired_members)): foreach ($expired_members as $m):
+                    $phone_clean = preg_replace('/[^0-9]/', '', $m->phone ?: '');
+                    $wa_msg = urlencode("Hello " . $m->full_name . ", your Sportedia membership has expired. Please contact us to renew your subscription.");
+                    $wa_url = !empty($phone_clean) ? "https://wa.me/" . $phone_clean . "?text=" . $wa_msg : "#";
+                ?>
                 <tr style="border-bottom: 1px solid #e5e7eb;">
                     <td style="padding: 12px 16px; font-family: monospace; font-weight: 600;"><?php echo esc_html($m->member_code); ?></td>
                     <td style="padding: 12px 16px; font-weight: 600; color: #111827;"><?php echo esc_html($m->full_name); ?></td>
                     <td style="padding: 12px 16px; color: #4b5563;"><?php echo esc_html($m->phone ?: '--'); ?></td>
                     <td style="padding: 12px 16px; color: #4b5563;"><?php echo esc_html($m->program_name ?: 'General Program'); ?></td>
                     <td style="padding: 12px 16px; color: #ef4444; font-weight: 600;"><?php echo esc_html($m->expiration_date ?: 'Expired'); ?></td>
-                    <td style="padding: 12px 16px;">
-                        <button class="sportedia-btn sportedia-btn-primary" style="height: 32px; padding: 0 12px; font-size: 12px;" onclick="alert('Renewing Member ID: <?php echo $m->id; ?>')">Renew Now</button>
+                    <td style="padding: 12px 16px; display: flex; gap: 8px;">
+                        <button class="sportedia-btn sportedia-btn-primary" style="height: 32px; padding: 0 12px; font-size: 12px;" onclick="alert('Renewing Member ID: <?php echo $m->id; ?>')">Renew</button>
+                        <?php if (!empty($phone_clean)): ?>
+                            <a href="<?php echo esc_url($wa_url); ?>" target="_blank" class="sportedia-btn sportedia-btn-secondary" style="height: 32px; padding: 0 12px; font-size: 12px; text-decoration: none;">WhatsApp</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 <?php endforeach; else: ?>
