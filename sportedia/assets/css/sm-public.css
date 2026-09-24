@@ -1,50 +1,41 @@
-/* Sportedia Monochrome Visual Design System & Application Layout */
+/* Sportedia Scoped Application Layout & Monochrome Design System */
 
-:root {
-    --sp-color-black: #111827;
-    --sp-color-dark-gray: #374151;
-    --sp-color-gray: #6b7280;
-    --sp-color-light-gray: #f3f4f6;
-    --sp-color-border: #e5e7eb;
-    --sp-color-white: #ffffff;
-
-    --sp-status-green: #10b981;
-    --sp-status-red: #ef4444;
-
-    --sp-sidebar-width: 260px;
-    --sp-topbar-height: 64px;
-    --sp-input-height: 44px;
-    --sp-border-radius: 8px;
+.sportedia-app {
+    direction: ltr !important;
+    text-align: left !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: #111827;
+    background-color: #f9fafb;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-/* Reset Astra Theme Padding/Margin Overrides for Sportedia Dashboard Page */
-.page-template-default .entry-header,
-.page-template-default .ast-single-post-order,
-.site-header,
-.site-footer {
-    /* Kept Astra compatible while hiding Astra header/footer on full app dashboard */
+.sportedia-app * {
+    box-sizing: border-box;
 }
 
+/* LTR Main Application Wrapper */
 .sportedia-app-wrapper {
     display: flex;
-    min-height: calc(100vh - var(--sp-topbar-height));
-    background-color: var(--sp-color-light-gray);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    color: var(--sp-color-black);
+    flex-direction: row;
+    direction: ltr !important;
+    text-align: left !important;
+    min-height: calc(100vh - 64px);
 }
 
 /* Top Bar Styling */
 .sportedia-top-bar {
-    height: var(--sp-topbar-height);
-    background: var(--sp-color-white);
-    border-bottom: 1px solid var(--sp-color-border);
+    height: 64px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 24px;
+    direction: ltr !important;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .sportedia-brand {
@@ -53,7 +44,7 @@
     gap: 12px;
     font-weight: 700;
     font-size: 18px;
-    color: var(--sp-color-black);
+    color: #111827;
 }
 
 .sportedia-top-actions {
@@ -62,14 +53,15 @@
     gap: 12px;
 }
 
-/* Sidebar Navigation */
+/* Sidebar Navigation (Strictly Left Positioned, LTR) */
 .sportedia-sidebar {
-    width: var(--sp-sidebar-width);
-    background: var(--sp-color-white);
-    border-right: 1px solid var(--sp-color-border);
+    width: 260px;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
     padding: 16px 0;
+    direction: ltr !important;
 }
 
 .sportedia-nav-list {
@@ -78,48 +70,206 @@
     margin: 0;
 }
 
+/* Remove all borders/separators underneath sidebar labels */
+.sportedia-nav-item {
+    border: none !important;
+    margin-bottom: 2px;
+}
+
 .sportedia-nav-item a {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 24px;
-    color: var(--sp-color-dark-gray);
+    padding: 10px 20px;
+    color: #374151;
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
     transition: background 0.15s ease;
+    border-radius: 6px;
+    margin: 0 8px;
 }
 
 .sportedia-nav-item a:hover,
 .sportedia-nav-item.active a {
-    background: var(--sp-color-light-gray);
-    color: var(--sp-color-black);
+    background: #f3f4f6;
+    color: #111827;
     font-weight: 600;
 }
 
-/* Main Content Area */
+.sportedia-nav-icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    flex-shrink: 0;
+}
+
+/* Right Main Content Area */
 .sportedia-main-content {
     flex: 1;
     padding: 32px;
     overflow-y: auto;
+    direction: ltr !important;
+    text-align: left !important;
 }
 
-/* Floating Label Form Component */
+/* Action Cards Reusable Component */
+.sportedia-action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.sportedia-action-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+
+.sportedia-action-card:hover {
+    border-color: #111827;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sportedia-action-card-icon {
+    width: 32px;
+    height: 32px;
+    color: #111827;
+}
+
+.sportedia-action-card-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #111827;
+
+}
+
+.sportedia-action-card-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+/* Dropdown Menu Component */
+.sportedia-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.sportedia-dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 8px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 2000;
+    padding: 6px 0;
+}
+
+.sportedia-dropdown-menu.show {
+    display: block;
+}
+
+.sportedia-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #374151;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.sportedia-dropdown-item:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.sportedia-dropdown-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 6px 0;
+}
+
+/* Modal Windows Component */
+.sportedia-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.sportedia-modal-overlay.show {
+    display: flex;
+}
+
+.sportedia-modal-card {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    width: 100%;
+    max-width: 520px;
+    padding: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.sportedia-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+.sportedia-modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.sportedia-modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+/* Form Controls & Floating Labels */
 .sportedia-form-group {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .sportedia-floating-input {
     width: 100%;
-    height: var(--sp-input-height);
+    height: 44px;
     padding: 12px 14px;
     font-size: 14px;
-    border: 1px solid var(--sp-color-border);
-    border-radius: var(--sp-border-radius);
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
     outline: none;
-    background: var(--sp-color-white);
-    box-sizing: border-box;
+    background: #ffffff;
 }
 
 .sportedia-floating-label {
@@ -127,12 +277,12 @@
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--sp-color-white);
+    background: #ffffff;
     padding: 0 4px;
-    color: var(--sp-color-gray);
+    color: #6b7280;
     font-size: 14px;
     pointer-events: none;
-    transition: 0.2s ease all;
+    transition: 0.15s ease all;
 }
 
 .sportedia-floating-input:focus ~ .sportedia-floating-label,
@@ -140,7 +290,7 @@
     top: 0;
     font-size: 11px;
     font-weight: 600;
-    color: var(--sp-color-black);
+    color: #111827;
 }
 
 /* Buttons */
@@ -148,28 +298,28 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: var(--sp-input-height);
-    padding: 0 20px;
+    height: 40px;
+    padding: 0 16px;
     font-size: 14px;
     font-weight: 600;
-    border-radius: var(--sp-border-radius);
+    border-radius: 6px;
     border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
 }
 
 .sportedia-btn-primary {
-    background: var(--sp-color-black);
-    color: var(--sp-color-white);
+    background: #111827;
+    color: #ffffff;
 }
 
 .sportedia-btn-secondary {
-    background: var(--sp-color-white);
-    color: var(--sp-color-black);
-    border-color: var(--sp-color-border);
+    background: #ffffff;
+    color: #111827;
+    border-color: #d1d5db;
 }
 
-/* Compact Status Pills */
+/* Status Pills */
 .sportedia-pill {
     display: inline-flex;
     align-items: center;
@@ -190,21 +340,6 @@
 }
 
 .sportedia-pill-neutral {
-    background: var(--sp-color-light-gray);
-    color: var(--sp-color-dark-gray);
-}
-
-/* Responsive Behavior */
-@media (max-width: 768px) {
-    .sportedia-app-wrapper {
-        flex-direction: column;
-    }
-    .sportedia-sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--sp-color-border);
-    }
-    .sportedia-main-content {
-        padding: 16px;
-    }
+    background: #f3f4f6;
+    color: #374151;
 }
