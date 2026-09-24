@@ -5175,13 +5175,76 @@ class SM_Public {
         return ob_get_clean();
     }
 
+    public function render_login_form($login_error = '') {
+        $saved_logo = get_option('sportedia_system_logo', '');
+        $system_name = get_option('sportedia_system_name', 'Sportedia');
+        ob_start();
+        ?>
+        <div class="sportedia-app" style="display:flex; align-items:center; justify-content:center; min-height:80vh;">
+            <div style="background:#ffffff; border:1px solid #e5e7eb; border-radius:12px; padding:32px; width:100%; max-width:400px; box-shadow:0 10px 15px -3px rgba(0,0,0,0.05); text-align:center;">
+                <?php if (!empty($saved_logo)): ?>
+                    <img src="<?php echo esc_url($saved_logo); ?>" alt="Logo" style="height:48px; margin-bottom:16px;" />
+                <?php else: ?>
+                    <div style="font-weight:800; font-size:24px; color:#111827; margin-bottom:16px;"><?php echo esc_html($system_name); ?></div>
+                <?php endif; ?>
+                <h3 style="margin:0 0 20px 0; font-size:18px; color:#111827;">System Authentication</h3>
+
+                <?php if (!empty($login_error)): ?>
+                    <div style="background:#fef2f2; color:#991b1b; padding:10px; border-radius:6px; font-size:13px; margin-bottom:16px; border:1px solid #fecaca;">
+                        <?php echo esc_html($login_error); ?>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST">
+                    <?php wp_nonce_field('sportedia_login_nonce'); ?>
+                    <div class="sportedia-form-group">
+                        <input type="text" name="sportedia_log" class="sportedia-floating-input" placeholder=" " required />
+                        <label class="sportedia-floating-label">Username / Employee ID</label>
+                    </div>
+                    <div class="sportedia-form-group">
+                        <input type="password" name="sportedia_pwd" class="sportedia-floating-input" placeholder=" " required />
+                        <label class="sportedia-floating-label">Password</label>
+                    </div>
+                    <button type="submit" name="sportedia_login_submit" class="sportedia-btn sportedia-btn-primary" style="width:100%; height:44px;">Sign In</button>
+                </form>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
     public function shortcode_sportedia_dashboard() {
+        if (!is_user_logged_in()) {
+            $login_error = '';
+            if (isset($_POST['sportedia_login_submit'])) {
+                if (wp_verify_nonce($_POST['_wpnonce'] ?? '', 'sportedia_login_nonce')) {
+                    $creds = array(
+                        'user_login'    => sanitize_text_field($_POST['sportedia_log'] ?? ''),
+                        'user_password' => $_POST['sportedia_pwd'] ?? '',
+                        'remember'      => true
+                    );
+                    $user = wp_signon($creds, is_ssl());
+                    if (!is_wp_error($user)) {
+                        wp_safe_redirect(get_permalink());
+                        exit;
+                    } else {
+                        $login_error = 'Invalid username or password.';
+                    }
+                }
+            }
+            return $this->render_login_form($login_error);
+        }
+
         ob_start();
         include SPORTEDIA_PLUGIN_DIR . 'modules/dashboard/view-dashboard.php';
         return ob_get_clean();
     }
 
     public function shortcode_sportedia_attendance() {
+        if (!is_user_logged_in()) {
+            return $this->render_login_form();
+        }
+
         ob_start();
         include SPORTEDIA_PLUGIN_DIR . 'modules/attendance/view-attendance.php';
         return ob_get_clean();
